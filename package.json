@@ -1,0 +1,8 @@
+{
+  "name": "hebrew-machine-learning-book",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node scripts/build.mjs" },
+  "dependencies": { "marked": "17.0.5" },
+  "engines": { "node": ">=22" }
+}
