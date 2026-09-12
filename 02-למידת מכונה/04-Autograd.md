@@ -100,62 +100,121 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ב.4 נגזרות ו־Autograd
 
+בפרק זה נכיר את משמעות הנגזרת ואת השימוש בה למציאת מינימום. נלמד כללי גזירה, נגזרות חלקיות וכלל השרשרת, ולאחר מכן נראה כיצד PyTorch מחשבת נגזרות באמצעות גרף חישוב.
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L8-L14] -->
 
 **[השיעור וההרצאות באתר של גלעד מרקמן](https://webprogramming.azurewebsites.net/Pages/PyTorch/Autograd.aspx)**
 
-**חומרי הליווי:** [3. PyTorch Autograd](../../../sources/ML/3.%20PyTorch%20Autograd.pptx) · [3_Torch_autograd](../../../sources/ML/converted/3_Torch_autograd/notebook.md)
+**חומרי הליווי:** [3. PyTorch Autograd](../../../sources/ML/3.%20PyTorch%20Autograd.pptx) · [מחברת Autograd](../../../sources/ML/Colab/3_Torch_autograd.ipynb)
 
+### מהי נגזרת?
 
-### למה צריך נגזרת?
-
-הנגזרת מתארת כיצד ערך הפונקציה משתנה כשמשנים מעט את הקלט. היא השיפוע המקומי: נגזרת חיובית מצביעה על עלייה, ושלילית על ירידה. בהמשך נשתמש בה כדי לבחור כיוון שמקטין את השגיאה של המודל.
-
-בפונקציה בעלת כמה משתנים מחשבים **נגזרת חלקית** ביחס לכל משתנה, כשהאחרים נחשבים קבועים. אוסף הנגזרות הוא **הגרדיאנט**. נגזרת אפס מצביעה על נקודה נייחת, אך אינה מבטיחה מינימום.
-
-### לפני הקוד: מה הנגזרת אומרת במספרים?
-
-אם ערך פונקציה משתנה מעט כאשר מזיזים את x, הנגזרת מתארת את קצב השינוי המקומי. בקירוב, שינוי קטן Δx גורם לשינוי `f′(x)·Δx` בפלט. הנגזרת אינה ערך הפונקציה: פונקציה יכולה להיות גבוהה מאוד ובכל זאת שטוחה באותו מקום.
-
-במצגת מופיעה `f(x)=3x²+6x`. לפי כלל החזקה הנגזרת של x² היא 2x, ולכן `f′(x)=6x+6`. ב־x=0 השיפוע הוא 6; ב־x=2 הוא 18; ב־x=−2 הוא ‎−6. בנקודה x=−1 השיפוע אפס. השלמת ריבוע נותנת `f(x)=3(x+1)²−3`, ולכן כאן אכן מדובר במינימום, שערכו ‎−3.
+הנגזרת בנקודה מתארת את **שיפוע הישר המשיק לגרף** באותה נקודה. נגזרת חיובית מצביעה על עלייה, ונגזרת שלילית על ירידה. בנקודת מינימום או מקסימום פנימית שבה הפונקציה גזירה, הנגזרת מתאפסת; נגזרת אפס לבדה אינה מבטיחה מינימום.
 
 <figure>
-<img src="../assets/slides/b3955a4798/image4.png" alt="הנגזרת היא שיפוע המשיק בנקודה. המשיק מתאר את התנהגות הגרף בסביבה קטנה של הנקודה." style="max-width:100%;height:auto;">
-<figcaption>הנגזרת היא שיפוע המשיק בנקודה. המשיק מתאר את התנהגות הגרף בסביבה קטנה של הנקודה.</figcaption>
+<img src="../assets/slides/b3955a4798/image4.png" alt="שיפוע הישר המשיק לגרף בנקודה הוא הנגזרת באותה נקודה." style="max-width:100%;height:auto;">
+<figcaption>שיפוע הישר המשיק לגרף בנקודה הוא הנגזרת באותה נקודה.</figcaption>
 </figure>
-<!-- editorlm-source-ref: [sources/ML/3. PyTorch Autograd.pptx#L13-L18] -->
-אין להסיק ממנגנון זה שכל נגזרת אפס היא מינימום. בפונקציה x³ הנגזרת ב־0 אפס, אך משמאל יש ערכים נמוכים יותר ומימין גבוהים יותר. גם בקצה תחום או בנקודה שאינה גזירה צריך לבחון את הפונקציה עצמה.
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L17-L22] -->
 
-### נגזרת חלקית וכלל השרשרת
+### השתנות הנגזרת בהתאם לשיפוע הגרף
 
-כשיש כמה משתנים, גוזרים לפי אחד מהם ומחזיקים את האחרים קבועים. עבור `f(x,y)=3x²+2y³+4xy` נקבל `∂f/∂x=6x+4y` ו־`∂f/∂y=6y²+4x`. הגרדיאנט הוא אוסף הנגזרות החלקיות, אחת לכל משתנה. הוא אומר איך כל כיוון בנפרד משפיע על התוצאה.
+השיפוע משתנה לאורך הגרף, ולכן גם ערך הנגזרת משתנה. למשל, עבור הפונקציה <span dir="ltr">f(x) = x·sin(x²) + 1</span> מוצגת הנגזרת <span dir="ltr">f′(x) = sin(x²) + 2x²·cos(x²)</span>. בכל נקודה ערכה קובע את שיפוע המשיק שם.
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L26-L30] -->
 
-בפונקציה מורכבת עוקבים אחרי שלבי החישוב. אם `u=3x²+2` ו־`f=u³`, אז `du/dx=6x` ו־`df/du=3u²`. כופלים את הנגזרות לאורך המסלול ומקבלים `df/dx=18x(3x²+2)²`. אין להסתפק בנגזרת החיצונית ולשכוח שגם u תלוי ב־x.
+### חישוב נגזרת
 
-### גרף חישוב: קדימה לערכים, אחורה להשפעות
+נסמן את הנגזרת של <span dir="ltr">f(x)</span> ב־<span dir="ltr">f′(x)</span>. נשתמש בכללים הבאים:
 
-נפרק את `L=(4x−1)²` לשני שלבים: תחילה `ŷ=4x`, ואחר כך `L=(ŷ−1)²`. כאשר x=1, המעבר קדימה נותן ŷ=4 והפסד 9. במעבר אחורה הנגזרת לפי ŷ היא 6, והנגזרת של ŷ לפי x היא 4, ולכן הנגזרת הכוללת היא 24.
+| פונקציה | נגזרת |
+|---|---|
+| קבוע, למשל <span dir="ltr">f(x)=5</span> | <span dir="ltr">f′(x)=0</span> |
+| <span dir="ltr">f(x)=x</span> | <span dir="ltr">f′(x)=1</span> |
+| כפל בקבוע: <span dir="ltr">f(x)=k·g(x)</span> | <span dir="ltr">f′(x)=k·g′(x)</span> |
+| סכום: <span dir="ltr">f(x)=g(x)+h(x)</span> | <span dir="ltr">f′(x)=g′(x)+h′(x)</span> |
+| חזקה: <span dir="ltr">f(x)=xⁿ</span> | <span dir="ltr">f′(x)=n·xⁿ⁻¹</span> |
+
+לדוגמה, הנגזרת של <span dir="ltr">x⁵</span> היא <span dir="ltr">5x⁴</span>.
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L35-L43] -->
+
+### תרגיל
+
+נתונה הפונקציה <span dir="ltr">f(x)=3x²+6x</span>.
+
+1. חשבו את נוסחת הנגזרת.
+2. חשבו את הנגזרת בנקודות <span dir="ltr">x=0, x=2, x=−2</span>.
+3. קבעו בכל אחת מהנקודות אם הפונקציה עולה או יורדת.
+4. מצאו את נקודת המינימום של הפונקציה.
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L47-L53] -->
+
+### נגזרת חלקית — פונקציה במספר משתנים
+
+בפונקציה בעלת כמה משתנים אפשר לגזור ביחס לכל אחד מהם. **בנגזרת חלקית מתייחסים לשאר המשתנים כאל קבועים.**
+
+עבור <span dir="ltr">f(x,y)=3x²+2y³+4xy</span> נקבל:
+
+- לפי x: <span dir="ltr">∂f/∂x=6x+4y</span>. האיבר <span dir="ltr">2y³</span> נחשב קבוע ולכן נגזרתו אפס.
+- לפי y: <span dir="ltr">∂f/∂y=6y²+4x</span>. הפעם <span dir="ltr">3x²</span> נחשב קבוע.
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L57-L63] -->
+
+### סימונים לנגזרת
+
+בפונקציה של משתנה אחד אפשר לכתוב <span dir="ltr">f′(x)</span> או <span dir="ltr">df/dx</span>. בפונקציה של כמה משתנים נכתוב <span dir="ltr">∂f/∂x</span> או <span dir="ltr">∂f/∂y</span> כדי להבהיר לפי איזה משתנה גוזרים. המנה <span dir="ltr">Δf/Δx</span> מתארת שינוי על פני קטע; הנגזרת מתקבלת בגבול כאשר השינוי בקלט שואף לאפס.
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L67-L73] -->
+
+### כלל השרשרת
+
+כלל השרשרת מאפשר לגזור פונקציה מורכבת. נפרק את <span dir="ltr">y=(3x²+2)³</span> לשני שלבים:
+
+1. <span dir="ltr">v=3x²+2</span>, ולכן <span dir="ltr">dv/dx=6x</span>.
+2. <span dir="ltr">y=v³</span>, ולכן <span dir="ltr">dy/dv=3v²</span>.
+
+נכפול את הנגזרות:
+
+<p dir="rtl"><span dir="ltr">dy/dx = (dy/dv)·(dv/dx) = 3v²·6x = 18x(3x²+2)²</span></p>
+
+כלומר, גוזרים את הפונקציה החיצונית וכופלים בנגזרת הפנימית. הכתיב <span dir="ltr">(dy/dv)·(dv/dx)</span> מזכיר צמצום של שברים, אך הוא מבטא את כלל השרשרת.
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L77-L96] -->
+
+### גרף חישוב
+
+אפשר לפרק חישוב לפונקציות קטנות ולהשתמש בכלל השרשרת כדי לחשב את הנגזרת. עבור <span dir="ltr">L=(4x−1)²</span> נחשב תחילה <span dir="ltr">ŷ=4x</span>, ואחר כך <span dir="ltr">L=(ŷ−1)²</span>.
+
+**בחישוב קדימה — Forward** — נציב x=1: נקבל ŷ=4 ולבסוף L=9. **בחישוב לאחור — Backward** — נחשב את הנגזרות המקומיות: <span dir="ltr">dL/dŷ=6</span> ו־<span dir="ltr">dŷ/dx=4</span>. מכפלתן נותנת <span dir="ltr">dL/dx=24</span>.
 
 <figure>
-<img src="../assets/slides/b3955a4798/image17.png" alt="הגרף במצגת לאחר המעבר קדימה ולאחור. מכפלת הנגזרות המקומיות מעבירה את השפעת הקלט עד להפסד." style="max-width:100%;height:auto;">
-<figcaption>הגרף במצגת לאחר המעבר קדימה ולאחור. מכפלת הנגזרות המקומיות מעבירה את השפעת הקלט עד להפסד.</figcaption>
+<img src="../assets/slides/b3955a4798/image17.png" alt="גרף החישוב: ערכי הפונקציה קדימה והנגזרות המקומיות לאחור." style="max-width:100%;height:auto;">
+<figcaption>גרף החישוב: ערכי הפונקציה קדימה והנגזרות המקומיות לאחור.</figcaption>
 </figure>
-<!-- editorlm-source-ref: [sources/ML/3. PyTorch Autograd.pptx#L53-L56] -->
-PyTorch בונה את התלות הזאת מתוך פעולות על טנסורים. `requires_grad=True` מבקשת לעקוב אחרי המשתנה; היא אינה מחשבת מיד את הנגזרת. `backward` מתחילה את החישוב לאחור, והנגזרת של משתנה העלה נשמרת ב־`grad`. המאפיין `grad_fn` של תוצאת ביניים מצביע על הפעולה שיצרה אותה.
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L101-L120] -->
 
-### דוגמה ראשונה: משתנה אחד
+### תרגילים
 
-נחשב את הפונקציה `(4x − 1)²` בנקודה x=2. לפי כלל השרשרת נגזרתה היא `8(4x − 1)`, ולכן בנקודה זו הנגזרת היא 56.
+1. מה אפשר ללמוד מהנגזרת שחישבנו על הפונקציה L בנקודה x=1?
+2. בנו גרף חישוב עבור <span dir="ltr">L=(3x−1)²</span>, חשבו את הנגזרת ב־x=1 ופרשו אותה.
+3. חזרו על הפעולה עבור <span dir="ltr">L=(x−1)²</span> בנקודה x=1.
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L123-L126] -->
+
+### הפעלת Autograd
+
+ל־PyTorch יש מנגנון לחישוב נגזרות אוטומטי. נייבא את הספריות:
 
 <div class="code-panel" dir="ltr">
 
 ```python
 import torch
+import numpy as np
+```
 
-x = torch.tensor(2., requires_grad=True)
-loss = (4 * x - 1) ** 2
-loss.backward()
-print(loss.item())
-print(x.grad.item())
+</div>
+
+כדי לעקוב אחר המשתנה שלפיו נגזור, נגדיר `requires_grad=True`.
+
+<div class="code-panel" dir="ltr">
+
+```python
+x = torch.tensor([1], dtype=torch.float, requires_grad=True)
+print (x)
 ```
 
 </div>
@@ -165,30 +224,23 @@ print(x.grad.item())
 <div class="code-panel" dir="ltr">
 
 ```text
-49.0
-56.0
+tensor([1.], requires_grad=True)
 ```
 
 </div>
 
-**requires_grad=True** מבקשת לעקוב אחרי הפעולות התלויות ב־x. חישוב loss הוא המעבר קדימה — Forward. הקריאה backward היא המעבר לאחור: PyTorch מפעילה את כלל השרשרת ושומרת את הנגזרת ב־x.grad.
-
-המעקב דורש טיפוס מתאים, כגון float. אין צורך לכתוב בעצמנו את נוסחת הנגזרת.
-
-### כמה משתנים
-
-בדוגמת המחברת מחשבים `(w*x − y)²`. מבקשים נגזרות ביחס ל־w ול־y, בעוד x קבוע.
+הפעולות על הטנסור נרשמות בגרף חישוב:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-x = torch.tensor(1.)
-w = torch.tensor(3., requires_grad=True)
-y = torch.tensor(4., requires_grad=True)
-loss = (w * x - y) ** 2
-loss.backward()
-print(w.grad.item())
-print(y.grad.item())
+v = 4 * x
+z = v - 1
+w = z ** 2
+
+print (v)
+print (z)
+print (w)
 ```
 
 </div>
@@ -198,142 +250,461 @@ print(y.grad.item())
 <div class="code-panel" dir="ltr">
 
 ```text
--2.0
-2.0
+tensor([4.], grad_fn=<MulBackward0>)
+tensor([3.], grad_fn=<SubBackward0>)
+tensor([9.], grad_fn=<PowBackward0>)
 ```
 
 </div>
 
-כל נגזרת מתארת שינוי ביחס למשתנה שלה; היא אינה התשובה הרצויה ואינה משקל חדש.
+המאפיין `grad_fn` מציין את הפעולה שיצרה את התוצאה. בשלב זה נבנה הגרף; הנגזרת המספרית תחושב בחישוב לאחור.
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L20-L66] -->
 
-### הפסד של כמה דוגמאות
+### חישוב נגזרת באמצעות Autograd
 
-כאשר הקלט הוא וקטור מתקבלת שגיאה לכל איבר. כדי לקבל מספר יחיד אפשר לסכום את השגיאות או לחשב ממוצע.
+החישוב נעשה בשני שלבים: תחילה מחשבים את ערך הפונקציה, ולאחר מכן מפעילים `backward()` לחישוב הנגזרת.
 
 <div class="code-panel" dir="ltr">
 
 ```python
-x = torch.tensor([1., 2., 3., 4.])
-w = torch.tensor([4., 4.5, 2., 3.],
-                 requires_grad=True)
-y = torch.tensor([1.5, 3., 4.5, 6.])
-loss = ((w * x - y) ** 2).sum()
-loss.backward()
-print(loss.item())
-print(w.grad)
-```
-
-</div>
-
-**פלט**
-
-<div class="code-panel" dir="ltr">
-
-```text
-80.5
-tensor([ 5., 24.,  9., 48.])
-```
-
-</div>
-
-אם משאירים את התוצאה כווקטור, צריך לציין ל־backward כיצד לשקלל את רכיביו. וקטור של אחדות **בצורת הפלט** שקול לגזירת סכום הרכיבים:
-
-<div class="code-panel" dir="ltr">
-
-```python
-w = torch.tensor([4., 4., 4., 4.],
-                 requires_grad=True)
-errors = (w * x - y) ** 2
-errors.backward(torch.ones_like(errors))
-print(w.grad)
-```
-
-</div>
-
-**פלט**
-
-<div class="code-panel" dir="ltr">
-
-```text
-tensor([ 5., 20., 45., 80.])
-```
-
-</div>
-
-### נגזרות מצטברות
-
-קריאות backward מצטברות בשדה grad. אם רוצים נגזרת של חישוב חדש בלבד, מאפסים קודם.
-
-<div class="code-panel" dir="ltr">
-
-```python
-x = torch.tensor(1., requires_grad=True)
-((4 * x - 1) ** 2).backward()
-print(x.grad.item())
-(2 * x).backward()
-print(x.grad.item())
-x.grad.zero_()
-(2 * x).backward()
-print(x.grad.item())
-```
-
-</div>
-
-**פלט**
-
-<div class="code-panel" dir="ltr">
-
-```text
-24.0
-26.0
-2.0
-```
-
-</div>
-
-בכל קריאה כאן נבנה ביטוי חדש. שימוש חוזר באותו גרף לאחר backward הוא נושא נפרד; בדרך כלל נחשב את התחזית מחדש בכל צעד אימון.
-
-### חישוב ללא מעקב
-
-<div class="code-panel" dir="ltr">
-
-```python
-x = torch.tensor(2., requires_grad=True)
-with torch.no_grad():
-    y = 3 * x
-
-detached = x.detach()
-print(y.requires_grad)
-print(detached.requires_grad)
-```
-
-</div>
-
-**פלט**
-
-<div class="code-panel" dir="ltr">
-
-```text
-False
-False
-```
-
-</div>
-
-**no_grad** מתאימה לחישוב שאינו צריך להשתתף בגזירה. **detach** מחזירה טנסור מנותק מגרף הנגזרות, אך הוא משתף זיכרון עם המקור. אם צריך גם עותק עצמאי משתמשים ב־`x.detach().clone()`.
-
-### דוגמה נוספת מהמחברת
-
-אפשר לגזור אותה פונקציה בכמה נקודות יחד. עבור `3x² + 0.5x + 5`, הנגזרת היא `6x + 0.5`.
-
-<div class="code-panel" dir="ltr">
-
-```python
-x = torch.tensor([-3., 1., 4., 9.],
-                 requires_grad=True)
-y = 3 * x ** 2 + 0.5 * x + 5
-y.sum().backward()
+x = torch.tensor([2.0], requires_grad=True)
+#forward
+l = (4*x-1)**2    # l' = 2(4x-1)4 = 8(4x-1)
+print (l)
 print(x.grad)
+
+# backwrad
+l.backward()
+print (x.grad)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([49.], grad_fn=<PowBackward0>)
+None
+tensor([56.])
+```
+
+</div>
+
+לפני `backward()` מופיע `None` בשדה `x.grad`; לאחר הקריאה נשמרת בו הנגזרת. אפשר גם להגדיר את החישוב בתוך פונקציה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+def F (x):
+    return (4*x-1)**2
+
+x = torch.tensor([1.0], requires_grad=True)
+
+#forward
+f = F(x)
+print(f)
+
+#backward
+f.backward()
+print(x.grad)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([9.], grad_fn=<PowBackward0>)
+tensor([24.])
+```
+
+</div>
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L68-L132] -->
+
+### חישוב נגזרת חלקית במספר משתנים
+
+נחליף את הקבועים בפונקציה במשתנים ונחשב את <span dir="ltr">Loss=(wx−y)²</span>.
+
+<div class="code-panel" dir="ltr">
+
+```python
+x = torch.tensor([1.0], requires_grad=False)
+w = torch.tensor([3.0], requires_grad=True)
+y = torch.tensor([4.0], requires_grad=True)
+
+def Loss(w, x, y):
+    return (w * x - y) ** 2   #torch.sin
+
+#forward
+loss = Loss(w, x, y)
+
+print(f"loss: {loss}")
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+loss: tensor([1.], grad_fn=<PowBackward0>)
+```
+
+</div>
+
+הנגזרת לפי w היא <span dir="ltr">2(wx−y)x</span>, ובנקודה הנתונה ערכה ‎−2.
+
+<div class="code-panel" dir="ltr">
+
+```python
+#backward
+loss.backward()
+
+print (f"loss'(x) (1,3,4) = {x.grad}")
+print (f"loss'(w) (1,3,4) =  {w.grad}")
+print (f"loss'(y) (1,3,4) =  {y.grad}")
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+loss'(x) (1,3,4) = None
+loss'(w) (1,3,4) =  tensor([-2.])
+loss'(y) (1,3,4) =  tensor([2.])
+```
+
+</div>
+
+עבור x מתקבל `None` מפני שהוגדר ללא מעקב; אין פירוש הדבר שהנגזרת המתמטית שלו היא אפס.
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L134-L194] -->
+
+### נגזרת במספר נקודות בפונקציה המחזירה סקלר
+
+פונקציה יכולה לקבל טנסור של ערכים ולהחזיר מספר יחיד, למשל סכום או ממוצע. בדוגמה הבאה נסכום את ריבועי ההפרשים:
+
+<div class="code-panel" dir="ltr">
+
+```python
+x = torch.tensor([1,2,3,4], dtype=torch.float32, requires_grad=True)
+w = torch.tensor([4.0, 4.5, 2.0, 3.0], requires_grad=True)
+y = torch.tensor([1.5,3,4.5,6])
+
+L = ((w * x - y) ** 2).sum()
+print (L)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor(80.5000, grad_fn=<SumBackward0>)
+```
+
+</div>
+
+נחשב את הנגזרות לפי רכיבי x ולפי רכיבי w:
+
+<div class="code-panel" dir="ltr">
+
+```python
+L.backward()
+print(x, w, y, L)
+print (f"loss'(x) = {x.grad}")
+print (f"loss'(w) =  {w.grad}")
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([1., 2., 3., 4.], requires_grad=True) tensor([4.0000, 4.5000, 2.0000, 3.0000], requires_grad=True) tensor([1.5000, 3.0000, 4.5000, 6.0000]) tensor(80.5000, grad_fn=<SumBackward0>)
+loss'(x) = tensor([20., 54.,  6., 36.])
+loss'(w) =  tensor([ 5., 24.,  9., 48.])
+```
+
+</div>
+
+לרכיב הראשון מתקבלים <span dir="ltr">∂L/∂x₁=20</span> ו־<span dir="ltr">∂L/∂w₁=5</span>.
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L196-L253] -->
+
+### נגזרת במספר נקודות בפונקציה המחזירה ערכים מרובים
+
+כעת נשאיר את ריבועי ההפרשים כווקטור, ללא סכימה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+x = torch.tensor([1,2,3,4], dtype=torch.float32, requires_grad=True)
+w = torch.tensor([4.0, 4.0, 4.0, 4.0], requires_grad=True)
+y = torch.tensor([1.5,3,4.5,6])
+#forward
+l = (w * x - y) ** 2
+print (l)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([  6.2500,  25.0000,  56.2500, 100.0000], grad_fn=<PowBackward0>)
+```
+
+</div>
+
+כאשר הפלט מכיל כמה איברים, נעביר ל־`backward` וקטור באותה צורה כמו **הפלט**. כאן נבחר וקטור אחדות, השקול לחישוב נגזרת סכום הרכיבים.
+
+<div class="code-panel" dir="ltr">
+
+```python
+v = torch.tensor([1.0,1.0,1.0,1.0])
+# backward
+l.backward(v)
+print (f"loss'(x) = {x.grad}")
+print (f"loss'(w) =  {w.grad}")
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+loss'(x) = tensor([20., 40., 60., 80.])
+loss'(w) =  tensor([ 5., 20., 45., 80.])
+```
+
+</div>
+
+ברכיב הראשון, עבור w=4 ו־y=1.5, הנגזרת לפי x היא <span dir="ltr">8(4x−1.5)</span>, ולכן ב־x=1 מתקבל 20. עבור x=1 ו־y=1.5, הנגזרת לפי w היא <span dir="ltr">2(w−1.5)</span>, ולכן ב־w=4 מתקבל 5.
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L255-L326] -->
+
+### ביטול Autograd
+
+בכל קריאה ל־`backward()` הנגזרות מתווספות לערכים שכבר נצברו בשדה `grad`.
+
+<div class="code-panel" dir="ltr">
+
+```python
+x = torch.tensor([1.0], requires_grad=True)
+l = (4*x-1)**2
+print (l)
+l.backward()
+print ('dL/dx(1) = ', x.grad)
+
+y = x**2
+print (y)
+y.backward()
+print ('Accumulated x.grad = ', x.grad) # Y'=2X , Y'(1) = 2
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([9.], grad_fn=<PowBackward0>)
+dL/dx(1) =  tensor([24.])
+tensor([1.], grad_fn=<PowBackward0>)
+Accumulated x.grad =  tensor([26.])
+```
+
+</div>
+
+אחרי החישוב הראשון נצבר 24. הנגזרת של <span dir="ltr">y=x²</span> ב־x=1 היא 2, ולכן לאחר החישוב השני השדה מכיל 26.
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L329-L365] -->
+
+אי אפשר להמיר ישירות ל־NumPy טנסור שדורש מעקב נגזרות. השורה הבאה מדגימה פעולה שתגרום לשגיאה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+x_np = x.numpy()
+```
+
+</div>
+
+אפשר לבטל את המעקב בטנסור עצמו:
+
+<div class="code-panel" dir="ltr">
+
+```python
+x = torch.tensor([1.0], requires_grad=True)
+print(x)
+x.requires_grad_(False)
+print(x)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([1.], requires_grad=True)
+tensor([1.])
+```
+
+</div>
+
+אפשר גם לקבל טנסור מנותק באמצעות `detach()`:
+
+<div class="code-panel" dir="ltr">
+
+```python
+x = torch.tensor([1.0], requires_grad=True)
+print(x)
+y = x.detach()
+print(y)
+print(x)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([1.], requires_grad=True)
+tensor([1.])
+tensor([1.], requires_grad=True)
+```
+
+</div>
+
+`detach()` מנתקת את המעקב, אך הטנסור המוחזר חולק את הנתונים בזיכרון עם המקור.
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L367-L424] -->
+
+### השהיית Autograd
+
+ההקשר `with torch.no_grad():` משהה את המעקב אחר חישובים שבתוכו. בדוגמה הבאה אפשר לבצע את ההמרה ל־NumPy בתוך ההקשר:
+
+<div class="code-panel" dir="ltr">
+
+```python
+x = torch.tensor([1.0], requires_grad=True)
+with torch.no_grad():
+    x_np = x.numpy()
+print (x_np)
+print(x)
+# np = np.array([1.0])
+# print(np)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+[1.]
+tensor([1.], requires_grad=True)
+```
+
+</div>
+
+לאחר היציאה מההקשר, הדגל `requires_grad` של x נשאר פעיל.
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L426-L456] -->
+
+### איפוס הגרדיאנטים
+
+כדי לחשב נגזרת חדשה בלי לצבור את הקודמת, נאפס את השדה בעזרת `zero_()`.
+
+<div class="code-panel" dir="ltr">
+
+```python
+W = torch.tensor([2.0, 3, 5, 8], requires_grad=True)
+
+for epoch in range(3):
+    #forward
+    model = (W * 3).mean()
+    print(model)
+    #backward
+    model.backward()
+    print (W.grad)
+    W.grad.zero_()
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor(13.5000, grad_fn=<MeanBackward0>)
+tensor([0.7500, 0.7500, 0.7500, 0.7500])
+tensor(13.5000, grad_fn=<MeanBackward0>)
+tensor([0.7500, 0.7500, 0.7500, 0.7500])
+tensor(13.5000, grad_fn=<MeanBackward0>)
+tensor([0.7500, 0.7500, 0.7500, 0.7500])
+```
+
+</div>
+
+בלי שורת האיפוס היו מתקבלים ברכיבי הגרדיאנט 0.75, אחר כך 1.5 ולבסוף 2.25. עם האיפוס מתקבל בכל חזרה 0.75.
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L458-L496] -->
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L307-L335] -->
+
+### תרגילים
+
+חשבו באמצעות PyTorch את הנגזרות הבאות, לפי הסדר:
+
+1. <span dir="ltr">y=3x²+0.5x+5</span>, בנקודות ‎−3, 1, 4, 9.
+2. הנגזרות לפי W של <span dir="ltr">loss=mean((W·X−Y)²)</span>, כאשר <span dir="ltr">W=[−0.5,1,2,3]</span>, <span dir="ltr">X=[1,2,3,4]</span>, <span dir="ltr">Y=[2,4,6,8]</span>.
+3. <span dir="ltr">f=2x³−3x²</span>, בנקודות ‎−2, 0, 0.5, 1, 2. מה אפשר ללמוד מהנגזרות?
+
+**התרגיל הראשון:**
+
+<div class="code-panel" dir="ltr">
+
+```python
+x = torch.tensor([-3,1,4,9], dtype=torch.float32, requires_grad=True)
+y = 3 * x**2 + 0.5 * x + 5 # forward
+print(y)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([ 30.5000,   8.5000,  55.0000, 252.5000], grad_fn=<AddBackward0>)
+```
+
+</div>
+
+<div class="code-panel" dir="ltr">
+
+```python
+v = torch.ones(4)
+y.backward(v)
+print(x.grad )
 ```
 
 </div>
@@ -348,85 +719,18 @@ tensor([-17.5000,   6.5000,  24.5000,  54.5000])
 
 </div>
 
-אותו מנגנון יעבוד גם כשבמקום פולינום קצר נחשב פלט של רשת נוירונים שלמה.
-
-<!-- editorlm-source-ref: [sources/ML/3. PyTorch Autograd.pptx#L1-L125] -->
-<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L1-L662] -->
-
-### דוגמאות פתורות מהמחברת: אותו מנגנון, פונקציות אחרות
-
-נבדוק תחילה פולינום במספר נקודות. כל פלט תלוי כאן רק באיבר המקביל בקלט, ולכן גזירת סכום הפלטים נותנת את הנגזרת בכל נקודה.
+**התרגיל השני:**
 
 <div class="code-panel" dir="ltr">
 
 ```python
-x = torch.tensor([-2., 0., 0.5, 1., 2.],
-                 requires_grad=True)
-f = 2 * x**3 - 3 * x**2
-f.sum().backward()
-print(f.detach())
-print(x.grad)
-```
-
-</div>
-
-**פלט**
-
-<div class="code-panel" dir="ltr">
-
-```text
-tensor([-28.0000, 0.0000, -0.5000, -1.0000, 4.0000])
-tensor([36.0000, 0.0000, -1.5000, 0.0000, 12.0000])
-```
-
-</div>
-
-הנגזרת הידנית היא `6x²−6x`. המספר 0 בנגזרת בנקודות 0 ו־1 אינו אומר שערכי הפונקציה שווים שם. הוא אומר רק שהשיפוע מתאפס בכל אחת מהן.
-
-בדוגמת `f=3x₁²+2(x₂+2)³`, עבור x₁=1 ו־x₂=2, ערך הפונקציה הוא 131 והגרדיאנט הוא (6,96). השינוי המקומי רגיש הרבה יותר ל־x₂. בדוגמה `f=(3x₁+x₂)²(x₃+5)`, בנקודה (2,1,3), הערך הוא 392 והנגזרות הן (336,112,49). בכל נגזרת בוחרים מסלול אחר בגרף; אין ״נגזרת אחת״ המחליפה את שלושת הרכיבים.
-
-<div class="code-panel" dir="ltr">
-
-```python
-x1 = torch.tensor(2., requires_grad=True)
-x2 = torch.tensor(1., requires_grad=True)
-x3 = torch.tensor(3., requires_grad=True)
-f = (3*x1 + x2)**2 * (x3 + 5)
-f.backward()
-print(f.item())
-print(x1.grad.item(), x2.grad.item(), x3.grad.item())
-```
-
-</div>
-
-**פלט**
-
-<div class="code-panel" dir="ltr">
-
-```text
-392.0
-336.0 112.0 49.0
-```
-
-</div>
-
-### מדוע mean משנה גם את הנגזרת?
-
-אם מסכמים ארבע שגיאות מקבלים S, ואם מחשבים ממוצע מקבלים S/4. גם כל נגזרת תחולק ב־4. לכן מעבר מ־sum ל־mean משנה את גודל העדכון כאשר קצב הלמידה נשאר קבוע.
-
-<div class="code-panel" dir="ltr">
-
-```python
-w = torch.tensor([4., 4., 4., 4.],
-                 requires_grad=True)
-x = torch.tensor([1., 2., 3., 4.],
-                 requires_grad=True)
-y = torch.tensor([1.5, 3., 4.5, 6.])
-loss = ((w*x - y)**2).mean()
+W = torch.tensor ([-0.5,1,2,3], dtype=torch.float32, requires_grad=True)
+X = torch.tensor ([1,2,3,4])
+Y = torch.tensor ([2,4,6,8])
+loss = ((W*X-Y)**2).mean() # forward
+print(loss)
 loss.backward()
-print(loss.item())
-print(w.grad)
-print(x.grad)
+print(W.grad)
 ```
 
 </div>
@@ -436,26 +740,104 @@ print(x.grad)
 <div class="code-panel" dir="ltr">
 
 ```text
-46.875
-tensor([ 1.2500, 5.0000, 11.2500, 20.0000])
-tensor([ 5., 10., 15., 20.])
+tensor(6.5625, grad_fn=<MeanBackward0>)
+tensor([-1.2500, -2.0000,  0.0000,  8.0000])
 ```
 
 </div>
 
-למשל, הנגזרת לפי המשקל הראשון היא `2·(4·1−1.5)·1/4=1.25`. חשוב לשים לב שבדוגמה הזאת יש ארבעה משקלים נפרדים. ברגרסיה עם משקל משותף אחד, כל הדוגמאות תורמות לאותו משקל והתרומות מצטברות בו.
+**התרגיל השלישי:**
 
-דוגמה נוספת במחברת משתמשת ב־w=[−0.5,1,2,3], בקלטים 1–4 וביעדים 2,4,6,8. ההפסד הממוצע הוא 6.5625 והגרדיאנט לפי w הוא [−1.25,−2,0,8]. הנגזרת השלישית אפס משום שהתחזית השלישית כבר תואמת ליעד, אף ששאר התחזיות עדיין שגויות.
+<div class="code-panel" dir="ltr">
 
-### שלוש פעולות שקל לבלבל ביניהן
+```python
+x = torch.tensor([-2,0,0.5,1,2], dtype=torch.float32, requires_grad=True)
+f = 2*x**3 - 3 * x **2 # forward
+v = torch.ones(5)
+print (f)
+f.backward(v)
+print (x.grad)
+```
 
-| פעולה | מה היא עושה | מה אינה עושה |
-|---|---|---|
-| `zero_grad` | מנקה נגזרות שנצברו | אינה משנה משקלים |
-| `no_grad` | מונעת רישום פעולות חדשות לגרף בתוך ההקשר | אינה מוחקת נגזרות ישנות |
-| `detach` | מחזירה טנסור מנותק מגרף החישוב | אינה מבטיחה העתק של האחסון |
+</div>
 
-הצטברות ב־grad מתרחשת בקריאות backward, ולא רק משום שחישבנו עוד ביטוי קדימה. אם נחשב שוב את אותו ביטוי ונבצע backward בלי איפוס, נוסיף את תרומתו לנגזרת הקודמת. כשנרצה גם ניתוק וגם זיכרון עצמאי נשתמש ב־`detach().clone()`. כדי להפסיק מעקב אחר משתנה עלה אפשר להשתמש ב־`requires_grad_(False)`; הדבר אינו תחליף לאיפוס הנגזרות בלולאת אימון.
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([-28.0000,   0.0000,  -0.5000,  -1.0000,   4.0000],
+       grad_fn=<SubBackward0>)
+tensor([36.0000,  0.0000, -1.5000,  0.0000, 12.0000])
+```
+
+</div>
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L498-L604] -->
+<!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L338-L345] -->
+
+**נגזרות חלקיות — דוגמה נוספת:** <span dir="ltr">f(x₁,x₂)=3x₁²+2(x₂+2)³</span>, בנקודה (1,2).
+
+<div class="code-panel" dir="ltr">
+
+```python
+x1 = torch.tensor([1.0], requires_grad=True)
+x2 = torch.tensor([2.0], requires_grad=True)
+#forward
+f = 3*x1**2 + 2*(x2 +2)**3
+print(f)
+#backward
+f.backward()
+
+print(x1.grad, x2.grad)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([131.], grad_fn=<AddBackward0>)
+tensor([6.]) tensor([96.])
+```
+
+</div>
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L606-L632] -->
+
+**נגזרות חלקיות בשלושה משתנים:** <span dir="ltr">f(x₁,x₂,x₃)=(3x₁+x₂)²(x₃+5)</span>, בנקודה (2,1,3).
+
+<div class="code-panel" dir="ltr">
+
+```python
+def F (x1, x2, x3):
+    return (3*x1 + x2)**2*(x3 + 5)
+
+#forward
+x1 = torch.tensor([2.0], requires_grad=True)
+x2 = torch.tensor([1.0], requires_grad=True)
+x3 = torch.tensor([3.0], requires_grad=True)
+f = F(x1, x2, x3)
+print(f)
+
+#backward
+f.backward()
+print(x1.grad, x2.grad, x3.grad)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([392.], grad_fn=<MulBackward0>)
+tensor([336.]) tensor([112.]) tensor([49.])
+```
+
+</div>
+<!-- editorlm-source-ref: [sources/ML/converted/3_Torch_autograd/notebook.md#L634-L662] -->
 
 
 <nav class="book-nav" aria-label="ניווט בספר">
@@ -466,4 +848,4 @@ tensor([ 5., 10., 15., 20.])
 
 </div>
 
-<!-- editorlm-source-versions: {"schemaVersion": 1, "sources": {"sources/ML/3. PyTorch Autograd.pptx": {"sourceSha256": "064f18aeb958f4c721de77f96a0cce97fa4abe80cc0001f498b47e145a0c779d", "canonicalTextSha256": "67a0e680fa66b10fa7d7fbd4b971bec4f9c1eb3e5265b2e234654fc1f2ba2866"}, "sources/ML/converted/3_Torch_autograd/notebook.md": {"sourceSha256": "457633280c3ac87bfeb9558cefee749e41976e54b330037a03f6341b344a8ebb", "canonicalTextSha256": "457633280c3ac87bfeb9558cefee749e41976e54b330037a03f6341b344a8ebb"}}} -->
+<!-- editorlm-source-versions: {"schemaVersion":1,"sources":{"sources/ML/pdf/3. PyTorch Autograd.pdf":{"sourceSha256":"49257cebfcfaf0ae6ade8fa5a99bc8694f18b37b115553f3f0cc392bbcda522e","canonicalTextSha256":"8c0b17efa31e89d62908053c1df0d0e66f92a3ad274654295f08a6a99aca3666"},"sources/ML/converted/3_Torch_autograd/notebook.md":{"sourceSha256":"457633280c3ac87bfeb9558cefee749e41976e54b330037a03f6341b344a8ebb","canonicalTextSha256":"457633280c3ac87bfeb9558cefee749e41976e54b330037a03f6341b344a8ebb"}}} -->
