@@ -98,162 +98,436 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 <a href="20-%D7%A9%D7%9E%D7%99%D7%A8%D7%94%20%D7%95%D7%98%D7%A2%D7%99%D7%A0%D7%94.md">הבא ←</a>
 </nav>
 
-## ב.19 Pima — השוואת רשתות לנתונים בטבלה
+## ב.19 Pima — רשת לנתונים בטבלה
 
-
-רשת נוירונים אינה חייבת לקבל פיקסלים. בפרק זה היא מקבלת שורה מטבלה ומחזירה הסתברות בינארית. נשווה שני מבנים מן המחברת ונבחן מה עוד השתנה ביניהם, כדי להבין מה מותר להסיק מהבדל בתוצאה.
+בדוגמה זו נסווג שורות מטבלה באמצעות שמונה תכונות מספריות. תחילה נבנה רשת עם שכבה נסתרת אחת, ולאחר בדיקתה נעבור לרשת עם שתי שכבות נסתרות.
 
 **[השיעור וההרצאות באתר של גלעד מרקמן](https://webprogramming.azurewebsites.net/Pages/PyTorch/ANN_Class_Softmax.aspx)**
 
-[פתיחת מחברת Colab 1](https://colab.research.google.com/drive/1jmHPIUBkP52cEfqCHmeMJVnestyXDJFO?usp=sharing)
+**חומרי הליווי:** [מצגת רשת נוירונים באמצעות מחלקה](../../../sources/ML/9.%20%D7%A8%D7%A9%D7%AA%20%D7%A0%D7%95%D7%A8%D7%95%D7%A0%D7%99%D7%9D%20%D7%91%D7%90%D7%9E%D7%A6%D7%A2%D7%95%D7%AA%20%D7%9E%D7%97%D7%9C%D7%A7%D7%94.pptx) · [מחברת Pima](../../../sources/ML/Colab/Pima_Diabetes.ipynb)
 
-**חומרי הליווי:** [9. רשת נורונים באמצעות מחלקה](../../../sources/ML/9.%20%D7%A8%D7%A9%D7%AA%20%D7%A0%D7%95%D7%A8%D7%95%D7%A0%D7%99%D7%9D%20%D7%91%D7%90%D7%9E%D7%A6%D7%A2%D7%95%D7%AA%20%D7%9E%D7%97%D7%9C%D7%A7%D7%94.pptx) · [9_ANN_Class](../../../sources/ML/converted/9_ANN_Class/notebook.md) · [Classified_Iris_FashionMNIST](../../../sources/ML/converted/Classified_Iris_FashionMNIST/notebook.md) · [Pima_Diabetes](../../../sources/ML/converted/Pima_Diabetes/notebook.md)
+### יבוא הספריות
 
-### הכנת סביבת הפרק
+נייבא את הספריות לטעינת הנתונים, להכנתם ולבניית הרשת:
 
 <div class="code-panel" dir="ltr">
 
 ```python
 import torch
-from torch import nn
-import numpy as np
-import matplotlib.pyplot as plt
-from torch.utils.data import DataLoader, TensorDataset
-
-device = torch.device(
-    "cuda" if torch.cuda.is_available() else "cpu"
-)
-```
-
-</div>
-
-
-### רשת לנתונים בטבלה: Pima
-
-מחברת Pima_Diabetes מדגימה שהקלט לרשת אינו חייב להיות תמונה. היא טוענת טבלה של שמונה תכונות וממירה את התווית tested_positive ל־1 ואת האחרת ל־0.
-
-**StandardScaler** מבצעת תקנון באמצעות ממוצע וסטיית תקן. תחילה מפצלים את הנתונים; fit_transform לומדת את פרמטרי התקנון מנתוני האימון, ואילו transform משתמשת באותם פרמטרים עבור הבדיקה.
-
-<div class="code-panel" dir="ltr">
-
-```python
+import torch.nn as nn
+import torch.optim as optim
 from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import pandas as pd
+```
 
-data = fetch_openml(
-    name="diabetes", version=1, as_frame=True
-)
-x = data.data.to_numpy()
-y = (data.target == "tested_positive").astype(int)
-x_train, x_test, y_train, y_test = train_test_split(
-    x, y.to_numpy(), test_size=0.2, random_state=42
-)
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L7-L19] -->
+
+### טעינת הנתונים והיכרות עם הטבלה
+
+נטען את המאגר ונציג את הטבלה, את פרטי העמודות ואת הסטטיסטיקה שלהן. בטבלה 768 שורות: שמונה תכונות ועמודת היעד `class`.
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Load the Pima Indians Diabetes dataset
+data = fetch_openml(name="diabetes", version=1, as_frame=True)
+df = data.frame
+print(df)
+df.info()
+df.describe()
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+preg  plas  pres  skin  insu  mass   pedi  age            class
+0       6   148    72    35     0  33.6  0.627   50  tested_positive
+1       1    85    66    29     0  26.6  0.351   31  tested_negative
+2       8   183    64     0     0  23.3  0.672   32  tested_positive
+3       1    89    66    23    94  28.1  0.167   21  tested_negative
+4       0   137    40    35   168  43.1  2.288   33  tested_positive
+..    ...   ...   ...   ...   ...   ...    ...  ...              ...
+763    10   101    76    48   180  32.9  0.171   63  tested_negative
+764     2   122    70    27     0  36.8  0.340   27  tested_negative
+765     5   121    72    23   112  26.2  0.245   30  tested_negative
+766     1   126    60     0     0  30.1  0.349   47  tested_positive
+767     1    93    70    31     0  30.4  0.315   23  tested_negative
+
+[768 rows x 9 columns]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 768 entries, 0 to 767
+Data columns (total 9 columns):
+ #   Column  Non-Null Count  Dtype   
+---  ------  --------------  -----   
+ 0   preg    768 non-null    int64   
+ 1   plas    768 non-null    int64   
+ 2   pres    768 non-null    int64   
+ 3   skin    768 non-null    int64   
+ 4   insu    768 non-null    int64   
+ 5   mass    768 non-null    float64 
+ 6   pedi    768 non-null    float64 
+ 7   age     768 non-null    int64   
+ 8   class   768 non-null    category
+dtypes: category(1), float64(2), int64(6)
+memory usage: 49.0 KB
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+preg        plas        pres        skin        insu        mass  \
+count  768.000000  768.000000  768.000000  768.000000  768.000000  768.000000   
+mean     3.845052  120.894531   69.105469   20.536458   79.799479   31.992578   
+std      3.369578   31.972618   19.355807   15.952218  115.244002    7.884160   
+min      0.000000    0.000000    0.000000    0.000000    0.000000    0.000000   
+25%      1.000000   99.000000   62.000000    0.000000    0.000000   27.300000   
+50%      3.000000  117.000000   72.000000   23.000000   30.500000   32.000000   
+75%      6.000000  140.250000   80.000000   32.000000  127.250000   36.600000   
+max     17.000000  199.000000  122.000000   99.000000  846.000000   67.100000   
+
+             pedi         age  
+count  768.000000  768.000000  
+mean     0.471876   33.240885  
+std      0.331329   11.760232  
+min      0.078000   21.000000  
+25%      0.243750   24.000000  
+50%      0.372500   29.000000  
+75%      0.626250   41.000000  
+max      2.420000   81.000000
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L20-L437] -->
+
+נציג את חמש השורות הראשונות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+df.head()
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+preg  plas  pres  skin  insu  mass   pedi  age            class
+0     6   148    72    35     0  33.6  0.627   50  tested_positive
+1     1    85    66    29     0  26.6  0.351   31  tested_negative
+2     8   183    64     0     0  23.3  0.672   32  tested_positive
+3     1    89    66    23    94  28.1  0.167   21  tested_negative
+4     0   137    40    35   168  43.1  2.288   33  tested_positive
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L438-L774] -->
+
+### הפרדת התכונות והיעד
+
+כל העמודות מלבד האחרונה יהיו הקלט `X`. נקודד את התווית `tested_positive` כ־1 ואת התווית האחרת כ־0:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Separate features and target
+X = df.iloc[:, :-1].values  # Features
+y = df.iloc[:, -1].apply(lambda x: 1 if x == 'tested_positive' else 0).values  # Target (binary encoding)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L775-L784] -->
+
+### תקנון הנתונים
+
+StandardScaler מתקננת כל תכונה באמצעות הממוצע וסטיית התקן שלה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Normalize the features
 scaler = StandardScaler()
-x_train = scaler.fit_transform(x_train)
-x_test = scaler.transform(x_test)
+X = scaler.fit_transform(X)
 ```
 
 </div>
 
-לאחר המרה לטנסורי float, התוויות בצורת `[N,1]`. המודל הראשון במחברת כולל שכבה חבויה של 128 יחידות — למרות שמו SingleNeuronModel במקור. אפשר להגדירו כך:
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L785-L794] -->
+
+### פיצול לאימון ולבדיקה
+
+נפצל את הנתונים ל־80% אימון ו־20% בדיקה:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-model = nn.Sequential(
-    nn.Linear(8, 128), nn.ReLU(),
-    nn.Linear(128, 1), nn.Sigmoid()
-)
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 ```
 
 </div>
 
-המחברת משווה אליו רשת 8→32→16→1, עם ReLU בשכבות החבויות ו־Sigmoid בסוף, ומשתמשת ב־BCELoss. בניסוי השני השתנו גם שיטת הנרמול וקצב הלמידה; לכן הבדל בתוצאה אינו מוכיח שהוספת שכבה לבדה גרמה לשיפור. שתי ההדגמות הן תרגול של סיווג טבלאי.
+בקוד זה התקנון חושב לפני הפיצול ולכן כולל גם את נתוני הבדיקה; כדי להפריד את הבדיקה מהכנת האימון יש להתאים את התקנון לנתוני האימון בלבד.
 
-<!-- editorlm-source-ref: [sources/ML/9. רשת נורונים באמצעות מחלקה.pptx#L1-L63] -->
-<!-- editorlm-source-ref: [sources/ML/converted/9_ANN_Class/notebook.md#L1-L584] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Classified_Iris_FashionMNIST/notebook.md#L1-L1063] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L1-L1180] -->
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L795-L803] -->
 
-### ניסוי שני בטבלת Pima
+### המרה לטנסורים
 
-הניסוי הראשון משתמש בשכבה חבויה של 128 יחידות, בתקנון StandardScaler, ב־Adam בקצב 0.01 וב־10,000 צעדים. השני משתמש בשתי שכבות חבויות 32 ו־16, ב־MinMaxScaler ובקצב 0.0001, גם הוא ב־10,000 צעדים. מספר גדול של צעדים אינו מבטיח שיפור בבדיקה, במיוחד בטבלה קטנה.
+נמיר את הנתונים ל־float32. הפעולה `unsqueeze(1)` מוסיפה לתוויות ממד, כך שלכל דוגמה יש ערך יעד אחד:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-from sklearn.preprocessing import MinMaxScaler
+# Convert to PyTorch tensors
+X_train_tensor = torch.tensor(X_train, dtype=torch.float32)
+y_train_tensor = torch.tensor(y_train, dtype=torch.float32).unsqueeze(1)
+X_test_tensor = torch.tensor(X_test, dtype=torch.float32)
+y_test_tensor = torch.tensor(y_test, dtype=torch.float32).unsqueeze(1)
+```
 
-# xa_raw and xb_raw are the raw train/test features.
-# Preserve them before applying any scaler.
-class PimaNet(nn.Module):
-    def __init__(self, inputs=8):
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L804-L815] -->
+
+### הגדרת הרשת הראשונה
+
+לרשת שמונה קלטים, שכבה נסתרת של 128 נוירונים עם ReLU ופלט יחיד עם Sigmoid. שם המחלקה הוא `SingleNeuronModel`, אך המבנה שלה כולל שכבה נסתרת:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Define the model
+class SingleNeuronModel(nn.Module):
+    def __init__(self, input_dim):
         super().__init__()
-        self.first = nn.Linear(inputs, 32)
-        self.second = nn.Linear(32, 16)
-        self.output = nn.Linear(16, 1)
+        self.fc1 = nn.Linear(input_dim, 128)  # Hidden layer with 128 neurons
+        self.sigmoid = nn.Sigmoid()
+        self.fc2 = nn.Linear(128, 1)
+        self.relu = nn.ReLU()
 
     def forward(self, x):
-        x = torch.relu(self.first(x))
-        x = torch.relu(self.second(x))
-        return torch.sigmoid(self.output(x))
+        x = self.relu(self.fc1(x))
+        x = self.sigmoid(self.fc2(x))
+
+        return x
 ```
 
 </div>
 
-כדי לבצע השוואה הוגנת נשמור אותה חלוקה לאימון ולבדיקה. לכל שיטת נרמול מבצעים fit על חלק האימון הגולמי בלבד, ו־transform על חלק הבדיקה. לא מפעילים MinMaxScaler על נתונים שכבר תוקננו בטעות אם המטרה היא לשחזר את הניסוי הגולמי.
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L816-L835] -->
 
-לשני המודלים אפשר להשתמש בלולאת האימון הבינארית המוכרת. אחריה סופרים נכון/שגוי על אותה קבוצת בדיקה. אם נבחר שוב ושוב מודל לפי הבדיקה, היא מפסיקה לשמש מבחן בלתי תלוי; לשינויי מבנה וקצב משתמשים בוולידציה. מטרת הדוגמה היא ללמוד ניסוי בסיווג טבלאי, ולא להציג את פלט הרשת כאבחנה.
-
-
-<!-- editorlm-source-ref: [sources/ML/converted/9_ANN_Class/notebook.md#L121] -->
-
-
-### להשלים את שני ניסויי האימון
-
-הקוד משתמש ב־x וב־y הגולמיים שנקראו מהמאגר בתחילת הפרק, לפני התקנון. בכל ניסוי יוצרים scaler, מודל ואופטימייזר חדשים. כל scaler רואה רק את חלק האימון.
+ניצור את המודל, נגדיר BCELoss ונשתמש ב־Adam בקצב למידה 0.01:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-def run_pima(model, scaler, lr, epochs=10000):
-    xa, xb, ya, yb = train_test_split(
-        x, y.to_numpy(), test_size=0.2, random_state=42
-    )
-    xa = torch.tensor(scaler.fit_transform(xa),
-                      dtype=torch.float32)
-    xb = torch.tensor(scaler.transform(xb), dtype=torch.float32)
-    ya = torch.tensor(ya, dtype=torch.float32).reshape(-1, 1)
-    yb = torch.tensor(yb, dtype=torch.float32).reshape(-1, 1)
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    for step in range(epochs):
-        optimizer.zero_grad()
-        loss = nn.functional.binary_cross_entropy(model(xa), ya)
-        loss.backward()
-        optimizer.step()
-    model.eval()
-    with torch.no_grad():
-        prediction = model(xb) >= 0.5
-        accuracy = (prediction == yb.bool()).float().mean()
-    return model, accuracy.item()
+# Initialize the model
+input_dim = X_train.shape[1]  # Number of features
+model = SingleNeuronModel(input_dim)
 
-first_model = nn.Sequential(
-    nn.Linear(8, 128), nn.ReLU(),
-    nn.Linear(128, 1), nn.Sigmoid()
-)
-first_model, first_accuracy = run_pima(
-    first_model, StandardScaler(), lr=0.01
-)
-second_model, second_accuracy = run_pima(
-    PimaNet(), MinMaxScaler(), lr=0.0001
-)
-print(first_accuracy, second_accuracy)
+# Loss function and optimizer
+criterion = nn.BCELoss()  # Binary Cross-Entropy Loss
+optimizer = optim.Adam(model.parameters(), lr=0.01)
 ```
 
 </div>
 
-אלה הגדרות ניסויי המקור עם תיקון סדר הפיצול והנרמול. שינוי הסדר מסיר שימוש בנתוני הבדיקה במהלך הכנת האימון, ולכן אין לצפות לשחזור מדויק של אחוזי ההצלחה השמורים במחברת המקורית.
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L836-L849] -->
+
+### אימון הרשת הראשונה
+
+נאמן במשך 10,000 תקופות. בכל תקופה כל נתוני האימון עוברים ברשת יחד; נחשב הפסד ונגזרות ונעדכן את המשקלים:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Training loop
+epochs = 10000
+for epoch in range(epochs):
+    model.train()
+    optimizer.zero_grad()
+    outputs = model(X_train_tensor)
+    loss = criterion(outputs, y_train_tensor)
+    loss.backward()
+    optimizer.step()
+
+    if (epoch + 1) % 100 == 0:
+        print(f'Epoch [{epoch + 1}/{epochs}], Loss: {loss.item():.4f}')
+```
+
+</div>
+
+תחילת הפלט וסופו, בדילוג על שורות הביניים:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+Epoch [100/10000], Loss: 0.2964
+Epoch [200/10000], Loss: 0.1197
+...
+Epoch [10000/10000], Loss: 0.0000
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L850-L974] -->
+
+### בדיקת הרשת הראשונה
+
+נעבור למצב הערכה ונחשב תחזיות ללא מעקב גרדיאנטים. ערך גדול מ־0.5 יסווג כ־1, ואחרת כ־0:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Evaluate the model
+model.eval()
+with torch.no_grad():
+    y_pred = model(X_test_tensor)
+    y_pred_classes = (y_pred > 0.5).float()
+    accuracy = (y_pred_classes.eq(y_test_tensor).sum() / y_test_tensor.shape[0]).item()
+    print(f'Accuracy: {accuracy:.4f}')
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+Accuracy: 0.6688
+```
+
+</div>
+
+התוצאה השמורה היא שיעור הצלחה של כ־66.88%.
+
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L975-L995] -->
+
+### רשת עם שתי שכבות נסתרות
+
+נטען שוב את הנתונים ונשתמש ב־MinMaxScaler. הרשת הפעם היא 8→32→16→1, עם ReLU בשתי השכבות הנסתרות ו־Sigmoid בפלט; קצב הלמידה הוא 0.0001, ומשך האימון נשאר 10,000 תקופות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from sklearn.datasets import fetch_openml
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+import pandas as pd
+
+# Load the Pima Indians Diabetes dataset
+data = fetch_openml(name="diabetes", version=1, as_frame=True)
+df = data.frame
+
+# Separate features and target
+X = df.iloc[:, :-1].values  # Features
+y = df.iloc[:, -1].apply(lambda x: 1 if x == 'tested_positive' else 0).values  # Target (binary encoding)
+
+# Normalize the features
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Convert to PyTorch tensors
+X_train_tensor = torch.tensor(X_train, dtype=torch.float32)
+y_train_tensor = torch.tensor(y_train, dtype=torch.float32).unsqueeze(1)
+X_test_tensor = torch.tensor(X_test, dtype=torch.float32)
+y_test_tensor = torch.tensor(y_test, dtype=torch.float32).unsqueeze(1)
+
+# Define the model with additional hidden layers
+class MultiLayerModel(nn.Module):
+    def __init__(self, input_dim):
+        super(MultiLayerModel, self).__init__()
+        self.fc1 = nn.Linear(input_dim, 32)  # First hidden layer with 32 neurons
+        self.fc2 = nn.Linear(32, 16)        # Second hidden layer with 16 neurons
+        self.fc3 = nn.Linear(16, 1)         # Output layer
+        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.sigmoid(self.fc3(x))
+        return x
+
+# Initialize the model
+input_dim = X_train.shape[1]  # Number of features
+model = MultiLayerModel(input_dim)
+
+# Loss function and optimizer
+criterion = nn.BCELoss()  # Binary Cross-Entropy Loss
+optimizer = optim.Adam(model.parameters(), lr=0.0001)  # Adam optimizer for better performance
+
+# Training loop
+epochs = 10000
+for epoch in range(epochs):
+    model.train()
+    optimizer.zero_grad()
+    outputs = model(X_train_tensor)
+    loss = criterion(outputs, y_train_tensor)
+    loss.backward()
+    optimizer.step()
+
+    if (epoch + 1) % 100 == 0:
+        print(f'Epoch [{epoch + 1}/{epochs}], Loss: {loss.item():.4f}')
+
+# Evaluate the model
+model.eval()
+with torch.no_grad():
+    y_pred = model(X_test_tensor)
+    y_pred_classes = (y_pred > 0.5).float()
+    accuracy = (y_pred_classes.eq(y_test_tensor).sum() / y_test_tensor.shape[0]).item()
+    print(f'Accuracy: {accuracy:.4f}')
+```
+
+</div>
+
+תחילת הפלט וסופו, בדילוג על שורות הביניים:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+Epoch [100/10000], Loss: 0.6881
+Epoch [200/10000], Loss: 0.6791
+...
+Epoch [10000/10000], Loss: 0.3703
+Accuracy: 0.7597
+```
+
+</div>
+
+התוצאה השמורה היא כ־75.97%; מכיוון שהשתנו גם הנרמול וקצב הלמידה, אי אפשר לייחס את ההבדל למספר השכבות בלבד.
+
+<!-- editorlm-source-ref: [sources/ML/converted/Pima_Diabetes/notebook.md#L996-L1180] -->
+
+
 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a href="18-%D7%A1%D7%99%D7%95%D7%95%D7%92%20%D7%A8%D7%91%20%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA.md">→ הקודם</a>
@@ -263,4 +537,4 @@ print(first_accuracy, second_accuracy)
 
 </div>
 
-<!-- editorlm-source-versions: {"schemaVersion": 1, "sources": {"sources/ML/9. רשת נורונים באמצעות מחלקה.pptx": {"sourceSha256": "0f7e97bc3d63fa6002c90ccedb103f532f838984266fcf9ac54c99f87f074d4b", "canonicalTextSha256": "7a16a404b403f81b04552a6b92671cf9655b980935232c6070cf561acc053be2"}, "sources/ML/converted/9_ANN_Class/notebook.md": {"sourceSha256": "5033630e4200fd3dcfe4e6908d24c4b8d81ce0a3708fcd08a4b2e86883078c1e", "canonicalTextSha256": "5033630e4200fd3dcfe4e6908d24c4b8d81ce0a3708fcd08a4b2e86883078c1e"}, "sources/ML/converted/Classified_Iris_FashionMNIST/notebook.md": {"sourceSha256": "7dfb75ffe4938bebf86d7b44c48234583049a6010b19cdb4669b9444dbfe3565", "canonicalTextSha256": "7dfb75ffe4938bebf86d7b44c48234583049a6010b19cdb4669b9444dbfe3565"}, "sources/ML/converted/Pima_Diabetes/notebook.md": {"sourceSha256": "b010efad79c41822f3673a08f1c3620ebe20b583a577cb6b64e72917d5188695", "canonicalTextSha256": "b010efad79c41822f3673a08f1c3620ebe20b583a577cb6b64e72917d5188695"}}} -->
+<!-- editorlm-source-versions: {"schemaVersion":1,"sources":{"sources/ML/converted/Pima_Diabetes/notebook.md":{"sourceSha256":"b010efad79c41822f3673a08f1c3620ebe20b583a577cb6b64e72917d5188695","canonicalTextSha256":"b010efad79c41822f3673a08f1c3620ebe20b583a577cb6b64e72917d5188695"}}} -->

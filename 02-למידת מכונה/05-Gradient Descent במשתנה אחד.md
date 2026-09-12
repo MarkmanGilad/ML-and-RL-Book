@@ -100,23 +100,27 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ב.5 Gradient Descent במשתנה אחד
 
+באימון רשת נוירונים מתחילים מערכים התחלתיים של המשקלים ומעדכנים אותם כדי להקטין את הטעות. **פונקציית ההפסד — Loss**, הנקראת גם פונקציית מחיר — Cost, מתארת את הטעות כתלות במשקלים. אנו מחפשים ערכי משקלים שעבורם ההפסד קטן ככל האפשר.
+
+<!-- editorlm-source-ref: [sources/ML/pdf/4. Gradient Descent.pdf#L8-L14] -->
 
 **[השיעור וההרצאות באתר של גלעד מרקמן](https://webprogramming.azurewebsites.net/Pages/PyTorch/SGD.aspx)**
 
-[פתיחת מחברת Colab 1](https://colab.research.google.com/drive/15eZyICJwZ7G2N2P6uQiRZtXV3o4RdPfe?usp=sharing) · [פתיחת מחברת Colab 2](https://colab.research.google.com/drive/1wTS7NIob52DLTdhGiEcqtDKmjJufPKj3?usp=sharing)
+**חומרי הליווי:** [4. Gradient Descent](../../../sources/ML/4.%20Gradient%20Descent.pptx) · [מחברת Gradient Descent](../../../sources/ML/Colab/4_Gradient_Descent.ipynb) · [מחברת התרגול](../../../sources/ML/converted/4_Gradient_Descent_exe/notebook.md)
 
-**חומרי הליווי:** [4. Gradient Descent](../../../sources/ML/4.%20Gradient%20Descent.pptx) · [4_Gradient_Descent](../../../sources/ML/converted/4_Gradient_Descent/notebook.md) · [4.1_Gradient_Descent_2D](../../../sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md)
+### Gradient Descent — ירידה בגרדיאנט
 
+מתחילים בנקודה כלשהי ומתקדמים בצעדים בכיוון ההפוך לנגזרת. אם הנגזרת חיובית, מקטינים את המשקל; אם היא שלילית, מגדילים אותו. כך מחפשים מינימום מקומי של פונקציית ההפסד.
 
-### מה מחפשים?
+<!-- editorlm-source-ref: [sources/ML/pdf/4. Gradient Descent.pdf#L18-L38] -->
 
-**פונקציית הפסד — Loss** מודדת עד כמה התחזית שגויה. בזמן האימון נרצה למצוא פרמטרים שמקטינים אותה. נתחיל בפונקציה פשוטה של משתנה יחיד, ורק אחר כך נשתמש בשיטה לאימון מודל.
+בפונקציות פשוטות אפשר לחפש נקודות קיצון באמצעות גזירה והשוואת הנגזרת לאפס. ברשת נוירונים פונקציית ההפסד עשויה להיות מורכבת ותלויה בפרמטרים רבים, ולכן משתמשים בעדכונים חוזרים במקום בפתרון אלגברי ישיר.
 
-בדוגמת המחברת הפונקציה היא `L(w) = w² − 4w + 8`. הנגזרת היא `2w − 4`, והמינימום נמצא ב־w=2, שבו ערך הפונקציה 4.
+### שלבי האלגוריתם
 
-### צעד בכיוון הירידה
+מאתחלים את המשקל ואת **קצב הלמידה — learning rate**. בכל איטרציה מחשבים את ההפסד, מחשבים את הנגזרת במעבר לאחור, מעדכנים את המשקל ולבסוף מאפסים את הנגזרת.
 
-בכל צעד מחשבים נגזרת ומעדכנים את המשתנה **בכיוון ההפוך לגרדיאנט**:
+כלל העדכון הוא:
 
 <div class="code-panel" dir="ltr">
 
@@ -126,41 +130,166 @@ w_new = w - learning_rate * gradient
 
 </div>
 
-אם הנגזרת חיובית נקטין את w; אם היא שלילית נגדיל אותו. קצב הלמידה, learning rate, קובע את גודל הצעד.
+לדוגמה, אם הנגזרת היא 2 וקצב הלמידה הוא 0.01, מקטינים את המשקל ב־0.02.
 
-### שני צעדים שנחשב ביד
+<!-- editorlm-source-ref: [sources/ML/pdf/4. Gradient Descent.pdf#L42-L54] -->
 
-נתחיל ב־w=0.5 ונבחר קצב למידה 0.1. הנגזרת היא ‎2×0.5−4=−3. לכן העדכון הוא ‎0.5−0.1×(−3)=0.8. ההפסד יורד מ־6.25 ל־5.44. בצעד הבא הנגזרת ‎−2.4 והמשקל החדש 1.04; ההפסד יורד ל־4.9216.
+### מציאת מינימום של פונקציה פשוטה
 
-| צעד | w לפני העדכון | נגזרת | w לאחר העדכון |
-|---|---:|---:|---:|
-| 1 | 0.5 | −3 | 0.8 |
-| 2 | 0.8 | −2.4 | 1.04 |
-| 3 | 1.04 | −1.92 | 1.232 |
+נדגים את החיפוש על הפונקציה:
 
-ככל שמתקרבים ל־2, הנגזרת קטנה והצעדים קטנים גם כאשר קצב הלמידה קבוע. המחשב אינו יודע מראש שהמינימום ב־2; הוא משתמש במידע המקומי שמספקת הנגזרת.
+$$
+loss = w^2 - 4w + 8
+$$
 
-### מימוש ידני בעזרת Autograd
+נייבא את הספריות ונגדיר את הפונקציה:
 
 <div class="code-panel" dir="ltr">
 
 ```python
 import torch
+import numpy as np
 import matplotlib.pyplot as plt
+```
 
+</div>
+
+
+<div class="code-panel" dir="ltr">
+
+```python
+def Loss(w):
+    return w**2 - 4*w + 8
+```
+
+</div>
+
+ניצור 101 ערכים במרווחים שווים בין 0 ל־4:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# 101 linearly spaced numbers
+w_values = np.linspace(0,4,101)
+print(w_values)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+[0.   0.04 0.08 0.12 0.16 0.2  0.24 0.28 0.32 0.36 0.4  0.44 0.48 0.52
+ 0.56 0.6  0.64 0.68 0.72 0.76 0.8  0.84 0.88 0.92 0.96 1.   1.04 1.08
+ 1.12 1.16 1.2  1.24 1.28 1.32 1.36 1.4  1.44 1.48 1.52 1.56 1.6  1.64
+ 1.68 1.72 1.76 1.8  1.84 1.88 1.92 1.96 2.   2.04 2.08 2.12 2.16 2.2
+ 2.24 2.28 2.32 2.36 2.4  2.44 2.48 2.52 2.56 2.6  2.64 2.68 2.72 2.76
+ 2.8  2.84 2.88 2.92 2.96 3.   3.04 3.08 3.12 3.16 3.2  3.24 3.28 3.32
+ 3.36 3.4  3.44 3.48 3.52 3.56 3.6  3.64 3.68 3.72 3.76 3.8  3.84 3.88
+ 3.92 3.96 4.  ]
+```
+
+</div>
+
+נחשב את ההפסד בכל ערך ונצייר את הפונקציה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Calculate loss values
+loss_values = Loss(w_values)
+
+def graph():
+    plt.plot(w_values,loss_values, 'r')
+    plt.title("loss = w^2 - 4w + 8")
+    plt.ylabel("loss")
+    plt.xlabel("W")
+
+graph()
+# print(w)
+print(loss_values)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+[8.     7.8416 7.6864 7.5344 7.3856 7.24   7.0976 6.9584 6.8224 6.6896
+ 6.56   6.4336 6.3104 6.1904 6.0736 5.96   5.8496 5.7424 5.6384 5.5376
+ 5.44   5.3456 5.2544 5.1664 5.0816 5.     4.9216 4.8464 4.7744 4.7056
+ 4.64   4.5776 4.5184 4.4624 4.4096 4.36   4.3136 4.2704 4.2304 4.1936
+ 4.16   4.1296 4.1024 4.0784 4.0576 4.04   4.0256 4.0144 4.0064 4.0016
+ 4.     4.0016 4.0064 4.0144 4.0256 4.04   4.0576 4.0784 4.1024 4.1296
+ 4.16   4.1936 4.2304 4.2704 4.3136 4.36   4.4096 4.4624 4.5184 4.5776
+ 4.64   4.7056 4.7744 4.8464 4.9216 5.     5.0816 5.1664 5.2544 5.3456
+ 5.44   5.5376 5.6384 5.7424 5.8496 5.96   6.0736 6.1904 6.3104 6.4336
+ 6.56   6.6896 6.8224 6.9584 7.0976 7.24   7.3856 7.5344 7.6864 7.8416
+ 8.    ]
+```
+
+</div>
+
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L14-L108] -->
+
+### מימוש ידני בעזרת Autograd
+
+נאתחל את המשקל ל־5.5 ואת קצב הלמידה ל־0.1, ונבצע 300 איטרציות. העדכון מתבצע בתוך `torch.no_grad()`, ולאחריו מאפסים את הנגזרת לקראת האיטרציה הבאה.
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Initialize weight and parameters
 w = torch.tensor(5.5, requires_grad=True)
 learning_rate = 0.1
-losses = []
 
-for step in range(300):
-    loss = w ** 2 - 4 * w + 8
+for epoch in range (300):
+    # Forward
+    loss = Loss(w)
+
+    # Backward - calculate gradients
     loss.backward()
-    losses.append(loss.item())
+
+    if epoch <= 10:
+        print(f"epoch= {epoch} W= {w.item():.5f} model={loss:.5f} grad= {w.grad:.5f}")
+
+    elif epoch % 10 == 0:
+        print(f"epoch= {epoch} W= {w.item():.5f} model={loss:.5f} grad= {w.grad:.5f}")
+
+    # Update weight
     with torch.no_grad():
         w -= learning_rate * w.grad
+
+    # zero grads
     w.grad.zero_()
 
-print(round(w.item(), 3))
+print(f"End W= {w.item():.3f} model={loss:.3f} ")
+```
+
+</div>
+
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L118-L160] -->
+
+נציג את התוצאה ונסמן אותה על גרף הפונקציה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+min_w = w.item()
+min_loss = loss.item()
+print (min_w, min_loss)
+
+plt.plot(w_values,loss_values, 'r')
+plt.plot(min_w, min_loss, '*')
+plt.title("loss = w^2 - 4w + 8")
+plt.ylabel("loss")
+plt.xlabel("W")
 ```
 
 </div>
@@ -170,43 +299,48 @@ print(round(w.item(), 3))
 <div class="code-panel" dir="ltr">
 
 ```text
-2.0
+2.000000476837158 4.0
 ```
 
 </div>
 
-בכל סיבוב בונים את החישוב מחדש. את עדכון w מבצעים בתוך no_grad כדי שלא יהפוך לחלק מגרף הנגזרות; אחריו מאפסים את הנגזרת לקראת הצעד הבא.
+החיפוש הגיע בקירוב ל־w=2, שבו ההפסד הוא 4.
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L169-L202] -->
+
+### Optimizer SGD
+
+האופטימייזר מעדכן את הפרמטרים לפי הנגזרות וקצב הלמידה. יוצרים אותו באמצעות `torch.optim.SGD` עם רשימת הפרמטרים לעדכון ועם קצב הלמידה; `step()` מעדכנת אותם, ו־`zero_grad()` מאפסת את הנגזרות.
+
+נאתחל הפעם את המשקל ל־3.5 ונבצע 100 איטרציות:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-plt.plot(losses)
-plt.xlabel("Step")
-plt.ylabel("Loss")
-plt.show()
-```
-
-</div>
-
-הגרף מתאר את ההפסד לאורך האימון. ערך הפסד קטן יותר אינו בהכרח אפס: לפונקציה שלנו המינימום הוא 4.
-
-### שימוש באופטימייזר
-
-**אופטימייזר** מנהל את עדכון הפרמטרים. SGD שייך ל־torch.optim. בדוגמה זו הוא מבצע את אותו עדכון שלמדנו; אין כאן דגימה אקראית של נתונים.
-
-<div class="code-panel" dir="ltr">
-
-```python
+# Initialize weight and parameters
 w = torch.tensor(3.5, requires_grad=True)
-optimizer = torch.optim.SGD([w], lr=0.1)
+learning_rate = 0.1
 
-for step in range(100):
-    optimizer.zero_grad()
-    loss = w ** 2 - 4 * w + 8
+# init optimizer
+optimizer = torch.optim.SGD([w], lr=learning_rate)
+
+for epoch in range (100):
+    # Forward
+    loss = Loss(w)
+
+    # Backward - calculate gradients
     loss.backward()
-    optimizer.step()
 
-print(round(w.item(), 3))
+    # Update weight
+    optimizer.step() # w = w - grad * LR
+
+    if epoch % 10 == 0:
+        print(f"epoch= {epoch} w= {w.item():.3f} model={loss:.3f} grad= {w.grad:.3f}")
+
+    # zero Grads
+    optimizer.zero_grad()
+
+print(f"End W= {w.item():.3f} model={loss:.3f} ")
 ```
 
 </div>
@@ -216,137 +350,541 @@ print(round(w.item(), 3))
 <div class="code-panel" dir="ltr">
 
 ```text
-2.0
+epoch= 0 w= 3.200 model=6.250 grad= 3.000
+epoch= 10 w= 2.129 model=4.026 grad= 0.322
+epoch= 20 w= 2.014 model=4.000 grad= 0.035
+epoch= 30 w= 2.001 model=4.000 grad= 0.004
+epoch= 40 w= 2.000 model=4.000 grad= 0.000
+epoch= 50 w= 2.000 model=4.000 grad= 0.000
+epoch= 60 w= 2.000 model=4.000 grad= 0.000
+epoch= 70 w= 2.000 model=4.000 grad= 0.000
+epoch= 80 w= 2.000 model=4.000 grad= 0.000
+epoch= 90 w= 2.000 model=4.000 grad= 0.000
+End W= 2.000 model=4.000
 ```
 
 </div>
 
-זהו רצף שיחזור באימון רשתות: **איפוס נגזרות → חישוב תחזית והפסד → backward → עדכון פרמטרים**.
+בפלט, `model` הוא הכינוי לערך ההפסד. המשקל מודפס אחרי העדכון, ואילו ההפסד והנגזרת חושבו לפניו.
 
-### קצב הלמידה ונקודת ההתחלה
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L213-L269] -->
 
-צעד קטן מדי עשוי להאריך את הדרך. צעד גדול מדי עלול לדלג על האזור המבוקש ואף להרחיק אותנו ממנו. בפונקציה בעלת כמה מינימות גם נקודת ההתחלה משפיעה על התוצאה.
+### קצב הלמידה
 
-<figure>
-<img src="../assets/sources/ML/converted/4_Gradient_Descent/assets/cell-24-output-2-2.png" alt="הפונקציה הרבעית במחברת: שני אזורי מינימום, בעומקים שונים." style="max-width:100%;height:auto;">
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L351] -->
-<figcaption>הפונקציה הרבעית במחברת: שני אזורי מינימום, בעומקים שונים.</figcaption>
-</figure>
+קצב הלמידה, יחד עם הנגזרת, קובע את גודל הצעד בכל איטרציה. קצב קטן מדי עלול להאט את ההתקדמות; קצב גדול מדי עלול לגרום לקפיצות שמתרחקות מהמינימום. בדוגמאות נבחן קצבים שונים ונשווה את התוצאות.
 
-בדוגמה הבאה מתחילים ב־w=2 ומגיעים למינימום המקומי הימני:
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L279-L287] -->
+
+### השפעת הפרמטרים ההתחלתיים
+
+לעיתים האלגוריתם מגיע למינימום מקומי: ערך נמוך בסביבתו הקרובה, אך לא הנמוך ביותר בפונקציה. שינוי נקודת ההתחלה עשוי להוביל לתוצאה אחרת.
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L295-L302] -->
+
+### תרגיל
+
+מצאו מינימום של הפונקציה הבאה. הריצו מנקודות ההתחלה 0, 2 ו־‎−4, והשוו את התוצאות.
+
+$$
+L(w)=w^4+3w^3-w^2-3w
+$$
+
+<!-- editorlm-source-ref: [sources/ML/pdf/4. Gradient Descent.pdf#L177-L184] -->
+
+נגדיר את הפונקציה ונצייר אותה:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-w = torch.tensor(2., requires_grad=True)
-optimizer = torch.optim.SGD([w], lr=0.01)
-for step in range(1000):
-    optimizer.zero_grad()
-    loss = w**4 + 3*w**3 - w**2 - 3*w
-    loss.backward()
-    optimizer.step()
-print(round(w.item(), 3))
+def L (w):
+    return w ** 4 + 3* w**3 - w**2 - 3* w
 ```
 
 </div>
+
+<div class="code-panel" dir="ltr">
+
+```python
+w = np.linspace(-4,2,100)
+
+plt.plot(w, L(w), 'r')
+plt.title("loss = w^4 + 3w^3 - w^2 - 3w")
+plt.ylabel("L")
+plt.xlabel("w")
+```
+
+</div>
+
+
+<figure>
+<img src="../assets/sources/ML/converted/4_Gradient_Descent/assets/cell-24-output-2-2.png" alt="הפונקציה כוללת שני אזורי מינימום בעומקים שונים." style="max-width:100%;height:auto;">
+<figcaption>הפונקציה כוללת שני אזורי מינימום בעומקים שונים.</figcaption>
+</figure>
+
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L320-L351] -->
+
+נריץ את האופטימייזר מנקודת ההתחלה 2, בקצב למידה 0.01, במשך 1,000 איטרציות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Initialize weight and parameters
+W = torch.tensor(2.0, requires_grad=True) # 0.0, 1.0, 2, -1, -4
+learning_rate = 0.01
+
+# init optimizer
+optimizer = torch.optim.SGD([W], lr=learning_rate)
+
+for epoch in range (1000):
+    # Forward
+    l = L(W)
+
+    # Backward - calculate gradients
+    l.backward()
+
+    # Update weight
+    optimizer.step()
+
+    if epoch % 10 == 0:
+        print(f"epoch= {epoch} W= {W.item():.3f} model={l:.3f} grad= {W.grad:.3f}")
+
+    # Zero gradients
+    optimizer.zero_grad()
+
+print(f"End W= {W.item():.3f} model={l:.3f} ")
+```
+
+</div>
+
+השורה האחרונה של הפלט:
 
 **פלט**
 
 <div class="code-panel" dir="ltr">
 
 ```text
-0.607
+End W= 0.607 model=-1.383
 ```
 
 </div>
 
-<figure>
-<img src="../assets/sources/ML/converted/4_Gradient_Descent/assets/cell-28-output-2-2.png" alt="תוצאה שמורה במחברת: החיפוש התכנס למינימום מקומי, המסומן בכוכב." style="max-width:100%;height:auto;">
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L523] -->
-<figcaption>תוצאה שמורה במחברת: החיפוש התכנס למינימום מקומי, המסומן בכוכב.</figcaption>
-</figure>
 
-מינימום מקומי הוא הנמוך ביותר בסביבתו הקרובה, אך ייתכן שבמקום אחר בפונקציה יש ערך נמוך יותר.
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L360-L490] -->
 
-### מתי קצב הלמידה גורם להתבדרות?
-
-בפרבולה שלנו אפשר לחשב בדיוק מה קורה למרחק מהמינימום. אם נסמן `e=w−2`, אז אחרי עדכון אחד נקבל `e_new=(1−2·lr)e`. כדי שהמרחק יקטן, הערך המוחלט של הגורם צריך להיות קטן מ־1. במקרה המסוים הזה נדרש `0<lr<1`.
-
-בקצב 0.1 המרחק מוכפל בכל צעד ב־0.8. בקצב 0.75 הוא מוכפל ב־‎−0.5: עוברים מצד לצד, אך מתקרבים. בקצב 1 חוזרים בין שני צדדים באותו מרחק. בקצב 1.1 המרחק גדל. התחום הזה שייך לפרבולה הזאת בלבד; אם נכפיל את הפונקציה ב־100, גם הנגזרת תגדל פי 100 ונצטרך להתאים את הקצב.
-
-<figure>
-<img src="../assets/sources/ML/converted/4_Gradient_Descent_exe/assets/cell-22-output-2-2.png" alt="הפולינום הרבעי במחברת התרגול: העמק השמאלי והעמק הימני אינם באותו גובה." style="max-width:100%;height:auto;">
-<figcaption>הפולינום הרבעי במחברת התרגול: העמק השמאלי והעמק הימני אינם באותו גובה.</figcaption>
-</figure>
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L383] -->
-
-### דוגמאות ההמשך: אין הבטחה להגיע למינימום הטוב ביותר
-
-מחברת התרגול מחליפה את הפונקציה ומשאירה את עיקרון העדכון. כדאי לקרוא כל גרף בשתי שאלות: לאן הגיע החיפוש, והאם זו בהכרח הנקודה הטובה ביותר?
-
-| פונקציה ונקודת התחלה | תוצאת המסלול המתואר בקירוב | מה לומדים |
-|---|---|---|
-| `x²·sin(x)`, מתחילים ב־2 | קרוב ל־0 מצד ימין | נגזרת קטנה אינה מוכיחה מינימום; כאן x=0 היא נקודת פיתול אופקית |
-| `x²·cos(x)`, מתחילים ב־2 | x≈3.644, ערך ‎−11.638 | ירידה מקומית אינה חיפוש גלובלי על הישר כולו |
-| שני פעמוני גאוס פחות 0.5, מתחילים ב־1.5 | קרוב ל־0, ערך ‎−0.463 | אפשר לעצור בעמק בין שתי פסגות, אף שקיימים ערכים נמוכים ממנו רחוק יותר |
-| `sin(3x)+cos(2x)`, מתחילים ב־0 | x≈−0.767, ערך ‎−0.708 | תנודות יוצרות כמה אזורי משיכה |
-
-בדוגמת הפולינום `w⁴+3w³−w²−3w`, התחלה ב־2 הובילה למינימום הימני שערכו בערך ‎−1.383. התחלה ב־‎−1 מובילה לעמק השמאלי, סביב w=−2.326, שערכו בערך ‎−6.914. שינוי נקודת ההתחלה יכול לשנות את התוצאה גם בלי לשנות את האלגוריתם.
-
-הקוד הבא נותן דרך אחידה לבדוק פונקציות חד־משתניות. שומרים בכל צעד את המיקום ואת ערך הפונקציה **לפני** העדכון, כדי שהנקודה והגובה בגרף יתאימו זה לזה.
+נסמן את התוצאה על גרף הפונקציה:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-def descend_1d(function, start, lr, steps):
-    x = torch.tensor(float(start), requires_grad=True)
-    optimizer = torch.optim.SGD([x], lr=lr)
-    history = []
-    for step in range(steps):
-        optimizer.zero_grad()
-        value = function(x)
-        history.append((x.item(), value.item()))
-        if not torch.isfinite(value):
-            break
-        value.backward()
-        optimizer.step()
-    return x.detach(), history
-
-def two_peaks(x):
-    return (torch.exp(-(x-2)**2)
-            + torch.exp(-(x+2)**2) - 0.5)
-
-x, history = descend_1d(
-    lambda x: x**2 * torch.cos(x),
-    start=2, lr=0.1, steps=300
-)
+plt.plot(w, L(w), 'r')
+plt.title("loss = w^4 + 3w^3 - w^2 - 3w")
+plt.ylabel("L")
+plt.xlabel("w")
+plt.plot(W.item(), l.item(), '*',color='b')
 ```
 
 </div>
 
-בדיקה של מספר התחלות וגרף של הפונקציה עוזרת להבין את המסלול. היא אינה הוכחה מתמטית למציאת מינימום גלובלי. גם תנאי עצירה על נגזרת קטנה בודק שיפוע מקומי בלבד.
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L313-L1097] -->
 
 <figure>
-<img src="../assets/sources/ML/converted/4_Gradient_Descent_exe/assets/cell-36-output-2-2.png" alt="חיפוש על x²·sin(x) במחברת: המסלול מתקרב לאזור שטוח סמוך לאפס. אין לפרש זאת כהוכחה למינימום." style="max-width:100%;height:auto;">
-<figcaption>חיפוש על x²·sin(x) במחברת: המסלול מתקרב לאזור שטוח סמוך לאפס. אין לפרש זאת כהוכחה למינימום.</figcaption>
+<img src="../assets/sources/ML/converted/4_Gradient_Descent/assets/cell-28-output-2-2.png" alt="הכוכב מסמן את המינימום המקומי שאליו הגיע החיפוש מנקודת ההתחלה 2." style="max-width:100%;height:auto;">
+<figcaption>הכוכב מסמן את המינימום המקומי שאליו הגיע החיפוש מנקודת ההתחלה 2.</figcaption>
 </figure>
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L690-L690] -->
+
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L496-L523] -->
+
+
+
+### תרגול נוסף
+
+נריץ תחילה את הפולינום מהסעיף הקודם עם נקודת התחלה ‎−1, בקצב 0.01, במשך 100 איטרציות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Initialize parameter
+W = torch.tensor(-1.0, requires_grad=True) # 0.0, 1.0, 2, -1, -4
+learning_rate = 0.01
+
+# init optimizer
+optimizer = torch.optim.SGD([W], lr=learning_rate)
+
+for epoch in range (100):
+    # Forward
+    l = L(W)
+
+    # Calculate gradients
+    l.backward()
+
+    # Update parameter
+    optimizer.step()
+
+    if epoch % 10 == 0:
+        print(f"epoch= {epoch} W= {W.item():.3f} model={l:.3f} grad= {W.grad:.3f}")
+
+    # Zero gradients
+    optimizer.zero_grad()
+
+print(f"End W= {W.item():.3f} model={l:.3f} ")
+```
+
+</div>
+
+השורה האחרונה של הפלט:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+End W= -2.326 model=-6.914
+```
+
+</div>
+
+
+<div class="code-panel" dir="ltr">
+
+```python
+plt.plot(w, L(w), 'r')
+plt.title("loss = w^4 + 3w^3 - w^2 - 3w")
+plt.ylabel("L")
+plt.xlabel("w")
+plt.plot(W.item(), l.item(), '*',color='b')
+```
+
+</div>
+
+התחלה זו הובילה לעמק השמאלי, שערכו נמוך מזה שהתקבל בהתחלה מ־2.
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L466-L542] -->
+
+כעת נבחן את ארבע הפונקציות הבאות בתחום ‎−5<x<5, לפי סדר התרגילים. בכל דוגמה נגדיר את הפונקציה, נבצע את החיפוש ונציג את התוצאה.
+
+**תרגיל 1 — x² sin(x)**
+
+<div class="code-panel" dir="ltr">
+
+```python
+def F (x):
+    return x**2 * torch.sin(x)
+
+def F_numpy (x):
+    return x**2 * np.sin(x)
+```
+
+</div>
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Initialize parameter
+x = torch.tensor(2, requires_grad=True, dtype=torch.float32)   # -0.1, -5
+learning_rate = 0.1
+
+for epoch in range (300):
+    # Forward
+    f = F(x)
+
+    # Calculate gradients
+    f.backward()
+
+    if epoch <= 10:
+        print(f"epoch= {epoch} W= {x.item():.5f} model={f:.5f} grad= {x.grad:.5f}")
+
+    elif epoch % 10 == 0:
+        print(f"epoch= {epoch} W= {x.item():.5f} model={f:.5f} grad= {x.grad:.5f}")
+
+    # Update parameter
+    with torch.no_grad():
+        x -= learning_rate * x.grad
+
+    # zero grads
+    x.grad.zero_()
+
+print(f"End W= {x.item():.3f} model={f:.3f} ")
+```
+
+</div>
+
+השורה האחרונה של הפלט:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+End W= 0.011 model=0.000
+```
+
+</div>
+
+<div class="code-panel" dir="ltr">
+
+```python
+x_values = np.linspace(-5,5,101)
+f_values = F_numpy(x_values)
+
+plt.plot(x_values, f_values, 'r')
+plt.title("f(x) = x^2 * sin(x)")
+plt.ylabel("F")
+plt.xlabel("x")
+plt.plot(x.item(), f.item(), '*',color='b')
+```
+
+</div>
+
 <figure>
-<img src="../assets/sources/ML/converted/4_Gradient_Descent_exe/assets/cell-43-output-2-2.png" alt="מסלול החיפוש בדוגמת x²·cos(x), כפי שנשמר במחברת." style="max-width:100%;height:auto;">
-<figcaption>מסלול החיפוש בדוגמת x²·cos(x), כפי שנשמר במחברת.</figcaption>
+<img src="../assets/sources/ML/converted/4_Gradient_Descent_exe/assets/cell-36-output-2-2.png" alt="תרגיל 1 — x² sin(x): גרף הפונקציה ונקודת הסיום של החיפוש." style="max-width:100%;height:auto;">
+<figcaption>גרף הפונקציה ונקודת הסיום של החיפוש.</figcaption>
 </figure>
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L823-L823] -->
+
+החיפוש מתקרב לאפס, אך אפס אינו מינימום של הפונקציה: בסמוך לו יש גם ערכים שליליים. לכן תוצאה עם נגזרת קטנה אינה מספיקה כדי לקבוע שנמצא מינימום.
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L559-L690] -->
+
+**תרגיל 2 — x² cos(x)**
+
+<div class="code-panel" dir="ltr">
+
+```python
+def F (x):
+    return x**2 * torch.cos(x)
+
+def F_numpy (x):
+    return x**2 * np.cos(x)
+```
+
+</div>
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Initialize parameter
+x = torch.tensor(2, requires_grad=True, dtype=torch.float32)   # -0.1, -5, 2
+learning_rate = 0.1
+
+for epoch in range (300):
+    # Forward
+    f = F(x)
+
+    # Calculate gradients
+    f.backward()
+
+    if epoch <= 10:
+        print(f"epoch= {epoch} W= {x.item():.5f} model={f:.5f} grad= {x.grad:.5f}")
+
+    elif epoch % 10 == 0:
+        print(f"epoch= {epoch} W= {x.item():.5f} model={f:.5f} grad= {x.grad:.5f}")
+
+    # Update parameter
+    with torch.no_grad():
+        x -= learning_rate * x.grad
+
+    # zero grads
+    x.grad.zero_()
+
+print(f"End W= {x.item():.3f} model={f:.3f} ")
+```
+
+</div>
+
+השורה האחרונה של הפלט:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+End W= 3.644 model=-11.638
+```
+
+</div>
+
+<div class="code-panel" dir="ltr">
+
+```python
+x_values = np.linspace(-5,5,101)
+f_values = F_numpy(x_values)
+
+plt.plot(x_values, f_values, 'r')
+plt.title("f(x) = x^2 * cos(x)")
+plt.ylabel("F")
+plt.xlabel("x")
+plt.plot(x.item(), f.item(), '*',color='b')
+```
+
+</div>
+
+<figure>
+<img src="../assets/sources/ML/converted/4_Gradient_Descent_exe/assets/cell-43-output-2-2.png" alt="תרגיל 2 — x² cos(x): גרף הפונקציה ונקודת הסיום של החיפוש." style="max-width:100%;height:auto;">
+<figcaption>גרף הפונקציה ונקודת הסיום של החיפוש.</figcaption>
+</figure>
 
 
-<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L129] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L271] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L394] -->
-<!-- editorlm-source-ref: [sources/ML/4. Gradient Descent.pptx#L1-L101] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L1-L523] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L1-L415] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md#L1-L508] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md#L1-L646] -->
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L692-L823] -->
+
+**תרגיל 3 — סכום פונקציות מעריכיות**
+
+<div class="code-panel" dir="ltr">
+
+```python
+def F (x):
+    return torch.exp(-(x+2)**2) + torch.exp(-(x-2)**2)-0.5
+
+def F_numpy (x):
+    return np.exp(-(x+2)**2) + np.exp(-(x-2)**2)-0.5
+```
+
+</div>
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Initialize parameter
+x = torch.tensor(1.5, requires_grad=True, dtype=torch.float32)   # -0.1, -5, 2
+learning_rate = 0.1
+
+# init optimizer
+optimizer = torch.optim.SGD([x], lr=learning_rate)
+
+for epoch in range (300):
+    # Forward
+    f = F(x)
+
+    # Calculate gradients
+    f.backward()
+
+    if epoch <= 10:
+        print(f"epoch= {epoch} W= {x.item():.5f} model={f:.5f} grad= {x.grad:.5f}")
+
+    elif epoch % 10 == 0:
+        print(f"epoch= {epoch} W= {x.item():.5f} model={f:.5f} grad= {x.grad:.5f}")
+
+    # Update parameter
+    optimizer.step()
+
+    # zero grads
+    optimizer.zero_grad()
+
+print(f"End W= {x.item():.3f} model={f:.3f} ")
+```
+
+</div>
+
+השורה האחרונה של הפלט:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+End W= 0.000 model=-0.463
+```
+
+</div>
+
+<div class="code-panel" dir="ltr">
+
+```python
+x_values = np.linspace(-5,5,101)
+f_values = F_numpy(x_values)
+
+plt.plot(x_values, f_values, 'r')
+plt.title("f(x) = e^-(x+2)^2 + e^-(x-2)^2 - 0.5")
+plt.ylabel("F")
+plt.xlabel("x")
+plt.plot(x.item(), f.item(), '*',color='b')
+```
+
+</div>
+
+התוצאה נמצאת במינימום המקומי שבין שתי הפסגות.
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L825-L958] -->
+
+**תרגיל 4 — sin(3x) + cos(2x)**
+
+<div class="code-panel" dir="ltr">
+
+```python
+def F (x):
+    return torch.sin(3*x) + torch.cos(2*x)
+
+def F_numpy (x):
+    return np.sin(3*x) + np.cos(2*x)
+```
+
+</div>
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Initialize parameter
+x = torch.tensor(0, requires_grad=True, dtype=torch.float32)   # -0.1, -5, 2
+learning_rate = 0.1
+
+# init optimizer
+optimizer = torch.optim.SGD([x], lr=learning_rate)
+
+for epoch in range (300):
+    # Forward
+    f = F(x)
+
+    # Calculate gradients
+    f.backward()
+
+    if epoch <= 10:
+        print(f"epoch= {epoch} W= {x.item():.5f} model={f:.5f} grad= {x.grad:.5f}")
+
+    elif epoch % 10 == 0:
+        print(f"epoch= {epoch} W= {x.item():.5f} model={f:.5f} grad= {x.grad:.5f}")
+
+    # Update parameter
+    optimizer.step()
+
+    # zero grads
+    optimizer.zero_grad()
+
+print(f"End W= {x.item():.3f} model={f:.3f} ")
+```
+
+</div>
+
+השורה האחרונה של הפלט:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+End W= -0.767 model=-0.708
+```
+
+</div>
+
+<div class="code-panel" dir="ltr">
+
+```python
+x_values = np.linspace(-5,5,101)
+f_values = F_numpy(x_values)
+
+plt.plot(x_values, f_values, 'r')
+plt.title("f(x) = sin(3x) + cos(2x)")
+plt.ylabel("F")
+plt.xlabel("x")
+plt.plot(x.item(), f.item(), '*',color='b')
+```
+
+</div>
+
+
+
+<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L960-L1097] -->
+
 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a href="04-Autograd.md">→ הקודם</a>
@@ -356,4 +894,4 @@ x, history = descend_1d(
 
 </div>
 
-<!-- editorlm-source-versions: {"schemaVersion": 1, "sources": {"sources/ML/4. Gradient Descent.pptx": {"sourceSha256": "b48907df5d0c0c0b1a33b91aaa72327091593bcbc6e52f35f5342e6d140e7037", "canonicalTextSha256": "00c2d04628cae8ae2f273729094b4c0103d0e42bbd6229887328b96e870ec65e"}, "sources/ML/converted/4_Gradient_Descent/notebook.md": {"sourceSha256": "207b2e48facd692f83e0bbe9a9616c5d643dda1fc30f43823eb9141dc9fcd9d2", "canonicalTextSha256": "207b2e48facd692f83e0bbe9a9616c5d643dda1fc30f43823eb9141dc9fcd9d2"}, "sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md": {"sourceSha256": "e5972e87af2be2a5fcbb0a04dcf94634a80eaaa8b305404940bb524b523a998c", "canonicalTextSha256": "e5972e87af2be2a5fcbb0a04dcf94634a80eaaa8b305404940bb524b523a998c"}, "sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md": {"sourceSha256": "6b47acb7a0a43cffd09299b833b02ad1c528fcf7b086602f89951bbfa026f654", "canonicalTextSha256": "6b47acb7a0a43cffd09299b833b02ad1c528fcf7b086602f89951bbfa026f654"}, "sources/ML/converted/4_Gradient_Descent_exe/notebook.md": {"sourceSha256": "f4c557c72e2f515fc58fc598b9b7f3e4aa22020e14400650f1c62e43c2524d4d", "canonicalTextSha256": "f4c557c72e2f515fc58fc598b9b7f3e4aa22020e14400650f1c62e43c2524d4d"}, "sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md": {"sourceSha256": "dc679d567a3fd655c6e8c7b5fa152d2607824344596a70c65a64d1d572efe9e2", "canonicalTextSha256": "dc679d567a3fd655c6e8c7b5fa152d2607824344596a70c65a64d1d572efe9e2"}}} -->
+<!-- editorlm-source-versions: {"schemaVersion": 1, "sources": {"sources/ML/pdf/4. Gradient Descent.pdf": {"sourceSha256": "c18d2622343a1b388da9ab639c4bd006841cf2dda9bb5135d4390db873478c4e", "canonicalTextSha256": "80fecee360f06548411df640cf471709095926be7a3940fc5b99a14bbe235950"}, "sources/ML/converted/4_Gradient_Descent/notebook.md": {"sourceSha256": "207b2e48facd692f83e0bbe9a9616c5d643dda1fc30f43823eb9141dc9fcd9d2", "canonicalTextSha256": "207b2e48facd692f83e0bbe9a9616c5d643dda1fc30f43823eb9141dc9fcd9d2"}, "sources/ML/converted/4_Gradient_Descent_exe/notebook.md": {"sourceSha256": "f4c557c72e2f515fc58fc598b9b7f3e4aa22020e14400650f1c62e43c2524d4d", "canonicalTextSha256": "f4c557c72e2f515fc58fc598b9b7f3e4aa22020e14400650f1c62e43c2524d4d"}}} -->

@@ -100,192 +100,626 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ב.6 Gradient Descent בשני משתנים
 
+פונקציה במשתנה אחד מתארת עקומה במישור. פונקציה בשני משתנים מתארת משטח במרחב: לכל זוג ערכים x ו־y מתאים גובה. כשיש יותר משני משתני קלט, אי אפשר להציג את כל גרף הפונקציה במרחב תלת־ממדי רגיל.
 
-עד עכשיו שינינו מספר אחד ונענו על ציר. כעת נבחר שני מספרים יחד ונחפש נקודה נמוכה על משטח. נתחיל בקערה שאפשר לחשב ביד, ואחריה נבחן משטחים בעלי כמה עמקים. כל צעד משתמש בשתי נגזרות חלקיות שחושבו באותה נקודה.
+גם בפונקציות במספר משתנים אפשר לחפש מינימום מקומי בעזרת Gradient Descent. בכל איטרציה מחשבים נגזרת חלקית לפי כל משתנה ומעדכנים את המשתנים בהתאם לנגזרות ולקצב הלמידה.
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L12-L26] -->
+
+<!-- editorlm-source-ref: [sources/ML/pdf/4. Gradient Descent.pdf#L188-L210] -->
 
 **[השיעור וההרצאות באתר של גלעד מרקמן](https://webprogramming.azurewebsites.net/Pages/PyTorch/SGD.aspx)**
 
-[פתיחת מחברת Colab 1](https://colab.research.google.com/drive/15eZyICJwZ7G2N2P6uQiRZtXV3o4RdPfe?usp=sharing) · [פתיחת מחברת Colab 2](https://colab.research.google.com/drive/1wTS7NIob52DLTdhGiEcqtDKmjJufPKj3?usp=sharing)
+**חומרי הליווי:** [4. Gradient Descent](../../../sources/ML/4.%20Gradient%20Descent.pptx) · [מחברת Gradient Descent 2D](../../../sources/ML/Colab/4.1_Gradient_Descent_2D.ipynb)
 
-**חומרי הליווי:** [4. Gradient Descent](../../../sources/ML/4.%20Gradient%20Descent.pptx) · [4_Gradient_Descent](../../../sources/ML/converted/4_Gradient_Descent/notebook.md) · [4.1_Gradient_Descent_2D](../../../sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md)
-
-### הכנת סביבת הפרק
+נייבא את הספריות:
 
 <div class="code-panel" dir="ltr">
 
 ```python
 import torch
-from torch import nn
 import numpy as np
 import matplotlib.pyplot as plt
-from torch.utils.data import DataLoader, TensorDataset
+```
 
-device = torch.device(
-    "cuda" if torch.cuda.is_available() else "cpu"
-)
+</div>
+
+### פונקציית Peaks
+
+נחפש מינימום של הפונקציה:
+
+$$
+z=3(1-x)^2e^{-x^2-(y+1)^2}
+-10\left(\frac{x}{5}-x^3-y^5\right)e^{-x^2-y^2}
+-\frac{1}{3}e^{-(x+1)^2-y^2}
+$$
+
+הדוגמה מבוססת על הקורס *A deep understanding of deep learning* של Mike X Cohen. במפת הצבעים, צהוב מציין נקודות גבוהות וכחול נקודות נמוכות.
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L35-L52] -->
+
+<!-- editorlm-source-ref: [sources/ML/pdf/4. Gradient Descent.pdf#L213-L218] -->
+
+### הצגת הגרף
+
+נגדיר את הפונקציה באמצעות NumPy. הפעולה `meshgrid` יוצרת רשת של זוגות ערכי x ו־y, שעליה נחשב את גובה המשטח.
+
+<div class="code-panel" dir="ltr">
+
+```python
+# From Udemy, A deep understanding of deep learning, Mike X Cohen
+# the "peaks" function
+def peaks(x,y):
+    # expand to a 2D mesh
+    x,y = np.meshgrid(x,y)
+
+    z = 3*(1-x)**2 * np.exp(-(x**2) - (y+1)**2) \
+            - 10*(x/5 - x**3 - y**5) * np.exp(-x**2-y**2) \
+            - 1/3*np.exp(-(x+1)**2 - y**2)
+    return z
+```
+
+</div>
+
+ניצור את ערכי הצירים ונציג את מפת הצבעים:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# create the landscape
+x = np.linspace(-3,3,201)
+y = np.linspace(-3,3,201)
+
+z = peaks(x,y)
+
+# let's have a look!
+plt.imshow(z,extent=[x[0],x[-1],y[0],y[-1]],vmin=-5,vmax=5,origin='lower')
+plt.show()
+```
+
+</div>
+
+נציג גם את המשטח במרחב:
+
+<div class="code-panel" dir="ltr">
+
+```python
+from matplotlib import projections
+# create a surface plot with the jet color scheme
+figure = plt.figure(figsize=(10, 8))
+axis = plt.subplot(projection='3d')
+grid_x, grid_y = np.meshgrid(x, y)
+axis.plot_surface(grid_x, grid_y, z, cmap='jet', vmin=-5, vmax=5)
+
+# Add labels and a title
+axis.set_xlabel('X-axis')
+axis.set_ylabel('Y-axis')
+axis.set_zlabel('Z-axis (f(x,y))')
+axis.set_title('Peaks')
+
+# Adjust view angle for better visualization
+axis.view_init(elev=30, azim=-45)
+
+# show the plot
+plt.show()
+```
+
+</div>
+
+נחשב את ערך הפונקציה בשלוש נקודות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+print(peaks(0.5,-1.5))
+print(peaks(0.5,2))
+print(peaks(0,0))
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+[[-5.76161334]]
+[[4.56754951]]
+[[0.98101184]]
 ```
 
 </div>
 
 
-### איך קוראים משטח ומפת קווי גובה?
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L57-L147] -->
 
-במשתנה אחד הנקודה נעה על ציר, וערך הפונקציה מוצג כגובה. בשני משתנים המיקום הוא זוג (x,y) והפונקציה היא הגובה מעל המישור. מפת קווי גובה מציגה מבט מלמעלה: כל קו מחבר נקודות בעלות אותו ערך. קווים צפופים עשויים לציין שינוי מהיר בגובה.
+### הגדרת הפונקציה באמצעות טנסורים
 
-הגרדיאנט מכיל שני רכיבים. כל רכיב מתאר שינוי כאשר מזיזים ציר אחד והאחר קבוע. העדכון בו־זמני: מחשבים את שתי הנגזרות באותה נקודה, ואז משנים את שני המשתנים. אין לחשב את הנגזרת השנייה אחרי שכבר שינינו את הראשון, אם רוצים לבצע את צעד הגרדיאנט שהוגדר.
-
-### דוגמה פשוטה לפני Peaks
-
-נבחר קערה `f(x,y)=(x−1)²+2(y+2)²`. המינימום הוא (1,−2), והגרדיאנט הוא `(2(x−1),4(y+2))`. נתחיל ב־(3,0) ונבחר קצב 0.1: הגרדיאנט (4,8), ולכן הנקודה הבאה (2.6,−0.8). ההפסד יורד מ־12 ל־5.44.
+נשתמש בפעולות של PyTorch כדי שנוכל לחשב נגזרות:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-import torch
+def Peaks(x, y):
+    return 3*(1-x)**2 * torch.exp(-(x**2) - (y+1)**2) \
+            - 10*(x/5 - x**3 - y**5) * torch.exp(-x**2-y**2) \
+            - 1/3*torch.exp(-(x+1)**2 - y**2)
+```
 
-point = torch.tensor([3., 0.], requires_grad=True)
-optimizer = torch.optim.SGD([point], lr=0.1)
-path = []
-for step in range(50):
-    optimizer.zero_grad()
-    value = (point[0]-1)**2 + 2*(point[1]+2)**2
-    path.append(point.detach().clone())
-    value.backward()
+</div>
+
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L154-L163] -->
+
+נאתחל את שני המשתנים ואת קצב הלמידה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# Initialize parameters
+X = torch.tensor(1.5, dtype=torch.float32 ,requires_grad=True)
+Y = torch.tensor(-1.0, dtype=torch.float32,requires_grad=True)
+learning_rate = 0.01
+print (X, Y)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor(1.5000, requires_grad=True) tensor(-1., requires_grad=True)
+```
+
+</div>
+
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L168-L184] -->
+
+ניצור אופטימייזר שמקבל את שני המשתנים:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# init optimizer
+optimizer = torch.optim.SGD([X,Y], lr=learning_rate)
+```
+
+</div>
+
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L189-L196] -->
+
+### חישוב Gradient Descent
+
+נבצע 200 איטרציות. בכל איטרציה נשמור את המיקום ברשימות, נחשב את הנגזרות, נעדכן את שני המשתנים ונאפס את הנגזרות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+x_lst, y_lst = [], []
+for epoch in range (200):
+    # Forward
+    Z = Peaks(X,Y)
+
+    x_lst.append(X.item())
+    y_lst.append(Y.item())
+
+    # Calculate gradients
+    Z.backward()
+
+    if epoch % 10 == 0:
+        print(f"epoch= {epoch} \t X,Y = {X.item():.3f}, {Y.item():.3f} \t Z={Z:.3f} \t X_grad, Y_grad= {X.grad:.3f} , {Y.grad:.3f}")
+
+    # Update parameters
     optimizer.step()
-path = torch.stack(path)
-```
 
-</div>
 
-שמירת `clone` חשובה: אנחנו רוצים תמונת מצב של כל צעד, ולא כמה הפניות לאותם ערכים המשתנים בהמשך. אפשר להציג את `path[:,0]` מול `path[:,1]` ולראות את המסלול במישור.
-
-### מעבר לשני משתנים
-
-כעת לכל נקודה יש שני ערכים, x ו־y. לכל אחד מחשבים נגזרת חלקית, ושניהם מתעדכנים. במחברת מדגימים זאת באמצעות פונקציית Peaks:
-
-<div class="code-panel" dir="ltr">
-
-```python
-def peaks(x, y):
-    first = 3 * (1-x)**2 * torch.exp(
-        -x**2 - (y+1)**2)
-    second = -10 * (x/5-x**3-y**5)
-    second *= torch.exp(-x**2-y**2)
-    third = -torch.exp(
-        -(x+1)**2-y**2) / 3
-    return first + second + third
-
-x = torch.tensor(1.5, requires_grad=True)
-y = torch.tensor(-1., requires_grad=True)
-optimizer = torch.optim.SGD([x, y], lr=0.01)
-path = []
-for step in range(200):
-    path.append((x.item(), y.item()))
+    # Zero gradients
     optimizer.zero_grad()
-    loss = peaks(x, y)
-    loss.backward()
+
+print(f"End X,Y = {X.item():.3f}, {Y.item():.3f} Z={Z:.3f}")
+```
+
+</div>
+
+השורה האחרונה של הפלט:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+End X,Y = 0.228, -1.626 Z=-6.551
+```
+
+</div>
+
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L201-L254] -->
+
+נציג את המסלול ואת נקודת הסיום על מפת הפונקציה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+plt.imshow(z,extent=[x[0],x[-1],y[0],y[-1]],vmin=-5,vmax=5,origin='lower')
+plt.plot(x_lst, y_lst, '*', color='pink', markersize=2)
+plt.plot(X.item(), Y.item(),'*', color='red')
+plt.show()
+```
+
+</div>
+
+
+<figure>
+<img src="../assets/sources/ML/converted/4.1_Gradient_Descent_2D/assets/cell-20-output-1-2.png" alt="מסלול החיפוש בוורוד ונקודת הסיום באדום על מפת Peaks." style="max-width:100%;height:auto;">
+<figcaption>מסלול החיפוש בוורוד ונקודת הסיום באדום על מפת Peaks.</figcaption>
+</figure>
+
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L255-L272] -->
+
+כעת שנו את נקודת ההתחלה של Peaks ל־(‎−1, ‎−1) והריצו שוב 200 איטרציות בקצב 0.01. מתקבלת נקודת סיום אחרת:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+End X,Y = -1.347, 0.205 Z=-3.050
+```
+
+</div>
+
+זו דוגמה להשפעת נקודת ההתחלה על המינימום המקומי שאליו מגיע החיפוש.
+<!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md#L162-L261] -->
+
+### תרגיל
+
+הריצו שוב את החיפוש ב־Peaks עם צירופי האתחול וקצב הלמידה הבאים, והסבירו את ההבדלים בתוצאות:
+
+| קצב למידה | x התחלתי | y התחלתי |
+|---|---:|---:|
+| 0.1 | 0 | 1.5 |
+| 0.1 | 0 | 2 |
+| 0.01 | 0 | ‎−1 |
+| 0.01 | ‎−2 | 0 |
+| 0.5 | ‎−2 | 0 |
+
+<!-- editorlm-source-ref: [sources/ML/pdf/4. Gradient Descent.pdf#L302-L310] -->
+
+לאחר מכן חפשו נקודת מינימום של הפונקציה:
+
+$$
+f(x,y)=xe^{-(x^2+y^2)}
+$$
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L273-L286] -->
+
+נציג תחילה את הפונקציה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+def graph(x,y):
+    x,y = np.meshgrid(x,y)
+    return x * np.exp(-(x**2+y**2))
+
+# create the landscape
+x = np.linspace(-3,3,201)
+y = np.linspace(-3,3,201)
+
+z = graph(x,y)
+
+# let's have a look!
+plt.imshow(z,extent=[x[0],x[-1],y[0],y[-1]],vmin=-0.5,vmax=0.5,origin='lower')
+plt.show()
+```
+
+</div>
+
+נגדיר אותה באמצעות טנסורים ונריץ 2,000 איטרציות מנקודת ההתחלה (0.5, 1):
+
+<div class="code-panel" dir="ltr">
+
+```python
+def f(x,y):
+    return x * torch.exp(-(x**2+y**2))
+
+x_lst, y_lst = [], []
+# Initialize parameters
+X = torch.tensor(0.5, dtype=torch.float32 ,requires_grad=True)
+Y = torch.tensor(1, dtype=torch.float32,requires_grad=True)
+learning_rate = 0.01
+
+# init optimizer
+optimizer = torch.optim.SGD([X,Y], lr=learning_rate)
+
+for epoch in range(2000):
+    # Forward
+    F = f(X,Y)
+
+    x_lst.append(X.item())
+    y_lst.append(Y.item())
+
+    # Calculate gradients
+    F.backward()
+
+    # Update parameters
     optimizer.step()
+
+    if epoch % 100 == 0:
+        print(f"epoch= {epoch} \t X,Y = {X.item():.3f}, {Y.item():.3f} \t F={F:.3f} \t X_grad, Y_grad= {X.grad:.3f} , {Y.grad:.3f}")
+
+    # zero Grads
+    optimizer.zero_grad()
+
+print(f"End X,Y = {X.item():.3f}, {Y.item():.3f} F={F:.3f}")
 ```
 
 </div>
 
-<figure>
-<img src="../assets/sources/ML/converted/4.1_Gradient_Descent_2D/assets/cell-10-output-1-2.png" alt="משטח Peaks מתוך המחברת: גובה המשטח הוא ערך הפונקציה." style="max-width:100%;height:auto;">
-<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L129] -->
-<figcaption>משטח Peaks מתוך המחברת: גובה המשטח הוא ערך הפונקציה.</figcaption>
-</figure>
+השורה האחרונה של הפלט:
 
-<figure>
-<img src="../assets/sources/ML/converted/4.1_Gradient_Descent_2D/assets/cell-20-output-1-2.png" alt="מסלול החיפוש על מפת גבהים. כל נקודה במסלול היא זוג ערכים של x ו־y." style="max-width:100%;height:auto;">
-<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L271] -->
-<figcaption>מסלול החיפוש על מפת גבהים. כל נקודה במסלול היא זוג ערכים של x ו־y.</figcaption>
-</figure>
+**פלט**
 
-בתוצאה השמורה מתקבלים בקירוב x=0.228, y=−1.626 וערך פונקציה −6.551. כאן ממזערים פונקציה מתמטית, ולכן ערך שלילי תקין.
+<div class="code-panel" dir="ltr">
 
-בדוגמה נוספת במחברת מחליפים את הביטוי בפונקציה הבאה, מתחילים ב־x=0.5, y=1 ומבצעים 2,000 צעדים:
+```text
+End X,Y = -0.707, 0.000 F=-0.429
+```
+
+</div>
+
+בפלט שבתוך לולאה זו, x ו־y מוצגים אחרי העדכון, ואילו ערך הפונקציה והנגזרות חושבו לפניו.
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L287-L377] -->
+
+נציג את מסלול החיפוש:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-loss = x * torch.exp(-(x**2 + y**2))
+plt.imshow(z,extent=[x[0],x[-1],y[0],y[-1]],vmin=-0.5,vmax=0.5,origin='lower')
+plt.plot(x_lst, y_lst, '*', color='pink', markersize=2)
+plt.plot(X.item(), Y.item(),'*', color='red')
+plt.show()
 ```
 
 </div>
 
+
 <figure>
-<img src="../assets/sources/ML/converted/4.1_Gradient_Descent_2D/assets/cell-26-output-1-2.png" alt="המסלול בדוגמה השנייה מתעקל בדרך למינימום סמוך ל־x=−0.707 ול־y=0." style="max-width:100%;height:auto;">
-<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L394] -->
-<figcaption>המסלול בדוגמה השנייה מתעקל בדרך למינימום סמוך ל־x=−0.707 ול־y=0.</figcaption>
+<img src="../assets/sources/ML/converted/4.1_Gradient_Descent_2D/assets/cell-26-output-1-2.png" alt="מסלול החיפוש ונקודת הסיום ליד x=−0.707 ו־y=0." style="max-width:100%;height:auto;">
+<figcaption>מסלול החיפוש ונקודת הסיום ליד x=−0.707 ו־y=0.</figcaption>
 </figure>
 
-הנוסחאות משתנות, אך מנגנון האימון נשאר אותו מנגנון. המחברת מציינת שחלק מהדגמות שני המשתנים מבוססות על חומר של Mike X Cohen.
-
-<!-- editorlm-source-ref: [sources/ML/4. Gradient Descent.pptx#L1-L101] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L1-L523] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L1-L415] -->
-
-### משפחת הדוגמאות בשני משתנים
-
-ב־Peaks שינוי ההתחלה ל־(−1,−1) עשוי להביא לעמק אחר, סביב (−1.347,0.205), שערכו ‎−3.050. זהו אותו רעיון של כמה מינימות, אך כעת אפשר להגיע אליהן במסלולים המתעקלים במישור.
-
-שתי מחברות ההמשך כוללות גם פונקציות מבחן פולינומיות. נכתוב את כל פונקציה בשם ברור, ונעביר לאופטימייזר בדיוק את המשתנים שבהם היא משתמשת.
+נציג גם את המשטח במרחב:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-def three_hump(x, y):
-    return 2*x**2 - 1.05*x**4 + x**6/6 + x*y + y**2
-
-def six_hump(x, y):
-    return (x**2 * (4 - 2.1*x**2 + x**4/3)
-            + x*y + y**2 * (-4 + 4*y**2))
-
-def descend_2d(function, start, lr=0.01, steps=2000):
-    p = torch.tensor(start, dtype=torch.float32,
-                     requires_grad=True)
-    optimizer = torch.optim.SGD([p], lr=lr)
-    path = []
-    for step in range(steps):
-        optimizer.zero_grad()
-        value = function(p[0], p[1])
-        path.append(p.detach().clone())
-        value.backward()
-        optimizer.step()
-    return p.detach(), torch.stack(path)
-
-point, path = descend_2d(six_hump, [0.5, -0.5])
+# create a surface plot with the jet color scheme
+figure = plt.figure()
+axis = plt.subplot(projection='3d')
+grid_x, grid_y = np.meshgrid(x, y)
+axis.plot_surface(grid_x, grid_y, z, cmap='jet')
+# show the plot
+plt.show()
 ```
 
 </div>
 
-בדוגמת three_hump המסלול במחברת מגיע בקירוב ל־(0,0), עם ערך 0. בדוגמת six_hump מופיע מינימום סמוך ל־(0.090,−0.713), שערכו ‎−1.032. שימו לב לסימנים בנוסחה ולשם הפונקציה בשרטוט: גרף של פונקציה אחת אינו בדיקה של אימון פונקציה אחרת.
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L378-L415] -->
+
+
+
+### תרגילים נוספים
+
+המשיכו בחיפוש מינימום לשתי הפונקציות הבאות. שימו לב לתחומי הצירים ולתחומי הצבעים `vmin` ו־`vmax` בגרפים.
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md#L280-L286] -->
+
+
+**תרגיל 2**
+
+$$
+f(x_1,x_2)=2x_1^2-1.05x_1^4+\frac{x_1^6}{6}+x_1x_2+x_2^2
+$$
+
+נגדיר את הפונקציה ונציג אותה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+def F(x1,x2):
+    return 2*x1**2 - 1.05*x1**4 + x1**6 / 6 + x1*x2 + x2**2
+
+# create the landscape
+x1_v = np.linspace(-3,3,201)
+x2_v = np.linspace(-3,3,201)
+x1_mesh,x2_mesh = np.meshgrid(x1_v,x2_v)
+
+z = F(x1_mesh,x2_mesh)
+
+# let's have a look!
+plt.imshow(z,extent=[x1_v[0],x1_v[-1],x2_v[0],x2_v[-1]],vmin=-0.5,vmax=2,origin='lower')
+plt.show()
+```
+
+</div>
+
+נריץ את החיפוש מנקודת ההתחלה (1, 0), בקצב 0.01, במשך 2,000 איטרציות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+x1_lst, x2_lst = [], []
+# Initialize parameters
+x1 = torch.tensor(1, dtype=torch.float32 ,requires_grad=True)
+x2 = torch.tensor(0, dtype=torch.float32,requires_grad=True)
+learning_rate = 0.01
+
+# init optimizer
+optimizer = torch.optim.SGD([x1,x2], lr=learning_rate)
+
+for epoch in range(2000):
+    # Forward
+    f = F(x1,x2)
+
+    x1_lst.append(x1.item())
+    x2_lst.append(x2.item())
+
+    # Calculate gradients
+    f.backward()
+
+    # Update parameters
+    optimizer.step()
+
+    if epoch % 100 == 0:
+        print(f"epoch= {epoch} \t X,Y = {x1.item():.3f}, {x2.item():.3f} \t F={f.item():.3f} \t X_grad, Y_grad= {x1.grad:.3f} , {x2.grad:.3f}")
+
+    # zero Grads
+    optimizer.zero_grad()
+
+print(f"End X,Y = {x1.item():.3f}, {x2.item():.3f} F={f:.3f}")
+```
+
+</div>
+
+השורה האחרונה של הפלט:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+End X,Y = 0.000, -0.000 F=0.000
+```
+
+</div>
+
+נציג את המסלול:
+
+<div class="code-panel" dir="ltr">
+
+```python
+plt.imshow(z,extent=[x1_v[0],x1_v[-1],x2_v[0],x2_v[-1]],vmin=-0.5,vmax=2,origin='lower')
+plt.plot(x1_lst, x2_lst, '*', color='pink', markersize=2)
+plt.plot(x1.item(), x2.item(),'*', color='red')
+plt.show()
+```
+
+</div>
 
 <figure>
-<img src="../assets/sources/ML/converted/4.2_Gradient_Descent_2D.ipynb%20-%20%D7%A4%D7%AA%D7%A8%D7%95%D7%9F%20%D7%AA%D7%A8%D7%92%D7%99%D7%9C%D7%99%D7%9D/assets/cell-25-output-1-2.png" alt="משטח הפונקציה x·exp(−x²−y²) במחברת ההמשך." style="max-width:100%;height:auto;">
-<figcaption>משטח הפונקציה x·exp(−x²−y²) במחברת ההמשך.</figcaption>
+<img src="../assets/sources/ML/converted/4.2_Gradient_Descent_2D.ipynb%20-%20%D7%A4%D7%AA%D7%A8%D7%95%D7%9F/assets/cell-34-output-1-2.png" alt="תרגיל 2: המסלול בוורוד ונקודת הסיום באדום." style="max-width:100%;height:auto;">
+<figcaption>המסלול בוורוד ונקודת הסיום באדום.</figcaption>
 </figure>
-<!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md#L302] --><figure>
-<img src="../assets/sources/ML/converted/4.2_Gradient_Descent_2D.ipynb%20-%20%D7%A4%D7%AA%D7%A8%D7%95%D7%9F%20%D7%AA%D7%A8%D7%92%D7%99%D7%9C%D7%99%D7%9D/assets/cell-28-output-1-2.png" alt="מסלול על קווי הגובה של אותה פונקציה: הרכיבים משתנים יחד לאורך החיפוש." style="max-width:100%;height:auto;">
-<figcaption>מסלול על קווי הגובה של אותה פונקציה: הרכיבים משתנים יחד לאורך החיפוש.</figcaption>
+
+<!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md#L416-L530] -->
+
+**תרגיל 3**
+
+$$
+f(x_1,x_2)=x_1^2\left(4-2.1x_1^2+\frac{x_1^4}{3}\right)+x_1x_2+x_2^2(-4+4x_2^2)
+$$
+
+נגדיר את הפונקציה ונציג אותה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+def F(x1,x2):
+    return x1**2*(4-2.1*x1**2 + x1**4/3) + x1*x2 + x2**2 * (-4 + 4 * x2**2)
+
+# create the landscape
+x1_v = np.linspace(-2,2,201)
+x2_v = np.linspace(-1.2,1.2,201)
+x1_mesh,x2_mesh = np.meshgrid(x1_v,x2_v)
+
+z = F(x1_mesh,x2_mesh)
+
+# let's have a look!
+plt.imshow(z,extent=[x1_v[0],x1_v[-1],x2_v[0],x2_v[-1]],vmin=-1,vmax=1,origin='lower')
+plt.show()
+```
+
+</div>
+
+נריץ את החיפוש מנקודת ההתחלה (1, 0), בקצב 0.01, במשך 2,000 איטרציות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+x1_lst, x2_lst = [], []
+# Initialize parameters
+x1 = torch.tensor(1, dtype=torch.float32 ,requires_grad=True)
+x2 = torch.tensor(0, dtype=torch.float32,requires_grad=True)
+learning_rate = 0.01
+
+# init optimizer
+optimizer = torch.optim.SGD([x1,x2], lr=learning_rate)
+
+for epoch in range(2000):
+    # Forward
+    f = F(x1,x2)
+
+    x1_lst.append(x1.item())
+    x2_lst.append(x2.item())
+
+    # Calculate gradients
+    f.backward()
+
+    # Update parameters
+    optimizer.step()
+
+    if epoch % 100 == 0:
+        print(f"epoch= {epoch} \t X,Y = {x1.item():.3f}, {x2.item():.3f} \t F={f.item():.3f} \t X_grad, Y_grad= {x1.grad:.3f} , {x2.grad:.3f}")
+
+    # zero Grads
+    optimizer.zero_grad()
+
+print(f"End X,Y = {x1.item():.3f}, {x2.item():.3f} F={f:.3f}")
+```
+
+</div>
+
+השורה האחרונה של הפלט:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+End X,Y = 0.090, -0.713 F=-1.032
+```
+
+</div>
+
+נציג את המסלול:
+
+<div class="code-panel" dir="ltr">
+
+```python
+plt.imshow(z,extent=[x1_v[0],x1_v[-1],x2_v[0],x2_v[-1]],vmin=-0.5,vmax=2,origin='lower')
+plt.plot(x1_lst, x2_lst, '*', color='pink', markersize=2)
+plt.plot(x1.item(), x2.item(),'*', color='red')
+plt.show()
+```
+
+</div>
+
+<figure>
+<img src="../assets/sources/ML/converted/4.2_Gradient_Descent_2D.ipynb%20-%20%D7%A4%D7%AA%D7%A8%D7%95%D7%9F/assets/cell-39-output-1-2.png" alt="תרגיל 3: המסלול בוורוד ונקודת הסיום באדום." style="max-width:100%;height:auto;">
+<figcaption>המסלול בוורוד ונקודת הסיום באדום.</figcaption>
 </figure>
-<!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md#L399] --><figure>
-<img src="../assets/sources/ML/converted/4.2_Gradient_Descent_2D.ipynb%20-%20%D7%A4%D7%AA%D7%A8%D7%95%D7%9F%20%D7%AA%D7%A8%D7%92%D7%99%D7%9C%D7%99%D7%9D/assets/cell-35-output-1-2.png" alt="מסלול החיפוש בפונקציית six-hump camel מתוך הפלט השמור במחברת." style="max-width:100%;height:auto;">
-<figcaption>מסלול החיפוש בפונקציית six-hump camel מתוך הפלט השמור במחברת.</figcaption>
-</figure>
-<!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md#L469] -->
 
-### מה הקשר לאימון רשת?
-
-ברשת יש בדרך כלל הרבה יותר משני פרמטרים, ולכן אי אפשר לצייר את משטח ההפסד כולו. העיקרון נשאר: מחשבים נגזרת חלקית לכל פרמטר, ומעדכנים את כולם לפי אותה פונקציית הפסד. ההדמיות בשני משתנים נותנות לנו אפשרות לראות התנהגות שאחר כך נזהה רק דרך עקומות הפסד ומדדי בדיקה.
-<!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md#L1-L508] --><!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md#L1-L646] -->
-
-
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L351] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent/notebook.md#L523] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L313-L1097] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L690-L690] -->
-<!-- editorlm-source-ref: [sources/ML/converted/4_Gradient_Descent_exe/notebook.md#L823-L823] -->
+<!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md#L532-L646] -->
 
 
 <nav class="book-nav" aria-label="ניווט בספר">
@@ -296,4 +730,4 @@ point, path = descend_2d(six_hump, [0.5, -0.5])
 
 </div>
 
-<!-- editorlm-source-versions: {"schemaVersion": 1, "sources": {"sources/ML/4. Gradient Descent.pptx": {"sourceSha256": "b48907df5d0c0c0b1a33b91aaa72327091593bcbc6e52f35f5342e6d140e7037", "canonicalTextSha256": "00c2d04628cae8ae2f273729094b4c0103d0e42bbd6229887328b96e870ec65e"}, "sources/ML/converted/4_Gradient_Descent/notebook.md": {"sourceSha256": "207b2e48facd692f83e0bbe9a9616c5d643dda1fc30f43823eb9141dc9fcd9d2", "canonicalTextSha256": "207b2e48facd692f83e0bbe9a9616c5d643dda1fc30f43823eb9141dc9fcd9d2"}, "sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md": {"sourceSha256": "e5972e87af2be2a5fcbb0a04dcf94634a80eaaa8b305404940bb524b523a998c", "canonicalTextSha256": "e5972e87af2be2a5fcbb0a04dcf94634a80eaaa8b305404940bb524b523a998c"}, "sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md": {"sourceSha256": "6b47acb7a0a43cffd09299b833b02ad1c528fcf7b086602f89951bbfa026f654", "canonicalTextSha256": "6b47acb7a0a43cffd09299b833b02ad1c528fcf7b086602f89951bbfa026f654"}, "sources/ML/converted/4_Gradient_Descent_exe/notebook.md": {"sourceSha256": "f4c557c72e2f515fc58fc598b9b7f3e4aa22020e14400650f1c62e43c2524d4d", "canonicalTextSha256": "f4c557c72e2f515fc58fc598b9b7f3e4aa22020e14400650f1c62e43c2524d4d"}, "sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md": {"sourceSha256": "dc679d567a3fd655c6e8c7b5fa152d2607824344596a70c65a64d1d572efe9e2", "canonicalTextSha256": "dc679d567a3fd655c6e8c7b5fa152d2607824344596a70c65a64d1d572efe9e2"}}} -->
+<!-- editorlm-source-versions: {"schemaVersion": 1, "sources": {"sources/ML/pdf/4. Gradient Descent.pdf": {"sourceSha256": "c18d2622343a1b388da9ab639c4bd006841cf2dda9bb5135d4390db873478c4e", "canonicalTextSha256": "80fecee360f06548411df640cf471709095926be7a3940fc5b99a14bbe235950"}, "sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md": {"sourceSha256": "e5972e87af2be2a5fcbb0a04dcf94634a80eaaa8b305404940bb524b523a998c", "canonicalTextSha256": "e5972e87af2be2a5fcbb0a04dcf94634a80eaaa8b305404940bb524b523a998c"}, "sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md": {"sourceSha256": "6b47acb7a0a43cffd09299b833b02ad1c528fcf7b086602f89951bbfa026f654", "canonicalTextSha256": "6b47acb7a0a43cffd09299b833b02ad1c528fcf7b086602f89951bbfa026f654"}, "sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md": {"sourceSha256": "dc679d567a3fd655c6e8c7b5fa152d2607824344596a70c65a64d1d572efe9e2", "canonicalTextSha256": "dc679d567a3fd655c6e8c7b5fa152d2607824344596a70c65a64d1d572efe9e2"}}} -->

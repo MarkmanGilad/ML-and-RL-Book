@@ -100,274 +100,622 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ב.13 רשת נוירונים — זיהוי הספרה 7
 
+רשת נוירונים מלאכותית — **Artificial Neural Network, ANN** — מחברת יחידות חישוב זו לזו: תוצאות החישוב של יחידות בשכבה אחת משמשות קלט ליחידות בשכבה הבאה.
+
+<!-- editorlm-source-ref: [sources/ML/pdf/8. רשת נורונים ANN.pdf#L8-L12] -->
 
 **[השיעור וההרצאות באתר של גלעד מרקמן](https://webprogramming.azurewebsites.net/Pages/PyTorch/ANN.aspx)**
 
-**חומרי הליווי:** [8. רשת נורונים ANN](../../../sources/ML/8.%20%D7%A8%D7%A9%D7%AA%20%D7%A0%D7%95%D7%A8%D7%95%D7%A0%D7%99%D7%9D%20ANN.pptx) · [8_ANN_MNIST](../../../sources/ML/converted/8_ANN_MNIST/notebook.md) · [5.4_Linear_Regresion-Limitation](../../../sources/ML/converted/5.4_Linear_Regresion-Limitation/notebook.md) · [Moon](../../../sources/ML/converted/Moon/notebook.md) · [Fashion_MNIST](../../../sources/ML/converted/Fashion_MNIST/notebook.md) · [EMNIST](../../../sources/ML/converted/EMNIST/notebook.md)
+**חומרי הליווי:** [8. רשת נורונים ANN](../../../sources/ML/8.%20%D7%A8%D7%A9%D7%AA%20%D7%A0%D7%95%D7%A8%D7%95%D7%A0%D7%99%D7%9D%20ANN.pptx) · [מחברת MNIST](../../../sources/ML/Colab/8_ANN_MNIST.ipynb)
+
+### שכבות ברשת
+
+ברשת **Fully Connected**, כל יחידה מקבלת את תוצאות כל היחידות בשכבה הקודמת. מחלקים את הרשת לשכבת קלט, שכבות חבויות ושכבת פלט. מבנה הפלט נקבע לפי השאלה: עבור תשובה בינארית נשתמש ביחידת פלט אחת.
+
+<!-- editorlm-source-ref: [sources/ML/pdf/8. רשת נורונים ANN.pdf#L14-L25] -->
+
+### הגדרת רשת ב־PyTorch
+
+נגדיר את הרשת באמצעות `nn.Sequential`, עם שכבות לינאריות ופונקציות אקטיבציה. מספר הפלטים של שכבה חייב להתאים למספר הקלטים של השכבה הבאה; האימון נשאר כפי שהכרנו.
+
+זו תבנית לרשת בעלת שתי שכבות חבויות וארבעה פלטים. גדלי השכבות ו־`device` צריכים להיות מוגדרים לפני השימוש בה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+Model = nn.Sequential(
+    nn.Linear(input_size, hidden_size_1, device=device),
+    nn.ReLU(),
+    nn.Linear(hidden_size_1, hidden_size_2, device=device),
+    nn.ReLU(),
+    nn.Linear(hidden_size_2, 4, device=device),
+    nn.Sigmoid()
+)
+```
+
+</div>
 
 
-### משכבה אחת לרשת
+<!-- editorlm-source-ref: [sources/ML/pdf/8. רשת נורונים ANN.pdf#L27-L45] -->
 
-עד עכשיו השתמשנו בשכבה לינארית אחת. **רשת נוירונים מלאכותית — ANN** מחברת כמה שכבות. שכבת הקלט מקבלת את התכונות, שכבות חבויות בונות ייצוגים חדשים, ושכבת הפלט מפיקה את התחזית.
+### בחירת מבנה הרשת
 
-בשכבה **Fully Connected** כל פלט תלוי בכל הקלטים של אותה שכבה. בין שכבות לינאריות מוסיפים אקטיבציה לא לינארית, כגון ReLU. בלי אקטיבציה כזאת, שרשרת שכבות לינאריות נשארת חישוב לינארי.
+מספר השכבות והיחידות נקבע בניסוי ובבדיקת התוצאות. בשכבות החבויות מקובל להשתמש ב־ReLU או Leaky ReLU. בשכבת הפלט בוחרים לפי המשימה:
 
-### מעבר קדימה ברשת קטנה שאפשר לחשב ביד
+- תשובה בינארית: Sigmoid עם BCE.
+- מספר קטגוריות: Cross Entropy; להצגת הסתברויות משתמשים ב־Softmax.
+- תשובה מספרית: MSE, עם פלט לינארי או אקטיבציה המתאימה לטווח התשובות.
 
-נבחר שני קלטים x₁=1 ו־x₂=2. היחידה החבויה הראשונה תחשב `h₁=ReLU(x₁−x₂+1)=0`; השנייה תחשב `h₂=ReLU(2x₁+x₂)=4`. יחידת הפלט תחבר `z=0.5h₁+0.25h₂−0.5=0.5`. הפעלת Sigmoid תיתן הסתברות כ־0.6225.
+כפי שראינו בפרק הקודם, BCE אינה מקבלת ישירות ערכי Tanh שליליים, ו־`nn.CrossEntropyLoss` מקבלת את הציונים שלפני Softmax.
 
-הדוגמה מראה מדוע מספר הקלטים של שכבה חייב להתאים למספר הפלטים של קודמתה: הפלט קיבל שני מספרים, h₁ ו־h₂. גם כשיש 100 יחידות, אותו עיקרון נשמר. במקום לחשב כל יחידה בנפרד, כפל מטריצות מחשב את השכבה כולה.
+<!-- editorlm-source-ref: [sources/ML/pdf/8. רשת נורונים ANN.pdf#L47-L56] -->
 
-אם נשמיט את האקטיבציות בין שתי שכבות, נקבל `W₂(W₁x+b₁)+b₂`, שאפשר לכתוב כשכבה אחת עם משקל `W₂W₁` והטיה `W₂b₁+b₂`. הגדלת מספר השכבות לבדה אינה יוצרת יכולת לא לינארית; האקטיבציות הן שמונעות את הצמצום הזה.
+### המשימה — זיהוי ספרה בודדת
 
-### מה מתעדכן בזמן backpropagation?
+MNIST מכיל 70,000 תמונות של ספרות בכתב יד, בגודל 28×28 פיקסלים בגוני אפור. לכל תמונה מצורפת תווית המציינת את הספרה. נבחר את הספרה 7 ונבנה מודל שמחליט אם התמונה מציגה אותה או ספרה אחרת.
 
-ההפסד תלוי בפלט, הפלט תלוי בשכבה החבויה, והיא תלויה במשקלים הראשונים. כלל השרשרת מעביר את השפעת ההפסד לאחור בכל המסלולים האלה. `loss.backward()` מחשבת את הנגזרות של כל הפרמטרים הרשומים; אין לולאת אימון נפרדת לכל שכבה. כל הרשת מתאימה את עצמה לאותה מטרה.
+<!-- editorlm-source-ref: [sources/ML/pdf/8. רשת נורונים ANN.pdf#L58-L74] -->
 
-<figure>
-<img src="../assets/slides/d7f4427fe8/image10.png" alt="רשת קטנה מן המצגת: תוצאות היחידות בשכבה אחת משמשות כקלט לחישוב הבא." style="max-width:100%;height:auto;">
-<figcaption>רשת קטנה מן המצגת: תוצאות היחידות בשכבה אחת משמשות כקלט לחישוב הבא.</figcaption>
-</figure>
-<!-- editorlm-source-ref: [sources/ML/1. מבוא והתקנה.pptx#L29-L34] -->
+### הזנת תמונה לרשת
 
-### המשימה: האם זו הספרה 7?
+כל תמונה מיוצגת כטנסור בצורה `[1, 28, 28]`. נשטח אותה לשורה של 784 ערכי פיקסלים; בקבוצה של 50 תמונות נקבל טבלה בצורה `[50, 784]`.
 
-מאגר **MNIST** מכיל תמונות של ספרות בכתב יד: 60,000 תמונות אימון ו־10,000 תמונות בדיקה. גודל כל תמונה 28×28 פיקסלים בגוני אפור.
+<!-- editorlm-source-ref: [sources/ML/pdf/8. רשת נורונים ANN.pdf#L76-L81] -->
 
-בפרק זה נפתור בעיה בינארית בלבד: 7 או לא 7. בפרק ב.17 נעבור לזיהוי כל עשר הספרות.
+### Torchvision ו־DataLoader
+
+Torchvision מספקת מאגרי תמונות ובהם MNIST. באמצעות DataLoader מחלקים את הנתונים לקבוצות — **batches**.
+
+בכל קבוצה נחשב תחזיות, הפסד ונגזרות, ונעדכן את המשקלים. מעבר על כל קבוצות האימון נקרא **epoch**; אפשר לחזור על המעבר כמה פעמים.
+
+<!-- editorlm-source-ref: [sources/ML/pdf/8. רשת נורונים ANN.pdf#L83-L100] -->
+
+### שלבי העבודה והייבוא
+
+נכין את הנתונים, נגדיר את הפרמטרים, המודל, ההפסד והאופטימייזר, נבצע אימון ולבסוף נציג את התוצאות.
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L11-L24] -->
+
 
 <div class="code-panel" dir="ltr">
 
 ```python
 import torch
-from torch import nn
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
+import torch.nn as nn
+import numpy as np
 import matplotlib.pyplot as plt
-
-device = torch.device(
-    "cuda" if torch.cuda.is_available()
-    else "cpu"
-)
-transform = transforms.ToTensor()
-train_data = datasets.MNIST(
-    root="data", train=True,
-    download=True, transform=transform
-)
-test_data = datasets.MNIST(
-    root="data", train=False,
-    download=True, transform=transform
-)
+import torchvision
+import torchvision.transforms as transforms
+from torch.utils.data import DataLoader
 ```
 
 </div>
 
-ToTensor ממירה כל תמונה לטנסור, ובתמונות אלה ממירה את עוצמות הפיקסלים לטווח 0–1. צורת תמונה בודדת היא `[1,28,28]`: ערוץ אחד, גובה ורוחב.
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L26-L37] -->
+
+### בחירת התקן החישוב
+
+נבחר GPU כאשר הוא זמין, ואחרת CPU:
+
+<div class="code-panel" dir="ltr">
+
+```python
+if torch.cuda.is_available():
+    device = torch.device('cuda')
+else:
+    device = torch.device('cpu')
+print(device)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L42-L59] -->
+
+הקוד ידפיס `cuda` או `cpu`, בהתאם להתקן שנבחר.
+
+### טעינת MNIST
+
+נטען בנפרד את קבוצת האימון ואת קבוצת הבדיקה. `ToTensor` ממירה את התמונות לטנסורים, עם ערכי פיקסלים בין 0 ל־1.
+
+<div class="code-panel" dir="ltr">
+
+```python
+train_dataset = torchvision.datasets.MNIST(root='./data',
+                                           train=True,
+                                           transform=transforms.ToTensor(),
+                                           download=True)
+
+test_dataset = torchvision.datasets.MNIST(root='./data',
+                                          train=False,
+                                          transform=transforms.ToTensor(),
+                                          download=True)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L68-L81] -->
+
+נציג את פרטי שתי הקבוצות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+print(train_dataset)
+print(test_dataset)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+Dataset MNIST
+    Number of datapoints: 60000
+    Root location: ./data
+    Split: Train
+    StandardTransform
+Transform: ToTensor()
+Dataset MNIST
+    Number of datapoints: 10000
+    Root location: ./data
+    Split: Test
+    StandardTransform
+Transform: ToTensor()
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L82-L106] -->
+
+### חלוקה לאצוות
+
+נגדיר אצוות של 50 תמונות. נערבב את סדר דוגמאות האימון:
+
+<div class="code-panel" dir="ltr">
+
+```python
+batch_size = 50
+
+train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
+                                           batch_size=batch_size,
+                                           shuffle=True)
+
+test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
+                                          batch_size=batch_size,
+                                          shuffle=False)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L111-L124] -->
+
+נבדוק את מספר האצוות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+print(len(train_loader))
+print(len(test_loader))
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+1200
+200
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L125-L139] -->
+
+מתקבלות 1,200 אצוות אימון ו־200 אצוות בדיקה.
+
+### שליפת אצווה והצגת תמונות
+
+ניצור איטרטור ונשלוף את האצווה הראשונה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+examples = iter(test_loader)
+example_data, example_targets = next(examples)
+# example_data, example_targets = next(examples)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L140-L148] -->
+
+
+<div class="code-panel" dir="ltr">
+
+```python
+print(example_data.shape, example_targets.shape)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+torch.Size([50, 1, 28, 28]) torch.Size([50])
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L149-L161] -->
+
+נשלוף את האצווה הבאה מאותו איטרטור:
+
+<div class="code-panel" dir="ltr">
+
+```python
+example_data, example_targets = next(examples)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L162-L167] -->
+
+נציג תשע תמונות, נדפיס את תוויותיהן ואת צורתן, וגם שורת פיקסלים מאחת התמונות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+for i in range(9):
+    plt.subplot(3,3,i+1)
+    plt.imshow(example_data[i][0], cmap='gray')
+    print(example_targets[i].item(), example_data[i].shape)
+plt.show()
+print(example_data[7][0][13])
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+6 torch.Size([1, 28, 28])
+3 torch.Size([1, 28, 28])
+5 torch.Size([1, 28, 28])
+5 torch.Size([1, 28, 28])
+6 torch.Size([1, 28, 28])
+0 torch.Size([1, 28, 28])
+4 torch.Size([1, 28, 28])
+1 torch.Size([1, 28, 28])
+9 torch.Size([1, 28, 28])
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.3922, 0.9882, 0.9529, 0.0392, 0.0000,
+        0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+        0.0000])
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L168-L212] -->
+
 
 <figure>
-<img src="../assets/sources/ML/converted/8_ANN_MNIST/assets/cell-16-output-2-2.png" alt="דוגמאות ספרות מתוך המחברת. הפיקסלים הבהירים מתארים את הכתב." style="max-width:100%;height:auto;">
-<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L201] -->
-<figcaption>דוגמאות ספרות מתוך המחברת. הפיקסלים הבהירים מתארים את הכתב.</figcaption>
+<img src="../assets/sources/ML/converted/8_ANN_MNIST/assets/cell-16-output-2-2.png" alt="תשע תמונות מהאצווה שנשלפה." style="max-width:100%;height:auto;">
+<figcaption>תשע תמונות מהאצווה שנשלפה.</figcaption>
 </figure>
 
-### אצוות — Batches
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L201-L201] -->
 
-**DataLoader** מחזיר בכל פעם אצווה של דוגמאות. כך אין צורך להעביר את כל המאגר למודל בבת אחת. ערבוב נתוני האימון משנה את סדר הדוגמאות בכל מעבר.
+### הגדרת הפרמטרים והמודל
 
-<div class="code-panel" dir="ltr">
-
-```python
-train_loader = DataLoader(
-    train_data, batch_size=50, shuffle=True
-)
-test_loader = DataLoader(
-    test_data, batch_size=50, shuffle=False
-)
-images, labels = next(iter(train_loader))
-print(images.shape)
-print(labels.shape)
-```
-
-</div>
-
-**פלט**
-
-<div class="code-panel" dir="ltr">
-
-```text
-torch.Size([50, 1, 28, 28])
-torch.Size([50])
-```
-
-</div>
-
-מעבר על כל נתוני האימון נקרא **Epoch**. באצוות של 50 יש 1,200 אצוות אימון בכל epoch, ולא 50 אצוות.
-
-### מבנה הרשת
-
-משטחים כל תמונה ל־784 מספרים. הרשת מעבירה אותם ל־100 יחידות חבויות, מפעילה ReLU, ומפיקה הסתברות אחת באמצעות Sigmoid.
+נגדיר 784 קלטים, 100 יחידות חבויות, שני מעברים על המאגר וקצב למידה 0.01. `required_label` מגדיר את הספרה שאותה נזהה.
 
 <div class="code-panel" dir="ltr">
 
 ```python
-model = nn.Sequential(
-    nn.Linear(784, 100),
+input_size = 28*28 # 784
+hidden_size = 100
+epochs = 2
+learning_rate = 0.01
+required_label = 7
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L221-L230] -->
+
+ניצור את השכבות הלינאריות על התקן החישוב שנבחר, עם ReLU בשכבה החבויה ו־Sigmoid בפלט:
+
+<div class="code-panel" dir="ltr">
+
+```python
+Model = nn.Sequential(
+    nn.Linear(input_size,hidden_size,device=device),
     nn.ReLU(),
-    nn.Linear(100, 1),
+    nn.Linear(hidden_size, 1, device=device),
     nn.Sigmoid()
-).to(device)
-loss_function = nn.BCELoss()
-optimizer = torch.optim.Adam(
-    model.parameters(), lr=0.01
 )
 ```
 
 </div>
 
-### כמה מספרים הרשת לומדת?
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L235-L246] -->
 
-בשכבה הראשונה יש ‎784×100 משקלים ועוד 100 הטיות: 78,500 פרמטרים. בשכבת הפלט יש 100 משקלים והטיה אחת: 101. בסך הכול 78,601 פרמטרים נלמדים. ל־ReLU ול־Sigmoid אין פרמטרים בדוגמה הזאת.
-
-<div class="code-panel" dir="ltr">
-
-```python
-print(sum(p.numel() for p in model.parameters()))
-```
-
-</div>
-
-**פלט**
-
-<div class="code-panel" dir="ltr">
-
-```text
-78601
-```
-
-</div>
-
-784 הוא מספר תכונות הקלט, ואינו מספר המשקלים הכולל. הוספת יחידות חבויות מגדילה את גמישות המודל, אך גם את מספר הפרמטרים ואת כמות החישוב. בוחנים את התועלת בעזרת נתונים שלא שימשו לעדכון המשקלים.
-
-### דוגמה, אצווה ותקופת אימון
-
-`Dataset` יודע להחזיר דוגמה; `DataLoader` אוסף כמה דוגמאות לאצווה. בקריאה `next(iter(loader))` יוצרים איטרטור חדש ולוקחים את האצווה הראשונה שלו. כדי להתקדם לאצווה הבאה מאותו מעבר שומרים את האיטרטור וקוראים שוב ל־`next`.
-
-במאגר של 60,000 דוגמאות ובאצוות של 50, שתי תקופות כוללות 2,400 עדכוני משקלים. כל עדכון משתמש במשקלים שהשתנו בעדכון הקודם. הפסד של אצווה יכול לעלות כי האצווה קשה יותר; אין לצפות לירידה בכל עדכון בודד.
-
-כשמחשבים הפסד ממוצע לתקופה, מכפילים את הפסד כל אצווה במספר דוגמאותיה, מסכמים ומחלקים במספר הדוגמאות הכולל. כך גם אצווה אחרונה קטנה מקבלת משקל נכון.
-
-### הכנת התוויות ואימון
-
-ההשוואה labels==7 יוצרת תווית בינארית. ממירים אותה ל־float ולצורה `[batch,1]`, כדי שתתאים לפלט הרשת.
+אפשר גם ליצור את הרשת ולהעביר אותה בשלמותה באמצעות `.to(device)`; זו החלופה המופיעה בהערות:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-for epoch in range(2):
-    model.train()
-    total_loss = 0.
-    for images, labels in train_loader:
-        x = images.reshape(-1, 784).to(device)
-        y = (labels == 7).float()
-        y = y.reshape(-1, 1).to(device)
+# Model = nn.Sequential(
+#     nn.Linear(input_size,hidden_size),
+#     nn.ReLU(),
+#     nn.Linear(hidden_size, 1),
+#     nn.Sigmoid()
+# ).to(device)
+```
 
-        optimizer.zero_grad()
-        probability = model(x)
-        loss = loss_function(probability, y)
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L247-L258] -->
+
+### פונקציית ההפסד והאופטימייזר
+
+<div class="code-panel" dir="ltr">
+
+```python
+Loss = nn.BCELoss()
+
+# init optimizer
+optim = torch.optim.Adam(Model.parameters(), lr=learning_rate)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L263-L273] -->
+
+### לולאת האימון
+
+בכל אצווה נשטח את התמונות, נעביר את התמונות והתוויות לאותו התקן ונמיר את התוויות ל־1 עבור הספרה 7 ול־0 עבור היתר. לאחר מכן נחשב את ההפסד והנגזרות ונעדכן את המשקלים.
+
+<div class="code-panel" dir="ltr">
+
+```python
+n_total_steps = len(train_loader)
+
+
+for epoch in range(epochs): # 2
+    for i, (images, lables) in enumerate(train_loader):
+
+        # origin shape: [50, 1, 28, 28]
+        # resized: [50, 784]
+        images = images.reshape(-1, 28*28).to(device)
+        lables = lables.reshape(-1,1).to(device)
+        lables = (torch.eq(lables, required_label)).float()
+
+        # forward
+        Y_predict = Model(images)
+
+        # backward
+        # optim.zero_grad()
+        loss = Loss(Y_predict, lables)
         loss.backward()
-        optimizer.step()
-        total_loss += loss.item() * len(images)
 
-    mean_loss = total_loss / len(train_data)
-    print(epoch + 1, mean_loss)
+        # update wights
+        optim.step()
+
+        if (i + epoch * n_total_steps) % 100 == 0:
+            print(f"epoch= {epoch} i= {i} num= {i+epoch * n_total_steps} loss={loss.item():.4f} ")
+
+        # zero grads
+        optim.zero_grad()
 ```
 
 </div>
 
-בכל אצווה מתבצע עדכון משקלים אחד. אנחנו שומרים מספר רגיל מתוך loss באמצעות item, ולא את כל גרף החישוב.
-
-### בדיקה על תמונות שלא שימשו לאימון
-
-<div class="code-panel" dir="ltr">
-
-```python
-model.eval()
-correct = 0
-total = 0
-with torch.no_grad():
-    for images, labels in test_loader:
-        x = images.reshape(-1, 784).to(device)
-        predicted = model(x).flatten() >= 0.5
-        expected = (labels == 7).to(device)
-        correct += (predicted == expected).sum().item()
-        total += len(labels)
-print(f"Accuracy: {100 * correct / total:.2f}%")
-```
-
-</div>
-
-במחברת נשמרה תוצאה של:
+תחילת הפלט השמור וסופו:
 
 **פלט**
 
 <div class="code-panel" dir="ltr">
 
 ```text
-Accuracy: 99.21%
+epoch= 0 i= 0 num= 0 loss=1.2409 
+epoch= 0 i= 100 num= 100 loss=0.1208 
+epoch= 0 i= 200 num= 200 loss=0.0162 
+epoch= 0 i= 300 num= 300 loss=0.0307 
+...
+epoch= 1 i= 1100 num= 2300 loss=0.0035
 ```
 
 </div>
 
-זהו דיוק של ההחלטה **7 או לא 7**, ולא דיוק בזיהוי עשר ספרות. גם מודל שעונה תמיד ״לא 7״ צודק ברבות מהתמונות; לכן מועיל לבדוק בנפרד גם תמונות של 7 וגם תמונות שאינן 7.
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L282-L344] -->
 
-### הצגת תחזיות לצד התמונות
+הפלט הוא דוגמה שמורה; האתחול האקראי וערבוב הדוגמאות עשויים לשנות את הערכים בהרצה חדשה.
+
+נציג את התוויות הבינאריות של האצווה האחרונה:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-images, labels = next(iter(test_loader))
+print(lables)
+```
+
+</div>
+
+תחילת הפלט השמור וסופו:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([[0.],
+        [0.],
+        [0.],
+        [0.],
+...
+        [0.]], device='cuda:0')
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L345-L407] -->
+
+ואת התחזיות שחושבו עבורה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+print(Y_predict)
+```
+
+</div>
+
+תחילת הפלט השמור וסופו:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+tensor([[2.7814e-10],
+        [7.6960e-14],
+        [2.5009e-10],
+        [1.0268e-11],
+...
+        [4.0485e-08]], device='cuda:0', grad_fn=<SigmoidBackward0>)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L408-L469] -->
+
+### בדיקת המודל
+
+נעבור על כל אצוות הבדיקה, נעגל את פלט הרשת ונספור את הסיווגים הנכונים:
+
+<div class="code-panel" dir="ltr">
+
+```python
 with torch.no_grad():
-    x = images.reshape(-1, 784).to(device)
-    predicted = (model(x).flatten() >= 0.5).cpu()
-fig, axes = plt.subplots(2, 5, figsize=(8, 4))
-for i, ax in enumerate(axes.flat):
-    ax.imshow(images[i, 0], cmap="gray")
-    ax.set_title(
-        f"7? {int(predicted[i])}; digit {labels[i]}"
-    )
-    ax.axis("off")
+    n_correct = 0
+    n_samples = 0
+    for images, lables in test_loader:
+        images = images.reshape(-1, 28*28).to(device)
+        lables = lables.reshape(-1,1).to(device)
+        lables = (torch.eq(lables, required_label)).float()
+        y_predict = Model(images).round()
+        # print(y_predict.T)
+        # print(lables.T)
+
+        n_samples += lables.size(0)
+        n_correct += (y_predict == lables).sum().item()
+
+    acc = 100 * n_correct / n_samples
+    print(f'Accuracy of the network on the {n_samples} test images: {acc} %')
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+Accuracy of the network on the 10000 test images: 99.21 %
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L474-L503] -->
+
+זהו דיוק בסיווג **7 או לא 7**, ולא בזיהוי כל עשר הספרות.
+
+### הצגת התחזיות לצד התמונות
+
+נשלוף שוב את האצווה הראשונה מקבוצת הבדיקה. נדפיס לכל תמונה את פלט הרשת, הספרה האמיתית והסיווג לאחר העיגול:
+
+<div class="code-panel" dir="ltr">
+
+```python
+print(len(test_loader))
+print (n_samples)
+print(lables.shape)
+examples = iter(test_loader)
+example_data, example_targets = next(examples)
+example_data = example_data.to(device)
+example_targets = example_targets.to(device)
+example_predict = Model(example_data.reshape(-1, 28*28)).T #.round()
+example_predict.shape
+for i in range(len(example_data)):
+    print (round(example_predict[0,i].item(),4), example_targets[i].item(), round(example_predict[0,i].item()) )
+```
+
+</div>
+
+תחילת הפלט השמור וסופו:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+200
+10000
+torch.Size([50, 1])
+0.9999 7 1
+...
+0.0 4 0
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L504-L580] -->
+
+נציג את כל 50 התמונות. בכל כותרת מופיעים הסיווג הבינארי ולאחריו הספרה האמיתית:
+
+<div class="code-panel" dir="ltr">
+
+```python
+plt.figure(figsize=(15, 10))  # Width: 15 inches, Height: 10 inches
+for i in range(len(example_data)):
+    plt.subplot(10,5,i+1)
+    plt.title(str(round(example_predict[0,i].item())) +","+ str(example_targets[i].item()) )
+    plt.imshow(example_data[i][0].cpu(), cmap='gray')
 plt.tight_layout()
 plt.show()
 ```
 
 </div>
 
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L581-L600] -->
+
+
 <figure>
-<img src="../assets/sources/ML/converted/8_ANN_MNIST/assets/cell-32-output-1-2.png" alt="הצגת 50 תחזיות בפלט המקורי: בכותרת כל תמונה מופיעים הסיווג הבינארי והספרה האמיתית." style="max-width:100%;height:auto;">
-<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L600] -->
-<figcaption>הצגת 50 תחזיות בפלט המקורי: בכותרת כל תמונה מופיעים הסיווג הבינארי והספרה האמיתית.</figcaption>
+<img src="../assets/sources/ML/converted/8_ANN_MNIST/assets/cell-32-output-1-2.png" alt="50 תמונות: סיווג בינארי וספרה אמיתית בכותרת כל תמונה." style="max-width:100%;height:auto;">
+<figcaption>50 תמונות: סיווג בינארי וספרה אמיתית בכותרת כל תמונה.</figcaption>
 </figure>
 
-הקוד שלפנינו מציג עשר תמונות כדי לשמור על קריאות. אפשר לשנות את מספר השורות והעמודות כדי להציג יותר.
+<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L600-L600] -->
 
 
-<!-- editorlm-source-ref: [sources/ML/converted/5.4_Linear_Regresion-Limitation/notebook.md#L4231] -->
-<!-- editorlm-source-ref: [sources/ML/converted/5.4_Linear_Regresion-Limitation/notebook.md#L4569] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L308] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L38-L38] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L72-L72] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L106-L106] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Fashion_MNIST/notebook.md#L194] -->
-<!-- editorlm-source-ref: [sources/ML/converted/EMNIST/notebook.md#L186] -->
-<!-- editorlm-source-ref: [sources/ML/8. רשת נורונים ANN.pptx#L1-L121] -->
-<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L1-L600] -->
-<!-- editorlm-source-ref: [sources/ML/converted/5.4_Linear_Regresion-Limitation/notebook.md#L1-L4590] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L1-L308] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Fashion_MNIST/notebook.md#L1-L517] -->
-<!-- editorlm-source-ref: [sources/ML/converted/EMNIST/notebook.md#L1-L615] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Fashion_MNIST - unsolved/notebook.md#L1-L104] -->
-<!-- editorlm-source-ref: [sources/ML/converted/EMNIST - unsolved/notebook.md#L1-L253] -->
-<!-- editorlm-source-ref: [sources/ML/converted/EMNIST/notebook.md#L615-L615] -->
 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a href="12-%D7%A8%D7%92%D7%A8%D7%A1%D7%99%D7%94%20%D7%9C%D7%95%D7%92%D7%99%D7%AA.md">→ הקודם</a>
@@ -377,4 +725,4 @@ plt.show()
 
 </div>
 
-<!-- editorlm-source-versions: {"schemaVersion": 1, "sources": {"sources/ML/8. רשת נורונים ANN.pptx": {"sourceSha256": "cb0ea33d522c66cf67afe5f7bbdf050ce207e0aaf08ddf695156ce1d01ee96e2", "canonicalTextSha256": "9f25a888efe932535fc280d60b75b25fe8b74dc05ee3d87e9e8f29b6dd7b3bfd"}, "sources/ML/converted/8_ANN_MNIST/notebook.md": {"sourceSha256": "6b122579197bdfc71afc7510728cd17344b20b04f6ea6197a9699440ee3e6ede", "canonicalTextSha256": "6b122579197bdfc71afc7510728cd17344b20b04f6ea6197a9699440ee3e6ede"}, "sources/ML/converted/5.4_Linear_Regresion-Limitation/notebook.md": {"sourceSha256": "f44c2c2a3a476b01ba6b68ea0bd0e85a4cd7007e0678c34c5ea0ee6bc3c99563", "canonicalTextSha256": "f44c2c2a3a476b01ba6b68ea0bd0e85a4cd7007e0678c34c5ea0ee6bc3c99563"}, "sources/ML/converted/Moon/notebook.md": {"sourceSha256": "bfdb56fd97fdc59a74d75c33fb5616d6de8fae016ab30e3aa7205ed69d7e03d2", "canonicalTextSha256": "bfdb56fd97fdc59a74d75c33fb5616d6de8fae016ab30e3aa7205ed69d7e03d2"}, "sources/ML/converted/Fashion_MNIST/notebook.md": {"sourceSha256": "8ce43ae443894758da6d70962314d8229b340ba9fdc4eb7e7688e87a60b0c6f2", "canonicalTextSha256": "8ce43ae443894758da6d70962314d8229b340ba9fdc4eb7e7688e87a60b0c6f2"}, "sources/ML/converted/EMNIST/notebook.md": {"sourceSha256": "6fc38665167ae58bb2cea5d5cef3ac8452219f6a1043c34d4671c9f810aed853", "canonicalTextSha256": "6fc38665167ae58bb2cea5d5cef3ac8452219f6a1043c34d4671c9f810aed853"}, "sources/ML/1. מבוא והתקנה.pptx": {"sourceSha256": "cc614ed332af917ea4116f22f36868e183726b3a444d235c07551c32ca4e16fd", "canonicalTextSha256": "162ea4af01c5d7238e8852c7861210896f3cecb964a804686a36b600191ed501"}, "sources/ML/converted/EMNIST - unsolved/notebook.md": {"sourceSha256": "ef7571438ea64ea15cb66da21898dfacca624b5a698f455583e87f035d7caf3e", "canonicalTextSha256": "ef7571438ea64ea15cb66da21898dfacca624b5a698f455583e87f035d7caf3e"}, "sources/ML/converted/Fashion_MNIST - unsolved/notebook.md": {"sourceSha256": "685f265a5b852b9aeef72efd79fc4018f349d9c9f0bc6109e6e35bc04375cfde", "canonicalTextSha256": "685f265a5b852b9aeef72efd79fc4018f349d9c9f0bc6109e6e35bc04375cfde"}}} -->
+<!-- editorlm-source-versions: {"schemaVersion":1,"sources":{"sources/ML/converted/8_ANN_MNIST/notebook.md":{"sourceSha256":"6b122579197bdfc71afc7510728cd17344b20b04f6ea6197a9699440ee3e6ede","canonicalTextSha256":"6b122579197bdfc71afc7510728cd17344b20b04f6ea6197a9699440ee3e6ede"},"sources/ML/pdf/8. רשת נורונים ANN.pdf":{"sourceSha256":"0c16c420b28170d1d258cd20b02c63f1d7f5cae01120592e60d07cdc7e374357","canonicalTextSha256":"0fe2e77e96bb5106cc0c058824efecc459da22c3d82b1d26ce4b6ab092e77ed8"}}} -->

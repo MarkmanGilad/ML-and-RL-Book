@@ -100,158 +100,407 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ב.15 Moon — ללמוד גבול סיווג שאינו ישר
 
-
-מחיר הוא מספר רציף, ואילו כאן לכל נקודה במישור יש קטגוריה. נבדוק מדוע קו ישר אינו מספיק לשתי קבוצות בצורת סהר, ונאמן רשת בעלת שתי שכבות חבויות. לאחר מכן נצייר את החלטותיה בנקודות חדשות.
+נבחן שלושה מבנים של נתונים בשתי קטגוריות: סהרונים, אשכולות וטבעות. לאחר מכן נאמן רשת על הסהרונים ונציג כיצד היא מסווגת נקודות נוספות במישור.
 
 **[השיעור וההרצאות באתר של גלעד מרקמן](https://webprogramming.azurewebsites.net/Pages/PyTorch/ANN.aspx)**
 
-**חומרי הליווי:** [8. רשת נורונים ANN](../../../sources/ML/8.%20%D7%A8%D7%A9%D7%AA%20%D7%A0%D7%95%D7%A8%D7%95%D7%A0%D7%99%D7%9D%20ANN.pptx) · [8_ANN_MNIST](../../../sources/ML/converted/8_ANN_MNIST/notebook.md) · [5.4_Linear_Regresion-Limitation](../../../sources/ML/converted/5.4_Linear_Regresion-Limitation/notebook.md) · [Moon](../../../sources/ML/converted/Moon/notebook.md) · [Fashion_MNIST](../../../sources/ML/converted/Fashion_MNIST/notebook.md) · [EMNIST](../../../sources/ML/converted/EMNIST/notebook.md)
+**חומרי הליווי:** [מצגת רשת נוירונים ANN](../../../sources/ML/8.%20%D7%A8%D7%A9%D7%AA%20%D7%A0%D7%95%D7%A8%D7%95%D7%A0%D7%99%D7%9D%20ANN.pptx) · [מחברת Moon](../../../sources/ML/Colab/Moon.ipynb)
 
-### הכנת סביבת הפרק
+### סהרונים — Moons
 
-<div class="code-panel" dir="ltr">
-
-```python
-import torch
-from torch import nn
-import numpy as np
-import matplotlib.pyplot as plt
-from torch.utils.data import DataLoader, TensorDataset
-
-device = torch.device(
-    "cuda" if torch.cuda.is_available() else "cpu"
-)
-```
-
-</div>
-
-
-### דוגמת Moon: גבול סיווג שאינו ישר
-
-במחברת Moon שתי קבוצות נקודות בצורת סהר. לכל נקודה שני קלטים, x₁ ו־x₂, ותווית בינארית. לפני האימון המחברת מציגה גם קבוצות blobs וטבעות circles כדי להשוות בין מבנים גאומטריים.
+ניצור 1,000 נקודות בשתי קבוצות בצורת סהר, עם רעש 0.1:
 
 <div class="code-panel" dir="ltr">
 
 ```python
 from sklearn.datasets import make_moons
+
+X, y = make_moons(
+    n_samples=1000,
+    noise=0.1,
+    random_state=42
+)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L7-L18] -->
+
+נציג את הנקודות בצבעים לפי הקטגוריה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+import matplotlib.pyplot as plt
+
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", s=20)
+plt.xlabel("x1")
+plt.ylabel("x2")
+plt.title("make_moons dataset")
+plt.show()
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L19-L39] -->
+
+
+<figure>
+<img src="../assets/sources/ML/converted/Moon/assets/cell-2-output-1-2.png" alt="שתי קבוצות בצורת סהר." style="max-width:100%;height:auto;">
+<figcaption>שתי קבוצות בצורת סהר.</figcaption>
+</figure>
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L38] -->
+
+### אשכולות — Blobs
+
+ניצור 1,000 נקודות סביב שני מרכזים:
+
+<div class="code-panel" dir="ltr">
+
+```python
+from sklearn.datasets import make_blobs
+
+X, y = make_blobs(
+    n_samples=1000,
+    centers=2,
+    cluster_std=1.0,
+    random_state=42
+)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L40-L53] -->
+
+
+<div class="code-panel" dir="ltr">
+
+```python
+plt.figure()
+plt.scatter(X[:, 0], X[:, 1], c=y)
+plt.xlabel("x1")
+plt.ylabel("x2")
+plt.title("make_blobs")
+plt.show()
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L54-L73] -->
+
+
+<figure>
+<img src="../assets/sources/ML/converted/Moon/assets/cell-4-output-1-2.png" alt="שתי קבוצות נקודות סביב מרכזים." style="max-width:100%;height:auto;">
+<figcaption>שתי קבוצות נקודות סביב מרכזים.</figcaption>
+</figure>
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L72] -->
+
+### טבעות — Circles
+
+ניצור שתי טבעות, עם רעש 0.05 ויחס רדיוסים 0.5:
+
+<div class="code-panel" dir="ltr">
+
+```python
+from sklearn.datasets import make_circles
+
+X, y = make_circles(
+    n_samples=1000,
+    noise=0.05,
+    factor=0.5,
+    random_state=42
+)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L74-L87] -->
+
+
+<div class="code-panel" dir="ltr">
+
+```python
+plt.figure()
+plt.scatter(X[:, 0], X[:, 1], c=y)
+plt.xlabel("x1")
+plt.ylabel("x2")
+plt.title("make_circles")
+plt.show()
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L88-L107] -->
+
+
+<figure>
+<img src="../assets/sources/ML/converted/Moon/assets/cell-6-output-1-2.png" alt="קבוצה פנימית וקבוצה המקיפה אותה." style="max-width:100%;height:auto;">
+<figcaption>קבוצה פנימית וקבוצה המקיפה אותה.</figcaption>
+</figure>
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L106] -->
+
+### הכנת דוגמת האימון
+
+נייבא את הספריות הדרושות לאימון:
+
+<div class="code-panel" dir="ltr">
+
+```python
+import numpy as np
+import torch
+import torch.nn as nn
+from torch.utils.data import TensorDataset, DataLoader
+from sklearn.datasets import make_moons
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+```
 
-x_array, y_array = make_moons(
-    n_samples=2000, noise=0.15, random_state=42
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L108-L119] -->
+
+ניצור הפעם 2,000 נקודות בצורת סהר, עם רעש 0.15, ונחלק ל־80% אימון ו־20% בדיקה. הפרמטר `stratify=y` שומר בקירוב על יחס הקטגוריות בחלוקה.
+
+<div class="code-panel" dir="ltr">
+
+```python
+# -----------------------
+# 1) Create dataset
+# -----------------------
+X, y = make_moons(n_samples=2000, noise=0.15, random_state=42)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
 )
-x_train, x_test, y_train, y_test = (
-    train_test_split(
-        x_array, y_array, test_size=0.2,
-        random_state=42, stratify=y_array
-    )
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L120-L132] -->
+
+נגדיר פונקציה להצגת הנתונים ונפעיל אותה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+def plot_moons ():
+    plt.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", s=20)
+    plt.xlabel("x1")
+    plt.ylabel("x2")
+    plt.title("make_moons dataset")
+
+plot_moons ()
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L133-L153] -->
+
+
+<figure>
+<img src="../assets/sources/ML/converted/Moon/assets/cell-9-output-1-2.png" alt="נתוני הסהרונים שישמשו בדוגמת האימון." style="max-width:100%;height:auto;">
+<figcaption>נתוני הסהרונים שישמשו בדוגמת האימון.</figcaption>
+</figure>
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L152] -->
+
+### טנסורים ואצוות
+
+נמיר את הקלטים והתוויות לטנסורים. `TensorDataset` מצמידה כל קלט לתווית שלו; נגדיר אצוות אימון של 64 דוגמאות ואצוות בדיקה של 256.
+
+<div class="code-panel" dir="ltr">
+
+```python
+# To torch tensors
+X_train_t = torch.tensor(X_train, dtype=torch.float32)
+y_train_t = torch.tensor(y_train, dtype=torch.float32).view(-1, 1)
+
+X_test_t  = torch.tensor(X_test, dtype=torch.float32)
+y_test_t  = torch.tensor(y_test, dtype=torch.float32).view(-1, 1)
+
+# DataLoaders
+train_loader = DataLoader(TensorDataset(X_train_t, y_train_t), batch_size=64, shuffle=True)
+test_loader  = DataLoader(TensorDataset(X_test_t, y_test_t), batch_size=256, shuffle=False)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L154-L169] -->
+
+### פרמטרים ומבנה הרשת
+
+נבחר התקן חישוב ונגדיר שני קלטים, שתי שכבות חבויות של 16 יחידות, 50 מעברים וקצב למידה 0.01:
+
+<div class="code-panel" dir="ltr">
+
+```python
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# -----------------------
+# 2) Build Sequential FNN
+# -----------------------
+input_size = 2
+hidden1 = 16
+hidden2 = 16
+epochs = 50
+learning_rate = 0.01
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L170-L184] -->
+
+נגדיר רשת עם ReLU בשכבות החבויות ו־Sigmoid בפלט, הפסד BCE ואופטימייזר Adam:
+
+<div class="code-panel" dir="ltr">
+
+```python
+Model = nn.Sequential(
+    nn.Linear(input_size, hidden1, device=device),
+    nn.ReLU(),
+    nn.Linear(hidden1, hidden2, device=device),
+    nn.ReLU(),
+    nn.Linear(hidden2, 1, device=device),
+    nn.Sigmoid()
 )
-x_train = torch.tensor(x_train, dtype=torch.float32)
-y_train = torch.tensor(y_train, dtype=torch.float32)
-loader = DataLoader(
-    TensorDataset(x_train, y_train.reshape(-1, 1)),
-    batch_size=64, shuffle=True
-)
-model = nn.Sequential(
-    nn.Linear(2, 16), nn.ReLU(),
-    nn.Linear(16, 16), nn.ReLU(),
-    nn.Linear(16, 1), nn.Sigmoid()
-)
-optimizer = torch.optim.Adam(
-    model.parameters(), lr=0.01
-)
-for epoch in range(50):
-    for x_batch, y_batch in loader:
-        optimizer.zero_grad()
-        loss = nn.functional.binary_cross_entropy(
-            model(x_batch), y_batch
-        )
+
+Loss = nn.BCELoss()
+optim = torch.optim.Adam(Model.parameters(), lr=learning_rate)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L185-L200] -->
+
+### אימון ובדיקה בכל מעבר
+
+בכל epoch נעבור על אצוות האימון ונעדכן את המשקלים. לאחר מכן נחשב את דיוק הסיווג על קבוצת הבדיקה כולה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+# -----------------------
+# 3) Train loop
+# -----------------------
+for epoch in range(epochs):
+    Model.train()
+    for Xb, yb in train_loader:
+        Xb = Xb.to(device)
+        yb = yb.to(device)
+
+        probs = Model(Xb)
+        loss = Loss(probs, yb)
+
+        optim.zero_grad()
         loss.backward()
-        optimizer.step()
+        optim.step()
+
+    # -----------------------
+    # 4) Evaluate each epoch
+    # -----------------------
+    Model.eval()
+    with torch.no_grad():
+        probs_test = Model(X_test_t.to(device))
+        preds_test = (probs_test >= 0.5).float().cpu()
+        acc = (preds_test == y_test_t).float().mean().item()
+
+    if (epoch + 1) % 5 == 0 or epoch == 0:
+        print(f"epoch={epoch+1:02d} loss={loss.item():.4f} test_acc={acc*100:.2f}%")
 ```
 
 </div>
 
-stratify שומרת בקירוב על יחסי הקטגוריות בפיצול. לבדיקה ממירים את x_test ואת y_test לטנסורים, מסווגים עם סף 0.5 ומשווים לתוויות, כמו בדוגמה הבינארית הקודמת.
+**פלט**
 
-<figure>
-<img src="../assets/sources/ML/converted/Moon/assets/cell-16-output-2-2.png" alt="נקודות הסהר ותחזיות לנקודות חדשות המסומנות בכוכבים, מהמחברת." style="max-width:100%;height:auto;">
-<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L308] -->
-<figcaption>נקודות הסהר ותחזיות לנקודות חדשות המסומנות בכוכבים, מהמחברת.</figcaption>
-</figure>
+<div class="code-panel" dir="ltr">
 
-### שלוש גאומטריות, אותה טבלת קלט
+```text
+epoch=01 loss=0.3519 test_acc=84.00%
+epoch=05 loss=0.2133 test_acc=94.25%
+epoch=10 loss=0.0145 test_acc=98.75%
+epoch=15 loss=0.0079 test_acc=98.50%
+epoch=20 loss=0.0305 test_acc=98.25%
+epoch=25 loss=0.0851 test_acc=98.75%
+epoch=30 loss=0.1121 test_acc=98.75%
+epoch=35 loss=0.0579 test_acc=98.50%
+epoch=40 loss=0.0297 test_acc=98.75%
+epoch=45 loss=0.1111 test_acc=98.25%
+epoch=50 loss=0.1097 test_acc=98.50%
+```
 
-ב־blobs נקודות מכל קבוצה מרוכזות סביב מרכז. ב־circles קבוצה אחת מקיפה את האחרת. ב־moons הקבוצות דומות לשני סהרונים משתלבים. בשלושתן לכל דוגמה רק שתי תכונות, אבל מורכבות גבול ההחלטה שונה. מספר התכונות לבדו אינו קובע אם שכבה לינארית תספיק.
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L201-L250] -->
+
+הפלט הוא דוגמה שמורה. `loss` הוא הפסד האצווה האחרונה באימון, ואילו `test_acc` הוא הדיוק על כל קבוצת הבדיקה.
+
+### חיזוי ל־100 נקודות חדשות
+
+נגריל נקודות במלבן שסביב הנתונים:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-from sklearn.datasets import make_blobs, make_circles
+n_random = 100
 
-blob_x, blob_y = make_blobs(
-    n_samples=1000, centers=2, cluster_std=1., random_state=42
-)
-circle_x, circle_y = make_circles(
-    n_samples=1000, noise=0.05, factor=0.5, random_state=42
+x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
+y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
+
+X_rand = np.random.uniform(
+    low=[x_min, y_min],
+    high=[x_max, y_max],
+    size=(n_random, 2)
 )
 ```
 
 </div>
 
-### להשלים בדיקה של רשת הסהרונים
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L251-L266] -->
+
+נחשב לכל נקודה הסתברות ונסווג לפי סף 0.5:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-x_test_t = torch.tensor(x_test, dtype=torch.float32)
-y_test_t = torch.tensor(y_test, dtype=torch.float32)
-model.eval()
 with torch.no_grad():
-    probabilities = model(x_test_t).flatten()
-    predictions = (probabilities >= 0.5).float()
-    accuracy = (predictions == y_test_t).float().mean()
-print(accuracy.item())
+    X_rand_t = torch.tensor(X_rand, dtype=torch.float32).to(device)
+
+    probs = Model(X_rand_t)
+    preds = (probs >= 0.5).float().cpu().numpy().reshape(-1)
 ```
 
 </div>
 
-לציור תחזיות במישור אפשר לבחור נקודות חדשות, להפעיל עליהן את המודל ולצבוע לפי ההחלטה. הכוכבים בפלט המחברת הם תחזיות כאלה; אין להם תוויות אמת שנמדדו, ולכן הם מדגימים את גבול ההחלטה ואינם עוד מדידת דיוק. רחוק מנתוני האימון המודל עדיין מחזיר מספר, אך אין בכך הבטחה שהוא אמין.
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L267-L277] -->
+
+נצבע את הנקודות החדשות באדום או בכחול ונציג אותן ככוכבים מעל נתוני הסהרונים:
+
+<div class="code-panel" dir="ltr">
+
+```python
+colors = ["red" if p == 1 else "blue" for p in preds]
+plot_moons ()
+plt.scatter(
+    X_rand[:, 0],
+    X_rand[:, 1],
+    c=colors,
+    marker="*",
+    s=150
+)
+```
+
+</div>
+
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L278-L308] -->
+
 
 <figure>
-<img src="../assets/sources/ML/converted/Moon/assets/cell-2-output-1-2.png" alt="שני סהרונים: מבנה הקבוצות קובע איזה גבול החלטה דרוש." style="max-width:100%;height:auto;">
-<figcaption>שני סהרונים: מבנה הקבוצות קובע איזה גבול החלטה דרוש.</figcaption>
+<img src="../assets/sources/ML/converted/Moon/assets/cell-16-output-2-2.png" alt="תחזיות ל־100 נקודות חדשות, המסומנות בכוכבים." style="max-width:100%;height:auto;">
+<figcaption>תחזיות ל־100 נקודות חדשות, המסומנות בכוכבים.</figcaption>
 </figure>
-<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L38-L38] -->
-<figure>
-<img src="../assets/sources/ML/converted/Moon/assets/cell-4-output-1-2.png" alt="שני אשכולות blobs מתוך מחברת Moon, להשוואה עם הסהרונים." style="max-width:100%;height:auto;">
-<figcaption>שני אשכולות blobs מתוך מחברת Moon, להשוואה עם הסהרונים.</figcaption>
-</figure>
-<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L72-L72] -->
-<figure>
-<img src="../assets/sources/ML/converted/Moon/assets/cell-6-output-1-2.png" alt="טבעות circles מתוך מחברת Moon: קו ישר אינו מפריד טבעת פנימית מחיצונית." style="max-width:100%;height:auto;">
-<figcaption>טבעות circles מתוך מחברת Moon: קו ישר אינו מפריד טבעת פנימית מחיצונית.</figcaption>
-</figure>
-<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L106-L106] -->
+<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L308] -->
 
+לנקודות החדשות לא הוגדרו תוויות אמת; הצבע מציג את החלטת המודל, ולא בדיקת דיוק נוספת.
 
-<!-- editorlm-source-ref: [sources/ML/1. מבוא והתקנה.pptx#L29-L34] -->
-<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L201] -->
-<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L600] -->
-<!-- editorlm-source-ref: [sources/ML/converted/5.4_Linear_Regresion-Limitation/notebook.md#L4231] -->
-<!-- editorlm-source-ref: [sources/ML/converted/5.4_Linear_Regresion-Limitation/notebook.md#L4569] -->
-
-
-<!-- editorlm-source-ref: [sources/ML/converted/Fashion_MNIST/notebook.md#L194] -->
-<!-- editorlm-source-ref: [sources/ML/converted/EMNIST/notebook.md#L186] -->
-<!-- editorlm-source-ref: [sources/ML/8. רשת נורונים ANN.pptx#L1-L121] -->
-<!-- editorlm-source-ref: [sources/ML/converted/8_ANN_MNIST/notebook.md#L1-L600] -->
-<!-- editorlm-source-ref: [sources/ML/converted/5.4_Linear_Regresion-Limitation/notebook.md#L1-L4590] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Moon/notebook.md#L1-L308] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Fashion_MNIST/notebook.md#L1-L517] -->
-<!-- editorlm-source-ref: [sources/ML/converted/EMNIST/notebook.md#L1-L615] -->
-<!-- editorlm-source-ref: [sources/ML/converted/Fashion_MNIST - unsolved/notebook.md#L1-L104] -->
-<!-- editorlm-source-ref: [sources/ML/converted/EMNIST - unsolved/notebook.md#L1-L253] -->
-<!-- editorlm-source-ref: [sources/ML/converted/EMNIST/notebook.md#L615-L615] -->
 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a href="14-%D7%A8%D7%92%D7%A8%D7%A1%D7%99%D7%94%20%D7%9C%D7%90%20%D7%9C%D7%99%D7%A0%D7%90%D7%A8%D7%99%D7%AA.md">→ הקודם</a>
@@ -261,4 +510,4 @@ print(accuracy.item())
 
 </div>
 
-<!-- editorlm-source-versions: {"schemaVersion": 1, "sources": {"sources/ML/8. רשת נורונים ANN.pptx": {"sourceSha256": "cb0ea33d522c66cf67afe5f7bbdf050ce207e0aaf08ddf695156ce1d01ee96e2", "canonicalTextSha256": "9f25a888efe932535fc280d60b75b25fe8b74dc05ee3d87e9e8f29b6dd7b3bfd"}, "sources/ML/converted/8_ANN_MNIST/notebook.md": {"sourceSha256": "6b122579197bdfc71afc7510728cd17344b20b04f6ea6197a9699440ee3e6ede", "canonicalTextSha256": "6b122579197bdfc71afc7510728cd17344b20b04f6ea6197a9699440ee3e6ede"}, "sources/ML/converted/5.4_Linear_Regresion-Limitation/notebook.md": {"sourceSha256": "f44c2c2a3a476b01ba6b68ea0bd0e85a4cd7007e0678c34c5ea0ee6bc3c99563", "canonicalTextSha256": "f44c2c2a3a476b01ba6b68ea0bd0e85a4cd7007e0678c34c5ea0ee6bc3c99563"}, "sources/ML/converted/Moon/notebook.md": {"sourceSha256": "bfdb56fd97fdc59a74d75c33fb5616d6de8fae016ab30e3aa7205ed69d7e03d2", "canonicalTextSha256": "bfdb56fd97fdc59a74d75c33fb5616d6de8fae016ab30e3aa7205ed69d7e03d2"}, "sources/ML/converted/Fashion_MNIST/notebook.md": {"sourceSha256": "8ce43ae443894758da6d70962314d8229b340ba9fdc4eb7e7688e87a60b0c6f2", "canonicalTextSha256": "8ce43ae443894758da6d70962314d8229b340ba9fdc4eb7e7688e87a60b0c6f2"}, "sources/ML/converted/EMNIST/notebook.md": {"sourceSha256": "6fc38665167ae58bb2cea5d5cef3ac8452219f6a1043c34d4671c9f810aed853", "canonicalTextSha256": "6fc38665167ae58bb2cea5d5cef3ac8452219f6a1043c34d4671c9f810aed853"}, "sources/ML/1. מבוא והתקנה.pptx": {"sourceSha256": "cc614ed332af917ea4116f22f36868e183726b3a444d235c07551c32ca4e16fd", "canonicalTextSha256": "162ea4af01c5d7238e8852c7861210896f3cecb964a804686a36b600191ed501"}, "sources/ML/converted/EMNIST - unsolved/notebook.md": {"sourceSha256": "ef7571438ea64ea15cb66da21898dfacca624b5a698f455583e87f035d7caf3e", "canonicalTextSha256": "ef7571438ea64ea15cb66da21898dfacca624b5a698f455583e87f035d7caf3e"}, "sources/ML/converted/Fashion_MNIST - unsolved/notebook.md": {"sourceSha256": "685f265a5b852b9aeef72efd79fc4018f349d9c9f0bc6109e6e35bc04375cfde", "canonicalTextSha256": "685f265a5b852b9aeef72efd79fc4018f349d9c9f0bc6109e6e35bc04375cfde"}}} -->
+<!-- editorlm-source-versions: {"schemaVersion":1,"sources":{"sources/ML/converted/Moon/notebook.md":{"sourceSha256":"bfdb56fd97fdc59a74d75c33fb5616d6de8fae016ab30e3aa7205ed69d7e03d2","canonicalTextSha256":"bfdb56fd97fdc59a74d75c33fb5616d6de8fae016ab30e3aa7205ed69d7e03d2"}}} -->
