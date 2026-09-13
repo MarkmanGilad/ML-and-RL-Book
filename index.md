@@ -59,8 +59,10 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 <h1>למידת מכונה<br>ולמידת חיזוק</h1>
 <div class="subtitle">באמצעות בניית משחקים</div>
 <div class="author">גלעד מרקמן</div>
-<div class="audience">ספר לימוד לתלמידי י״א–י״ב</div>
+<div class="audience">לתלמידי כיתות י״א–י״ב במגמת הנדסת תוכנה, במסלול למידת מכונה ולמידת חיזוק</div>
 </div>
+
+הספר מלווה את תוכנית הלימודים במגמת הנדסת תוכנה במסלול למידת מכונה ולמידת חיזוק, המיועד לתלמידי כיתות י״א–י״ב.
 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a class="toc-link" href="#book-toc">תוכן העניינים</a>
@@ -72,7 +74,7 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 
 ### אתר הקורס וחומרי ליווי
 
-הספר מלווה את הקורס של **גלעד מרקמן — תכנות באינטרנט**. בכל מדור תמצאו את השיעורים, ההרצאות המוקלטות וחומרי הליווי המתאימים.
+הקורס זמין גם באתר **„תכנות באינטרנט” של גלעד מרקמן**, וכולל סרטונים, מצגות ודוגמאות קוד. הקישורים הבאים מובילים למדורי הקורס ולחומרי הליווי המתאימים לכל חלק בספר.
 
 <div class="course-grid">
 <a class="course-card" href="https://webprogramming.azurewebsites.net/Pages/Python/Installation.aspx"><strong>א · פייתון</strong><span>יסודות התכנות וסביבת העבודה</span></a>
@@ -177,11 +179,11 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 - [ד.4 — תכנון דינמי: Value Iteration](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/04-Value%20Iteration.md)
 - [ד.5 — מונטה קרלו — למידה מהתנסות](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/05-%D7%9E%D7%95%D7%A0%D7%98%D7%94%20%D7%A7%D7%A8%D7%9C%D7%95.md)
 - [ד.6 — מונטה קרלו באיקס עיגול — טבלת Q וקוד האימון](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/06-%D7%9E%D7%95%D7%A0%D7%98%D7%94%20%D7%A7%D7%A8%D7%9C%D7%95%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md)
-- [ד.7 — Temporal Difference — SARSA ו־Q-learning](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/07-Temporal%20Difference.md)
+- [ד.7 — <span dir="ltr" style="unicode-bidi:isolate">Temporal Difference</span>](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/07-Temporal%20Difference.md)
 - [ד.8 — TD באיקס עיגול ו־AfterState](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/08-TD%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md)
 - [ד.9 — DQN — למידת חיזוק באמצעות רשת](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/09-DQN.md)
-- [ד.10 — DDQN — ההבדל מ־DQN](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/10-DDQN.md)
-- [ד.11 — בנייה ואימון של DQN באיקס עיגול](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/11-DQN%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md)
+- [ד.10 — בנייה ואימון של DQN באיקס עיגול](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/10-DQN%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md)
+- [ד.11 — DDQN — ההבדל מ־DQN](04-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%97%D7%99%D7%96%D7%95%D7%A7/11-DDQN.md)
 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a class="toc-link" href="#book-toc">תוכן העניינים</a>

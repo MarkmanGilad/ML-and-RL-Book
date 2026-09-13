@@ -106,7 +106,9 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 <a href="08-TD%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md">הבא ←</a>
 </nav>
 
-## ד.7 — Temporal Difference — SARSA ו־Q-learning
+## ד.7 — <span dir="ltr" style="unicode-bidi:isolate">Temporal Difference</span>
+
+<p style="text-align:center!important">שיטות במשפחת TD: <span dir="ltr" style="unicode-bidi:isolate">SARSA</span> ו־<span dir="ltr" style="unicode-bidi:isolate">Q-learning</span></p>
 
 **המצגת:** [Temporal Difference](../../../sources/RL/5.%20Temporal%20Difference.pptx)
 
