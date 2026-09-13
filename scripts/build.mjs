@@ -22,6 +22,10 @@ for (const entry of await fs.readdir(out)) {
 }
 await fs.cp(path.join(root, 'assets'), path.join(out, 'assets'), { recursive: true });
 const escape = s => s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
+// Shared mobile gutters override individual chapters without affecting print or desktop.
+const mobileStyles = `<style>@media screen and (max-width: 960px) {
+  body .book { box-sizing: border-box; padding-inline: 20px; }
+}</style>`;
 let localOnly = 0;
 for (const page of pages) {
   const source = await fs.readFile(path.join(root, page), 'utf8');
@@ -53,9 +57,10 @@ for (const page of pages) {
   }
   const title = html.match(/<h1[^>]*>([^]*?)<\/h1>/)?.[1].replace(/<[^>]*>/g, ' ') || path.basename(page, '.md');
   const result = `<!doctype html>\n<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(title)}</title><style>body{margin:0;background:#fff;color:#183b50;font-family:Arial,sans-serif}img{max-width:100%;height:auto}pre{overflow-x:auto}pre,pre code{direction:ltr;text-align:left;unicode-bidi:isolate}table{border-collapse:collapse}th,td{padding:8px;border:1px solid #d4e3e9}</style></head><body>${html}</body></html>`;
+  const responsiveResult = result.replace('</head>', `${mobileStyles}</head>`);
   const dest = path.join(out, page.replace(/\.md$/, '.html'));
   await fs.mkdir(path.dirname(dest), { recursive: true });
-  await fs.writeFile(dest, result);
+  await fs.writeFile(dest, responsiveResult);
 }
 await fs.writeFile(path.join(out, '.nojekyll'), '');
 console.log(`Built ${pages.length} pages; ${localOnly} local source links shown as text. All chapter links and local images checked.`);
