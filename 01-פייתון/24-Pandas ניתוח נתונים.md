@@ -107,7 +107,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 <nav class="book-nav" aria-label="ניווט בפרקים">
 <a href="23-Pandas%20%D7%98%D7%91%D7%9C%D7%90%D7%95%D7%AA.md">→ הקודם</a>
 <a class="toc-link" href="../index.md#book-toc">תוכן העניינים</a>
-<a href="../02-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%9E%D7%9B%D7%95%D7%A0%D7%94/01-%D7%9E%D7%91%D7%95%D7%90.md">הבא ←</a>
+<a href="../03-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%9E%D7%9B%D7%95%D7%A0%D7%94/01-%D7%9E%D7%91%D7%95%D7%90.md">הבא ←</a>
 </nav>
 
 ## א.24 — Pandas — ניקוי, קיבוץ וניתוח נתונים
@@ -284,7 +284,7 @@ plt.show()
 <nav class="book-nav" aria-label="ניווט בפרקים">
 <a href="23-Pandas%20%D7%98%D7%91%D7%9C%D7%90%D7%95%D7%AA.md">→ הקודם</a>
 <a class="toc-link" href="../index.md#book-toc">תוכן העניינים</a>
-<a href="../02-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%9E%D7%9B%D7%95%D7%A0%D7%94/01-%D7%9E%D7%91%D7%95%D7%90.md">הבא ←</a>
+<a href="../03-%D7%9C%D7%9E%D7%99%D7%93%D7%AA%20%D7%9E%D7%9B%D7%95%D7%A0%D7%94/01-%D7%9E%D7%91%D7%95%D7%90.md">הבא ←</a>
 </nav>
 
 </div>

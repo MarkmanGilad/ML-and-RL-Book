@@ -98,7 +98,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 <a href="03-%D7%98%D7%A0%D7%A1%D7%95%D7%A8%D7%99%D7%9D.md">הבא ←</a>
 </nav>
 
-## ב.2 הכנת PyTorch ב־Colab
+## ג.2 הכנת PyTorch ב־Colab
 
 **PyTorch כבר מותקנת ב־Colab.** כדי להשתמש בה, יש להריץ בתא קוד את פקודת הייבוא:
 

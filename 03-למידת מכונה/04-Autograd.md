@@ -98,7 +98,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 <a href="05-Gradient%20Descent%20%D7%91%D7%9E%D7%A9%D7%AA%D7%A0%D7%94%20%D7%90%D7%97%D7%93.md">הבא ←</a>
 </nav>
 
-## ב.4 נגזרות ו־Autograd
+## ג.4 נגזרות ו־Autograd
 
 בפרק זה נכיר את משמעות הנגזרת ואת השימוש בה למציאת מינימום. נלמד כללי גזירה, נגזרות חלקיות וכלל השרשרת, ולאחר מכן נראה כיצד PyTorch מחשבת נגזרות באמצעות גרף חישוב.
 <!-- editorlm-source-ref: [sources/ML/pdf/3. PyTorch Autograd.pdf#L8-L14] -->
