@@ -106,7 +106,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 <a href="10-DQN%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md">הבא ←</a>
 </nav>
 
-## ד.9 — DQN — למידת חיזוק באמצעות רשת
+## ד.9 — למידת חיזוק עמוקה
 
 **המצגת:** [DQN](../../../sources/RL/6.DQN.pptx)
 
