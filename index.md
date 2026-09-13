@@ -76,7 +76,7 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 
 <div class="course-grid">
 <a class="course-card" href="https://webprogramming.azurewebsites.net/Pages/Python/Installation.aspx"><strong>א · פייתון</strong><span>יסודות התכנות וסביבת העבודה</span></a>
-<a class="course-card" href="https://webprogramming.azurewebsites.net/Pages/PyGame/MDP_Intro.aspx"><strong>ב · pygame</strong><span>מודל סביבה–סוכן ובניית משחקים</span></a>
+<a class="course-card" href="https://webprogramming.azurewebsites.net/Pages/PyGame/MDP_Intro.aspx"><strong>ב · pygame</strong><span>חומרי הקורס המקוריים: Pygame ומשחקים</span></a>
 <a class="course-card" href="https://webprogramming.azurewebsites.net/Pages/PyTorch/Intro.aspx"><strong>ג · למידת מכונה</strong><span>נתונים, אימון ורשתות נוירונים עם PyTorch</span></a>
 <a class="course-card" href="https://webprogramming.azurewebsites.net/Pages/RL/RL_Intro.aspx"><strong>ד · למידת חיזוק</strong><span>MDP, מדיניות ולמידה מתוך תגמולים</span></a>
 </div>
@@ -126,7 +126,19 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 
 ### חלק ב — pygame
 
-הפרקים יתווספו בהמשך.
+- [ב.1 — מעבר מ־Colab לעבודה מקומית](02-pygame/01-%D7%94%D7%AA%D7%A7%D7%A0%D7%94%20%D7%9E%D7%A7%D7%95%D7%9E%D7%99%D7%AA.md)
+- [ב.2 — מבנה הלולאה הראשית](02-pygame/02-%D7%94%D7%9C%D7%95%D7%9C%D7%90%D7%94%20%D7%94%D7%A8%D7%90%D7%A9%D7%99%D7%AA.md)
+- [ב.3 — אירועים וסגירת החלון](02-pygame/03-%D7%90%D7%99%D7%A8%D7%95%D7%A2%D7%99%D7%9D%20%D7%95%D7%A1%D7%92%D7%99%D7%A8%D7%94.md)
+- [ב.4 — שעון, קצב פריימים ורענון המסך](02-pygame/04-%D7%A9%D7%A2%D7%95%D7%9F%20%D7%95%D7%A8%D7%A2%D7%A0%D7%95%D7%9F.md)
+- [ב.5 — משטחים, שכבות וצבעים](02-pygame/05-%D7%9E%D7%A9%D7%98%D7%97%D7%99%D7%9D%20%D7%95%D7%A6%D7%91%D7%A2%D7%99%D7%9D.md)
+- [ב.6 — ציור צורות גאומטריות](02-pygame/06-%D7%A6%D7%95%D7%A8%D7%95%D7%AA%20%D7%92%D7%90%D7%95%D7%9E%D7%98%D7%A8%D7%99%D7%95%D7%AA.md)
+- [ב.7 — טעינה והצגה של תמונות](02-pygame/07-%D7%AA%D7%9E%D7%95%D7%A0%D7%95%D7%AA.md)
+- [ב.8 — אינטראקציה עם המשתמש: עכבר ומקלדת](02-pygame/08-%D7%9E%D7%A7%D7%9C%D7%93%D7%AA%20%D7%95%D7%A2%D7%9B%D7%91%D7%A8.md)
+- [ב.9 — אנימציה פשוטה](02-pygame/09-%D7%90%D7%A0%D7%99%D7%9E%D7%A6%D7%99%D7%94.md)
+- [ב.10 — מלבני מיקום: pygame.Rect](02-pygame/10-Rect.md)
+- [ב.11 — ספרייטים: pygame.sprite.Sprite](02-pygame/11-Sprite.md)
+- [ב.12 — גילוי התנגשויות](02-pygame/12-%D7%94%D7%AA%D7%A0%D7%92%D7%A9%D7%95%D7%99%D7%95%D7%AA.md)
+- [ב.13 — קבוצות ספרייטים והתנגשויות בין קבוצות](02-pygame/13-%D7%A7%D7%91%D7%95%D7%A6%D7%95%D7%AA%20%D7%A1%D7%A4%D7%A8%D7%99%D7%99%D7%98%D7%99%D7%9D.md)
 
 ### חלק ג — למידת מכונה
 

@@ -527,6 +527,13 @@ plt.show()
 
 **תרגיל 2**
 
+<figure>
+<img src="../assets/sources/ML/three-hump-camel.png" alt="פונקציית התרגיל בשני תחומי ציור: מינוס 5 עד 5 משמאל, ומינוס 2 עד 2 מימין." style="max-width:100%;height:auto;">
+<figcaption>אותה פונקציה בשני תחומי ציור.</figcaption>
+</figure>
+
+<!-- editorlm-source-ref: [sources/ML/פונקציה (1).png#L2-L5] -->
+
 $$
 f(x_1,x_2)=2x_1^2-1.05x_1^4+\frac{x_1^6}{6}+x_1x_2+x_2^2
 $$
@@ -624,6 +631,15 @@ plt.show()
 <!-- editorlm-source-ref: [sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md#L416-L530] -->
 
 **תרגיל 3**
+
+<figure>
+<img src="../assets/sources/ML/six-hump-camel.png" alt="משטח הפונקציה וקווי הגובה של Six-hump camel back, עם הנוסחה מתחת לגרף." style="max-width:100%;height:auto;">
+<figcaption>משטח הפונקציה וקווי הגובה שלה.</figcaption>
+</figure>
+
+לפונקציה שש נקודות מינימום מקומי, ששתיים מהן הן גם מינימום גלובלי.
+
+<!-- editorlm-source-ref: [sources/ML/פונקציה ב (1).png#L2-L6] -->
 
 $$
 f(x_1,x_2)=x_1^2\left(4-2.1x_1^2+\frac{x_1^4}{3}\right)+x_1x_2+x_2^2(-4+4x_2^2)
@@ -730,4 +746,4 @@ plt.show()
 
 </div>
 
-<!-- editorlm-source-versions: {"schemaVersion": 1, "sources": {"sources/ML/pdf/4. Gradient Descent.pdf": {"sourceSha256": "c18d2622343a1b388da9ab639c4bd006841cf2dda9bb5135d4390db873478c4e", "canonicalTextSha256": "80fecee360f06548411df640cf471709095926be7a3940fc5b99a14bbe235950"}, "sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md": {"sourceSha256": "e5972e87af2be2a5fcbb0a04dcf94634a80eaaa8b305404940bb524b523a998c", "canonicalTextSha256": "e5972e87af2be2a5fcbb0a04dcf94634a80eaaa8b305404940bb524b523a998c"}, "sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md": {"sourceSha256": "6b47acb7a0a43cffd09299b833b02ad1c528fcf7b086602f89951bbfa026f654", "canonicalTextSha256": "6b47acb7a0a43cffd09299b833b02ad1c528fcf7b086602f89951bbfa026f654"}, "sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md": {"sourceSha256": "dc679d567a3fd655c6e8c7b5fa152d2607824344596a70c65a64d1d572efe9e2", "canonicalTextSha256": "dc679d567a3fd655c6e8c7b5fa152d2607824344596a70c65a64d1d572efe9e2"}}} -->
+<!-- editorlm-source-versions: {"schemaVersion": 1, "sources": {"sources/ML/pdf/4. Gradient Descent.pdf": {"sourceSha256": "c18d2622343a1b388da9ab639c4bd006841cf2dda9bb5135d4390db873478c4e", "canonicalTextSha256": "80fecee360f06548411df640cf471709095926be7a3940fc5b99a14bbe235950"}, "sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md": {"sourceSha256": "e5972e87af2be2a5fcbb0a04dcf94634a80eaaa8b305404940bb524b523a998c", "canonicalTextSha256": "e5972e87af2be2a5fcbb0a04dcf94634a80eaaa8b305404940bb524b523a998c"}, "sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון תרגילים/notebook.md": {"sourceSha256": "6b47acb7a0a43cffd09299b833b02ad1c528fcf7b086602f89951bbfa026f654", "canonicalTextSha256": "6b47acb7a0a43cffd09299b833b02ad1c528fcf7b086602f89951bbfa026f654"}, "sources/ML/converted/4.2_Gradient_Descent_2D.ipynb - פתרון/notebook.md": {"sourceSha256": "dc679d567a3fd655c6e8c7b5fa152d2607824344596a70c65a64d1d572efe9e2", "canonicalTextSha256": "dc679d567a3fd655c6e8c7b5fa152d2607824344596a70c65a64d1d572efe9e2"}, "sources/ML/פונקציה (1).png": {"sourceSha256": "8c628d3886a607059753cd2643f58ce886c3a793e87ce0ad06f4d2e2686066e8", "canonicalTextSha256": "6e0ea138303fd85452034fb126a43ecb5108b262a16fa93c884537a0b1865347"}, "sources/ML/פונקציה ב (1).png": {"sourceSha256": "219f7940b3a111abe94ef52d6ae9bb0f1b08f30bb2819f6a6c0f46412a50a2bf", "canonicalTextSha256": "d2ee480d795f69c208598e973d65bcff60dca6c58e991fa941f1e230e2ecce8d"}}} -->
