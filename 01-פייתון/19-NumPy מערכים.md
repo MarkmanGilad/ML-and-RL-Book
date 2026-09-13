@@ -564,7 +564,7 @@ print(values[:])
 
 #### קביעת צעד
 
-אפשר להוסיף חלק שלישי: `values[start:stop:step]`. הצעד קובע בכמה מקומות מתקדמים בכל פעם. צעד `1` הוא ברירת המחדל; צעד `2` בוחר איבר, מדלג על הבא, ושוב בוחר איבר.
+הצעד קובע בכמה מקומות מתקדמים בכל פעם, וכך מאפשר לדלג בין איברים. כותבים אותו בחלק השלישי: `values[start:stop:step]`. צעד `1` הוא ברירת המחדל; צעד `2` בוחר איבר, מדלג על הבא, ושוב בוחר איבר.
 
 ב־`values[::2]` מתחילים באינדקס `0` ובוחרים את אינדקסים `0`, `2`, `4`. ב־`values[1:6:2]` מתחילים באינדקס `1` ובוחרים את `1`, `3`, `5`:
 
@@ -849,7 +849,7 @@ print(saved)
 
 ### שינוי צורה — reshape
 
-`reshape` מחזירה מערך בצורה אחרת. **מספר האיברים הכולל חייב להישמר.** ערך `-1` במקום גודל של ממד אחד מאפשר ל־NumPy לחשב אותו.
+שינוי צורה מארגן את אותם איברים ברצף או בטבלה בעלי ממדים אחרים. הפעולה `reshape` מחזירה מערך בצורה המבוקשת. **מספר האיברים הכולל חייב להישמר.** ערך `-1` במקום גודל של ממד אחד מאפשר ל־NumPy לחשב אותו.
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
@@ -914,7 +914,7 @@ print(matrix.T.shape)
 
 ### טיפוס הנתונים — dtype
 
-למערך NumPy יש **`dtype` אחד** הקובע את ייצוג איבריו. בדוגמאות מספריות בוחרים, למשל, `int` למספרים שלמים או `float` למספרים ממשיים.
+טיפוס הנתונים קובע כיצד המספרים נשמרים במערך. למערך NumPy יש **`dtype` אחד** הקובע את ייצוג איבריו. בדוגמאות מספריות בוחרים, למשל, `int` למספרים שלמים או `float` למספרים ממשיים.
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 

@@ -125,6 +125,8 @@ PyPlot הוא מודול בספריית Matplotlib שמאפשר להציג נת�
 
 ### ייבוא וציור קו
 
+נתחיל בחיבור שתי נקודות בקו. נייבא את כלי השרטוט בשם הקצר `plt`, ונמסור את הקואורדינטות של הנקודות בשתי רשימות.
+
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
@@ -167,7 +169,7 @@ plt.show()
 
 ### נקודות ללא קו מחבר
 
-הסימון **`"o"`** לבדו ב־`plot` מציג עיגולים ללא קו. נשתמש באותן ארבע נקודות מהדוגמה הקודמת:
+כדי להציג את מיקומי הנקודות בלי לחבר ביניהן, משתמשים בסימון **`"o"`** לבדו ב־`plot`. נשתמש באותן ארבע נקודות מהדוגמה הקודמת:
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
@@ -223,7 +225,7 @@ plt.show()
 
 ### כותרת, צירים וגבולות
 
-`title` מוסיפה כותרת, `xlabel` ו־`ylabel` שמות לצירים, ו־`xlim` ו־`ylim` קובעות את תחום התצוגה.
+כותרת ושמות לצירים מסבירים מה מוצג בתרשים, וגבולות התצוגה קובעים איזה תחום נראה. `title` מוסיפה כותרת, `xlabel` ו־`ylabel` שמות לצירים, ו־`xlim` ו־`ylim` קובעות את תחום התצוגה.
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
@@ -252,7 +254,7 @@ plt.show()
 
 ### תרשימים מרובים — subplot
 
-**`subplot(rows, columns, index)`** מחלקת את המסגרת לאזורי ציור ובוחרת את האזור הפעיל. **מספור האזורים מתחיל ב־`1`.**
+אפשר להציג כמה תרשימים זה לצד זה באותה מסגרת כדי להשוות ביניהם. **`subplot(rows, columns, index)`** מחלקת את המסגרת לאזורי ציור ובוחרת את האזור הפעיל. **מספור האזורים מתחיל ב־`1`.**
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
@@ -332,7 +334,7 @@ plt.show()
 <!-- editorlm-source-ref: [sources/Python/converted/4.PyPlot/notebook.md#L305-L327] -->
 ### גרף של פונקציה
 
-NumPy יוצרת ערכי קלט ומחשבת את הפונקציה עבור כולם; PyPlot מציירת את הזוגות. בדוגמת המחברת מציגים את `x² cos(x)`:
+כדי לשרטט פונקציה, נחשב את ערכה בנקודות רבות ונציג את זוגות הקלט והפלט. NumPy מבצעת את החישוב, ו־PyPlot מציירת; בדוגמה נציג את `x² cos(x)`:
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 

@@ -100,7 +100,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ג.2 הכנת PyTorch ב־Colab
 
-**PyTorch כבר מותקנת ב־Colab.** כדי להשתמש בה, יש להריץ בתא קוד את פקודת הייבוא:
+כדי להתחיל לעבוד עם PyTorch, נכין את המחברת ונבחר את משאבי החישוב שבהם נשתמש. **PyTorch כבר מותקנת ב־Colab.** כדי להשתמש בה, יש להריץ בתא קוד את פקודת הייבוא:
 
 <div class="code-panel" dir="ltr">
 

@@ -248,6 +248,8 @@ print(len(phones))
 
 ### בדיקת קיום והסרת זוג
 
+לפעמים נרצה לברר אם אדם מופיע בספר הטלפונים, או להסיר את פרטיו ממנו. נבדוק אם המפתח קיים לפני ההסרה ואחריה:
+
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
@@ -309,6 +311,8 @@ else:
 
 ### סריקה והעתקה של מילון
 
+סריקה מאפשרת לעבור על הנתונים שבמילון; העתקה מאפשרת לשמור אותם במילון נוסף. בדוגמה נעבור על ציוני תלמידים ונשמור עותק לפני עדכון ציון.
+
 `keys()` נותנת תצוגה של המפתחות, `values()` של הערכים ו־`items()` של זוגות מפתח–ערך. התצוגות משקפות שינויים במילון; `list(...)` יוצרת מהן רשימה.
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
@@ -345,6 +349,8 @@ Noam 9
 
 <!-- editorlm-source-ref: [sources/Python/converted/2.Python_Data_Struct/notebook.md#L506-L663] -->
 ### מפתחות, ערכים וזוגות
+
+אפשר להסתכל על אותו מילון בשלוש דרכים, בהתאם למידע שצריכים: המפתחות בלבד, הערכים בלבד או ההתאמה ביניהם.
 
 `keys()` מציגה את המפתחות, `values()` את הערכים, ו־`items()` זוגות של מפתח וערך. אלו תצוגות של המילון; `list` הופכת אותן לרשימה נפרדת.
 

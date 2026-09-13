@@ -173,7 +173,7 @@ print(filled["Score"].tolist())
 
 ### קיבוץ — groupby
 
-`groupby` מחלקת רשומות לקבוצות לפי ערכי עמודה. אחריה בוחרים עמודה מספרית ופעולת סיכום:
+כדי להשוות קבוצות בטבלה, נחשב סיכום נפרד לכל קבוצה. `groupby` מחלקת רשומות לקבוצות לפי ערכי עמודה. אחריה בוחרים עמודה מספרית ופעולת סיכום:
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
@@ -200,7 +200,7 @@ print(means.loc["B"])
 
 ### דוגמת המחברת — Titanic
 
-פתחו במחברת 13 את קובץ הליווי `titanic.csv` והעלו אותו לנתיב המופיע בדוגמה. כל שורה מייצגת נוסע; `Age` היא גיל, `Pclass` מחלקת נסיעה ו־`Survived` מציינת 1 לשורד ו־0 למי שלא שרד.
+ניישם את בדיקת החסרים והקיבוץ על נתוני נוסעי Titanic. פתחו במחברת 13 את קובץ הליווי `titanic.csv` והעלו אותו לנתיב המופיע בדוגמה. כל שורה מייצגת נוסע; `Age` היא גיל, `Pclass` מחלקת נסיעה ו־`Survived` מציינת 1 לשורד ו־0 למי שלא שרד.
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
@@ -250,7 +250,7 @@ print(round(rates.loc["male"], 6))
 
 ### מציגים התפלגות
 
-בדוגמה השמורה במחברת משלימים גילים חסרים בממוצע ואז מציגים חמישה טווחים בהיסטוגרמה:
+התפלגות הגילים מראה כמה נוסעים נמצאים בכל טווח גיל. בדוגמה משלימים גילים חסרים בממוצע ואז מציגים חמישה טווחים בהיסטוגרמה:
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 

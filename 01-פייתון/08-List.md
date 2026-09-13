@@ -268,6 +268,8 @@ print(numbers)
 
 #### קריאת איבר לפי האינדקס
 
+בדוגמה הבאה נקרא שני ציונים לפי מיקומם: את הראשון נדפיס ישירות, ואת השני נשמור במשתנה.
+
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
@@ -432,7 +434,7 @@ print(len(scores))
 
 ### הוספה והסרה
 
-**פעולה על רשימה נכתבת אחרי נקודה**, למשל `scores.append(5)`: שם הרשימה, נקודה, שם הפעולה וסוגריים עם הערכים שמעבירים לה. משתמשים כאן בפעולות המוכנות של הרשימה; יצירת מחלקות משלנו תילמד בהמשך.
+כדי לעדכן את אוסף הנתונים, אפשר להוסיף איברים לרשימה ולהסיר ממנה איברים קיימים. **פעולה על רשימה נכתבת אחרי נקודה**, למשל `scores.append(5)`: שם הרשימה, נקודה, שם הפעולה וסוגריים עם הערכים שמעבירים לה. משתמשים כאן בפעולות המוכנות של הרשימה; יצירת מחלקות משלנו תילמד בהמשך.
 
 `append` מוסיפה לסוף, `insert` מוסיפה לפני אינדקס נתון. **`remove` מסירה לפי ערך; `pop` מסירה לפי אינדקס ומחזירה את האיבר שהוסר.** ללא אינדקס, `pop` מסירה את האחרון.
 
@@ -467,7 +469,7 @@ yellow
 
 ### חיתוך — slicing
 
-התחביר הוא **`sequence[start:stop:step]`**. אינדקס ההתחלה נכלל, **אינדקס הסיום אינו נכלל**. אפשר להשמיט גבולות ולהשתמש בצעד ברירת המחדל `1`.
+חיתוך מאפשר לבחור חלק מאיברי הרשימה ולקבל אותם כרשימה חדשה. התחביר הוא **`sequence[start:stop:step]`**. אינדקס ההתחלה נכלל, **אינדקס הסיום אינו נכלל**. אפשר להשמיט גבולות ולהשתמש בצעד ברירת המחדל `1`.
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
@@ -581,6 +583,8 @@ print(scores)
 <!-- editorlm-source-ref: [sources/Python/converted/2.Python_Data_Struct/notebook.md#L194-L215] -->
 
 ### צירוף והעתקה
+
+צירוף מאפשר לאחד איברים משתי רשימות: אפשר ליצור רשימה חדשה או להרחיב רשימה קיימת.
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
@@ -755,6 +759,8 @@ for i in range(len(grades)):
 רשימות פנימיות יכולות להיות באורכים שונים; לכן אורך השורה הוא `len(grades[i])`. כשמייצגים מטריצה מלבנית, מקפידים שכל השורות באותו אורך.
 
 ### חישובים ומיון
+
+אפשר לסכם את המספרים ברשימה או לסדר את איבריה לפי ערכם.
 
 `len`, `sum`, `min` ו־`max` מספקות אורך, סכום וקיצונים. `sorted` מחזירה רשימה ממוינת חדשה; `sort` משנה את הרשימה עצמה ומחזירה `None`.
 

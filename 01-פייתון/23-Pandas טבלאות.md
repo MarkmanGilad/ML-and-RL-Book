@@ -121,6 +121,8 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ### יוצרים Series
 
+סדרה מאפשרת להצמיד תווית לכל ערך ולבחור אותו לפי התווית או לפי מיקומו. ניצור סדרה ונראה את שתי דרכי הגישה.
+
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
@@ -149,7 +151,7 @@ print(s.mean())
 
 ### יוצרים DataFrame ממילון
 
-המפתחות הופכים לשמות עמודות, וכל רשימה מכילה את ערכי העמודה. רשימות אלה צריכות להיות באותו אורך.
+כדי ליצור טבלה ממילון, נשתמש בכל מפתח כשם עמודה וברשימה המתאימה לו כערכי העמודה. רשימות אלה צריכות להיות באותו אורך.
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
@@ -181,6 +183,8 @@ print(people.shape)
 
 ### שורות ותוויות
 
+אפשר לבחור עמודה שתשמש לזיהוי השורות, ואז לפנות לשורה לפי התווית שלה. הבחירה לפי מיקום נשארת אפשרות נפרדת.
+
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
@@ -206,7 +210,7 @@ Alice
 
 ### סינון ועדכון
 
-השוואה של עמודה למספר יוצרת מסכה בוליאנית. משתמשים בה לבחירת השורות שבהן התנאי מתקיים:
+סינון מאפשר לבחור רק את הרשומות שעומדות בתנאי, ובהמשך לעדכן נתונים נבחרים. השוואה של עמודה למספר יוצרת מסכה בוליאנית. משתמשים בה לבחירת השורות שבהן התנאי מתקיים:
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
@@ -255,6 +259,8 @@ print(ordered["Name"].tolist())
 `drop` מסירה שורה לפי תווית, או עמודות באמצעות `columns`. פעולות רבות מחזירות טבלה חדשה; שומרים אותה בהשמה אם רוצים להמשיך איתה.
 
 ### טעינה ושמירה של CSV
+
+כדי לשמור טבלה לשימוש בהרצה אחרת, נכתוב אותה לקובץ CSV. לאחר מכן נטען את הקובץ בחזרה לטבלה.
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 

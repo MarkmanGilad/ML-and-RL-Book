@@ -149,7 +149,7 @@ print(len(numbers), len(point))
 
 ### ההבדל: אי אפשר לשנות את הרצף
 
-רשימה נכתבת עם סוגריים מרובעים `[]`; בדרך כלל כותבים tuple עם סוגריים עגולים `()`. **ברשימה אפשר להחליף, להוסיף ולהסיר איברים. ב־tuple אי אפשר לעשות זאת לאחר יצירתו.** לכן tuple מתאים, למשל, לייצוג זוג קואורדינטות.
+**ברשימה אפשר להחליף, להוסיף ולהסיר איברים. ב־tuple אי אפשר לעשות זאת לאחר יצירתו.** רשימה נכתבת עם סוגריים מרובעים `[]`; בדרך כלל כותבים tuple עם סוגריים עגולים `()`. לכן tuple מתאים, למשל, לייצוג זוג קואורדינטות.
 
 <div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
