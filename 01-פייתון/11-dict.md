@@ -55,7 +55,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .screen-strip img { display: block; width: 1745px; max-width: none; }
 .book .screen-menu { width: 400px; max-width: 100%; height: 295px; overflow: hidden; direction: ltr; margin: 20px auto 8px; border: 1px solid #bccad5; border-radius: 8px; }
 .book .screen-menu img { display: block; width: 1745px; max-width: none; }
-.book .code-panel { box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; }
+.book .code-panel { box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; }
 @media print {
   .book .cover { min-height: 85vh; break-after: page; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .book pre { white-space: pre-wrap; break-inside: avoid; }
@@ -129,7 +129,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 כך כותבים את ספר הטלפונים בפייתון (המספרים בדוגמה להמחשה בלבד):
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 phones = {
@@ -149,7 +149,7 @@ phones = {
 
 כדי לקבל את מספר הטלפון של דנה, כותבים את שם המילון ובסוגריים מרובעים את השם שמחפשים:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print(phones["Dana"])
@@ -160,7 +160,7 @@ print(phones["Maya"])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 050-000-0001
@@ -177,7 +177,7 @@ print(phones["Maya"])
 
 מילון יכול לרכז גם כמה פרטים על דבר אחד. במילון של מכונית, המפתחות הם **שמות הפרטים** — דגם, שנת ייצור, מספר רישוי ונפח מנוע — והערכים הם **הפרטים של המכונית המסוימת**:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 car = {
@@ -194,7 +194,7 @@ car = {
 
 כדי לברר מה הדגם ובאיזו שנה יוצרה המכונית, ניגשים למפתחות המתאימים:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print(car["model"])
@@ -205,7 +205,7 @@ print(car["year"])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 Toyota Corolla
@@ -220,7 +220,7 @@ Toyota Corolla
 
 אם מספר הטלפון של דנה משתנה, מעדכנים את הערך השמור תחת השם שלה. אם מצטרף אדם חדש, מוסיפים שם ומספר:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 phones["Dana"] = "050-000-0004"
@@ -234,7 +234,7 @@ print(len(phones))
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 050-000-0004
@@ -248,7 +248,7 @@ print(len(phones))
 
 ### בדיקת קיום והסרת זוג
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print("Ron" in phones)
@@ -260,7 +260,7 @@ print("Ron" in phones)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 True
@@ -281,7 +281,7 @@ False
 
 כאשר לא יודעים אם שם נמצא בספר הטלפונים, בודקים אותו באמצעות `in` לפני הפנייה למילון:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 name = "Dana"
@@ -295,7 +295,7 @@ else:
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 050-000-0004
@@ -311,7 +311,7 @@ else:
 
 `keys()` נותנת תצוגה של המפתחות, `values()` של הערכים ו־`items()` של זוגות מפתח–ערך. התצוגות משקפות שינויים במילון; `list(...)` יוצרת מהן רשימה.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 scores = {"Dana": 12, "Noam": 9}
@@ -329,7 +329,7 @@ print(saved["Dana"])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 ['Dana', 'Noam']
@@ -348,7 +348,7 @@ Noam 9
 
 `keys()` מציגה את המפתחות, `values()` את הערכים, ו־`items()` זוגות של מפתח וערך. אלו תצוגות של המילון; `list` הופכת אותן לרשימה נפרדת.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 car = {"model": "Volvo", "year": 2020}
@@ -361,7 +361,7 @@ print(list(car.items()))
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 ['model', 'year']
@@ -375,7 +375,7 @@ print(list(car.items()))
 
 כששומרים כמה עובדים, המספר של כל עובד יכול להיות מפתח, והערך שלו מילון פרטים. הגישה נעשית בשני שלבים: בחירת עובד, ואז בחירת פרט שלו.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 workers = {
@@ -391,7 +391,7 @@ print(workers[101]["salary"])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 Dana

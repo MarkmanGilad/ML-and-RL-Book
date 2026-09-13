@@ -55,7 +55,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .screen-strip img { display: block; width: 1745px; max-width: none; }
 .book .screen-menu { width: 400px; max-width: 100%; height: 295px; overflow: hidden; direction: ltr; margin: 20px auto 8px; border: 1px solid #bccad5; border-radius: 8px; }
 .book .screen-menu img { display: block; width: 1745px; max-width: none; }
-.book .code-panel { box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; }
+.book .code-panel { box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; }
 @media print {
   .book .cover { min-height: 85vh; break-after: page; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .book pre { white-space: pre-wrap; break-inside: avoid; }
@@ -121,7 +121,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ### יוצרים Series
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 import pandas as pd
@@ -135,7 +135,7 @@ print(s.mean())
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 200
@@ -151,7 +151,7 @@ print(s.mean())
 
 המפתחות הופכים לשמות עמודות, וכל רשימה מכילה את ערכי העמודה. רשימות אלה צריכות להיות באותו אורך.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 data = {
@@ -168,7 +168,7 @@ print(people.shape)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [25, 30, 35]
@@ -181,7 +181,7 @@ print(people.shape)
 
 ### שורות ותוויות
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 named = people.set_index("Name")
@@ -193,7 +193,7 @@ print(people.iloc[0]["Name"])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 30
@@ -208,7 +208,7 @@ Alice
 
 השוואה של עמודה למספר יוצרת מסכה בוליאנית. משתמשים בה לבחירת השורות שבהן התנאי מתקיים:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 selected = people[people["Age"] >= 30]
@@ -221,7 +221,7 @@ print(people["NextAge"].tolist())
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 ['Bob', 'Charlie']
@@ -232,7 +232,7 @@ print(people["NextAge"].tolist())
 
 לחיבור תנאים על עמודות משתמשים ב־`&` או ב־`|`, עם סוגריים סביב כל תנאי. `and` ו־`or` אינן מחברות מסכות שלמות. עדכון ממוקד נכתב בפעולת `loc` אחת:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 people.loc[people["Age"] >= 30, "City"] = "Updated"
@@ -244,7 +244,7 @@ print(ordered["Name"].tolist())
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 ['Charlie', 'Bob', 'Alice']
@@ -256,7 +256,7 @@ print(ordered["Name"].tolist())
 
 ### טעינה ושמירה של CSV
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 path = "/content/people.csv"
@@ -269,7 +269,7 @@ print(loaded.shape)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 (3, 4)

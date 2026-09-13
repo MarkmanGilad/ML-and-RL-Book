@@ -55,7 +55,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .screen-strip img { display: block; width: 1745px; max-width: none; }
 .book .screen-menu { width: 400px; max-width: 100%; height: 295px; overflow: hidden; direction: ltr; margin: 20px auto 8px; border: 1px solid #bccad5; border-radius: 8px; }
 .book .screen-menu img { display: block; width: 1745px; max-width: none; }
-.book .code-panel { box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; }
+.book .code-panel { box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; }
 @media print {
   .book .cover { min-height: 85vh; break-after: page; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .book pre { white-space: pre-wrap; break-inside: avoid; }
@@ -121,7 +121,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ערך חסר אומר שהנתון אינו ידוע; הוא אינו שקול לאפס. `isna()` מסמנת חסרים ו־`sum()` סופרת אותם בכל עמודה.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 import pandas as pd
@@ -137,7 +137,7 @@ print(data["Score"].mean())
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 1
@@ -148,7 +148,7 @@ print(data["Score"].mean())
 
 הממוצע מחושב מהערכים הקיימים. נחליט אם להסיר רשומה באמצעות `dropna`, או למלא בעזרת `fillna`. מילוי בממוצע אינו נתון שנמדד, ויש להבין כיצד הוא משפיע על המסקנות.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 filled = data.copy()
@@ -161,7 +161,7 @@ print(filled["Score"].tolist())
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [80.0, 90.0, 100.0]
@@ -175,7 +175,7 @@ print(filled["Score"].tolist())
 
 `groupby` מחלקת רשומות לקבוצות לפי ערכי עמודה. אחריה בוחרים עמודה מספרית ופעולת סיכום:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 means = filled.groupby("Group")["Score"].mean()
@@ -187,7 +187,7 @@ print(means.loc["B"])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 85.0
@@ -202,7 +202,7 @@ print(means.loc["B"])
 
 פתחו במחברת 13 את קובץ הליווי `titanic.csv` והעלו אותו לנתיב המופיע בדוגמה. כל שורה מייצגת נוסע; `Age` היא גיל, `Pclass` מחלקת נסיעה ו־`Survived` מציינת 1 לשורד ו־0 למי שלא שרד.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 df = pd.read_csv("/content/sample_data/titanic.csv")
@@ -214,7 +214,7 @@ print(df["Age"].isna().sum())
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 (891, 12)
@@ -225,7 +225,7 @@ print(df["Age"].isna().sum())
 
 אלה נתוני הגרסה שבמחברת: 714 גילים ידועים מתוך 891. אפשר לחשב שיעור הישרדות בקבוצות באמצעות ממוצע העמודה הבינארית:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 rates = df.groupby("Sex")["Survived"].mean()
@@ -237,7 +237,7 @@ print(round(rates.loc["male"], 6))
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 0.742038
@@ -252,7 +252,7 @@ print(round(rates.loc["male"], 6))
 
 בדוגמה השמורה במחברת משלימים גילים חסרים בממוצע ואז מציגים חמישה טווחים בהיסטוגרמה:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 import matplotlib.pyplot as plt

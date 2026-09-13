@@ -55,7 +55,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .screen-strip img { display: block; width: 1745px; max-width: none; }
 .book .screen-menu { width: 400px; max-width: 100%; height: 295px; overflow: hidden; direction: ltr; margin: 20px auto 8px; border: 1px solid #bccad5; border-radius: 8px; }
 .book .screen-menu img { display: block; width: 1745px; max-width: none; }
-.book .code-panel { box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; }
+.book .code-panel { box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; }
 @media print {
   .book .cover { min-height: 85vh; break-after: page; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .book pre { white-space: pre-wrap; break-inside: avoid; }
@@ -127,7 +127,7 @@ NumPy היא ספרייה לחישובים מספריים באמצעות מער�
 
 כדי להשתמש בפונקציות של NumPy, מייבאים את הספרייה. הכתיבה `as np` נותנת לה את השם הקצר `np`, שבו נשתמש בכל הדוגמאות. הוראת הייבוא מכינה את הספרייה לשימוש; יצירת המערכים תיעשה בהמשך.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 import numpy as np
@@ -145,7 +145,7 @@ import numpy as np
 
 הפונקציה `np.array` מקבלת את הרשימה ומחזירה מערך עם הערכים שלה, באותו סדר. בדוגמה ניצור מערך של שלושה ציונים ונשמור אותו במשתנה `scores`.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 scores = np.array([10, 20, 30])
@@ -157,7 +157,7 @@ print(type(scores))
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [10 20 30]
@@ -174,7 +174,7 @@ print(type(scores))
 
 אפשר ליצור מערך גם מטאפל (`tuple`). מעבירים ל־`np.array` את הטאפל בתוך הסוגריים של הקריאה לפונקציה. הסוגריים הפנימיים בדוגמה מגדירים את הטאפל.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 values_tuple = (10, 20, 30)
@@ -186,7 +186,7 @@ print(scores_from_tuple)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [10 20 30]
@@ -200,7 +200,7 @@ print(scores_from_tuple)
 
 כאשר יודעים כמה מקומות דרושים ורוצים שכולם יתחילו באפס, משתמשים ב־`np.zeros`. המספר `4` בדוגמה מבקש ארבעה איברים. הפרמטר `dtype=int` מבקש לשמור אותם כמספרים שלמים; בהמשך הפרק נרחיב על טיפוס הנתונים.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 zeros = np.zeros(4, dtype=int)
@@ -211,7 +211,7 @@ print(zeros)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [0 0 0 0]
@@ -223,7 +223,7 @@ print(zeros)
 
 באופן דומה, `np.ones` יוצרת מערך שכל איבריו מתחילים בערך `1`. בדוגמה ניצור ארבעה אחדים.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 ones = np.ones(4, dtype=int)
@@ -234,7 +234,7 @@ print(ones)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [1 1 1 1]
@@ -248,7 +248,7 @@ print(ones)
 
 כדי לבחור בעצמנו את ערך המילוי משתמשים ב־`np.full`: הארגומנט הראשון קובע את מספר המקומות, והשני את הערך שיישמר בכל מקום. כאן ניצור ארבעה איברים שערכם `5`.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 filled = np.full(4, 5, dtype=int)
@@ -259,7 +259,7 @@ print(filled)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [5 5 5 5]
@@ -285,7 +285,7 @@ print(filled)
 
 ניצור שלושה מערכים כדי לראות זאת בקוד. ליצירת מטריצה נעביר רשימה של שורות, כשכל שורה היא רשימה באותו אורך. ליצירת מערך תלת־ממדי נוסיף רמה חיצונית של רשימות — רשימת הטבלאות. המאפיין `ndim` מחזיר את מספר הממדים, והמאפיין `shape` מחזיר את הצורה.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 vector = np.array([10, 20, 30])
@@ -307,7 +307,7 @@ print(layers.ndim, layers.shape)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 1 (3,)
@@ -327,7 +327,7 @@ print(layers.ndim, layers.shape)
 
 אפשר לפרק את הצורה של המטריצה לשני משתנים ולקבל את מספר השורות והעמודות:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 rows, columns = matrix.shape
@@ -338,7 +338,7 @@ print(rows, columns)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 2 3
@@ -348,7 +348,7 @@ print(rows, columns)
 
 כעת אפשר גם ליצור טבלת אפסים או טבלה בעלת ערך אחיד. במקום מספר יחיד מעבירים לפונקציה את הצורה `(2, 3)`:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 board = np.zeros((2, 3), dtype=int)
@@ -361,7 +361,7 @@ print(filled_table)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [[0 0 0]
@@ -374,7 +374,7 @@ print(filled_table)
 
 יש גם מערך בעל **אפס ממדים**, שמחזיק ערך יחיד ללא צירי ארגון. מכנים ערך יחיד כזה סקאלר. כדי ליצור מערך כזה מעבירים מספר ישירות ל־`np.array`, ללא רשימה סביבו:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 scalar = np.array(7)
@@ -385,7 +385,7 @@ print(scalar.ndim, scalar.shape)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 0 ()
@@ -407,7 +407,7 @@ print(scalar.ndim, scalar.shape)
 
 ברצף הבא יש שלושה איברים, ולכן האינדקסים שלהם הם `0`, `1` ו־`2`. אינדקס שלילי סופר מהסוף: `-1` מציין את האיבר האחרון, ו־`-2` את הלפני־אחרון.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 scores = np.array([10, 20, 30])
@@ -420,7 +420,7 @@ print(scores[-1])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 10
@@ -436,7 +436,7 @@ print(scores[-1])
 
 בטבלה מציינים תחילה אינדקס שורה ואחריו אינדקס עמודה: `matrix[row, column]`. במערך הבא השורה באינדקס `0` מכילה את `1, 2, 3`, והשורה באינדקס `1` מכילה את `4, 5, 6`. בכל שורה העמודות ממוספרות `0`, `1`, `2`.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 matrix = np.array([
@@ -452,7 +452,7 @@ print(matrix[-1, -1])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 2
@@ -468,7 +468,7 @@ print(matrix[-1, -1])
 
 באוסף טבלאות מציינים שלושה אינדקסים לפי הסדר: `layers[layer, row, column]`. הראשון בוחר שכבה, השני שורה בתוך השכבה, והשלישי עמודה בתוך השורה. בדוגמה השכבה באינדקס `0` מכילה את המספרים `1` עד `6`, והשכבה באינדקס `1` מכילה את `7` עד `12`.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 layers = np.array([
@@ -484,7 +484,7 @@ print(layers[-1, -1, -1])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 4
@@ -510,7 +510,7 @@ print(layers[-1, -1, -1])
 
 בדוגמה נבחר את האיברים באינדקסים `1`, `2` ו־`3` מתוך רצף של שישה מספרים:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 values = np.array([10, 20, 30, 40, 50, 60])
@@ -522,7 +522,7 @@ print(part)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [20 30 40]
@@ -536,7 +536,7 @@ print(part)
 
 בחיתוך רגיל, שמתקדם קדימה, השמטת ההתחלה פירושה להתחיל בתחילת המערך; השמטת הסיום פירושה להמשיך עד סופו. נקודתיים בלבד בוחרות את כל האיברים:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print(values[:3])
@@ -548,7 +548,7 @@ print(values[:])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [10 20 30]
@@ -568,7 +568,7 @@ print(values[:])
 
 ב־`values[::2]` מתחילים באינדקס `0` ובוחרים את אינדקסים `0`, `2`, `4`. ב־`values[1:6:2]` מתחילים באינדקס `1` ובוחרים את `1`, `3`, `5`:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print(values[::2])
@@ -579,7 +579,7 @@ print(values[1:6:2])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [10 30 50]
@@ -590,7 +590,7 @@ print(values[1:6:2])
 
 צעד שלילי מתקדם לאחור. הביטוי `values[::-1]` משמיט את שני הגבולות ומשתמש בצעד `-1`, ולכן בוחר את כל האיברים מהאחרון לראשון:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print(values[::-1])
@@ -600,7 +600,7 @@ print(values[::-1])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [60 50 40 30 20 10]
@@ -614,7 +614,7 @@ print(values[::-1])
 
 נשתמש בטבלה בעלת שלוש שורות וארבע עמודות. תחילה נבחר שורה שלמה, ואחר כך עמודה שלמה:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 table = np.array([
@@ -630,7 +630,7 @@ print(table[:, 2])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [5 6 7 8]
@@ -643,7 +643,7 @@ print(table[:, 2])
 
 כעת נבחר מלבן מתוך הטבלה: שתי השורות הראשונות, ובכל אחת העמודות באינדקסים `1` ו־`2`. לשם כך נשתמש בחיתוך בכל אחד משני הצירים:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print(table[:2, 1:3])
@@ -653,7 +653,7 @@ print(table[:2, 1:3])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [[2 3]
@@ -666,7 +666,7 @@ print(table[:2, 1:3])
 
 אפשר להשתמש גם בצעד בתוך אחד הצירים. בביטוי הבא נבחר את כל השורות, ובכל שורה את העמודות באינדקסים `0` ו־`2`:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print(table[:, ::2])
@@ -676,7 +676,7 @@ print(table[:, ::2])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [[ 1  3]
@@ -690,7 +690,7 @@ print(table[:, ::2])
 
 אינדקס יחיד מסיר מהתוצאה את הציר שבו בוצעה הבחירה. חיתוך משאיר את הציר, גם אם נבחר בו רק מקום אחד. לכן `table[1, :]` הוא רצף של ארבעה איברים, ואילו `table[1:2, :]` הוא טבלה עם שורה אחת וארבע עמודות:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print(table[1, :].shape)
@@ -701,7 +701,7 @@ print(table[1:2, :].shape)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 (4,)
@@ -716,7 +716,7 @@ print(table[1:2, :].shape)
 
 גם בשלושה ממדים משתמשים באותם כללים, אך כותבים שלוש בחירות: שכבות, שורות ועמודות, בסדר הזה. נשתמש בשתי טבלאות, שבכל אחת שתי שורות ושלוש עמודות:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 layers = np.array([
@@ -730,7 +730,7 @@ print(layers.shape)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 (2, 2, 3)
@@ -740,7 +740,7 @@ print(layers.shape)
 
 נבחר תחילה את השכבה השנייה כולה. האינדקס `1` בוחר שכבה אחת, ושתי הנקודתיים בוחרות את כל השורות ואת כל העמודות שלה:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print(layers[1, :, :])
@@ -750,7 +750,7 @@ print(layers[1, :, :])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [[ 7  8  9]
@@ -761,7 +761,7 @@ print(layers[1, :, :])
 
 התוצאה היא מטריצה: הבחירה בשכבה יחידה באמצעות אינדקס הסירה את ציר השכבות. כעת נבחר מכל שכבה רק את השורה הראשונה ואת שתי העמודות האחרונות:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 part = layers[:, :1, 1:3]
@@ -773,7 +773,7 @@ print(part.shape)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [[[2 3]]
@@ -788,7 +788,7 @@ print(part.shape)
 
 אפשר לבחור גם עמודה מסוימת בכל השורות ובכל השכבות. בדוגמה נבחר את העמודה האחרונה, באינדקס `-1`:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 print(layers[:, :, -1])
@@ -798,7 +798,7 @@ print(layers[:, :, -1])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [[ 3  6]
@@ -821,7 +821,7 @@ print(layers[:, :, -1])
 
 חיתוך בסיסי של מערך NumPy מחזיר **תצוגה**: מערך שמאפשר לגשת לחלק מאותם נתונים. הוא אינו עותק עצמאי. לכן שינוי איבר דרך תוצאת החיתוך משנה גם את המערך המקורי. כדי ליצור עותק עצמאי של מערך מספרי, מוסיפים `.copy()` לחיתוך.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 values = np.array([10, 20, 30])
@@ -836,7 +836,7 @@ print(saved)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [99 20 30]
@@ -851,7 +851,7 @@ print(saved)
 
 `reshape` מחזירה מערך בצורה אחרת. **מספר האיברים הכולל חייב להישמר.** ערך `-1` במקום גודל של ממד אחד מאפשר ל־NumPy לחשב אותו.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 values = np.array([1, 2, 3, 4, 5, 6])
@@ -864,7 +864,7 @@ print(values.reshape(3, -1))
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [[1 2 3]
@@ -884,7 +884,7 @@ print(values.reshape(3, -1))
 
 במטריצה, שחלוף מחליף בין שורות לעמודות. **`matrix.T` היא דרך קצרה לכתוב `matrix.transpose()`.**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 matrix = np.array([[1, 2, 3],
@@ -897,7 +897,7 @@ print(matrix.T.shape)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [[1 4]
@@ -916,7 +916,7 @@ print(matrix.T.shape)
 
 למערך NumPy יש **`dtype` אחד** הקובע את ייצוג איבריו. בדוגמאות מספריות בוחרים, למשל, `int` למספרים שלמים או `float` למספרים ממשיים.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 whole = np.array([3, 4, 4.5], dtype=int)
@@ -929,7 +929,7 @@ print(real)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [3 4 4]
@@ -946,7 +946,7 @@ print(real)
 
 סריקת מטריצה ב־`for` נותנת שורה בכל צעד. כדי לעבור על כל מספר משתמשים בלולאה פנימית נוספת.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 matrix = np.array([[1, 2], [3, 4]])
@@ -959,7 +959,7 @@ for row in matrix:
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 1
@@ -980,7 +980,7 @@ for row in matrix:
 
 בכל צעד ניגש לאיבר באמצעות `matrix[row, column]`. נדפיס את אינדקס השורה, את אינדקס העמודה ואת הערך שבמיקום זה:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 matrix = np.array([[1, 2], [3, 4]])
@@ -994,7 +994,7 @@ for row in range(rows):
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 0 0 1

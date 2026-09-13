@@ -55,7 +55,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .screen-strip img { display: block; width: 1745px; max-width: none; }
 .book .screen-menu { width: 400px; max-width: 100%; height: 295px; overflow: hidden; direction: ltr; margin: 20px auto 8px; border: 1px solid #bccad5; border-radius: 8px; }
 .book .screen-menu img { display: block; width: 1745px; max-width: none; }
-.book .code-panel { box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; }
+.book .code-panel { box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; }
 @media print {
   .book .cover { min-height: 85vh; break-after: page; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .book pre { white-space: pre-wrap; break-inside: avoid; }
@@ -125,7 +125,7 @@ PyPlot הוא מודול בספריית Matplotlib שמאפשר להציג נת�
 
 ### ייבוא וציור קו
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 import matplotlib.pyplot as plt
@@ -147,7 +147,7 @@ plt.show()
 
 אפשר להעביר ל־`plot` רשימות או מערכי NumPy. **הנקודות מתחברות לפי סדר הנתונים**, גם אם ערכי `x` אינם ממוינים. `color` קובע צבע ו־`marker` את סימון הנקודות.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 x = [1, 3, 2, 5]
@@ -169,7 +169,7 @@ plt.show()
 
 הסימון **`"o"`** לבדו ב־`plot` מציג עיגולים ללא קו. נשתמש באותן ארבע נקודות מהדוגמה הקודמת:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 plt.figure()
@@ -185,7 +185,7 @@ plt.show()
 
 `plot` מחברת את הנקודות שנמסרו. **`axline` מגדירה ישר העובר בשתי נקודות ונמשך עד גבולות אזור התצוגה.**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 plt.figure()
@@ -203,7 +203,7 @@ plt.show()
 
 `scatter` מציירת נקודות ללא קו מחבר. ניצור תרשים ובו שתי קבוצות קטנות, ונבדיל ביניהן בצבע ובשם:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 plt.figure()
@@ -225,7 +225,7 @@ plt.show()
 
 `title` מוסיפה כותרת, `xlabel` ו־`ylabel` שמות לצירים, ו־`xlim` ו־`ylim` קובעות את תחום התצוגה.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 plt.figure()
@@ -254,7 +254,7 @@ plt.show()
 
 **`subplot(rows, columns, index)`** מחלקת את המסגרת לאזורי ציור ובוחרת את האזור הפעיל. **מספור האזורים מתחיל ב־`1`.**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 plt.figure(figsize=(8, 3))
@@ -279,7 +279,7 @@ plt.show()
 
 **`Figure` היא המסגרת הכוללת; `Axes` הוא אזור ציור אחד בתוכה.** `subplots` מחזירה אותם כדי שנוכל לפנות ישירות לכל תרשים.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 fig, axes = plt.subplots(1, 2,
@@ -310,7 +310,7 @@ plt.show()
 
 אחרי שהכרנו מערך של שני תרשימים בשורה, נרחיב לרשת כמו במחברת הקורס. `axes[row, column]` בוחרת תרשים לפי שורה ועמודה, והאינדקסים מתחילים באפס:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 fig, axes = plt.subplots(2, 2,
@@ -334,7 +334,7 @@ plt.show()
 
 NumPy יוצרת ערכי קלט ומחשבת את הפונקציה עבור כולם; PyPlot מציירת את הזוגות. בדוגמת המחברת מציגים את `x² cos(x)`:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 import numpy as np
@@ -357,7 +357,7 @@ plt.show()
 
 תרשים עמודות משווה ערכים בין קטגוריות; למשל מספר פריטים מכל סוג. הגובה מייצג את הערך, ולא מיקום של נקודה ברצף זמן.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 categories = ["A", "B", "C", "D"]
@@ -380,7 +380,7 @@ plt.show()
 
 היסטוגרמה מחלקת נתונים מספריים לטווחים וסופרת כמה ערכים נפלו בכל טווח. בניגוד לעמודות של קטגוריות, כאן הציר מתאר תחום מספרי. `bins` קובעת את החלוקה:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 values = [10, 12, 15, 21, 23, 25, 29, 35]

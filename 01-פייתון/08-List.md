@@ -55,7 +55,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .screen-strip img { display: block; width: 1745px; max-width: none; }
 .book .screen-menu { width: 400px; max-width: 100%; height: 295px; overflow: hidden; direction: ltr; margin: 20px auto 8px; border: 1px solid #bccad5; border-radius: 8px; }
 .book .screen-menu img { display: block; width: 1745px; max-width: none; }
-.book .code-panel { box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; }
+.book .code-panel { box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; }
 @media print {
   .book .cover { min-height: 85vh; break-after: page; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .book pre { white-space: pre-wrap; break-inside: avoid; }
@@ -121,17 +121,94 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 **[מחברות האוניברסיטה הפתוחה — 5-רשימות; 6-שוויון וזהות](https://drive.google.com/drive/folders/1yLN-J12Mq3KZ0i6XJwpaA3XMC6xoh4GJ?usp=sharing)**
 
 
-### יצירה וגישה לאיבר
+### יצירת רשימה
 
-רשימה נכתבת בסוגריים מרובעים. היא שומרת על סדר האיברים, מאפשרת כפילויות ויכולה להכיל ערכים מטיפוסים שונים, כולל רשימות נוספות.
+כדי ליצור רשימה כותבים את האיברים בתוך סוגריים מרובעים `[]`, ומפרידים ביניהם בפסיקים. את הרשימה שומרים במשתנה כדי להשתמש בה בהמשך. סדר האיברים נשמר, ואותו ערך יכול להופיע יותר מפעם אחת.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+#### רשימה של מספרים
+
+למשל, אפשר לשמור כמה ציונים ברשימה אחת. המספרים נכתבים ללא מירכאות; הרשימה יכולה להכיל מספרים שלמים וגם מספרים עשרוניים.
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
-scores = [10, 20, 10]
-print(scores[0])
-print(scores[-1])
-scores[1] = 25
+scores = [80, 92.5, 100, 80]
+print(scores)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+[80, 92.5, 100, 80]
+```
+
+</div>
+
+ברשימה ארבעה איברים. הציון `80` מופיע פעמיים — כל הופעה היא איבר בפני עצמו.
+
+#### רשימה של מחרוזות
+
+כדי לשמור שמות, כותבים כל שם כמחרוזת במירכאות. הפסיקים מפרידים בין המחרוזות.
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+names = ["Dana", "Noam", "Yael"]
+print(names)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+['Dana', 'Noam', 'Yael']
+```
+
+</div>
+
+כל שם שלם הוא איבר אחד ברשימה, גם אם הוא מכיל כמה תווים.
+
+#### רשימה מעורבת
+
+אפשר לשלב באותה רשימה ערכים מטיפוסים שונים:
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+student = ["Dana", 17, 92.5, True]
+print(student)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+['Dana', 17, 92.5, True]
+```
+
+</div>
+
+כאן האיברים הם מחרוזת, מספר שלם, מספר עשרוני וערך בוליאני. אין צורך להצהיר מראש על טיפוס משותף לכל האיברים.
+
+#### רשימה ריקה
+
+לפעמים עדיין אין נתונים לשמור, למשל לפני שמתחילים לקלוט ציונים. כותבים `[]` — סוגריים מרובעים ללא איברים ביניהם — כדי ליצור רשימה ריקה.
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+scores = []
+print(scores)
 print(len(scores))
 ```
 
@@ -139,26 +216,190 @@ print(len(scores))
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
-10
-10
-3
+[]
+0
 ```
 
 </div>
 
-**האינדקס הראשון הוא `0`; האינדקס `-1` מציין את האיבר האחרון.** `len` מחזירה את מספר האיברים.
+המשתנה `scores` כבר מוגדר ומחזיק רשימה, אך כרגע אין בה אף איבר. הפונקציה `len` מחזירה את מספר האיברים, ולכן התוצאה היא `0`. בהמשך אפשר להוסיף אליה ציונים. רשימה ריקה שונה מ־`[0]`: ברשימה `[0]` יש איבר אחד שערכו אפס.
 
-<!-- editorlm-source-ref: [sources/Python/Python_Data_Strucrures.pptx#L15-L25] -->
-<!-- editorlm-source-ref: [sources/Python/converted/2.Python_Data_Struct/notebook.md#L194-L215] -->
+#### יצירת רשימה באמצעות list()
+
+דרך נוספת ליצור רשימה היא להשתמש ב־`list()`, באותיות קטנות. קריאה ללא ערכים בסוגריים יוצרת רשימה ריקה, כמו `[]`. כאשר מוסרים ל־`list` רצף שאפשר לעבור על איבריו, היא יוצרת ממנו רשימה.
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+empty = list()
+letters = list("abc")
+numbers = list(range(2, 10, 2))
+print(empty)
+print(letters)
+print(numbers)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+[]
+['a', 'b', 'c']
+[2, 4, 6, 8]
+```
+
+</div>
+
+ב־`list("abc")` כל תו הופך לאיבר נפרד. ב־`list(range(2, 10, 2))` נוצרת רשימה מהמספרים שמספק `range`: מתחילים ב־`2`, מתקדמים בצעדים של `2` ועוצרים לפני `10`.
+
+<!-- editorlm-source-ref: [sources/אוניברסיטה פתוחה/converted/5-רשימות/notebook.md#L51-L66] -->
+
+### גישה לאיבר ברשימה
+
+אחרי שיצרנו רשימה, נרצה לעיתים לקרוא מתוכה ערך מסוים — למשל את הציון של התלמיד השני. לכל איבר יש מספר מיקום שנקרא **אינדקס**. הספירה מתחילה ב־`0`: לאיבר הראשון אינדקס `0`, לשני אינדקס `1` ולשלישי אינדקס `2`.
+
+כדי לגשת לאיבר, כותבים **את שם הרשימה ואחריו את האינדקס בתוך סוגריים מרובעים**: `scores[1]`. הביטוי מחזיר את הערך שבמיקום הזה, ואפשר להדפיס אותו, לשמור אותו במשתנה או להשתמש בו בחישוב.
+
+#### קריאת איבר לפי האינדקס
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+scores = [80, 90, 100]
+print(scores[0])
+second_score = scores[1]
+print(second_score)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+80
+90
+```
+
+</div>
+
+הביטוי `scores[0]` מחזיר את הציון הראשון, `80`. הביטוי `scores[1]` מחזיר את הציון השני, `90`, שאותו שומרים במשתנה `second_score`. **האינדקס מתאר את המיקום; הערך הוא הנתון שנמצא באותו מיקום.** קריאת איבר אינה מוציאה אותו מהרשימה.
+
+אותו תחביר משמש גם ברשימה של מחרוזות:
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+names = ["Dana", "Noam", "Yael"]
+print(names[1])
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+Noam
+```
+
+</div>
+
+קיבלנו את השם השלם `"Noam"`, משום שהוא האיבר השני ברשימה.
+
+#### גישה מהסוף
+
+אפשר לספור גם מסוף הרשימה באמצעות אינדקס שלילי: `-1` מציין את האיבר האחרון, `-2` את האיבר שלפניו, וכן הלאה.
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+scores = [80, 90, 100]
+print(scores[-1])
+print(scores[-2])
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+100
+90
+```
+
+</div>
+
+כך אפשר לקרוא את האיבר האחרון בלי לחשב מראש את האינדקס שלו מתחילת הרשימה.
+
+#### שינוי ערך של איבר
+
+כדי להחליף ערך במיקום קיים, כותבים את הגישה לאיבר משמאל לסימן ההשמה `=`, ואת הערך החדש מימין.
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+scores = [80, 90, 100]
+scores[1] = 95
+print(scores)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+[80, 95, 100]
+```
+
+</div>
+
+האיבר השני השתנה מ־`90` ל־`95`. שאר האיברים נשארו כפי שהיו, ואורך הרשימה עדיין שלושה איברים.
+
+#### גישה למיקום שאינו קיים
+
+ברשימה באורך `3`, האינדקסים מתחילת הרשימה הם `0`, `1` ו־`2`. ניסיון לקרוא את `scores[3]` גורם לשגיאת `IndexError`, משום שאין איבר רביעי.
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+scores = [80, 90, 100]
+print(scores[3])
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+IndexError: list index out of range
+```
+
+</div>
+
+מוצגת השורה האחרונה של הודעת השגיאה. בכלליות, האינדקס האחרון מתחילת רשימה שאינה ריקה הוא `len(scores) - 1`. ברשימה ריקה אין אינדקס תקין — גם גישה ל־`scores[0]` תיכשל. השמה לאינדקס שאינו קיים אינה מוסיפה איבר; הוספת איברים תוסבר בהמשך.
+
+<!-- editorlm-source-ref: [sources/אוניברסיטה פתוחה/converted/5-רשימות/notebook.md#L68-L85] -->
 
 ### הגודל של הרשימה משתנה
 
 ניצור רשימה עם שני ציונים, נוסיף ציון לסופה ונמחק את הציון שבאינדקס `0`:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 scores = [80, 90]
@@ -175,7 +416,7 @@ print(len(scores))
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 2
@@ -195,7 +436,7 @@ print(len(scores))
 
 `append` מוסיפה לסוף, `insert` מוסיפה לפני אינדקס נתון. **`remove` מסירה לפי ערך; `pop` מסירה לפי אינדקס ומחזירה את האיבר שהוסר.** ללא אינדקס, `pop` מסירה את האחרון.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 colors = ["blue", "red", "white"]
@@ -211,7 +452,7 @@ print(last)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 ['blue', 'green', 'white']
@@ -228,7 +469,7 @@ yellow
 
 התחביר הוא **`sequence[start:stop:step]`**. אינדקס ההתחלה נכלל, **אינדקס הסיום אינו נכלל**. אפשר להשמיט גבולות ולהשתמש בצעד ברירת המחדל `1`.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 scores = [10, 20, 30, 40, 50]
@@ -243,7 +484,7 @@ print(scores[::-1])
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [20, 30, 40]
@@ -264,7 +505,7 @@ print(scores[::-1])
 
 בכל סיבוב של הלולאה, המשתנה `score` מקבל את הערך של האיבר הבא ברשימה. כך סורקים כאשר צריך לקרוא את הערכים, בלי להשתמש במיקומם.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 scores = [10, 20, 30]
@@ -276,7 +517,7 @@ for score in scores:
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 10
@@ -290,7 +531,7 @@ for score in scores:
 
 בכל סיבוב, המשתנה `i` מקבל אינדקס. `len(scores)` מחזירה את אורך הרשימה, ו־`range(len(scores))` נותנת את האינדקסים מ־`0` ועד האורך פחות אחד. כדי להגיע לערך משתמשים ב־`scores[i]`.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 scores = [10, 20, 30]
@@ -302,7 +543,7 @@ for i in range(len(scores)):
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 0 10
@@ -314,7 +555,7 @@ for i in range(len(scores)):
 
 העמודה הראשונה היא האינדקס והשנייה היא הערך. סריקה לפי אינדקס שימושית גם כאשר רוצים לשנות איברים ברשימה:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 scores = [10, 20, 30]
@@ -327,7 +568,7 @@ print(scores)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [11, 21, 31]
@@ -341,7 +582,7 @@ print(scores)
 
 ### צירוף והעתקה
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 scores = [10, 20, 30]
@@ -355,7 +596,7 @@ print(scores)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [10, 20, 30, 40, 50]
@@ -366,7 +607,7 @@ print(scores)
 
 **`+` יוצרת רשימה חדשה; `extend` משנה את הרשימה הקיימת.** `append` מוסיפה ערך אחד, ואילו `extend` מוסיפה בנפרד כל איבר מהרצף שנמסר לה. פעולות כמו `append` ו־`extend` משנות את הרשימה ומחזירות `None`, ולכן לא כותבים `scores = scores.append(5)`.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 original = [10, 20]
@@ -381,7 +622,7 @@ print(copied)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [10, 20, 30]
@@ -394,7 +635,7 @@ print(copied)
 
 בלוח הבא כל איבר הוא רשימה שמייצגת שורה. `board[0][0]` פונה לאיבר הראשון בשורה הראשונה. הפקודה `from copy import deepcopy` מייבאת את פעולת ההעתקה העמוקה מהמודול `copy`:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 from copy import deepcopy
@@ -411,7 +652,7 @@ print(saved)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; display: block !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [[1, 0], [0, 0]]
@@ -428,7 +669,7 @@ print(saved)
 
 כבר ראינו סריקה לפי ערך וסריקה לפי אינדקס. כשצריכים את שניהם, `enumerate` מספקת בכל חזרה זוג: האינדקס והערך.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 animals = ["Dog", "Cat", "Bird"]
@@ -440,7 +681,7 @@ for index, animal in enumerate(animals):
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 0 Dog
@@ -452,12 +693,11 @@ for index, animal in enumerate(animals):
 
 ### מרצף טקסט לרשימה
 
-`list("abc")` מפרידה לתווים. לעומתה, `split` מפרידה מחרוזת לחלקים לפי מפריד. אחר כך אפשר לפעול על כל חלק בנפרד:
+`split` מפרידה מחרוזת לחלקים לפי מפריד. למשל, אפשר לפצל טקסט שבו הערכים מופרדים בפסיקים, ואז לפעול על כל חלק בנפרד:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
-print(list("abc"))
 print("a,b,c,d,e".split(","))
 ```
 
@@ -465,10 +705,9 @@ print("a,b,c,d,e".split(","))
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
-['a', 'b', 'c']
 ['a', 'b', 'c', 'd', 'e']
 ```
 
@@ -478,7 +717,7 @@ print("a,b,c,d,e".split(","))
 
 טבלת ציונים יכולה להיות רשימה שכל איבר בה הוא שורה. שתי פעולות גישה בוחרות תחילה שורה ואז איבר בשורה:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 grades = [[80, 90], [70, 100]]
@@ -491,7 +730,7 @@ for row in grades:
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 70
@@ -503,7 +742,7 @@ for row in grades:
 
 `sum` מחברת את המספרים ברשימה. לסריקה לפי מיקום נשתמש בשני אינדקסים:
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 for i in range(len(grades)):
@@ -519,7 +758,7 @@ for i in range(len(grades)):
 
 `len`, `sum`, `min` ו־`max` מספקות אורך, סכום וקיצונים. `sorted` מחזירה רשימה ממוינת חדשה; `sort` משנה את הרשימה עצמה ומחזירה `None`.
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```python
 numbers = [3, 1, 2]
@@ -534,7 +773,7 @@ print(numbers)
 
 **פלט**
 
-<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 50% !important; max-width: 50% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
 
 ```text
 [3, 1, 2]
