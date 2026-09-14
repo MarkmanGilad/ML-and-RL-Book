@@ -100,12 +100,10 @@ body.resizing { cursor: col-resize; user-select: none; }
 function sidebarFor(page) {
   const prefix = page.includes('/') ? '../'.repeat(page.split('/').length - 1) : '';
   const toHtml = href => prefix + href.replace(/\.md(?=[?#]|$)/, '.html');
-  const isIndex = page === 'index.md';
   const items = parts.map(part => {
-    const open = isIndex || part.chapters.some(c => c.target === page) ? ' open' : '';
     const list = part.chapters.map(c =>
       `<li${c.target === page ? ' class="current"' : ''}><a href="${toHtml(c.href)}">${c.title}</a></li>`).join('');
-    return `<details${open}><summary>${part.title}</summary><ul>${list}</ul></details>`;
+    return `<details><summary>${part.title}</summary><ul>${list}</ul></details>`;
   }).join('');
   return `<aside class="sidebar" aria-label="פרקי הספר"><a class="sidebar-home" href="${prefix}index.html">תוכן העניינים</a>${items}</aside>`;
 }
