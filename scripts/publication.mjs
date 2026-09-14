@@ -1,6 +1,6 @@
 export const siteUrl = 'https://book.markman.co.il/';
 const bookTitle = 'למידת מכונה ולמידת חיזוק באמצעות בניית משחקים';
-const description = 'ספר בעברית מאת גלעד מרקמן לתלמידי י״א–י״ב: פייתון, בניית משחקים עם Pygame, למידת מכונה עם PyTorch ולמידת חיזוק.';
+const description = 'למידת מכונה (ML) ולמידת חיזוק (RL — Reinforcement Learning) באמצעות משחקים. ספר בעברית מאת גלעד מרקמן: Python, Pygame, PyTorch וסוכנים הלומדים מתגמולים.';
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 
 export function pageUrl(page) {
