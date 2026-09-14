@@ -1,3 +1,4 @@
+import { publicationHead, sitemap, siteUrl } from './publication.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -112,10 +113,12 @@ for (const page of pages) {
   }
   const title = html.match(/<h1[^>]*>([^]*?)<\/h1>/)?.[1].replace(/<[^>]*>/g, ' ') || path.basename(page, '.md');
   const body = `<input type="checkbox" id="toc-toggle" class="toc-toggle"><label for="toc-toggle" class="toc-button">&#9776; פרקים</label><div class="layout">${sidebarFor(page)}<main class="content">${html}</main></div>`;
-  const result = `<!doctype html>\n<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(title)}</title><style>body{margin:0;background:#fff;color:#183b50;font-family:Arial,sans-serif}img{max-width:100%;height:auto}pre{overflow-x:auto}pre,pre code{direction:ltr;text-align:left;unicode-bidi:isolate}table{border-collapse:collapse}th,td{padding:8px;border:1px solid #d4e3e9}</style>${sidebarStyles}${mobileStyles}</head><body>${body}</body></html>`;
+  const result = `<!doctype html>\n<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">${publicationHead(page, title)}<style>body{margin:0;background:#fff;color:#183b50;font-family:Arial,sans-serif}img{max-width:100%;height:auto}pre{overflow-x:auto}pre,pre code{direction:ltr;text-align:left;unicode-bidi:isolate}table{border-collapse:collapse}th,td{padding:8px;border:1px solid #d4e3e9}</style>${sidebarStyles}${mobileStyles}</head><body>${body}</body></html>`;
   const dest = path.join(out, page.replace(/\.md$/, '.html'));
   await fs.mkdir(path.dirname(dest), { recursive: true });
   await fs.writeFile(dest, result);
 }
 await fs.writeFile(path.join(out, '.nojekyll'), '');
+await fs.writeFile(path.join(out, 'sitemap.xml'), sitemap(pages));
+await fs.writeFile(path.join(out, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: ' + siteUrl + 'sitemap.xml\n');
 console.log(`Built ${pages.length} pages with a ${parts.length}-part sidebar; ${localOnly} local source links shown as text. All chapter links and local images checked.`);
