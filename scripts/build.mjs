@@ -43,6 +43,30 @@ if (!parts.length) throw Error('Sidebar: no parts found in index.md');
 
 const sidebarScript = `<script>
 (function () {
+  var sections = document.querySelectorAll('.sidebar details[data-part]');
+  var toggle = document.getElementById('toc-toggle');
+  sections.forEach(function (section) {
+    var key = 'book-sidebar-part:' + section.dataset.part;
+    try { section.open = localStorage.getItem(key) === 'true'; } catch (e) {}
+    section.addEventListener('toggle', function () {
+      try { localStorage.setItem(key, String(section.open)); } catch (e) {}
+    });
+  });
+  if (toggle) {
+    try { toggle.checked = localStorage.getItem('book-sidebar-visible') === 'true'; } catch (e) {}
+    toggle.addEventListener('change', saveSidebarState);
+  }
+  function saveSidebarState() {
+    try {
+      sections.forEach(function (section) {
+        localStorage.setItem('book-sidebar-part:' + section.dataset.part, String(section.open));
+      });
+      if (toggle) localStorage.setItem('book-sidebar-visible', String(toggle.checked));
+    } catch (e) {}
+  }
+  // Save before navigation too: a details toggle event may still be queued.
+  document.querySelector('.sidebar').addEventListener('click', saveSidebarState);
+  window.addEventListener('pagehide', saveSidebarState);
   var KEY = 'book-sidebar-width', root = document.documentElement;
   try { var saved = localStorage.getItem(KEY); if (saved) root.style.setProperty('--sidebar-w', saved + 'px'); } catch (e) {}
   var handle = document.querySelector('.sidebar-handle'), side = document.querySelector('.sidebar');
@@ -103,7 +127,8 @@ function sidebarFor(page) {
   const items = parts.map(part => {
     const list = part.chapters.map(c =>
       `<li${c.target === page ? ' class="current"' : ''}><a href="${toHtml(c.href)}">${c.title}</a></li>`).join('');
-    return `<details><summary>${part.title}</summary><ul>${list}</ul></details>`;
+    const partId = part.chapters[0]?.target.split('/')[0] || part.title;
+    return `<details data-part="${escape(partId)}"><summary>${part.title}</summary><ul>${list}</ul></details>`;
   }).join('');
   return `<aside class="sidebar" aria-label="פרקי הספר"><a class="sidebar-home" href="${prefix}index.html">תוכן העניינים</a>${items}</aside>`;
 }
