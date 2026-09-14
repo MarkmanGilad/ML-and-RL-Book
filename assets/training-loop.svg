@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="410" viewBox="0 0 960 410" direction="rtl">
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#153b56"/></marker>
+<marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c34345"/></marker>
+</defs>
+<style>
+text{font-family:Arial,sans-serif;fill:#153b56;font-size:20px;direction:rtl}
+.box{fill:#eef5fc;stroke:#153b56;stroke-width:2;rx:12}
+.net{fill:#edf7f5;stroke:#299c91;stroke-width:3;rx:14}
+.err{fill:#fff1f1;stroke:#c34345;stroke-width:2;rx:12}
+.lbl{font-size:17px;fill:#174e49}
+.big{font-size:22px;font-weight:bold}
+.upd{font-size:20px;font-weight:bold;fill:#c34345}
+</style>
+<rect width="960" height="410" fill="#f7fbfd"/>
+
+<!-- input (right) -->
+<rect class="box" x="760" y="90" width="160" height="80"/>
+<text x="840" y="123" text-anchor="middle" class="big">קלט</text>
+<text x="840" y="152" text-anchor="middle" class="lbl">דוגמה מהאוסף</text>
+
+<!-- network (middle) -->
+<rect class="net" x="380" y="70" width="260" height="120"/>
+<text x="510" y="112" text-anchor="middle" class="big">רשת נוירונים</text>
+<text x="510" y="146" text-anchor="middle" class="lbl">המשקלים W</text>
+<circle cx="415" cy="100" r="7" fill="#299c91"/><circle cx="415" cy="130" r="7" fill="#299c91"/><circle cx="415" cy="160" r="7" fill="#299c91"/>
+<circle cx="605" cy="115" r="7" fill="#299c91"/><circle cx="605" cy="145" r="7" fill="#299c91"/>
+
+<!-- output (left, top) -->
+<rect class="box" x="110" y="90" width="160" height="80"/>
+<text x="190" y="123" text-anchor="middle" class="big">פלט</text>
+<text x="190" y="152" text-anchor="middle" class="lbl">תשובת הרשת</text>
+
+<!-- desired answer (left, bottom) -->
+<rect class="box" x="110" y="270" width="160" height="80"/>
+<text x="190" y="303" text-anchor="middle" class="big">תשובה רצויה</text>
+<text x="190" y="332" text-anchor="middle" class="lbl">ידועה מראש</text>
+
+<!-- error (bottom middle) -->
+<rect class="err" x="400" y="190" width="220" height="80"/>
+<text x="510" y="223" text-anchor="middle" class="big">טעות</text>
+<text x="510" y="252" text-anchor="middle" class="lbl">ההפרש בין הפלט לתשובה</text>
+
+<!-- arrows: input -> net -> output -->
+<line x1="760" y1="130" x2="642" y2="130" stroke="#153b56" stroke-width="3" marker-end="url(#arr)"/>
+<line x1="380" y1="130" x2="272" y2="130" stroke="#153b56" stroke-width="3" marker-end="url(#arr)"/>
+<!-- output and desired answer both feed the comparison -->
+<path d="M270,150 L330,150 L330,310 L270,310" stroke="#153b56" stroke-width="3" fill="none"/>
+<line x1="330" y1="230" x2="398" y2="230" stroke="#153b56" stroke-width="3" marker-end="url(#arr)"/>
+<text x="364" y="218" text-anchor="middle" class="lbl">משווים</text>
+<!-- error -> network: update weights -->
+<path d="M620,230 L700,230 L700,160 L642,160" stroke="#c34345" stroke-width="3" fill="none" stroke-dasharray="9 6" marker-end="url(#arr-red)"/>
+<text x="930" y="222" text-anchor="start" class="upd">מעדכנים את המשקלים</text>
+<text x="930" y="248" text-anchor="start" class="lbl">כדי להקטין את הטעות</text>
+
+<text x="480" y="392" text-anchor="middle" class="lbl">חוזרים על המחזור עם דוגמאות רבות, עד שהטעות קטנה מספיק</text>
+</svg>

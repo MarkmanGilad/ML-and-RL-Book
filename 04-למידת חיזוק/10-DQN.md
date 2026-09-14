@@ -101,12 +101,12 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 <div class="book" dir="rtl" lang="he">
 
 <nav class="book-nav" aria-label="ניווט בספר">
-<a href="08-TD%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md">→ הקודם</a>
+<a href="09-TD%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md">→ הקודם</a>
 <a class="toc-link" href="../index.md">תוכן העניינים</a>
-<a href="10-DQN%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md">הבא ←</a>
+<a href="11-DQN%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md">הבא ←</a>
 </nav>
 
-## ד.9 — למידת חיזוק עמוקה
+## ד.10 — למידת חיזוק עמוקה
 
 **המצגת:** [DQN](../../../sources/RL/6.DQN.pptx)
 
@@ -144,7 +144,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ### יעד האימון ופונקציית הטעות
 
-עכשיו נגדיר את היעד. מבין שני האלגוריתמים של הפרק ד.7 נבחר ב־Q-learning ולא ב־SARSA, ובהמשך הפרק נראה למה: Q-learning הוא off-policy, ולכן יכול ללמוד גם ממעברים ישנים שנאספו במדיניות אחרת. נשתמש ביעד של [Q-learning](07-Temporal%20Difference.md#q-learning), כשהערכים מחושבים כעת באמצעות הרשת. בגרסה ראשונית עם רשת אחת, עבור מעבר שאינו סופי:
+עכשיו נגדיר את היעד. מבין שני האלגוריתמים של הפרק ד.8 נבחר ב־Q-learning ולא ב־SARSA, ובהמשך הפרק נראה למה: Q-learning הוא off-policy, ולכן יכול ללמוד גם ממעברים ישנים שנאספו במדיניות אחרת. נשתמש ביעד של [Q-learning](08-Temporal%20Difference.md#q-learning), כשהערכים מחושבים כעת באמצעות הרשת. בגרסה ראשונית עם רשת אחת, עבור מעבר שאינו סופי:
 
 <div class="formula" dir="ltr">y = R + γ max<sub>a′∈A(S′)</sub> Q(S′,a′;w)<br>loss = [y − Q(S,A;w)]²</div>
 
@@ -233,9 +233,9 @@ For each episode:
 <!-- editorlm-source-ref: [sources/RL/6.DQN.pptx#L63-L75] -->
 
 <nav class="book-nav" aria-label="ניווט בספר">
-<a href="08-TD%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md">→ הקודם</a>
+<a href="09-TD%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md">→ הקודם</a>
 <a class="toc-link" href="../index.md">תוכן העניינים</a>
-<a href="10-DQN%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md">הבא ←</a>
+<a href="11-DQN%20%D7%91%D7%90%D7%99%D7%A7%D7%A1%20%D7%A2%D7%99%D7%92%D7%95%D7%9C.md">הבא ←</a>
 </nav>
 
 </div>
