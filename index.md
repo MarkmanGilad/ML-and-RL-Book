@@ -5,7 +5,8 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 }
 .book { box-sizing: border-box; max-width: 960px; margin: auto; padding: 24px;
   background: #ffffff; color: #183b50; font-family: Arial, sans-serif; line-height: 1.8; }
-.book p, .book ul, .book ol, .book li, .book h1, .book h2, .book h3, .book th, .book td {
+.book p, .book ul, .book ol, .book li, .book h1, .book h2, .book h3, .book th, .book td,
+.book figcaption, .book .step, .book .about-card, .book .note {
   direction: rtl !important; text-align: right !important; unicode-bidi: isolate;
 }
 .book a { color: #176f78; text-underline-offset: 4px; }
@@ -15,13 +16,48 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 .book h1 { font-size: 32px; border: 0; margin: 40px 0 20px; }
 .book h3 { font-size: 23px; color: #174e49; border: 0; border-right: 4px solid #299c91;
   padding: 8px 16px; margin: 32px 0 16px; background: #eff7f5; border-radius: 5px; }
-.book .cover { padding: 44px 40px; margin: 0 0 24px; border-radius: 14px;
-  border-top: 6px solid #38bdb0; background: #112e43; color: #ffffff; }
-.book .cover .eyebrow { color: #91e1d6; font-size: 14px; }
-.book .cover h1 { color: #ffffff; font-size: 46px; line-height: 1.25; margin: 18px 0 12px; }
-.book .cover .subtitle { color: #d4e6ed; font-size: 24px; }
-.book .cover .author { font-size: 23px; margin-top: 30px; }
+.book .cover { position: relative; overflow: hidden; padding: 52px 48px 44px; margin: 0 0 28px;
+  border-radius: 18px; color: #ffffff;
+  background: linear-gradient(135deg, #0c2236 0%, #123a55 48%, #145f66 100%);
+  box-shadow: 0 12px 34px rgba(12, 34, 54, .28); }
+.book .cover::before { content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%;
+  left: -140px; top: -190px; background: radial-gradient(circle, rgba(56,189,176,.42), rgba(56,189,176,0) 70%); }
+.book .cover::after { content: ""; position: absolute; width: 360px; height: 360px; border-radius: 50%;
+  right: -120px; bottom: -200px; background: radial-gradient(circle, rgba(145,225,214,.28), rgba(145,225,214,0) 70%); }
+.book .cover > * { position: relative; z-index: 1; }
+.book .cover .eyebrow { display: inline-block; color: #91e1d6; font-size: 14px; letter-spacing: 3px;
+  padding: 6px 14px; border: 1px solid rgba(145,225,214,.45); border-radius: 999px; }
+.book .cover h1 { color: #ffffff; font-size: 52px; line-height: 1.2; margin: 26px 0 10px; letter-spacing: -.5px; }
+.book .cover .subtitle { color: #b8ece4; font-size: 27px; font-weight: bold; }
+.book .cover .rule { width: 120px; height: 5px; margin: 22px 0 0; border-radius: 3px;
+  background: linear-gradient(90deg, #38bdb0, #91e1d6); }
+.book .cover .author { font-size: 24px; margin-top: 26px; }
 .book .cover .audience { color: #bcd4df; font-size: 15px; margin-top: 4px; }
+.book .cover .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.book .cover .badges span { padding: 7px 15px; border-radius: 999px; font-size: 14px; font-weight: bold;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); color: #eaf7f5; }
+.book .cover .badges span.accent { background: #38bdb0; border-color: #38bdb0; color: #0c2236; }
+.book .cover .motif { direction: ltr; text-align: left; font-family: Consolas, "Courier New", monospace;
+  color: #91e1d6; font-size: 16px; margin-top: 30px; opacity: .9; }
+.book .lead { font-size: 19px; line-height: 1.9; color: #12303f; }
+.book .path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 22px 0 8px; }
+.book .step { padding: 16px 16px 14px; border-radius: 12px; background: #f4f8fb; border: 1px solid #d4e3e9;
+  border-top: 5px solid #299c91; }
+.book .step .num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px;
+  border-radius: 50%; background: #174e49; color: #fff; font-weight: bold; font-size: 17px; margin-bottom: 8px; }
+.book .step strong { display: block; font-size: 19px; color: #153b56; margin-bottom: 4px; }
+.book .step span { display: block; font-size: 14.5px; color: #496576; line-height: 1.6; }
+.book .step.s2 { border-top-color: #3776ab; } .book .step.s2 .num { background: #3776ab; }
+.book .step.s3 { border-top-color: #b45309; } .book .step.s3 .num { background: #b45309; }
+.book .step.s4 { border-top-color: #7c3aed; } .book .step.s4 .num { background: #7c3aed; }
+.book .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 24px 0 8px; }
+.book .gallery figure { margin: 0; padding: 14px; border-radius: 12px; background: #f7fafc; border: 1px solid #d4e3e9;
+  display: flex; flex-direction: column; }
+.book .gallery .frame { display: flex; align-items: center; justify-content: center; height: 190px;
+  background: #ffffff; border-radius: 8px; overflow: hidden; }
+.book .gallery img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; }
+.book .gallery figcaption { font-size: 14.5px; color: #3f5a6a; margin-top: 10px; line-height: 1.6; }
+.book .gallery figcaption strong { color: #153b56; }
 .book .book-nav { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 34px; }
 .book .book-nav a { padding: 9px 18px; border: 1px solid #cbdde3; border-radius: 8px;
   text-decoration: none; color: #183b50; background: #f3f7fa; font-weight: bold; }
@@ -35,18 +71,26 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 .book .resource-box { border: 1px solid #dbe6eb; border-radius: 10px; padding: 6px 22px 18px; margin: 18px 0; }
 .book .resource-box h3 { background: transparent; padding: 0; border: 0; margin: 16px 0 10px; font-size: 21px; }
 .book .note { padding: 14px 18px; background: #edf7f5; border-right: 4px solid #299c91; border-radius: 5px; font-size: 15px; }
+.book .note.warm { background: #fff7d6; color: #423611; border-right-color: #ffd343; font-size: 16px; padding: 16px 20px; }
+.book .note.warm strong { font-size: 18px; }
 .book code { direction: ltr; unicode-bidi: isolate; }
+@media (max-width: 760px) {
+  .book .path { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .book .gallery { grid-template-columns: 1fr; }
+}
 @media (max-width: 600px) {
   .book { padding: 12px; }
-  .book .cover { padding: 30px 24px; }
-  .book .cover h1 { font-size: 34px; }
+  .book .cover { padding: 32px 24px 28px; }
+  .book .cover h1 { font-size: 36px; }
+  .book .cover .subtitle { font-size: 21px; }
+  .book .path { grid-template-columns: 1fr; }
   .book .course-grid { grid-template-columns: 1fr; }
 }
 @media print {
   .book { max-width: none; padding: 0; }
-  .book .cover { break-after: page; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .book .cover { break-after: page; box-shadow: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .book .book-nav { display: none; }
-  .book .course-card, .book .resource-box { break-inside: avoid; }
+  .book .course-card, .book .resource-box, .book .step, .book .gallery figure { break-inside: avoid; }
   .book h1, .book h3 { break-after: avoid; }
 }
 </style>
@@ -58,17 +102,64 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 <div class="eyebrow">לחשוב · לתכנת · ללמוד</div>
 <h1>למידת מכונה ולמידת חיזוק</h1>
 <div class="subtitle">באמצעות בניית משחקים</div>
+<div class="rule"></div>
 <div class="author">גלעד מרקמן</div>
 <div class="audience">לתלמידי כיתות י״א–י״ב במגמת הנדסת תוכנה, במסלול למידת מכונה ולמידת חיזוק</div>
+<div class="badges">
+<span class="accent">5 יחידות לימוד</span>
+<span>מגמת הנדסת תוכנה</span>
+<span>תוכנית מוכרת על ידי משרד החינוך</span>
+<span>Python · Pygame · PyTorch</span>
 </div>
-
-הספר מלווה את תוכנית הלימודים במגמת הנדסת תוכנה במסלול למידת מכונה ולמידת חיזוק, המיועד לתלמידי כיתות י״א–י״ב.
+<div class="motif">state, reward = env.step(action)</div>
+</div>
 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a class="toc-link" href="#book-toc">תוכן העניינים</a>
+<a href="#about">על הספר</a>
 <a href="#course-materials">אתר הקורס וחומרי ליווי</a>
 <a href="01-%D7%A4%D7%99%D7%99%D7%AA%D7%95%D7%9F/01-%D7%9E%D7%91%D7%95%D7%90.md">מתחילים לקרוא ←</a>
 </nav>
+
+<a id="about"></a>
+
+### על הספר
+
+<p class="lead">איך מלמדים מחשב לזהות ספרה בכתב יד, לנחש גובה של אדם לפי גובה הוריו, או לנצח במשחק איקס־עיגול בלי שמישהו כתב לו את חוקי הניצחון? זהו הנושא של הספר: <strong>למידת מכונה</strong> ו<strong>למידת חיזוק</strong>, שני התחומים שבליבה של הבינה המלאכותית של ימינו. את שניהם לומדים כאן דרך <strong>בניית משחקים</strong>: כותבים משחק, מגדירים לו חוקים ומטרה, ואז מלמדים תוכנה לשחק בו ולהשתפר מתוך התנסות.</p>
+
+**למידת מכונה** היא הדרך לגרום למחשב ללמוד מדוגמאות במקום מהוראות מפורשות. במקום לכתוב כלל לכל מקרה, מראים למודל דוגמאות רבות עם התשובה הנכונה, והוא לומד לנחש, למדוד את הטעות שלו ולתקן את עצמו שוב ושוב עד שהוא מדייק. מכאן מגיעים ל**רשתות נוירונים**: בונים אותן צעד אחר צעד עם PyTorch, החל בנוירון יחיד ורגרסיה פשוטה ועד רשתות עמוקות ורשתות קונבולוציה, ומאמנים אותן לזהות ספרות, פריטי לבוש ותמונות של חתולים.
+
+**למידת חיזוק** עוסקת בשאלה אחרת: איך לומדים לפעול נכון כשאין מי שיאמר לנו מהי התשובה הנכונה בכל מצב? בדיוק כמו כלב שלומד פקודה חדשה מתוך חטיפים, **סוכן** תוכנה מנסה מהלכים במשחק, מקבל **תגמול** על תוצאות טובות, ולומד בהדרגה מדיניות מנצחת. מתחילים במבוכים ובפאזלים שחוקיהם ידועים, ממשיכים ללמידה מתוך ניסיון בלבד, ובסוף המסלול משלבים את שני התחומים: רשת נוירונים משמשת „מוח” לסוכן, והוא מאמן את עצמו לנצח באיקס־עיגול ובמשחקים נוספים.
+
+<div class="gallery">
+<figure>
+<div class="frame"><img src="assets/slides/d7f4427fe8/image11.png" alt="רשת נוירונים קטנה: שני קלטים, שכבת ביניים ופלט אחד"></div>
+<figcaption><strong>רשת נוירונים.</strong> קלטים, משקלים ופונקציות אקטיבציה. בחלק ג בונים רשתות כאלה ומאמנים אותן על נתונים ותמונות.</figcaption>
+</figure>
+<figure>
+<div class="frame"><img src="assets/slides/d7f4427fe8/image14.jpg" alt="כלב כסוכן ואישה כסביבה: פעולות, תגמולים ותצפיות"></div>
+<figcaption><strong>למידת חיזוק.</strong> כמו באימון כלב: הסוכן פועל, הסביבה מחזירה תגמול ותצפית, וכך נלמדת ההתנהגות הרצויה.</figcaption>
+</figure>
+<figure>
+<div class="frame"><img src="assets/rl/maze/maze-solved.png" alt="מבוך 5×5 שבו הסוכן מצא את המסלול אל היעד"></div>
+<figcaption><strong>לומדים דרך משחקים.</strong> מבוכים, פאזלים ואיקס־עיגול הם המגרש שבו הסוכן מתאמן, וכל אלגוריתם נבחן במשחק אמיתי.</figcaption>
+</figure>
+</div>
+
+הספר מלווה את תוכנית הלימודים **„בינה מלאכותית ולמידת מכונה באמצעות פיתוח משחקים”** במגמת הנדסת תוכנה, תוכנית בהיקף **5 יחידות לימוד** המוכרת על ידי משרד החינוך ונלמדת בכיתות י״א–י״ב. סדר הפרקים עוקב אחר סדר הנושאים בתוכנית, וכל פרק מחבר בין ההסבר, האלגוריתם והקוד.
+
+### מסלול הלימוד
+
+לומדים בארבעה חלקים, וכל חלק נשען על קודמו:
+
+<div class="path">
+<div class="step s1"><span class="num">א</span><strong>פייתון</strong><span>שפת פייתון והספריות שישמשו אותנו בהמשך: NumPy, PyPlot ו־Pandas.</span></div>
+<div class="step s2"><span class="num">ב</span><strong>pygame</strong><span>בניית משחק גרפי: לולאה ראשית, ציור, אירועים, אנימציה, ספרייטים והתנגשויות.</span></div>
+<div class="step s3"><span class="num">ג</span><strong>למידת מכונה</strong><span>מנגזרות ו־Gradient Descent דרך רגרסיה ועד רשתות נוירונים ו־CNN עם PyTorch.</span></div>
+<div class="step s4"><span class="num">ד</span><strong>למידת חיזוק</strong><span>סוכן וסביבה, MDP, תכנון דינמי, מונטה קרלו, TD ולמידת חיזוק עמוקה: DQN ו־DDQN.</span></div>
+</div>
+
+<p class="note warm"><strong>הספר אינו קורס תכנות.</strong> הוא יוצא מנקודת הנחה שהתלמידים כבר למדו את יסודות התכנות: משתנים, תנאים, לולאות, פונקציות ומחלקות, בשפה אחרת. חלק א מלמד את <strong>שפת פייתון</strong> ואת הספריות הדרושות בהמשך, ולא את מושגי היסוד של התכנות עצמם.</p>
 
 <a id="course-materials"></a>
 
