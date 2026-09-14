@@ -4,7 +4,7 @@
 
 **ספר בעברית מאת גלעד מרקמן**
 
-**[לקריאת הספר באתר ←](https://markmangilad.github.io/ML-and-RL-Book/)**
+**[לקריאת הספר באתר ←](https://book.markman.co.il/)**
 
 הספר מיועד לתלמידי כיתות י״א–י״ב במגמת הנדסת תוכנה, במסלול למידת מכונה ולמידת חיזוק. הוא מתקדם מיסודות פייתון ובניית משחקים אל רשתות נוירונים וסוכנים הלומדים מתוך תגמולים, ומשלב הסברים בעברית, דוגמאות קוד, איורים והדגמות.
 
@@ -15,7 +15,7 @@
 - **למידת מכונה עם PyTorch:** טנסורים, רשתות נוירונים ואימון מודלים.
 - **למידת חיזוק:** סביבה וסוכן, MDP, תכנון דינמי, Monte Carlo, Temporal Difference, DQN ו־DDQN.
 
-**[תוכן העניינים המלא](https://markmangilad.github.io/ML-and-RL-Book/#book-toc)**
+**[תוכן העניינים המלא](https://book.markman.co.il/#book-toc)**
 
 ## חומרי ליווי
 
@@ -30,4 +30,4 @@
 
 By **Gilad Markman**. A Hebrew textbook for grades 11–12, teaching Python, game development with Pygame, machine learning with PyTorch, and reinforcement learning through games.
 
-**[Read the book online](https://markmangilad.github.io/ML-and-RL-Book/)**
+**[Read the book online](https://book.markman.co.il/)**
