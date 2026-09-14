@@ -41,11 +41,39 @@ for (const line of tocSource.split('\n')) {
 }
 if (!parts.length) throw Error('Sidebar: no parts found in index.md');
 
+const sidebarScript = `<script>
+(function () {
+  var KEY = 'book-sidebar-width', root = document.documentElement;
+  try { var saved = localStorage.getItem(KEY); if (saved) root.style.setProperty('--sidebar-w', saved + 'px'); } catch (e) {}
+  var handle = document.querySelector('.sidebar-handle'), side = document.querySelector('.sidebar');
+  if (!handle || !side) return;
+  var width = null;
+  function move(e) {
+    width = Math.round(Math.min(450, Math.max(200, side.getBoundingClientRect().right - e.clientX)));
+    root.style.setProperty('--sidebar-w', width + 'px');
+  }
+  function stop() {
+    document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', stop);
+    handle.classList.remove('dragging'); document.body.classList.remove('resizing');
+    try { if (width) localStorage.setItem(KEY, width); } catch (e) {}
+  }
+  handle.addEventListener('pointerdown', function (e) {
+    e.preventDefault(); handle.classList.add('dragging'); document.body.classList.add('resizing');
+    document.addEventListener('pointermove', move); document.addEventListener('pointerup', stop);
+  });
+  handle.addEventListener('dblclick', function () {
+    width = null; root.style.removeProperty('--sidebar-w');
+    try { localStorage.removeItem(KEY); } catch (e) {}
+  });
+  handle.title = 'גררו לשינוי רוחב התפריט; לחיצה כפולה מחזירה לברירת המחדל';
+})();
+</script>`;
+
 const sidebarStyles = `<style>
 .toc-toggle { display: none; }
 .toc-button { display: none; position: fixed; bottom: 18px; right: 18px; z-index: 30; padding: 10px 16px; border-radius: 999px; background: #174e49; color: #fff; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,.25); cursor: pointer; }
 .layout { display: flex; flex-direction: row; align-items: flex-start; }
-.sidebar { box-sizing: border-box; flex: 0 0 270px; width: 270px; position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 18px 14px 40px; background: #f4f8fb; border-left: 1px solid #d4e3e9; direction: rtl; text-align: right; font-size: 14px; line-height: 1.6; }
+.sidebar { box-sizing: border-box; flex: 0 0 var(--sidebar-w, 270px); width: var(--sidebar-w, 270px); position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 18px 14px 40px; background: #f4f8fb; border-left: 1px solid #d4e3e9; direction: rtl; text-align: right; font-size: 14px; line-height: 1.6; }
 .sidebar .sidebar-home { display: block; margin: 0 0 14px; padding: 10px 14px; border-radius: 8px; background: #174e49; color: #fff !important; font-weight: bold; text-decoration: none; }
 .sidebar details { margin: 6px 0; }
 .sidebar summary { cursor: pointer; padding: 8px 10px; border-radius: 6px; background: #eef5fc; color: #153b56; font-weight: bold; border-right: 4px solid #299c91; list-style: none; }
@@ -57,8 +85,12 @@ const sidebarStyles = `<style>
 .sidebar li a:hover { background: #d4eee8; }
 .sidebar li.current a { background: #e3f3f0; border-right-color: #299c91; font-weight: bold; color: #174e49; }
 .content { flex: 1 1 auto; min-width: 0; }
+.sidebar-handle { flex: 0 0 8px; width: 8px; position: sticky; top: 0; height: 100vh; cursor: col-resize; background: transparent; touch-action: none; user-select: none; }
+.sidebar-handle:hover, .sidebar-handle.dragging { background: #299c91; opacity: .5; }
+body.resizing { cursor: col-resize; user-select: none; }
 @media screen and (max-width: 960px) {
   .toc-button { display: block; }
+  .sidebar-handle { display: none; }
   .sidebar { position: fixed; top: 0; right: 0; bottom: 0; height: auto; z-index: 20; transform: translateX(100%); transition: transform .2s; box-shadow: -2px 0 10px rgba(0,0,0,.2); }
   .toc-toggle:checked ~ .layout .sidebar { transform: none; }
 }
@@ -112,7 +144,7 @@ for (const page of pages) {
     if (!/^(https?:|data:)/i.test(url)) await fs.access(path.resolve(root, path.dirname(page), decodeURIComponent(url)));
   }
   const title = html.match(/<h1[^>]*>([^]*?)<\/h1>/)?.[1].replace(/<[^>]*>/g, ' ') || path.basename(page, '.md');
-  const body = `<input type="checkbox" id="toc-toggle" class="toc-toggle"><label for="toc-toggle" class="toc-button">&#9776; פרקים</label><div class="layout">${sidebarFor(page)}<main class="content">${html}</main></div>`;
+  const body = `<input type="checkbox" id="toc-toggle" class="toc-toggle"><label for="toc-toggle" class="toc-button">&#9776; פרקים</label><div class="layout">${sidebarFor(page)}<div class="sidebar-handle" role="separator" aria-orientation="vertical" aria-label="רוחב התפריט"></div><main class="content">${html}</main></div>${sidebarScript}`;
   const result = `<!doctype html>\n<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">${publicationHead(page, title)}<style>body{margin:0;background:#fff;color:#183b50;font-family:Arial,sans-serif}img{max-width:100%;height:auto}pre{overflow-x:auto}pre,pre code{direction:ltr;text-align:left;unicode-bidi:isolate}table{border-collapse:collapse}th,td{padding:8px;border:1px solid #d4e3e9}</style>${sidebarStyles}${mobileStyles}</head><body>${body}</body></html>`;
   const dest = path.join(out, page.replace(/\.md$/, '.html'));
   await fs.mkdir(path.dirname(dest), { recursive: true });
