@@ -37,8 +37,6 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 .book .cover .badges span { padding: 7px 15px; border-radius: 999px; font-size: 14px; font-weight: bold;
   background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); color: #eaf7f5; }
 .book .cover .badges span.accent { background: #38bdb0; border-color: #38bdb0; color: #0c2236; }
-.book .cover .motif { direction: ltr; text-align: left; font-family: Consolas, "Courier New", monospace;
-  color: #91e1d6; font-size: 16px; margin-top: 30px; opacity: .9; }
 .book .lead { font-size: 19px; line-height: 1.9; color: #12303f; }
 .book .path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 22px 0 8px; }
 .book .step { padding: 16px 16px 14px; border-radius: 12px; background: #f4f8fb; border: 1px solid #d4e3e9;
@@ -111,7 +109,6 @@ html, body, .vscode-body, .markdown-body, .markdown-preview {
 <span>תוכנית מוכרת על ידי משרד החינוך</span>
 <span>Python · Pygame · PyTorch</span>
 </div>
-<div class="motif">state, reward = env.step(action)</div>
 </div>
 
 <nav class="book-nav" aria-label="ניווט בספר">
