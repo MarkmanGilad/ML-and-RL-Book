@@ -1,0 +1,46 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='900' height='340' viewBox='0 0 900 340'><rect width='900' height='340' fill='#ffffff'/>
+<defs>
+<marker id='arr-153b56' markerWidth='10' markerHeight='10' refX='9' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 z' fill='#153b56'/></marker>
+<marker id='arr-c0392b' markerWidth='10' markerHeight='10' refX='9' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 z' fill='#c0392b'/></marker>
+<marker id='arr-2e8b57' markerWidth='10' markerHeight='10' refX='9' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 z' fill='#2e8b57'/></marker>
+<marker id='arr-299c91' markerWidth='10' markerHeight='10' refX='9' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 z' fill='#299c91'/></marker>
+<marker id='arr-6b7c88' markerWidth='10' markerHeight='10' refX='9' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 z' fill='#6b7c88'/></marker>
+</defs>
+<text x='880' y='30' direction='rtl' text-anchor='start' font-size='15' font-weight='bold' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>המחסנית במהלך הריצה: כל קריאה נדחפת מעל הקודמת ומוסרת כשהיא מסתיימת</text>
+<text x='880' y='56' direction='rtl' text-anchor='start' font-size='13' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>ראש המחסנית, כלומר הקריאה שרצה כרגע, מסומן בטורקיז</text>
+<rect x='40' y='140' width='130' height='140' fill='none' stroke='#6b7c88' stroke-width='1' stroke-dasharray='4,4'/>
+<rect x='46' y='238' width='118' height='38' rx='5' fill='#299c91'/>
+<text x='105.0' y='261.0' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>main</text>
+<text x='105.0' y='304' text-anchor='middle' font-size='14' fill='#6b7c88' font-family="Arial, Helvetica, sans-serif" xml:space='preserve'>main()</text>
+<line x1='176' y1='305' x2='174' y2='305' stroke='#6b7c88' stroke-width='1.5' marker-end='url(#arr-6b7c88)'/>
+<rect x='180' y='140' width='130' height='140' fill='none' stroke='#6b7c88' stroke-width='1' stroke-dasharray='4,4'/>
+<rect x='186' y='238' width='118' height='38' rx='5' fill='#153b56'/>
+<text x='245.0' y='261.0' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>main</text>
+<rect x='186' y='194' width='118' height='38' rx='5' fill='#299c91'/>
+<text x='245.0' y='217.0' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>f1</text>
+<text x='245.0' y='304' text-anchor='middle' font-size='14' fill='#6b7c88' font-family="Arial, Helvetica, sans-serif" xml:space='preserve'>f1(6)</text>
+<line x1='316' y1='305' x2='314' y2='305' stroke='#6b7c88' stroke-width='1.5' marker-end='url(#arr-6b7c88)'/>
+<rect x='320' y='140' width='130' height='140' fill='none' stroke='#6b7c88' stroke-width='1' stroke-dasharray='4,4'/>
+<rect x='326' y='238' width='118' height='38' rx='5' fill='#153b56'/>
+<text x='385.0' y='261.0' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>main</text>
+<rect x='326' y='194' width='118' height='38' rx='5' fill='#153b56'/>
+<text x='385.0' y='217.0' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>f1</text>
+<rect x='326' y='150' width='118' height='38' rx='5' fill='#299c91'/>
+<text x='385.0' y='173.0' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>f2</text>
+<text x='385.0' y='304' text-anchor='middle' font-size='14' fill='#6b7c88' font-family="Arial, Helvetica, sans-serif" xml:space='preserve'>f2(8)</text>
+<line x1='456' y1='305' x2='454' y2='305' stroke='#6b7c88' stroke-width='1.5' marker-end='url(#arr-6b7c88)'/>
+<rect x='460' y='140' width='130' height='140' fill='none' stroke='#6b7c88' stroke-width='1' stroke-dasharray='4,4'/>
+<rect x='466' y='238' width='118' height='38' rx='5' fill='#153b56'/>
+<text x='525.0' y='261.0' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>main</text>
+<rect x='466' y='194' width='118' height='38' rx='5' fill='#299c91'/>
+<text x='525.0' y='217.0' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>f1</text>
+<text x='525.0' y='304' direction='rtl' text-anchor='middle' font-size='14' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>f2 סיימה</text>
+<line x1='596' y1='305' x2='594' y2='305' stroke='#6b7c88' stroke-width='1.5' marker-end='url(#arr-6b7c88)'/>
+<rect x='600' y='140' width='130' height='140' fill='none' stroke='#6b7c88' stroke-width='1' stroke-dasharray='4,4'/>
+<rect x='606' y='238' width='118' height='38' rx='5' fill='#299c91'/>
+<text x='665.0' y='261.0' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>main</text>
+<text x='665.0' y='304' direction='rtl' text-anchor='middle' font-size='14' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>f1 סיימה</text>
+<line x1='736' y1='305' x2='734' y2='305' stroke='#6b7c88' stroke-width='1.5' marker-end='url(#arr-6b7c88)'/>
+<rect x='740' y='140' width='130' height='140' fill='none' stroke='#6b7c88' stroke-width='1' stroke-dasharray='4,4'/>
+<text x='805.0' y='304' direction='rtl' text-anchor='middle' font-size='14' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>main סיימה</text>
+</svg>

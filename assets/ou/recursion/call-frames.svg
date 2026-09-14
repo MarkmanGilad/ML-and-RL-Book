@@ -1,0 +1,41 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='900' height='440' viewBox='0 0 900 440'><rect width='900' height='440' fill='#ffffff'/>
+<defs>
+<marker id='arr-153b56' markerWidth='10' markerHeight='10' refX='9' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 z' fill='#153b56'/></marker>
+<marker id='arr-c0392b' markerWidth='10' markerHeight='10' refX='9' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 z' fill='#c0392b'/></marker>
+<marker id='arr-2e8b57' markerWidth='10' markerHeight='10' refX='9' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 z' fill='#2e8b57'/></marker>
+<marker id='arr-299c91' markerWidth='10' markerHeight='10' refX='9' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 z' fill='#299c91'/></marker>
+<marker id='arr-6b7c88' markerWidth='10' markerHeight='10' refX='9' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 z' fill='#6b7c88'/></marker>
+</defs>
+<text x='880' y='30' direction='rtl' text-anchor='start' font-size='15' font-weight='bold' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>לכל קריאה סביבת עבודה משלה: המשתנה a של main, של f1 ושל f2 הם שלושה משתנים שונים</text>
+<rect x='30' y='70' width='250' height='140' rx='6' fill='#f3f6fa' stroke='#153b56' stroke-width='1.5'/>
+<rect x='30' y='70' width='250' height='30' rx='6' fill='#153b56'/>
+<rect x='30' y='90' width='250' height='10' fill='#153b56'/>
+<text x='155.0' y='91' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">main()</text>
+<text x='42' y='122' font-size='14.5' fill='#153b56' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>a = 5</text>
+<text x='42' y='146' font-size='14.5' fill='#153b56' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>print("main head:", a)</text>
+<text x='42' y='170' font-size='14.5' fill='#2e8b57' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>f1(a + 1)</text>
+<text x='42' y='194' font-size='14.5' fill='#c0392b' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>print("main bottom:", a)</text>
+<rect x='330' y='160' width='250' height='164' rx='6' fill='#f3f6fa' stroke='#153b56' stroke-width='1.5'/>
+<rect x='330' y='160' width='250' height='30' rx='6' fill='#153b56'/>
+<rect x='330' y='180' width='250' height='10' fill='#153b56'/>
+<text x='455.0' y='181' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">f1(a)</text>
+<text x='342' y='212' font-size='14.5' fill='#153b56' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>a = 6</text>
+<text x='342' y='236' font-size='14.5' fill='#153b56' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>print("f1 head:", a)</text>
+<text x='342' y='260' font-size='14.5' fill='#153b56' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>a += 1      # a = 7</text>
+<text x='342' y='284' font-size='14.5' fill='#2e8b57' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>f2(a + 1)</text>
+<text x='342' y='308' font-size='14.5' fill='#c0392b' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>print("f1 bottom:", a)</text>
+<rect x='630' y='250' width='250' height='140' rx='6' fill='#f3f6fa' stroke='#153b56' stroke-width='1.5'/>
+<rect x='630' y='250' width='250' height='30' rx='6' fill='#153b56'/>
+<rect x='630' y='270' width='250' height='10' fill='#153b56'/>
+<text x='755.0' y='271' text-anchor='middle' font-size='16' font-weight='bold' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">f2(a)</text>
+<text x='642' y='302' font-size='14.5' fill='#153b56' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>a = 8</text>
+<text x='642' y='326' font-size='14.5' fill='#153b56' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>print("f2 head:", a)</text>
+<text x='642' y='350' font-size='14.5' fill='#153b56' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>a += 1      # a = 9</text>
+<text x='642' y='374' font-size='14.5' fill='#153b56' font-family="Consolas, 'Courier New', monospace" xml:space='preserve'>print("f2 bottom:", a)</text>
+<line x1='282' y1='164' x2='328' y2='175' stroke='#2e8b57' stroke-width='2.2' marker-end='url(#arr-2e8b57)'/><text x='300' y='108' text-anchor='middle' font-size='14' font-weight='bold' fill='#2e8b57' font-family='Arial, Helvetica, sans-serif'>a = 6</text>
+<line x1='582' y1='278' x2='628' y2='265' stroke='#2e8b57' stroke-width='2.2' marker-end='url(#arr-2e8b57)'/><text x='600' y='210' text-anchor='middle' font-size='14' font-weight='bold' fill='#2e8b57' font-family='Arial, Helvetica, sans-serif'>a = 8</text>
+<polyline points='755,392 755,418 455,418 455,326' fill='none' stroke='#c0392b' stroke-width='2.2' marker-end='url(#arr-c0392b)'/>
+<text x='760' y='440' direction='rtl' text-anchor='start' font-size='14' font-weight='bold' fill='#c0392b' font-family='Arial, Helvetica, sans-serif'>f2 הסתיימה: חוזרים ל-f1, ושם a עדיין 7</text>
+<polyline points='370,326 370,384 155,384 155,212' fill='none' stroke='#c0392b' stroke-width='2.2' marker-end='url(#arr-c0392b)'/>
+<text x='300' y='408' direction='rtl' text-anchor='start' font-size='14' font-weight='bold' fill='#c0392b' font-family='Arial, Helvetica, sans-serif'>f1 הסתיימה: חוזרים ל-main, ושם a עדיין 5</text>
+</svg>

@@ -107,7 +107,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 <nav class="book-nav" aria-label="ניווט בפרקים">
 <a href="11-dict.md">→ הקודם</a>
 <a class="toc-link" href="../index.md#book-toc">תוכן העניינים</a>
-<a href="13-%D7%97%D7%A8%D7%99%D7%92%D7%95%D7%AA.md">הבא ←</a>
+<a href="13-%D7%A4%D7%95%D7%A0%D7%A7%D7%A6%D7%99%D7%95%D7%AA%20%D7%9E%D7%AA%D7%A7%D7%93%D7%9E%D7%95%D7%AA.md">הבא ←</a>
 </nav>
 
 ## א.12 — קבוצות — set
@@ -206,7 +206,7 @@ True
 <nav class="book-nav" aria-label="ניווט בפרקים">
 <a href="11-dict.md">→ הקודם</a>
 <a class="toc-link" href="../index.md#book-toc">תוכן העניינים</a>
-<a href="13-%D7%97%D7%A8%D7%99%D7%92%D7%95%D7%AA.md">הבא ←</a>
+<a href="13-%D7%A4%D7%95%D7%A0%D7%A7%D7%A6%D7%99%D7%95%D7%AA%20%D7%9E%D7%AA%D7%A7%D7%93%D7%9E%D7%95%D7%AA.md">הבא ←</a>
 </nav>
 
 </div>

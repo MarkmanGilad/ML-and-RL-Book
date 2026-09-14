@@ -1,0 +1,47 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='900' height='306' viewBox='0 0 900 306'><rect width='900' height='306' fill='#ffffff'/><text x='880' y='30' direction='rtl' text-anchor='start' font-size='16' font-weight='bold' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>מיון מנייה: סופרים כמה פעמים מופיע כל ערך, ובונים את הרשימה מהספירה</text>
+<rect x='40' y='72' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='67.0' y='99.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>4</text>
+<rect x='94' y='72' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='121.0' y='99.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>2</text>
+<rect x='148' y='72' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='175.0' y='99.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>4</text>
+<rect x='202' y='72' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='229.0' y='99.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>1</text>
+<rect x='256' y='72' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='283.0' y='99.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>3</text>
+<rect x='310' y='72' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='337.0' y='99.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>2</text>
+<rect x='364' y='72' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='391.0' y='99.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>0</text>
+<text x='880' y='98.0' direction='rtl' text-anchor='start' font-size='14' font-weight='normal' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>הרשימה המקורית, הערך הגדול ביותר הוא 4</text>
+<rect x='40' y='158' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='67.0' y='185.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>1</text>
+<text x='67.0' y='150' text-anchor='middle' font-size='12' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>0</text>
+<rect x='94' y='158' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='121.0' y='185.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>1</text>
+<text x='121.0' y='150' text-anchor='middle' font-size='12' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>1</text>
+<rect x='148' y='158' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='175.0' y='185.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>2</text>
+<text x='175.0' y='150' text-anchor='middle' font-size='12' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>2</text>
+<rect x='202' y='158' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='229.0' y='185.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>1</text>
+<text x='229.0' y='150' text-anchor='middle' font-size='12' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>3</text>
+<rect x='256' y='158' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='283.0' y='185.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>2</text>
+<text x='283.0' y='150' text-anchor='middle' font-size='12' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>4</text>
+<text x='880' y='184.0' direction='rtl' text-anchor='start' font-size='14' font-weight='normal' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>מערך הספירה: האינדקס הוא הערך, התא הוא מספר ההופעות</text>
+<rect x='40' y='234' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='67.0' y='261.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>0</text>
+<rect x='94' y='234' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='121.0' y='261.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>1</text>
+<rect x='148' y='234' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='175.0' y='261.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>2</text>
+<rect x='202' y='234' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='229.0' y='261.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>2</text>
+<rect x='256' y='234' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='283.0' y='261.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>3</text>
+<rect x='310' y='234' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='337.0' y='261.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>4</text>
+<rect x='364' y='234' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='391.0' y='261.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>4</text>
+<text x='880' y='260.0' direction='rtl' text-anchor='start' font-size='14' font-weight='normal' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>עוברים על מערך הספירה לפי הסדר ומוסיפים כל ערך לפי ספירתו</text></svg>

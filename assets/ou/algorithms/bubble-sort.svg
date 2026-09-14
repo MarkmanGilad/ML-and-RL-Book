@@ -1,0 +1,72 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='820' height='522' viewBox='0 0 820 522'><rect width='820' height='522' fill='#ffffff'/><text x='800' y='30' direction='rtl' text-anchor='start' font-size='16' font-weight='bold' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>מיון בועות: משווים שכנים ומחליפים כשהם אינם בסדר</text>
+<text x='40' y='60' direction='rtl' text-anchor='end' font-size='15' font-weight='bold' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>מעבר 1</text>
+<rect x='40' y='96' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='67.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>89</text>
+<rect x='94' y='96' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='121.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>7</text>
+<rect x='148' y='96' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='175.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>15</text>
+<rect x='202' y='96' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='229.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>3</text>
+<path d='M 67.0 94 Q 94.0 68 121.0 94' fill='none' stroke='#9b1c1c' stroke-width='2.5'/><polygon points='114.0,85 124.0,91 112.0,95' fill='#9b1c1c'/><polygon points='74.0,85 64.0,91 76.0,95' fill='#9b1c1c'/>
+<text x='148.0' y='156' text-anchor='middle' font-size='13' fill='#496576' direction='rtl' font-family='Arial, Helvetica, sans-serif'>מחליפים</text>
+<rect x='290' y='96' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='317.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>7</text>
+<rect x='344' y='96' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='371.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>89</text>
+<rect x='398' y='96' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='425.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>15</text>
+<rect x='452' y='96' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='479.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>3</text>
+<path d='M 371.0 94 Q 398.0 68 425.0 94' fill='none' stroke='#9b1c1c' stroke-width='2.5'/><polygon points='418.0,85 428.0,91 416.0,95' fill='#9b1c1c'/><polygon points='378.0,85 368.0,91 380.0,95' fill='#9b1c1c'/>
+<text x='398.0' y='156' text-anchor='middle' font-size='13' fill='#496576' direction='rtl' font-family='Arial, Helvetica, sans-serif'>מחליפים</text>
+<rect x='540' y='96' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='567.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>7</text>
+<rect x='594' y='96' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='621.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>15</text>
+<rect x='648' y='96' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='675.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>89</text>
+<rect x='702' y='96' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='729.0' y='123.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>3</text>
+<path d='M 675.0 94 Q 702.0 68 729.0 94' fill='none' stroke='#9b1c1c' stroke-width='2.5'/><polygon points='722.0,85 732.0,91 720.0,95' fill='#9b1c1c'/><polygon points='682.0,85 672.0,91 684.0,95' fill='#9b1c1c'/>
+<text x='648.0' y='156' text-anchor='middle' font-size='13' fill='#496576' direction='rtl' font-family='Arial, Helvetica, sans-serif'>מחליפים</text>
+<text x='40' y='178' direction='rtl' text-anchor='end' font-size='15' font-weight='bold' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>מעבר 2</text>
+<rect x='40' y='214' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='67.0' y='241.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>7</text>
+<rect x='94' y='214' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='121.0' y='241.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>15</text>
+<rect x='148' y='214' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='175.0' y='241.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>3</text>
+<rect x='202' y='214' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='229.0' y='241.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>89</text>
+<text x='148.0' y='274' text-anchor='middle' font-size='13' fill='#496576' direction='rtl' font-family='Arial, Helvetica, sans-serif'>בסדר</text>
+<rect x='290' y='214' width='54' height='42' fill='#ffffff' stroke='#153b56' stroke-width='1.5'/>
+<text x='317.0' y='241.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>7</text>
+<rect x='344' y='214' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='371.0' y='241.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>15</text>
+<rect x='398' y='214' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='425.0' y='241.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>3</text>
+<rect x='452' y='214' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='479.0' y='241.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>89</text>
+<path d='M 371.0 212 Q 398.0 186 425.0 212' fill='none' stroke='#9b1c1c' stroke-width='2.5'/><polygon points='418.0,203 428.0,209 416.0,213' fill='#9b1c1c'/><polygon points='378.0,203 368.0,209 380.0,213' fill='#9b1c1c'/>
+<text x='398.0' y='274' text-anchor='middle' font-size='13' fill='#496576' direction='rtl' font-family='Arial, Helvetica, sans-serif'>מחליפים</text>
+<text x='40' y='296' direction='rtl' text-anchor='end' font-size='15' font-weight='bold' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>מעבר 3</text>
+<rect x='40' y='332' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='67.0' y='359.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>7</text>
+<rect x='94' y='332' width='54' height='42' fill='#dbe9f7' stroke='#153b56' stroke-width='1.5'/>
+<text x='121.0' y='359.0' text-anchor='middle' font-size='18' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>3</text>
+<rect x='148' y='332' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='175.0' y='359.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>15</text>
+<rect x='202' y='332' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='229.0' y='359.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>89</text>
+<path d='M 67.0 330 Q 94.0 304 121.0 330' fill='none' stroke='#9b1c1c' stroke-width='2.5'/><polygon points='114.0,321 124.0,327 112.0,331' fill='#9b1c1c'/><polygon points='74.0,321 64.0,327 76.0,331' fill='#9b1c1c'/>
+<text x='148.0' y='392' text-anchor='middle' font-size='13' fill='#496576' direction='rtl' font-family='Arial, Helvetica, sans-serif'>מחליפים</text>
+<rect x='40' y='450' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='67.0' y='477.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>3</text>
+<rect x='94' y='450' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='121.0' y='477.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>7</text>
+<rect x='148' y='450' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='175.0' y='477.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>15</text>
+<rect x='202' y='450' width='54' height='42' fill='#d4eee8' stroke='#153b56' stroke-width='1.5'/>
+<text x='229.0' y='477.0' text-anchor='middle' font-size='18' fill='#174e49' font-family='Arial, Helvetica, sans-serif'>89</text>
+<text x='800' y='476.0' direction='rtl' text-anchor='start' font-size='14' font-weight='bold' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>הרשימה ממוינת; האיבר הגדול צף לסוף בכל מעבר</text></svg>

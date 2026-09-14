@@ -1,0 +1,220 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='820' height='450' viewBox='0 0 820 450'><rect width='820' height='450' fill='#ffffff'/>
+<text x='800' y='30' direction='rtl' text-anchor='start' font-size='16' font-weight='bold' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>גווני אפור: לכל פיקסל מספר אחד בין 0 (שחור) ל־255 (לבן)</text>
+<rect x='60' y='70' width='44' height='44' fill='rgb(0,0,0)' stroke='#153b56' stroke-width='1'/>
+<text x='82.0' y='97.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">0</text>
+<rect x='104' y='70' width='44' height='44' fill='rgb(33,33,33)' stroke='#153b56' stroke-width='1'/>
+<text x='126.0' y='97.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">33</text>
+<rect x='148' y='70' width='44' height='44' fill='rgb(58,58,58)' stroke='#153b56' stroke-width='1'/>
+<text x='170.0' y='97.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">58</text>
+<rect x='192' y='70' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='214.0' y='97.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='236' y='70' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='258.0' y='97.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='280' y='70' width='44' height='44' fill='rgb(58,58,58)' stroke='#153b56' stroke-width='1'/>
+<text x='302.0' y='97.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">58</text>
+<rect x='324' y='70' width='44' height='44' fill='rgb(33,33,33)' stroke='#153b56' stroke-width='1'/>
+<text x='346.0' y='97.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">33</text>
+<rect x='368' y='70' width='44' height='44' fill='rgb(0,0,0)' stroke='#153b56' stroke-width='1'/>
+<text x='390.0' y='97.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">0</text>
+<rect x='60' y='114' width='44' height='44' fill='rgb(33,33,33)' stroke='#153b56' stroke-width='1'/>
+<text x='82.0' y='141.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">33</text>
+<rect x='104' y='114' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='126.0' y='141.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='148' y='114' width='44' height='44' fill='rgb(104,104,104)' stroke='#153b56' stroke-width='1'/>
+<text x='170.0' y='141.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">104</text>
+<rect x='192' y='114' width='44' height='44' fill='rgb(123,123,123)' stroke='#153b56' stroke-width='1'/>
+<text x='214.0' y='141.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">123</text>
+<rect x='236' y='114' width='44' height='44' fill='rgb(123,123,123)' stroke='#153b56' stroke-width='1'/>
+<text x='258.0' y='141.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">123</text>
+<rect x='280' y='114' width='44' height='44' fill='rgb(104,104,104)' stroke='#153b56' stroke-width='1'/>
+<text x='302.0' y='141.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">104</text>
+<rect x='324' y='114' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='346.0' y='141.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='368' y='114' width='44' height='44' fill='rgb(33,33,33)' stroke='#153b56' stroke-width='1'/>
+<text x='390.0' y='141.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">33</text>
+<rect x='60' y='158' width='44' height='44' fill='rgb(58,58,58)' stroke='#153b56' stroke-width='1'/>
+<text x='82.0' y='185.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">58</text>
+<rect x='104' y='158' width='44' height='44' fill='rgb(104,104,104)' stroke='#153b56' stroke-width='1'/>
+<text x='126.0' y='185.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">104</text>
+<rect x='148' y='158' width='44' height='44' fill='rgb(145,145,145)' stroke='#153b56' stroke-width='1'/>
+<text x='170.0' y='185.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">145</text>
+<rect x='192' y='158' width='44' height='44' fill='rgb(173,173,173)' stroke='#153b56' stroke-width='1'/>
+<text x='214.0' y='185.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">173</text>
+<rect x='236' y='158' width='44' height='44' fill='rgb(173,173,173)' stroke='#153b56' stroke-width='1'/>
+<text x='258.0' y='185.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">173</text>
+<rect x='280' y='158' width='44' height='44' fill='rgb(145,145,145)' stroke='#153b56' stroke-width='1'/>
+<text x='302.0' y='185.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">145</text>
+<rect x='324' y='158' width='44' height='44' fill='rgb(104,104,104)' stroke='#153b56' stroke-width='1'/>
+<text x='346.0' y='185.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">104</text>
+<rect x='368' y='158' width='44' height='44' fill='rgb(58,58,58)' stroke='#153b56' stroke-width='1'/>
+<text x='390.0' y='185.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">58</text>
+<rect x='60' y='202' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='82.0' y='229.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='104' y='202' width='44' height='44' fill='rgb(123,123,123)' stroke='#153b56' stroke-width='1'/>
+<text x='126.0' y='229.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">123</text>
+<rect x='148' y='202' width='44' height='44' fill='rgb(173,173,173)' stroke='#153b56' stroke-width='1'/>
+<text x='170.0' y='229.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">173</text>
+<rect x='192' y='202' width='44' height='44' fill='rgb(255,255,255)' stroke='#153b56' stroke-width='1'/>
+<text x='214.0' y='229.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">255</text>
+<rect x='236' y='202' width='44' height='44' fill='rgb(255,255,255)' stroke='#153b56' stroke-width='1'/>
+<text x='258.0' y='229.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">255</text>
+<rect x='280' y='202' width='44' height='44' fill='rgb(173,173,173)' stroke='#153b56' stroke-width='1'/>
+<text x='302.0' y='229.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">173</text>
+<rect x='324' y='202' width='44' height='44' fill='rgb(123,123,123)' stroke='#153b56' stroke-width='1'/>
+<text x='346.0' y='229.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">123</text>
+<rect x='368' y='202' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='390.0' y='229.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='60' y='246' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='82.0' y='273.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='104' y='246' width='44' height='44' fill='rgb(123,123,123)' stroke='#153b56' stroke-width='1'/>
+<text x='126.0' y='273.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">123</text>
+<rect x='148' y='246' width='44' height='44' fill='rgb(173,173,173)' stroke='#153b56' stroke-width='1'/>
+<text x='170.0' y='273.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">173</text>
+<rect x='192' y='246' width='44' height='44' fill='rgb(255,255,255)' stroke='#153b56' stroke-width='1'/>
+<text x='214.0' y='273.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">255</text>
+<rect x='236' y='246' width='44' height='44' fill='rgb(255,255,255)' stroke='#153b56' stroke-width='1'/>
+<text x='258.0' y='273.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">255</text>
+<rect x='280' y='246' width='44' height='44' fill='rgb(173,173,173)' stroke='#153b56' stroke-width='1'/>
+<text x='302.0' y='273.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">173</text>
+<rect x='324' y='246' width='44' height='44' fill='rgb(123,123,123)' stroke='#153b56' stroke-width='1'/>
+<text x='346.0' y='273.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">123</text>
+<rect x='368' y='246' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='390.0' y='273.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='60' y='290' width='44' height='44' fill='rgb(58,58,58)' stroke='#153b56' stroke-width='1'/>
+<text x='82.0' y='317.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">58</text>
+<rect x='104' y='290' width='44' height='44' fill='rgb(104,104,104)' stroke='#153b56' stroke-width='1'/>
+<text x='126.0' y='317.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">104</text>
+<rect x='148' y='290' width='44' height='44' fill='rgb(145,145,145)' stroke='#153b56' stroke-width='1'/>
+<text x='170.0' y='317.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">145</text>
+<rect x='192' y='290' width='44' height='44' fill='rgb(173,173,173)' stroke='#153b56' stroke-width='1'/>
+<text x='214.0' y='317.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">173</text>
+<rect x='236' y='290' width='44' height='44' fill='rgb(173,173,173)' stroke='#153b56' stroke-width='1'/>
+<text x='258.0' y='317.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">173</text>
+<rect x='280' y='290' width='44' height='44' fill='rgb(145,145,145)' stroke='#153b56' stroke-width='1'/>
+<text x='302.0' y='317.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#111111' font-family="Consolas, 'Courier New', monospace">145</text>
+<rect x='324' y='290' width='44' height='44' fill='rgb(104,104,104)' stroke='#153b56' stroke-width='1'/>
+<text x='346.0' y='317.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">104</text>
+<rect x='368' y='290' width='44' height='44' fill='rgb(58,58,58)' stroke='#153b56' stroke-width='1'/>
+<text x='390.0' y='317.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">58</text>
+<rect x='60' y='334' width='44' height='44' fill='rgb(33,33,33)' stroke='#153b56' stroke-width='1'/>
+<text x='82.0' y='361.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">33</text>
+<rect x='104' y='334' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='126.0' y='361.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='148' y='334' width='44' height='44' fill='rgb(104,104,104)' stroke='#153b56' stroke-width='1'/>
+<text x='170.0' y='361.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">104</text>
+<rect x='192' y='334' width='44' height='44' fill='rgb(123,123,123)' stroke='#153b56' stroke-width='1'/>
+<text x='214.0' y='361.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">123</text>
+<rect x='236' y='334' width='44' height='44' fill='rgb(123,123,123)' stroke='#153b56' stroke-width='1'/>
+<text x='258.0' y='361.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">123</text>
+<rect x='280' y='334' width='44' height='44' fill='rgb(104,104,104)' stroke='#153b56' stroke-width='1'/>
+<text x='302.0' y='361.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">104</text>
+<rect x='324' y='334' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='346.0' y='361.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='368' y='334' width='44' height='44' fill='rgb(33,33,33)' stroke='#153b56' stroke-width='1'/>
+<text x='390.0' y='361.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">33</text>
+<rect x='60' y='378' width='44' height='44' fill='rgb(0,0,0)' stroke='#153b56' stroke-width='1'/>
+<text x='82.0' y='405.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">0</text>
+<rect x='104' y='378' width='44' height='44' fill='rgb(33,33,33)' stroke='#153b56' stroke-width='1'/>
+<text x='126.0' y='405.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">33</text>
+<rect x='148' y='378' width='44' height='44' fill='rgb(58,58,58)' stroke='#153b56' stroke-width='1'/>
+<text x='170.0' y='405.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">58</text>
+<rect x='192' y='378' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='214.0' y='405.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='236' y='378' width='44' height='44' fill='rgb(72,72,72)' stroke='#153b56' stroke-width='1'/>
+<text x='258.0' y='405.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">72</text>
+<rect x='280' y='378' width='44' height='44' fill='rgb(58,58,58)' stroke='#153b56' stroke-width='1'/>
+<text x='302.0' y='405.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">58</text>
+<rect x='324' y='378' width='44' height='44' fill='rgb(33,33,33)' stroke='#153b56' stroke-width='1'/>
+<text x='346.0' y='405.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">33</text>
+<rect x='368' y='378' width='44' height='44' fill='rgb(0,0,0)' stroke='#153b56' stroke-width='1'/>
+<text x='390.0' y='405.04' text-anchor='middle' font-size='14' font-weight='normal' fill='#ffffff' font-family="Consolas, 'Courier New', monospace">0</text>
+<text x='236' y='56' direction='rtl' text-anchor='middle' font-size='14' font-weight='normal' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>מה שהמחשב שומר</text>
+<text x='640' y='66' direction='rtl' text-anchor='middle' font-size='14' font-weight='normal' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>סולם הבהירות</text>
+<rect x='520' y='80' width='15' height='36' fill='rgb(0,0,0)' stroke='none'/>
+<rect x='535' y='80' width='15' height='36' fill='rgb(17,17,17)' stroke='none'/>
+<rect x='550' y='80' width='15' height='36' fill='rgb(34,34,34)' stroke='none'/>
+<rect x='565' y='80' width='15' height='36' fill='rgb(51,51,51)' stroke='none'/>
+<rect x='580' y='80' width='15' height='36' fill='rgb(68,68,68)' stroke='none'/>
+<rect x='595' y='80' width='15' height='36' fill='rgb(85,85,85)' stroke='none'/>
+<rect x='610' y='80' width='15' height='36' fill='rgb(102,102,102)' stroke='none'/>
+<rect x='625' y='80' width='15' height='36' fill='rgb(119,119,119)' stroke='none'/>
+<rect x='640' y='80' width='15' height='36' fill='rgb(136,136,136)' stroke='none'/>
+<rect x='655' y='80' width='15' height='36' fill='rgb(153,153,153)' stroke='none'/>
+<rect x='670' y='80' width='15' height='36' fill='rgb(170,170,170)' stroke='none'/>
+<rect x='685' y='80' width='15' height='36' fill='rgb(187,187,187)' stroke='none'/>
+<rect x='700' y='80' width='15' height='36' fill='rgb(204,204,204)' stroke='none'/>
+<rect x='715' y='80' width='15' height='36' fill='rgb(221,221,221)' stroke='none'/>
+<rect x='730' y='80' width='15' height='36' fill='rgb(238,238,238)' stroke='none'/>
+<rect x='745' y='80' width='15' height='36' fill='rgb(255,255,255)' stroke='none'/>
+<rect x='520' y='80' width='240' height='36' fill='none' stroke='#153b56' stroke-width='1.5'/>
+<text x='550' y='138' direction='rtl' text-anchor='middle' font-size='13' font-weight='normal' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>0 — שחור</text>
+<text x='732' y='138' direction='rtl' text-anchor='middle' font-size='13' font-weight='normal' fill='#153b56' font-family='Arial, Helvetica, sans-serif'>255 — לבן</text>
+<text x='640' y='176' direction='rtl' text-anchor='middle' font-size='13' font-weight='normal' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>בית אחד (8 סיביות) לכל פיקסל:</text>
+<text x='640' y='196' direction='rtl' text-anchor='middle' font-size='13' font-weight='normal' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>256 ערכים אפשריים</text>
+<text x='648' y='248' direction='rtl' text-anchor='middle' font-size='14' font-weight='normal' fill='#6b7c88' font-family='Arial, Helvetica, sans-serif'>כך זה נראה על המסך</text>
+<rect x='560' y='262' width='22' height='22' fill='rgb(0,0,0)'/>
+<rect x='582' y='262' width='22' height='22' fill='rgb(33,33,33)'/>
+<rect x='604' y='262' width='22' height='22' fill='rgb(58,58,58)'/>
+<rect x='626' y='262' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='648' y='262' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='670' y='262' width='22' height='22' fill='rgb(58,58,58)'/>
+<rect x='692' y='262' width='22' height='22' fill='rgb(33,33,33)'/>
+<rect x='714' y='262' width='22' height='22' fill='rgb(0,0,0)'/>
+<rect x='560' y='284' width='22' height='22' fill='rgb(33,33,33)'/>
+<rect x='582' y='284' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='604' y='284' width='22' height='22' fill='rgb(104,104,104)'/>
+<rect x='626' y='284' width='22' height='22' fill='rgb(123,123,123)'/>
+<rect x='648' y='284' width='22' height='22' fill='rgb(123,123,123)'/>
+<rect x='670' y='284' width='22' height='22' fill='rgb(104,104,104)'/>
+<rect x='692' y='284' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='714' y='284' width='22' height='22' fill='rgb(33,33,33)'/>
+<rect x='560' y='306' width='22' height='22' fill='rgb(58,58,58)'/>
+<rect x='582' y='306' width='22' height='22' fill='rgb(104,104,104)'/>
+<rect x='604' y='306' width='22' height='22' fill='rgb(145,145,145)'/>
+<rect x='626' y='306' width='22' height='22' fill='rgb(173,173,173)'/>
+<rect x='648' y='306' width='22' height='22' fill='rgb(173,173,173)'/>
+<rect x='670' y='306' width='22' height='22' fill='rgb(145,145,145)'/>
+<rect x='692' y='306' width='22' height='22' fill='rgb(104,104,104)'/>
+<rect x='714' y='306' width='22' height='22' fill='rgb(58,58,58)'/>
+<rect x='560' y='328' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='582' y='328' width='22' height='22' fill='rgb(123,123,123)'/>
+<rect x='604' y='328' width='22' height='22' fill='rgb(173,173,173)'/>
+<rect x='626' y='328' width='22' height='22' fill='rgb(255,255,255)'/>
+<rect x='648' y='328' width='22' height='22' fill='rgb(255,255,255)'/>
+<rect x='670' y='328' width='22' height='22' fill='rgb(173,173,173)'/>
+<rect x='692' y='328' width='22' height='22' fill='rgb(123,123,123)'/>
+<rect x='714' y='328' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='560' y='350' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='582' y='350' width='22' height='22' fill='rgb(123,123,123)'/>
+<rect x='604' y='350' width='22' height='22' fill='rgb(173,173,173)'/>
+<rect x='626' y='350' width='22' height='22' fill='rgb(255,255,255)'/>
+<rect x='648' y='350' width='22' height='22' fill='rgb(255,255,255)'/>
+<rect x='670' y='350' width='22' height='22' fill='rgb(173,173,173)'/>
+<rect x='692' y='350' width='22' height='22' fill='rgb(123,123,123)'/>
+<rect x='714' y='350' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='560' y='372' width='22' height='22' fill='rgb(58,58,58)'/>
+<rect x='582' y='372' width='22' height='22' fill='rgb(104,104,104)'/>
+<rect x='604' y='372' width='22' height='22' fill='rgb(145,145,145)'/>
+<rect x='626' y='372' width='22' height='22' fill='rgb(173,173,173)'/>
+<rect x='648' y='372' width='22' height='22' fill='rgb(173,173,173)'/>
+<rect x='670' y='372' width='22' height='22' fill='rgb(145,145,145)'/>
+<rect x='692' y='372' width='22' height='22' fill='rgb(104,104,104)'/>
+<rect x='714' y='372' width='22' height='22' fill='rgb(58,58,58)'/>
+<rect x='560' y='394' width='22' height='22' fill='rgb(33,33,33)'/>
+<rect x='582' y='394' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='604' y='394' width='22' height='22' fill='rgb(104,104,104)'/>
+<rect x='626' y='394' width='22' height='22' fill='rgb(123,123,123)'/>
+<rect x='648' y='394' width='22' height='22' fill='rgb(123,123,123)'/>
+<rect x='670' y='394' width='22' height='22' fill='rgb(104,104,104)'/>
+<rect x='692' y='394' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='714' y='394' width='22' height='22' fill='rgb(33,33,33)'/>
+<rect x='560' y='416' width='22' height='22' fill='rgb(0,0,0)'/>
+<rect x='582' y='416' width='22' height='22' fill='rgb(33,33,33)'/>
+<rect x='604' y='416' width='22' height='22' fill='rgb(58,58,58)'/>
+<rect x='626' y='416' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='648' y='416' width='22' height='22' fill='rgb(72,72,72)'/>
+<rect x='670' y='416' width='22' height='22' fill='rgb(58,58,58)'/>
+<rect x='692' y='416' width='22' height='22' fill='rgb(33,33,33)'/>
+<rect x='714' y='416' width='22' height='22' fill='rgb(0,0,0)'/>
+<rect x='560' y='262' width='176' height='176' fill='none' stroke='#153b56' stroke-width='1.5'/>
+</svg>

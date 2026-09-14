@@ -116,7 +116,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 רשימה (List) שומרת כמה ערכים ברצף אחד, למשל את הציונים של תלמידי הכיתה. כמו במערך, לכל איבר יש מיקום שנקרא אינדקס, ואפשר לקרוא או לשנות את האיבר באמצעותו; האינדקס הראשון הוא 0.
 
-בניגוד למערך בגודל קבוע, הרשימה דינאמית: אפשר להוסיף ציון כשמתקבל נתון חדש או להסיר ציון שאינו נחוץ. אין צורך להחליט מראש כמה איברים יהיו בה, והאורך שלה משתנה במהלך התוכנית. בפרק זה נלמד ליצור רשימה, לגשת לאיבריה, להוסיף ולהסיר איברים, לעבור עליה בלולאה ולבצע עליה חישובים. הרשימה היא מבנה הנתונים הנפוץ ביותר בפייתון, ונשתמש בה כמעט בכל תוכנית בהמשך הספר.
+בניגוד למערך בגודל קבוע, הרשימה דינאמית: אפשר להוסיף ציון כשמתקבל נתון חדש או להסיר ציון שאינו נחוץ. אין צורך להחליט מראש כמה איברים יהיו בה, והאורך שלה משתנה במהלך התוכנית. בפרק זה נלמד ליצור רשימה, לגשת לאיבריה, להוסיף ולהסיר איברים, לעבור עליה בלולאה, לבצע עליה חישובים, ולבסוף לבנות רשימה חדשה מתוך רצף קיים בשורה אחת. הרשימה היא מבנה הנתונים הנפוץ ביותר בפייתון, ונשתמש בה כמעט בכל תוכנית בהמשך הספר.
 
 **[פתיחת המחברת ב־Colab](https://colab.research.google.com/drive/1n1hRpWDQQeNEA2hrPstmaINcj-I4xIkB?usp=share_link) · [השיעור וההרצאה באתר הקורס](https://webprogramming.azurewebsites.net/Pages/Python/Data_Structures.aspx)**
 
@@ -794,6 +794,102 @@ print(numbers)
 </div>
 
 אחרי `sorted`, הרשימה `numbers` נשארה בסדר המקורי והרשימה הממוינת נשמרה ב־`ordered`. לעומת זאת `numbers.sort(reverse=True)` מיינה את `numbers` עצמה, מהגדול לקטן. `min` ו־`max` דורשות כאן רשימה שאינה ריקה. בפרק שוויון וזהות נבחין בין שינוי רשימה להעתקתה.
+
+### יצירת רשימה בביטוי — list comprehension
+
+לעיתים קרובות בונים רשימה חדשה מתוך רצף קיים: עוברים על האיברים, בוחרים חלק מהם ומחשבים מכל אחד ערך חדש. עד כה עשינו זאת בלולאה: יוצרים רשימה ריקה, ובכל איטרציה מוסיפים אליה ערך באמצעות `append`. פייתון מציעה תחביר מקוצר לאותה פעולה, **list comprehension**, שנכתב בתוך סוגריים מרובעים:
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+new_list = [expression for item in iterable if condition]
+```
+
+</div>
+
+קוראים אותו משמאל לימין: עבור כל `item` ברצף, אם התנאי מתקיים, הכנס לרשימה את ערך הביטוי. חלק התנאי אינו חובה. נתחיל בביטוי בלי תנאי, שמכפיל כל מספר בטווח:
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+doubles = [x * 2 for x in range(10)]
+print(doubles)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+[0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+```
+
+</div>
+
+עם תנאי, הביטוי בוחר רק חלק מהאיברים. כאן נשאיר את המספרים הזוגיים בלבד, ואחר כך נאסוף ממחרוזת רק את האותיות הגדולות:
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+evens = [x for x in range(20) if x % 2 == 0]
+print(evens)
+
+text = "Hello World"
+uppercase_letters = [char for char in text if char.isupper()]
+print(uppercase_letters)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+[0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+['H', 'W']
+```
+
+</div>
+
+הביטוי `[2 * value for value in numbers if value > 0]` עושה בשורה אחת את מה שדרש לולאה שלמה: מסנן את החיוביים ומכפיל אותם. כאשר הביטוי נעשה ארוך או מקונן, לולאה רגילה עם `append` תהיה ברורה יותר.
+
+#### תרגיל: רשימת המספרים הראשוניים
+
+נכתוב פונקציה `is_prime` שמחזירה `True` אם המספר ראשוני, ונשתמש בה כתנאי כדי לבנות את רשימת כל המספרים הראשוניים הקטנים מ־100. מספר ראשוני הוא מספר גדול מ־1 שמתחלק רק ב־1 ובעצמו, ולכן הפונקציה מחזירה `False` מיד עבור `0` ו־`1`:
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```python
+def is_prime(num):
+    if num < 2:
+        return False
+    for x in range(2, num):
+        if num % x == 0:
+            return False
+    return True
+
+primes = [num for num in range(100) if is_prime(num)]
+print(primes)
+```
+
+</div>
+
+**פלט**
+
+<div class="code-panel" dir="ltr" style="box-sizing: border-box !important; width: 75% !important; max-width: 75% !important; margin: 18px auto !important; direction: ltr !important; text-align: left !important;">
+
+```text
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+```
+
+</div>
+
+הפונקציה `is_prime` היא פונקציה רגילה עם לולאה ותנאי, כפי שלמדנו בפרק א.7, והביטוי שבונה את הרשימה משתמש בה כתנאי: כל מספר בטווח נכנס לרשימה רק אם הפונקציה החזירה עבורו `True`.
+
+<!-- editorlm-source-ref: [sources/אוניברסיטה פתוחה/converted/6-שוויון וזהות/notebook.md#L667-L756] -->
 
 <!-- editorlm-source-ref: [sources/אוניברסיטה פתוחה/converted/5-רשימות/notebook.md#L40-L66] -->
 

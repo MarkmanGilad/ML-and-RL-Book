@@ -129,7 +129,7 @@ class MovingImage(pygame.sprite.Sprite):
 
 </div>
 
-המתודה `draw()` שכתבנו היא מתודה שלנו; היא מציירת את הספרייט באמצעות `blit()`. ירושה מ־`Sprite` אינה מציירת ואינה מזיזה את האובייקט אוטומטית. על התוכנית לקרוא לפעולות האלה, ישירות או בעזרת קבוצה שנכיר בהמשך.
+המתודה `draw()` שכתבנו היא מתודה שלנו; היא מציירת את הספרייט באמצעות `blit()`. ירושה מ־`Sprite` אינה מציירת ואינה מזיזה את האובייקט אוטומטית. על התוכנית לקרוא לפעולות האלה, ישירות או בעזרת קבוצה שנכיר בהמשך. בפרק הבא נוסיף לבנאי שני מאפיינים נוספים, `radius` ו־`mask`, שמשמשים לבדיקת התנגשויות מדויקת.
 
 ### שימוש בספרייט יחיד
 
@@ -189,13 +189,90 @@ star.update(dx, dy)
 
 ### כמה עצמים, התנהגויות שונות
 
-כאן מתגלה היתרון של המחלקה: כדי להוסיף עצם נוסף למשחק לא צריך לשכפל קוד, אלא רק ליצור מופע שני של אותה מחלקה. לפני הלולאה נכתוב `other = MovingImage(image, (100, 100))`. בכל פריים נקרא ל־`other.update(1, 1)` ול־`other.draw(screen)`, נוסף לעדכון ולציור של `star`. כך עצם אחד נשלט במקלדת והאחר נע אוטומטית.
+כאן מתגלה היתרון של המחלקה: כדי להוסיף עצם נוסף למשחק לא צריך לשכפל קוד, אלא רק ליצור מופע שני של אותה מחלקה. בתוכנית הבאה יש שני ספרייטים מאותה מחלקה: `star` נשלט במקלדת, ו־`other` נע אוטומטית באלכסון. כל אחד מהם מקבל תמונה משלו (כאן אותו כוכב בשני גדלים) ומיקום התחלתי משלו. בכל פריים מעדכנים ומציירים את שניהם.
+
+<div class="code-panel" dir="ltr">
+
+```python
+import pygame
+
+class MovingImage(pygame.sprite.Sprite):
+    def __init__(self, image, center):
+        super().__init__()
+        self.image = image
+        self.rect = self.image.get_rect(center=center)
+
+    def update(self, dx, dy):
+        self.rect.move_ip(dx, dy)
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
+
+pygame.init()
+screen = pygame.display.set_mode((640, 400))
+pygame.display.set_caption("Two sprites")
+clock = pygame.time.Clock()
+image = pygame.image.load("img/star.png").convert_alpha()
+big = pygame.transform.scale(image, (60, 60))
+small = pygame.transform.scale(image, (40, 40))
+star = MovingImage(big, (320, 200))
+other = MovingImage(small, (100, 100))
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    if not running:
+        break
+
+    keys = pygame.key.get_pressed()
+    dx = 3 * (keys[pygame.K_RIGHT] - keys[pygame.K_LEFT])
+    dy = 3 * (keys[pygame.K_DOWN] - keys[pygame.K_UP])
+    star.update(dx, dy)
+    other.update(1, 1)
+
+    screen.fill((17, 43, 65))
+    star.draw(screen)
+    other.draw(screen)
+    pygame.display.update()
+    clock.tick(60)
+
+pygame.quit()
+```
+
+</div>
+
+<figure>
+<img src="../assets/pygame/two-sprites-window.png" alt="חלון Pygame בשם Two sprites ובו שני כוכבים: גדול במרכז וקטן שנע באלכסון." width="640">
+<figcaption>שני ספרייטים מאותה מחלקה: הכוכב הגדול נשלט במקלדת, והקטן נע באלכסון.</figcaption>
+</figure>
+
+<figure>
+<img src="../assets/pygame/two-sprites.gif" alt="הכוכב הגדול זז לפי החצים, והכוכב הקטן נע באלכסון ויוצא מהחלון." width="640">
+<figcaption>התוכנית בהרצה: הכוכב הגדול מוזז בחצים ימינה, למטה ושמאלה, והקטן ממשיך באלכסון. (אנימציה; בגרסה המודפסת מוצג פריים אחד.)</figcaption>
+</figure>
+
+שימו לב שהמחלקה עצמה לא השתנתה. ההבדל בין שני העצמים נובע רק ממה שמעבירים להם: תמונה ומיקום ביצירה, וכיוון תנועה בכל פריים. לעצם שלישי, רביעי או עשירי מוסיפים באותה דרך: שורת יצירה אחת, ובלולאה קריאה ל־`update()` ול־`draw()`. בפרק הקבוצות נראה איך לעשות זאת לכל הספרייטים בבת אחת, בלי לכתוב שורה לכל אחד.
 
 ### מה פירוש kill?
 
 במשחק עצמים נעלמים כל הזמן: אויב שנפגע, כדור שיצא מהמסך, מטבע שנאסף. למחלקת `Sprite` יש מתודה מובנית לכך, אך חשוב להבין מה היא עושה בדיוק. הפעולה `star.kill()` מסירה את הספרייט מכל קבוצות הספרייטים שאליהן הוא שייך. היא אינה מוחקת את האובייקט מפייתון ואינה מוחקת פיקסלים שכבר צוירו על המסך. אם ממשיכים לקרוא ישירות ל־`star.draw(screen)`, עדיין אפשר לצייר אותו. בפרק הקבוצות נראה כיצד ההסרה מפסיקה את ציורו במסגרת הקבוצה, לאחר ניקוי הרקע.
 
-**קוד להורדה:** [הדוגמה המלאה](../assets/pygame/examples/11-demo.py). בדוגמאות המשתמשות בתמונה, שמרו את [הכוכב](../assets/pygame/star.png) בתוך `img/star.png` לצד הקובץ והריצו מתוך התיקייה שלו.
+**ומה עם הזיכרון?** בפייתון אין פקודה שמוחקת אובייקט מהזיכרון. במקום זה פייתון עוקבת אחרי מי „מחזיק” כל אובייקט: משתנה, רשימה או קבוצה שמפנים אליו. כל עוד יש הפניה אחת כזו, האובייקט נשאר בזיכרון. ברגע שאין אף הפניה, פייתון משחררת את הזיכרון בעצמה. המנגנון הזה נקרא **איסוף זבל — Garbage Collection**. לכן, כדי שספרייט ייעלם באמת, צריך להסיר את כל ההפניות אליו: `kill()` מסירה אותו מהקבוצות, ואם שמרנו אותו גם במשתנה או ברשימה, מסירים גם משם. למשל, אם האויבים שמורים ברשימה:
+
+<div class="code-panel" dir="ltr">
+
+```python
+if enemy.rect.top > 400:
+    enemies.remove(enemy)
+```
+
+</div>
+
+אחרי ההסרה מהרשימה אין מי שמצביע על האויב, ופייתון משחררת אותו. אין צורך למחוק בעצמנו; מספיק להפסיק להפנות אליו.
+
+**קוד להורדה:** [הדוגמה המלאה](../assets/pygame/examples/11-demo.py). [התוכנית עם שני הספרייטים](../assets/pygame/examples/11-multi-demo.py). בדוגמאות המשתמשות בתמונה, שמרו את [הכוכב](../assets/pygame/star.png) בתוך `img/star.png` לצד הקובץ והריצו מתוך התיקייה שלו.
 
 <!-- editorlm-source-ref: [sources/PyGame/PyGame - Sprite.pptx#L7-L43] -->
 
