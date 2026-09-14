@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" direction="ltr">
+<defs>
+<marker id="arr-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c34345"/></marker>
+</defs>
+<style>
+text{font-family:Arial,sans-serif;fill:#153b56;font-size:20px}
+.title{font-size:22px;font-weight:bold;direction:rtl}
+.var{fill:#eef5fc;stroke:#153b56;stroke-width:2}
+.op{fill:#edf7f5;stroke:#299c91;stroke-width:3;rx:12}
+.sym{font-size:22px;font-weight:bold;font-style:italic}
+.opsym{font-size:26px;font-weight:bold;fill:#174e49}
+.val{font-size:18px;fill:#1e8a5a}
+.local{font-size:19px;font-weight:bold;fill:#174e49}
+.localttl{font-size:16px;fill:#174e49;direction:rtl}
+.grad{font-size:19px;font-weight:bold;fill:#c34345}
+.edge{stroke:#c34345;stroke-width:3;marker-end:url(#arr-r)}
+.thin{stroke:#b5ccd9;stroke-width:1.5}
+.note{font-size:17px;fill:#c34345;direction:rtl}
+</style>
+<rect width="960" height="360" fill="#f7fbfd"/>
+
+<text x="480" y="36" text-anchor="middle" class="title">פעפוע לאחור בנקודה x = 1</text>
+
+<!-- local derivatives above the op boxes -->
+<text x="480" y="66" text-anchor="middle" class="localttl">נגזרות מקומיות (מחושבות מערכי הפעפוע קדימה)</text>
+<text x="205" y="98" text-anchor="middle" class="local">da/dx = 4</text>
+<text x="485" y="98" text-anchor="middle" class="local">db/da = 1</text>
+<text x="765" y="98" text-anchor="middle" class="local">dL/db = 2b = 6</text>
+
+<!-- main row -->
+<circle class="var" cx="60" cy="170" r="34"/>
+<text x="60" y="178" text-anchor="middle" class="sym">x</text>
+<text x="60" y="226" text-anchor="middle" class="val">x = 1</text>
+
+<line class="thin" x1="94" y1="170" x2="150" y2="170"/>
+<rect class="op" x="150" y="138" width="110" height="64"/>
+<text x="205" y="179" text-anchor="middle" class="opsym">4·x</text>
+<line class="thin" x1="260" y1="170" x2="311" y2="170"/>
+
+<circle class="var" cx="345" cy="170" r="34"/>
+<text x="345" y="178" text-anchor="middle" class="sym">a</text>
+<text x="345" y="226" text-anchor="middle" class="val">a = 4</text>
+
+<line class="thin" x1="379" y1="170" x2="430" y2="170"/>
+<rect class="op" x="430" y="138" width="110" height="64"/>
+<text x="485" y="179" text-anchor="middle" class="opsym">a − 1</text>
+<line class="thin" x1="540" y1="170" x2="591" y2="170"/>
+
+<circle class="var" cx="625" cy="170" r="34"/>
+<text x="625" y="178" text-anchor="middle" class="sym">b</text>
+<text x="625" y="226" text-anchor="middle" class="val">b = 3</text>
+
+<line class="thin" x1="659" y1="170" x2="710" y2="170"/>
+<rect class="op" x="710" y="138" width="110" height="64"/>
+<text x="765" y="179" text-anchor="middle" class="opsym">b²</text>
+<line class="thin" x1="820" y1="170" x2="866" y2="170"/>
+
+<circle class="var" cx="900" cy="170" r="34"/>
+<text x="900" y="178" text-anchor="middle" class="sym">L</text>
+<text x="900" y="226" text-anchor="middle" class="val">L = 9</text>
+
+<!-- backward arrows (right to left), below the row -->
+<line class="edge" x1="866" y1="256" x2="661" y2="256"/>
+<line class="edge" x1="591" y1="256" x2="381" y2="256"/>
+<line class="edge" x1="311" y1="256" x2="96" y2="256"/>
+
+<!-- accumulated gradients under each variable -->
+<text x="900" y="298" text-anchor="middle" class="grad">dL/dL = 1</text>
+<text x="625" y="298" text-anchor="middle" class="grad">dL/db = 1 · 6 = 6</text>
+<text x="345" y="298" text-anchor="middle" class="grad">dL/da = 6 · 1 = 6</text>
+<text x="8" y="298" text-anchor="start" class="grad">dL/dx = 6 · 4 = 24</text>
+
+<text x="480" y="340" text-anchor="middle" class="note">בכל צעד לאחור כופלים את הערך המצטבר בנגזרת המקומית של הצומת שעוברים דרכו</text>
+</svg>

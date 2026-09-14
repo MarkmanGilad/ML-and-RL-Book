@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="290" viewBox="0 0 960 290" direction="ltr">
+<defs>
+<marker id="arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1e8a5a"/></marker>
+</defs>
+<style>
+text{font-family:Arial,sans-serif;fill:#153b56;font-size:20px}
+.title{font-size:22px;font-weight:bold;direction:rtl}
+.var{fill:#eef5fc;stroke:#153b56;stroke-width:2}
+.op{fill:#edf7f5;stroke:#299c91;stroke-width:3;rx:12}
+.sym{font-size:22px;font-weight:bold;font-style:italic}
+.opsym{font-size:26px;font-weight:bold;fill:#174e49}
+.lbl{font-size:18px;fill:#174e49}
+.val{font-size:22px;font-weight:bold;fill:#1e8a5a}
+.edge{stroke:#1e8a5a;stroke-width:3;marker-end:url(#arr-g)}
+.step{font-size:17px;fill:#1e8a5a;direction:ltr}
+</style>
+<rect width="960" height="290" fill="#f7fbfd"/>
+
+<text x="480" y="40" text-anchor="middle" class="title">פעפוע קדימה בנקודה x = 1</text>
+
+<!-- x -->
+<circle class="var" cx="60" cy="150" r="34"/>
+<text x="60" y="158" text-anchor="middle" class="sym">x</text>
+<text x="60" y="215" text-anchor="middle" class="val">x = 1</text>
+
+<line class="edge" x1="94" y1="150" x2="148" y2="150"/>
+
+<rect class="op" x="150" y="118" width="110" height="64"/>
+<text x="205" y="159" text-anchor="middle" class="opsym">4·x</text>
+<text x="205" y="248" text-anchor="middle" class="step">4 · 1 = 4</text>
+
+<line class="edge" x1="260" y1="150" x2="309" y2="150"/>
+
+<!-- a -->
+<circle class="var" cx="345" cy="150" r="34"/>
+<text x="345" y="158" text-anchor="middle" class="sym">a</text>
+<text x="345" y="215" text-anchor="middle" class="val">a = 4</text>
+
+<line class="edge" x1="379" y1="150" x2="428" y2="150"/>
+
+<rect class="op" x="430" y="118" width="110" height="64"/>
+<text x="485" y="159" text-anchor="middle" class="opsym">a − 1</text>
+<text x="485" y="248" text-anchor="middle" class="step">4 − 1 = 3</text>
+
+<line class="edge" x1="540" y1="150" x2="589" y2="150"/>
+
+<!-- b -->
+<circle class="var" cx="625" cy="150" r="34"/>
+<text x="625" y="158" text-anchor="middle" class="sym">b</text>
+<text x="625" y="215" text-anchor="middle" class="val">b = 3</text>
+
+<line class="edge" x1="659" y1="150" x2="708" y2="150"/>
+
+<rect class="op" x="710" y="118" width="110" height="64"/>
+<text x="765" y="159" text-anchor="middle" class="opsym">b²</text>
+<text x="765" y="248" text-anchor="middle" class="step">3² = 9</text>
+
+<line class="edge" x1="820" y1="150" x2="864" y2="150"/>
+
+<!-- L -->
+<circle class="var" cx="900" cy="150" r="34"/>
+<text x="900" y="158" text-anchor="middle" class="sym">L</text>
+<text x="900" y="215" text-anchor="middle" class="val">L = 9</text>
+</svg>

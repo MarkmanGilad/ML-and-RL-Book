@@ -37,7 +37,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book pre .hljs-number { color: #075e68 !important; }
 .book pre .hljs-comment { color: #526174 !important; }
 .book pre .hljs-built_in, .book pre .hljs-title { color: #135b96 !important; }
-.book table { width: 100%; }
+.book table { width: 75%; max-width: 75%; margin: 18px auto; }
 .book th, .book td { text-align: right; }
 .book .small { font-size: .9em; opacity: .8; }
 .book .python-intro { display: flex; align-items: center; gap: 28px; padding: 22px 28px; margin: 24px 0; background: #eef5fc; color: #183e63; border-right: 6px solid #3776ab; border-radius: 10px; }
@@ -88,6 +88,12 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
   text-align: left !important;
   unicode-bidi: isolate;
 }
+/* Display math renders left-to-right and centered, independent of the RTL page. */
+.book .math-panel, .book .math-panel .katex-display, .book .math-panel .katex {
+  direction: ltr !important;
+  text-align: center !important;
+  unicode-bidi: isolate;
+}
 </style>
 
 <div class="book" dir="rtl" lang="he" style="direction: rtl !important; text-align: right !important;">
@@ -104,9 +110,24 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 פונקציה במשתנה אחד מתארת עקומה במישור. פונקציה בשני משתנים מתארת משטח במרחב: לכל זוג ערכים x ו־y מתאים גובה. כשיש יותר משני משתני קלט, אי אפשר להציג את כל גרף הפונקציה במרחב תלת־ממדי רגיל. המטייל שלנו עומד עכשיו לא על שביל אלא על נוף של הרים ועמקים, ויכול לפסוע לכל כיוון במישור.
 
+<figure>
+<img src="../assets/slides/ac6c682411/image17.png" alt="משטח בצורת קערה במרחב, כחול בתחתית ואדום בשוליים הגבוהים, ועליו קו שחור שיורד מהשוליים ומזגזג ליד התחתית." style="max-width:100%;height:auto;">
+<figcaption>משטח של פונקציה בשני משתנים. הקו השחור הוא מסלול של ירידה בגרדיאנט: מהשוליים הגבוהים (אדום) אל תחתית הקערה (כחול). ליד התחתית המסלול מזגזג מצד לצד לפני שהוא מתייצב.</figcaption>
+</figure>
+
 גם בפונקציות במספר משתנים אפשר לחפש מינימום מקומי בעזרת Gradient Descent. הרעיון זהה לזה שבפרק הקודם, וכל מה שמשתנה הוא שבמקום נגזרת אחת יש נגזרת חלקית לכל משתנה; למדנו לחשב אותן בפרק Autograd. בכל איטרציה מחשבים נגזרת חלקית לפי כל משתנה ומעדכנים את המשתנים בהתאם לנגזרות ולקצב הלמידה. כל משתנה מתעדכן לפי הנגזרת שלו, באותו כלל עדכון מהפרק הקודם, וכל העדכונים נעשים יחד באותו צעד.
 
+<figure>
+<img src="../assets/slides/ac6c682411/image18.png" alt="משטח רשת אפור עם גבעה. קו כחול חלק יורד מהפסגה אל השקע, ולצידו קו ירוק שבור עם נקודות ירוקות שמתקרב אליו." style="max-width:100%;height:auto;">
+<figcaption>הקו הכחול (Gradient Flow) הוא הירידה הרציפה במורד המשטח. הנקודות הירוקות (Gradient Descent) הן צעדי האלגוריתם בפועל: כל צעד הוא קו ישר בכיוון הנגזרות בנקודה הנוכחית, ולכן המסלול מתקרב לקו הרציף אך אינו זהה לו.</figcaption>
+</figure>
+
 בפרק זה נראה את האלגוריתם על משטח עם כמה עמקים, נעקוב אחרי המסלול שהוא עובר, ונגלה שגם כאן נקודת ההתחלה וקצב הלמידה קובעים לאיזה עמק נגיע. מה שנלמד תקף ללא שינוי גם לאלפי משתנים; ההבדל היחיד הוא שכבר לא נוכל לצייר את המשטח.
+
+<figure>
+<img src="../assets/slides/ac6c682411/image19.png" alt="תרשים: משטח הפסד ירוק ובו שקע עמוק ושקע רדוד, מסלול סגול יורד לשקע העמוק ומסלול כחול לשקע הרדוד. מתחת חתך של פונקציית ההפסד עם מינימום גלובלי ומינימום מקומי, וחצים שמראים צעדים גדולים במדרון וקטנים ליד התחתית." style="max-width:100%;height:auto;">
+<figcaption>משטח הפסד (Loss surface) ובו שני עמקים. מסלול אחד מגיע לנקודה הנמוכה ביותר במשטח, המינימום הגלובלי (Global minimum), ומסלול אחר נעצר בעמק רדוד יותר, מינימום מקומי (Local minimum). בחתך שמתחת רואים שגודל כל צעד יחסי לנגזרת: צעדים גדולים במדרון תלול וקטנים ליד התחתית.</figcaption>
+</figure>
 
 <!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L12-L26] -->
 
@@ -132,13 +153,22 @@ import matplotlib.pyplot as plt
 
 כמו בפרק הקודם, נבחר תחילה פונקציה לדוגמה שאינה קשורה לרשת נוירונים, כדי להתרכז באלגוריתם עצמו. הפעם נרצה משטח מעניין, עם כמה פסגות וכמה עמקים, כדי שנוכל לראות כיצד האלגוריתם מתמודד עם מינימום מקומי. נשתמש בפונקציית Peaks כדי לבחון חיפוש מינימום על משטח שתלוי בשני משתנים:
 
+<div class="math-panel" dir="ltr">
+
 $$
 z=3(1-x)^2e^{-x^2-(y+1)^2}
 -10\left(\frac{x}{5}-x^3-y^5\right)e^{-x^2-y^2}
 -\frac{1}{3}e^{-(x+1)^2-y^2}
 $$
 
+</div>
+
 הנוסחה נראית מפחידה, אך אין צורך להבין אותה; היא רק "מייצרת נוף" של גבעות ובורות, ואנו נניח ל־Autograd לגזור אותה. הדוגמה מבוססת על הקורס *A deep understanding of deep learning* של Mike X Cohen. במפת הצבעים, צהוב מציין נקודות גבוהות וכחול נקודות נמוכות; זו הדרך המקובלת לצייר משטח תלת־ממדי על מסך שטוח, כמו מפה טופוגרפית.
+
+<figure>
+<img src="../assets/sources/ML/converted/4.1_Gradient_Descent_2D/assets/cell-5-inline-3.png" alt="משטח Peaks במרחב: פסגה צהובה גבוהה, שקע סגול עמוק וכמה גבעות ובורות קטנים יותר על רשת שחורה." style="max-width:100%;height:auto;">
+<figcaption>משטח Peaks במרחב: פסגה גבוהה (צהוב), עמק עמוק (סגול) וכמה גבעות ובורות קטנים יותר.</figcaption>
+</figure>
 
 <!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L35-L52] -->
 
@@ -183,6 +213,11 @@ plt.show()
 
 </div>
 
+<figure>
+<img src="../assets/sources/ML/converted/4.1_Gradient_Descent_2D/assets/cell-8-output-1-2.png" alt="מפת צבעים של Peaks בתחום −3 עד 3: כתם צהוב רחב למעלה, שקע סגול עמוק למטה, וכתמים קטנים נוספים." style="max-width:100%;height:auto;">
+<figcaption>מפת הצבעים של Peaks: צהוב גבוה, סגול נמוך. הפסגה הגבוהה ביותר נמצאת סביב (0, 1.6) והעמק העמוק ביותר סביב (0.2, ‎−1.6).</figcaption>
+</figure>
+
 מפת הצבעים נוחה למעקב אחרי מסלול, אך קשה לחוש בה את הגובה. לכן נציג גם את המשטח במרחב:
 
 <div class="code-panel" dir="ltr">
@@ -209,6 +244,11 @@ plt.show()
 ```
 
 </div>
+
+<figure>
+<img src="../assets/sources/ML/converted/4.1_Gradient_Descent_2D/assets/cell-10-output-1-2.png" alt="משטח Peaks במרחב בסולם צבעים jet: פסגה אדומה, עמק כחול עמוק, ומישור ירוק-צהוב סביבם." style="max-width:100%;height:auto;">
+<figcaption>אותו משטח במרחב, בסולם הצבעים jet: אדום גבוה, כחול נמוך.</figcaption>
+</figure>
 
 כדי לקבל תחושה למספרים שמאחורי הצבעים, נחשב את ערך הפונקציה בשלוש נקודות:
 
@@ -401,9 +441,13 @@ End X,Y = -1.347, 0.205 Z=-3.050
 
 לאחר מכן נעבור לפונקציה חדשה ופשוטה יותר, שיש לה בור אחד וגבעה אחת. חפשו נקודת מינימום של הפונקציה:
 
+<div class="math-panel" dir="ltr">
+
 $$
 f(x,y)=xe^{-(x^2+y^2)}
 $$
+
+</div>
 
 <!-- editorlm-source-ref: [sources/ML/converted/4.1_Gradient_Descent_2D/notebook.md#L273-L286] -->
 
@@ -544,9 +588,13 @@ plt.show()
 
 <!-- editorlm-source-ref: [sources/ML/פונקציה (1).png#L2-L5] -->
 
+<div class="math-panel" dir="ltr">
+
 $$
 f(x_1,x_2)=2x_1^2-1.05x_1^4+\frac{x_1^6}{6}+x_1x_2+x_2^2
 $$
+
+</div>
 
 נגדיר את הפונקציה ונציג אותה:
 
@@ -651,9 +699,13 @@ plt.show()
 
 <!-- editorlm-source-ref: [sources/ML/פונקציה ב (1).png#L2-L6] -->
 
+<div class="math-panel" dir="ltr">
+
 $$
 f(x_1,x_2)=x_1^2\left(4-2.1x_1^2+\frac{x_1^4}{3}\right)+x_1x_2+x_2^2(-4+4x_2^2)
 $$
+
+</div>
 
 נגדיר את הפונקציה ונציג אותה:
 

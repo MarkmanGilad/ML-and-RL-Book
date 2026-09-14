@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470" direction="rtl">
+<style>
+text{font-family:Arial,sans-serif;fill:#153b56;font-size:19px;direction:rtl}
+.lbl{font-size:17px;fill:#174e49}
+.big{font-size:22px;font-weight:bold}
+.mono{font-family:Consolas,"Courier New",monospace;font-size:17px;fill:#135b96;direction:ltr}
+.dots{font-size:30px;font-weight:bold;fill:#153b56}
+.in{fill:#fff1c2;stroke:#c9a227;stroke-width:2}
+.hid{fill:#cfe8fa;stroke:#2f7fb5;stroke-width:2}
+.out{fill:#ffd3cf;stroke:#c34345;stroke-width:2}
+.edge{stroke:#8ea4b5;stroke-width:1.2}
+</style>
+<rect width="900" height="470" fill="#f7fbfd"/>
+
+<!-- edges: input (x=150) -> hidden (x=450) -->
+<g class="edge">
+<line x1="172" y1="90"  x2="428" y2="90"/><line x1="172" y1="90"  x2="428" y2="150"/><line x1="172" y1="90"  x2="428" y2="210"/><line x1="172" y1="90"  x2="428" y2="330"/>
+<line x1="172" y1="150" x2="428" y2="90"/><line x1="172" y1="150" x2="428" y2="150"/><line x1="172" y1="150" x2="428" y2="210"/><line x1="172" y1="150" x2="428" y2="330"/>
+<line x1="172" y1="210" x2="428" y2="90"/><line x1="172" y1="210" x2="428" y2="150"/><line x1="172" y1="210" x2="428" y2="210"/><line x1="172" y1="210" x2="428" y2="330"/>
+<line x1="172" y1="330" x2="428" y2="90"/><line x1="172" y1="330" x2="428" y2="150"/><line x1="172" y1="330" x2="428" y2="210"/><line x1="172" y1="330" x2="428" y2="330"/>
+</g>
+<!-- edges: hidden (x=450) -> output (x=750) -->
+<g class="edge">
+<line x1="472" y1="90"  x2="728" y2="210"/><line x1="472" y1="150" x2="728" y2="210"/><line x1="472" y1="210" x2="728" y2="210"/><line x1="472" y1="330" x2="728" y2="210"/>
+</g>
+
+<!-- input layer -->
+<circle class="in" cx="150" cy="90"  r="22"/><circle class="in" cx="150" cy="150" r="22"/><circle class="in" cx="150" cy="210" r="22"/>
+<text x="150" y="282" text-anchor="middle" class="dots">⋮</text>
+<circle class="in" cx="150" cy="330" r="22"/>
+<text x="150" y="395" text-anchor="middle" class="big">784 קלטים</text>
+<text x="150" y="420" text-anchor="middle" class="lbl">פיקסל לכל קלט</text>
+<text x="150" y="447" text-anchor="middle" class="mono">input_size</text>
+
+<!-- hidden layer -->
+<circle class="hid" cx="450" cy="90"  r="22"/><circle class="hid" cx="450" cy="150" r="22"/><circle class="hid" cx="450" cy="210" r="22"/>
+<text x="450" y="282" text-anchor="middle" class="dots">⋮</text>
+<circle class="hid" cx="450" cy="330" r="22"/>
+<text x="450" y="395" text-anchor="middle" class="big">100 יחידות חבויות</text>
+<text x="450" y="420" text-anchor="middle" class="lbl">כל יחידה מקבלת 784 ערכים, ואחריה ReLU</text>
+<text x="450" y="447" text-anchor="middle" class="mono">hidden_size</text>
+
+<!-- output layer -->
+<circle class="out" cx="750" cy="210" r="22"/>
+<line x1="772" y1="210" x2="840" y2="210" stroke="#153b56" stroke-width="2"/>
+<polygon points="840,204 852,210 840,216" fill="#153b56"/>
+<text x="750" y="395" text-anchor="middle" class="big">יחידת פלט אחת</text>
+<text x="750" y="420" text-anchor="middle" class="lbl">מקבלת 100 ערכים, ואחריה Sigmoid</text>
+<text x="750" y="447" text-anchor="middle" class="mono">1</text>
+
+<!-- layer arrows labels -->
+<text x="300" y="40" text-anchor="middle" class="mono">nn.Linear(784, 100)</text>
+<text x="600" y="40" text-anchor="middle" class="mono">nn.Linear(100, 1)</text>
+</svg>
