@@ -1,5 +1,7 @@
 import { publicationHead, sitemap, siteUrl } from './publication.mjs';
 import fs from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import katex from 'katex';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -22,6 +24,20 @@ for (const entry of await fs.readdir(out)) {
   await fs.rm(path.join(out, entry), { recursive: true, force: true });
 }
 await fs.cp(path.join(root, 'assets'), path.join(out, 'assets'), { recursive: true });
+// KaTeX stylesheet and fonts are served with the site, so display math needs no CDN.
+const katexDist = path.dirname(createRequire(import.meta.url).resolve('katex/dist/katex.min.css'));
+await fs.mkdir(path.join(out, 'assets', 'katex'), { recursive: true });
+await fs.copyFile(path.join(katexDist, 'katex.min.css'), path.join(out, 'assets', 'katex', 'katex.min.css'));
+await fs.cp(path.join(katexDist, 'fonts'), path.join(out, 'assets', 'katex', 'fonts'), { recursive: true });
+// Display math ($$ ... $$) is rendered to HTML before Markdown parsing so marked never touches the LaTeX.
+function renderMath(source) {
+  const blocks = [];
+  const text = source.replace(/\$\$([^]*?)\$\$/g, (_, tex) => {
+    blocks.push(katex.renderToString(tex.trim(), { displayMode: true, throwOnError: false, output: 'html' }));
+    return `@@MATH${blocks.length - 1}@@`;
+  });
+  return { text, blocks };
+}
 const escape = s => s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 
 // The sidebar is derived from the table of contents in index.md: part headings
@@ -140,7 +156,11 @@ const mobileStyles = `<style>@media screen and (max-width: 960px) {
 let localOnly = 0;
 for (const page of pages) {
   const source = await fs.readFile(path.join(root, page), 'utf8');
-  let html = marked.parse(source.replace(/<!--[^]*?-->/g, ''), { gfm: true });
+  const math = renderMath(source.replace(/<!--[^]*?-->/g, ''));
+  let html = marked.parse(math.text, { gfm: true });
+  html = html.replace(/(?:<p>)?@@MATH(\d+)@@(?:<\/p>)?/g, (_, i) => math.blocks[Number(i)]);
+  const assetPrefix = page.includes('/') ? '../'.repeat(page.split('/').length - 1) : '';
+  const katexLink = math.blocks.length ? `<link rel="stylesheet" href="${assetPrefix}assets/katex/katex.min.css">` : '';
   const rewrite = (url, image = false) => {
     const decoded = decodeURIComponent(url.replaceAll('&amp;', '&'));
     if (/^(https?:|mailto:|tel:|data:)/i.test(decoded) || decoded.startsWith('#')) return url;
@@ -168,7 +188,7 @@ for (const page of pages) {
   }
   const title = html.match(/<h1[^>]*>([^]*?)<\/h1>/)?.[1].replace(/<[^>]*>/g, ' ') || path.basename(page, '.md');
   const body = `<input type="checkbox" id="toc-toggle" class="toc-toggle"><label for="toc-toggle" class="toc-button">&#9776; פרקים</label><div class="layout">${sidebarFor(page)}<div class="sidebar-handle" role="separator" aria-orientation="vertical" aria-label="רוחב התפריט"></div><main class="content">${html}</main></div>${sidebarScript}`;
-  const result = `<!doctype html>\n<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">${publicationHead(page, title)}<style>body{margin:0;background:#fff;color:#183b50;font-family:Arial,sans-serif}img{max-width:100%;height:auto}pre{overflow-x:auto}pre,pre code{direction:ltr;text-align:left;unicode-bidi:isolate}table{border-collapse:collapse}th,td{padding:8px;border:1px solid #d4e3e9}</style>${sidebarStyles}${mobileStyles}</head><body>${body}</body></html>`;
+  const result = `<!doctype html>\n<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">${publicationHead(page, title)}${katexLink}<style>body{margin:0;background:#fff;color:#183b50;font-family:Arial,sans-serif}img{max-width:100%;height:auto}pre{overflow-x:auto}pre,pre code{direction:ltr;text-align:left;unicode-bidi:isolate}table{border-collapse:collapse}th,td{padding:8px;border:1px solid #d4e3e9}</style>${sidebarStyles}${mobileStyles}</head><body>${body}</body></html>`;
   const dest = path.join(out, page.replace(/\.md$/, '.html'));
   await fs.mkdir(path.dirname(dest), { recursive: true });
   await fs.writeFile(dest, result);
@@ -176,4 +196,4 @@ for (const page of pages) {
 await fs.writeFile(path.join(out, '.nojekyll'), '');
 await fs.writeFile(path.join(out, 'sitemap.xml'), sitemap(pages));
 await fs.writeFile(path.join(out, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: ' + siteUrl + 'sitemap.xml\n');
-console.log(`Built ${pages.length} pages with a ${parts.length}-part sidebar; ${localOnly} local source links shown as text. All chapter links and local images checked.`);
+console.log(`Built ${pages.length} pages with a ${parts.length}-part sidebar (KaTeX display math rendered at build time); ${localOnly} local source links shown as text. All chapter links and local images checked.`);

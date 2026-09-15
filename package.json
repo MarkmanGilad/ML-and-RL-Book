@@ -2,7 +2,14 @@
   "name": "hebrew-machine-learning-book",
   "private": true,
   "type": "module",
-  "scripts": { "build": "node scripts/build.mjs" },
-  "dependencies": { "marked": "17.0.5" },
-  "engines": { "node": ">=22" }
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "dependencies": {
+    "katex": "0.18.7",
+    "marked": "17.0.5"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }
