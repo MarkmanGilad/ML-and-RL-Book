@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="350" viewBox="0 0 660 350" font-family="Arial, sans-serif" font-size="15">
+  <!-- axes -->
+  <line x1="80" y1="280" x2="610" y2="280" stroke="#153b56" stroke-width="2"/>
+  <line x1="80" y1="20" x2="80" y2="280" stroke="#153b56" stroke-width="2"/>
+  <!-- y ticks -->
+  <g stroke="#153b56" stroke-width="1" fill="#153b56">
+    <line x1="75" y1="30" x2="80" y2="30"/><text x="68" y="35" text-anchor="end">1.0</text>
+    <line x1="75" y1="92.5" x2="80" y2="92.5"/><text x="68" y="97" text-anchor="end">0.75</text>
+    <line x1="75" y1="155" x2="80" y2="155"/><text x="68" y="160" text-anchor="end">0.5</text>
+    <line x1="75" y1="217.5" x2="80" y2="217.5"/><text x="68" y="222" text-anchor="end">0.25</text>
+    <line x1="75" y1="277.5" x2="80" y2="277.5"/><text x="68" y="282" text-anchor="end">0.01</text>
+  </g>
+  <!-- x ticks -->
+  <g stroke="#153b56" stroke-width="1" fill="#153b56">
+    <line x1="80" y1="280" x2="80" y2="286"/><text x="80" y="304" text-anchor="middle">0</text>
+    <line x1="210" y1="280" x2="210" y2="286"/><text x="210" y="304" text-anchor="middle">50,000</text>
+    <line x1="340" y1="280" x2="340" y2="286"/><text x="340" y="304" text-anchor="middle">100,000</text>
+    <line x1="470" y1="280" x2="470" y2="286"/><text x="470" y="304" text-anchor="middle">150,000</text>
+    <line x1="600" y1="280" x2="600" y2="286"/><text x="600" y="304" text-anchor="middle">200,000</text>
+  </g>
+  <text x="345" y="334" text-anchor="middle" fill="#153b56" font-weight="bold">epoch</text>
+  <text x="30" y="20" fill="#153b56" font-weight="bold" font-size="18">ε</text>
+  <!-- floor line at 0.01 -->
+  <line x1="80" y1="277.5" x2="600" y2="277.5" stroke="#c8102e" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="604" y="272" fill="#c8102e" font-size="13">1%</text>
+  <!-- exponential (dashed) -->
+  <polyline fill="none" stroke="#7a8fa3" stroke-width="2.5" stroke-dasharray="7 6"
+    points="80,30 132,74.9 184,111.6 236,141.7 288,166.3 340,186.5 392,203.0 444,216.5 496,227.5 548,236.6 600,244.0"/>
+  <!-- linear (solid) -->
+  <polyline fill="none" stroke="#1f7a70" stroke-width="4" points="80,30 340,277.5 600,277.5"/>
+  <!-- legend -->
+  <line x1="400" y1="60" x2="440" y2="60" stroke="#1f7a70" stroke-width="4"/>
+  <text x="448" y="65" fill="#153b56">linear (decay = 100,000)</text>
+  <line x1="400" y1="88" x2="440" y2="88" stroke="#7a8fa3" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <text x="448" y="93" fill="#153b56">exponential</text>
+</svg>

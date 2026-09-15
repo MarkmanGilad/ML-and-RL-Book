@@ -47,14 +47,20 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .python-fact strong { font-size: 24px; }
 .book .optional { background: #fff7d6; color: #423611; border-right: 6px solid #ffd343; border-radius: 8px; padding: 18px 24px; margin: 22px 0; font-size: .95em; }
 .book .optional .formula { width: 90%; max-width: 90%; background: #fffdf3; }
+.book .key-note { box-sizing:border-box; width:75%; max-width:75%; margin:26px auto; border:2px solid #1f7a70; border-radius:10px; background:#e6f7f4; overflow:hidden; }
+.book .key-note .key-title { background:#1f7a70; color:#fff; font-weight:700; font-size:1.15em; padding:8px 18px; direction:rtl; text-align:right; }
+.book .key-note .key-body { padding:14px 18px 16px; font-size:1.05em; direction:rtl; text-align:right; }
 .book .grid-row { display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start; gap:14px 18px; }
 .book .grid-row figure { width:auto; max-width:100%; margin:0; padding:0; background:transparent; border:0; }
 .book .grid-row figcaption { margin-top:6px; font-size:.85em; }
 .book .grid.small td { width:46px; height:36px; font-size:.9em; }
 .book .grid .changed { color:#c8102e; font-weight:700; }
+.book .grid.actions-table, .book .grid.actions-table th, .book .grid.actions-table td { direction:rtl!important; text-align:center!important; }
+.book .grid.actions-table th { background:#eef5fc; border:1px solid #8199aa; font-weight:700; }
 .book .bellman { box-sizing:border-box; width:75%; max-width:75%; margin:26px auto; border:2px solid #1f7a70; border-radius:10px; background:#e6f7f4; overflow:hidden; }
 .book .bellman .bellman-title { background:#1f7a70; color:#fff; font-weight:700; font-size:1.15em; padding:8px 18px; direction:rtl; text-align:right; }
 .book .bellman .bellman-cond { direction:ltr!important; text-align:center!important; unicode-bidi:isolate; padding:14px 20px 0; font-size:1.05em; color:#1f2937; }
+.book .bellman .bellman-cond + .bellman-cond { padding-top:4px; }
 .book .bellman .bellman-eq { direction:ltr!important; text-align:center!important; unicode-bidi:isolate; padding:12px 20px 18px; font-size:1.5em; font-weight:700; color:#0b3d5c; }
 .book .bellman .bellman-eq span { background:#fff3b0; padding:4px 14px; border-radius:8px; border:1px solid #e6c94a; }
 /* Display math renders left-to-right and centered, independent of the RTL page. */
@@ -131,7 +137,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ד.4 — תכנון דינמי: Policy Iteration
 
-**המצגת:** [תכנון דינמי](../../../sources/RL/2.תכנון%20דינמי.pptx) · **קוד:** [הסביבה הנתונה](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/gridworld.py) · [Policy Iteration](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/policy_iteration.py) · [מבוך 5×5](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/gridworld_maze.py) · [הרצת המדיניות במבוך](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/maze_demo.py) · [כל קובצי הקוד בגיטהב](https://github.com/MarkmanGilad/book/tree/main/assets/rl/code)
+**המצגת:** [תכנון דינמי](../../../sources/RL/2.תכנון%20דינמי.pptx) · **קוד:** [Agent.py](https://github.com/MarkmanGilad/GridWorld/blob/main/Agent.py) · [Environement.py](https://github.com/MarkmanGilad/GridWorld/blob/main/Environement.py) · [Game.py](https://github.com/MarkmanGilad/GridWorld/blob/main/Game.py) · [מאגר GridWorld בגיטהב](https://github.com/MarkmanGilad/GridWorld)
 
 בפרק הקודם הגדרנו את המושגים: מצב, פעולה, תגמול, מדיניות וערך של מצב. עכשיו אפשר לשאול את השאלה המעשית הראשונה: אם אנחנו יודעים את חוקי המשחק במלואם — לאיזה מצב מוביל כל מהלך ומה התגמול עליו — איך מחשבים את המהלך הטוב ביותר בכל מצב? זה המצב ב־Grid World, בפאזל המספרים ובכל משחק שהמודל שלו ידוע לנו. בפרק זה ובפרק הבא הסוכן עדיין אינו "לומד" מניסיון; הוא מחשב, כמו שמחשבים מסלול קצר במפה שכל כבישיה ידועים.
 
@@ -198,8 +204,9 @@ $$
 
 <div class="bellman" id="bellman">
 <div class="bellman-title">משוואת בלמן — Bellman Equation</div>
-<div class="bellman-cond" dir="ltr">a = π(s), &nbsp;&nbsp; (s′, r) = model(s, a)</div>
-<div class="bellman-eq" dir="ltr"><span>V<sub>π</sub>(s) = r + γ·V<sub>π</sub>(s′)</span></div>
+<div class="bellman-cond" dir="ltr">&#x2066;π(s) = a&#x2069;</div>
+<div class="bellman-cond" dir="ltr">&#x2066;model(s, a) = (s′, r)&#x2069;</div>
+<div class="bellman-eq" dir="ltr"><span>&#x2066;V<sub>π</sub>(s) = r + γ·V<sub>π</sub>(s′)&#x2069;</span></div>
 </div>
 
 זו **משוואת בלמן — Bellman Equation** למדיניות נתונה בסביבה דטרמיניסטית. היא תלווה אותנו בכל הספר: כל אלגוריתם שנלמד מכאן והלאה, עד DQN, בנוי עליה. במילים: הערך של מצב הוא התגמול שמקבלים בצעד הקרוב, ועוד הערך של המצב שמגיעים אליו, מוכפל ב־γ. המשוואה מאפשרת לעדכן תא בטבלה באמצעות תא אחר, במקום לסכום מחדש מסלול שלם בכל פעם. שימו לב שהמשוואה מגדירה את V באמצעות V עצמה — הערך של מצב תלוי בערך של המצב הבא. זה לא מעגל סתום: כפי שנראה מיד, אפשר להתחיל מטבלה של אפסים ולהחיל את המשוואה שוב ושוב עד שהערכים מתייצבים. אם המצב הבא סופי, ערכו 0, ולכן נשאר רק התגמול המיידי.
@@ -220,8 +227,9 @@ $$
 
 <div class="bellman">
 <div class="bellman-title">משוואת בלמן עבור Q</div>
-<div class="bellman-cond" dir="ltr">(s′, r) = model(s, a), &nbsp;&nbsp; a′ = π(s′)</div>
-<div class="bellman-eq" dir="ltr"><span>Q<sub>π</sub>(s, a) = r + γ·Q<sub>π</sub>(s′, a′)</span></div>
+<div class="bellman-cond" dir="ltr">&#x2066;model(s, a) = (s′, r)&#x2069;</div>
+<div class="bellman-cond" dir="ltr">&#x2066;π(s′) = a′&#x2069;</div>
+<div class="bellman-eq" dir="ltr"><span>&#x2066;Q<sub>π</sub>(s, a) = r + γ·Q<sub>π</sub>(s′, a′)&#x2069;</span></div>
 </div>
 
 <div class="optional">
@@ -240,7 +248,10 @@ $$
 
 <!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L16-L40] -->
 
-### מתחילים ממדיניות נתונה
+<a id="policy-evaluation"></a>
+### חישוב פונקציית הערך למדיניות נתונה — Policy Evaluation
+
+נדגים עכשיו איך מקבלים מדיניות כלשהי ומוצאים את טבלת הערכים התואמת לה באמצעות משוואת בלמן. זו עדיין לא המדיניות המיטבית ולא פונקציית הערך המיטבית: מטרת האלגוריתם הראשון היא רק למצוא את טבלת הערכים המתאימה למדיניות שבחרנו, ולכל מדיניות אפשר למצוא בדרך הזו את טבלת הערכים שלה. זהו האלגוריתם של בלמן המכונה **Policy Evaluation**. שימו לב למילה: ״הערכה״ (evaluation) כאן פירושה לחשב ערך, ולא לשפוט כמה המדיניות טובה.
 
 כדי להפעיל את משוואת בלמן צריך מדיניות כלשהי — המשוואה מחשבת ערכים עבור מדיניות נתונה. לכן נתחיל בבניית מדיניות התחלתית. נשתמש ב־[לוח 4×4 שהוגדר בפרק הקודם](03-מודל%20סביבה%20סוכן%20ו-MDP.md). נשמור שתי טבלאות: V מכילה מספר לכל מצב, ו־π מכילה פעולה לכל מצב שאינו סופי. נאתחל את הערכים באפס. המדיניות הראשונית יכולה להיות פשוטה מאוד; בשלב הזה היא אינה חייבת להיות טובה.
 
@@ -267,65 +278,80 @@ $$
 </figure>
 </div></div>
 
-בקוד נייצג מדיניות כמילון: המפתח הוא מצב (זוג שורה ועמודה) והערך הוא הפעולה שנבחרה בו. הפונקציה הבאה יוצרת אותה בעזרת קבועי הסביבה:
-
-<div class="code-panel" dir="ltr">
-
-```python
-from gridworld import Action, GOAL
-
-def initial_policy(env):
-    policy = {}
-    for state in env.states:
-        if env.end_of_game(state):
-            continue
-        action = Action.DOWN
-        if state == (GOAL[0], GOAL[1] - 1):
-            action = Action.RIGHT
-        policy[state] = action
-    return policy
-```
-
-</div>
-
-ממשק הסביבה בקוד כבר נתון: `env.states` מכיל את המצבים, `env.get_actions(state)` מחזירה פעולות חוקיות, `env(state, action)` מחזירה מצב חדש ותגמול, ו־`env.end_of_game(state)` בודקת סיום. כל ארבע הפעולות חוקיות בכל מצב שאינו סופי; פעולה לכיוון קצה הלוח מחזירה את אותו מצב עם תגמול 0, כפי שהוגדר בפרק הקודם.
-
 <!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L19-L99] -->
 
-<a id="policy-evaluation"></a>
-### Policy Evaluation — מעריכים את המדיניות
+יש לנו מדיניות, ועכשיו נמצא את טבלת הערכים V שלה. במהלך החישוב לא משנים את הפעולות שנבחרו. עוברים שוב ושוב על המצבים ומעדכנים את V לפי משוואת בלמן ולפי אותה מדיניות. בכל סריקה מודדים את השינוי הגדול ביותר בערכים. כשהשינוי קטן מן הדיוק שבחרנו, מפסיקים — הטבלה התייצבה ואינה משתנה עוד.
 
-יש לנו מדיניות, אבל עדיין איננו יודעים כמה היא טובה. השלב הראשון של האלגוריתם עונה על כך: הוא מחשב את V של המדיניות הנוכחית. בשלב **הערכת המדיניות — Policy Evaluation** לא משנים את הפעולות שנבחרו. עוברים שוב ושוב על המצבים ומעדכנים את V לפי משוואת בלמן ולפי אותה מדיניות. בכל סריקה מודדים את השינוי הגדול ביותר בערכים. כשהשינוי קטן מן הדיוק שבחרנו, מפסיקים — הטבלה התייצבה ואינה משתנה עוד.
+האלגוריתם של בלמן מציע לבצע חישוב חוזר ונשנה של המשוואה V<sub>π</sub>(s) = r + γV<sub>π</sub>(s′) על כל תאי הטבלה, עד אשר לא יהיו יותר שינויים בטבלה (או שהשינויים יהיו קטנים מאוד). מה זה אומר בפועל? **סורקים** את הטבלה: עוברים על התאים שורה אחר שורה, מלמעלה למטה, ובכל שורה משמאל לימין. בכל תא שאינו תא סיום מבצעים חישוב אחד:
 
-האלגוריתם של בלמן מציע לבצע חישוב חוזר ונשנה של המשוואה V<sub>π</sub>(s) = r + γV<sub>π</sub>(s′) על כל תאי הטבלה, עד אשר לא יהיו יותר שינויים בטבלה (או שהשינויים יהיו קטנים מאוד). נעקוב אחר ההתפשטות של הערכים במדיניות ״למטה״ שבנינו, גל אחר גל. תחילה מקבלים ערך רק התאים שהפעולה שלהם נכנסת ישירות לתא סיום: ‎−1 בתא שמעל התא האדום, ו־1 בשני שכני היעד (מעליו ומשמאלו). בגל הבא מקבלים 0.9 התאים שהמדיניות מובילה מהם אל תא שערכו 1: התא הימני בשורה השנייה יורד אל התא שערכו 1, והתא שמעל שכנו השמאלי של היעד יורד אליו. בגל השלישי מקבל 0.81 התא הימני העליון, שיורד אל התא שערכו 0.9. מכאן אין עוד שינוי:
+1. מסתכלים בטבלת המדיניות ורואים איזו פעולה נבחרה בתא הזה.
+2. שואלים את המודל לאן הפעולה מובילה ומה התגמול r על המעבר.
+3. מסתכלים בטבלת הערכים וקוראים את הערך הנוכחי של התא שאליו הגענו, V(s′).
+4. מחשבים לפי נוסחת בלמן r + 0.9·V(s′) וכותבים את התוצאה בתא הנוכחי במקום הערך הישן.
+
+הערך החדש נכתב מיד בטבלה, ולכן תא שנסרק מאוחר יותר באותה סריקה כבר רואה אותו. תאי הסיום מדלגים עליהם, וערכם נשאר 0. כשמסיימים את כל התאים, זו סריקה אחת; אז מתחילים סריקה חדשה מן התא הראשון.
+
+**סריקה ראשונה, יד ביד.** נסמן כל תא לפי (שורה, עמודה), כשהספירה מתחילה ב־0 מלמעלה ומשמאל, בדיוק כמו בקוד: התא האדום הוא (1,2) והיעד הירוק הוא (3,3). מתחילים מטבלה שכולה אפסים ומן המדיניות ״למטה״ שבנינו.
+
+- **התא (0,0):** המדיניות אומרת ״למטה״, והמודל מוביל ל־(1,0) עם תגמול 0. הערך של (1,0) בטבלה הוא 0, ולכן מחשבים 0 + 0.9·0 = 0. כותבים 0; שום דבר לא השתנה. גם התא (0,1) מסתיים כך.
+- **התא (0,2):** ״למטה״ מוביל לתא האדום (1,2). התגמול על הכניסה אליו הוא ‎−1, וערכו של תא סיום הוא 0. מחשבים ‎−1 + 0.9·0 = ‎−1, וכותבים ‎−1 בתא (0,2). זה השינוי הראשון בטבלה.
+- **התא (0,3):** ״למטה״ מוביל ל־(1,3). תגמול 0, והערך של (1,3) הוא בינתיים 0. התוצאה 0.
+- **השורה השנייה:** (1,0) ו־(1,1) נותנים 0, את (1,2) מדלגים כי הוא תא סיום, ו־(1,3) יורד אל (2,3). התגמול 0, והערך של (2,3) הוא עדיין 0, כי טרם הגענו אליו בסריקה הזאת. התוצאה 0.
+- **השורה השלישית:** שלושת התאים הראשונים נותנים 0. התא (2,3) יורד אל היעד הירוק: תגמול 1, וערכו של תא סיום 0. מחשבים 1 + 0.9·0 = 1 וכותבים 1 בתא (2,3).
+- **השורה התחתונה:** ב־(3,0) וב־(3,1) ״למטה״ פירושו ניסיון לצאת מהלוח, הסוכן נשאר במקומו עם תגמול 0, ולכן 0 + 0.9·0 = 0. התא (3,2) פונה ימינה אל היעד: 1 + 0.9·0 = 1. את (3,3) מדלגים.
+
+בסיום הסריקה הראשונה השתנו שלושה תאים בלבד, והם מסומנים באדום:
+
+<div class="grid-panel"><div class="grid-row">
+<figure>
+<table class="grid" dir="ltr">
+<tr><td>0</td><td>0</td><td class="changed">−1</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td class="bad">0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td class="changed">1</td></tr>
+<tr><td>0</td><td>0</td><td class="changed">1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>טבלת הערכים אחרי הסריקה הראשונה</figcaption>
+</figure>
+</div></div>
+
+שימו לב שרק תאים שהפעולה שלהם נכנסת ישירות לתא סיום קיבלו ערך: כל השאר הובילו לתאים שערכם עדיין היה 0 ברגע החישוב.
+
+**סריקה שנייה, יד ביד.** חוזרים על אותו חישוב מן התא הראשון, אבל עכשיו יש בטבלה שלושה מספרים שאינם אפס, והם משפיעים על התאים שמובילים אליהם.
+
+- **התא (0,0) והתא (0,1):** ״למטה״ מוביל ל־(1,0) ול־(1,1), ששניהם עדיין 0. התוצאה 0 + 0.9·0 = 0, ללא שינוי.
+- **התא (0,2):** ״למטה״ מוביל שוב לתא האדום: ‎−1 + 0.9·0 = ‎−1. אותו מספר שכבר כתוב בתא, ולכן אין שינוי.
+- **התא (0,3):** ״למטה״ מוביל ל־(1,3). ברגע הזה הערך של (1,3) הוא עדיין 0, כי נגיע אליו רק בשורה הבאה של הסריקה. התוצאה 0. התא הזה יקבל ערך רק בסריקה הבאה.
+- **התא (1,3):** ״למטה״ מוביל ל־(2,3), שערכו כבר 1 מן הסריקה הקודמת. מחשבים 0 + 0.9·1 = 0.9 וכותבים 0.9. זה השינוי הראשון בסריקה הזאת.
+- **התא (2,2):** ״למטה״ מוביל ל־(3,2), שערכו 1. מחשבים 0 + 0.9·1 = 0.9 וכותבים 0.9.
+- **התא (2,3) והתא (3,2):** שניהם נכנסים ליעד ונותנים שוב 1 + 0.9·0 = 1, ללא שינוי. כל שאר התאים מובילים לתאים שערכם 0 ונשארים 0.
+
+בסיום הסריקה השנייה השתנו שני תאים, והם מסומנים באדום:
+
+<div class="grid-panel"><div class="grid-row">
+<figure>
+<table class="grid" dir="ltr">
+<tr><td>0</td><td>0</td><td>−1</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td class="bad">0</td><td class="changed">0.9</td></tr>
+<tr><td>0</td><td>0</td><td class="changed">0.9</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>טבלת הערכים אחרי הסריקה השנייה</figcaption>
+</figure>
+</div></div>
+
+שימו לב ל־(0,3): הוא נסרק לפני (1,3), ולכן ראה שם עדיין 0. כך פועל עדכון במקום: בכל סריקה המידע מתקדם צעד אחד לאחור, מן היעד אל התאים שמובילים אליו.
+
+**הסריקות הבאות.** בסריקה השלישית התא (0,3) יורד אל (1,3), שערכו עכשיו 0.9, ומקבל 0 + 0.9·0.9 = 0.81; זה השינוי היחיד. בסריקה הרביעית מחשבים שוב את כל התאים, וכל אחד מהם נותן בדיוק את המספר שכבר כתוב בו: השינוי הגדול ביותר הוא 0, קטן מן הדיוק שקבענו, ולכן עוצרים. כך זה תמיד: כדי לדעת שהטבלה התייצבה צריך לבצע סריקה אחת נוספת שלא משנה דבר.
 
 <div class="grid-panel"><div class="grid-row">
 <figure>
 <table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td class="bad">0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td>0</td><td class="goal">0</td></tr>
-</table>
-<figcaption>אתחול</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>−1</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td class="bad">0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
-<tr><td>0</td><td>0</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל ראשון</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>−1</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>−1</td><td class="changed">0.81</td></tr>
 <tr><td>0</td><td>0</td><td class="bad">0</td><td>0.9</td></tr>
 <tr><td>0</td><td>0</td><td>0.9</td><td>1</td></tr>
 <tr><td>0</td><td>0</td><td>1</td><td class="goal">0</td></tr>
 </table>
-<figcaption>גל שני</figcaption>
+<figcaption>סריקה 3</figcaption>
 </figure>
 <figure>
 <table class="grid small" dir="ltr">
@@ -334,58 +360,88 @@ def initial_policy(env):
 <tr><td>0</td><td>0</td><td>0.9</td><td>1</td></tr>
 <tr><td>0</td><td>0</td><td>1</td><td class="goal">0</td></tr>
 </table>
-<figcaption>גל שלישי</figcaption>
+<figcaption>סריקה 4 — ללא שינוי, עוצרים</figcaption>
 </figure>
 </div></div>
 
-הגלים כאן הם דרך להמחיש את ההתפשטות; מספר הסריקות המדויק בקוד תלוי בסדר שבו עוברים על התאים, אבל הטבלה הסופית זהה.
+הערכים מתקדמים מן היעד אחורה, סריקה אחר סריקה: קודם התאים הצמודים לתאי הסיום, אחר כך התאים שמובילים אליהם, וכן הלאה. תא שהמדיניות אינה מובילה ממנו לשום תגמול נשאר 0.
 
-העמודות השמאליות אינן מקבלות ערך חיובי רק משום שיש יעד במקום אחר בלוח: המדיניות הנוכחית עדיין אינה מובילה אותן אליו. זו נקודה חשובה — V מודדת את המדיניות, לא את הלוח. מצב שממנו המדיניות מסתובבת בלולאה ללא תגמול שווה 0, גם אם היעד נמצא במרחק צעד ממנו.
+שימו לב לשתי העמודות השמאליות: כל התאים בהן נשארו 0, אף שהיעד נמצא באותו לוח. הסיבה היא המדיניות. מכל תא בעמודות האלה הסוכן הולך ״למטה״ עד השורה התחתונה, ושם ״למטה״ משאיר אותו במקום לנצח. הוא אינו מגיע לעולם לא ליעד ולא לתא האדום, ולכן סכום התגמולים שלו הוא 0. למשל, התא (3,1) נמצא שני צעדים בלבד מהיעד, אבל במדיניות הזאת הסוכן לא הולך לשם, ולכן ערכו 0. זו נקודה חשובה: V מודדת כמה תגמול צובר הסוכן כשהוא הולך לפי המדיניות הנתונה, ולא כמה קרוב היעד.
 
 <!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L49-L99] -->
 
-במצגת האלגוריתם כתוב בפסאודו־קוד: מאתחלים את V בערכים אקראיים, פרט לתאי הסיום שמקבלים 0; קובעים דיוק קטן, accuracy=0.0001; ובכל סריקה שומרים את הערך הישן, מבקשים מן המדיניות פעולה, מבקשים מן הסביבה את המצב הבא והתגמול, מחשבים ערך חדש לפי משוואת בלמן ורושמים את השינוי הגדול ביותר. בלמן הוכיח שאם γ<1 האלגוריתם מתכנס: התיקון שואף לאפס ובסוף ייעצר. הפונקציה הבאה היא אותו אלגוריתם בפייתון. היא מקבלת את הסביבה, את המדיניות ואת טבלת הערכים, ומעדכנת את הטבלה במקום. אצלנו האתחול הוא באפסים, וזה מקרה פרטי של האתחול האקראי שבמצגת:
+לסיכום, הנה האלגוריתם Policy Evaluation בפסאודו־קוד. מאתחלים את V בערכים אקראיים, פרט לתאי הסיום שמקבלים 0; קובעים דיוק קטן, accuracy=0.0001; ובכל סריקה שומרים את הערך הישן, מבקשים מן המדיניות פעולה, מבקשים מן הסביבה את המצב הבא והתגמול, מחשבים ערך חדש לפי משוואת בלמן ורושמים את השינוי הגדול ביותר. מסיימים את הסריקות כאשר תיקון הטבלה קטן מן הסף שנקבע:
 
 <div class="code-panel" dir="ltr">
 
-```python
-def policy_eval(env, policy, values, gamma=0.9, accuracy=0.0001):
-    while True:
-        delta = 0
-        for state in env.states:
-            if env.end_of_game(state):
-                continue
-            old_value = values[state]
-            action = policy[state]
-            next_state, reward = env(state, action)
-            values[state] = reward + gamma * values[next_state]
-            delta = max(delta, abs(old_value - values[state]))
-        if delta < accuracy:
-            return
+```text
+# Iterative Policy Evaluation for Deterministic environment
+
+# Initialization
+for all s in S:
+    V(s) = random(float) except V(terminal) = 0
+
+def Policy_Evaluation(P, V):
+    accuracy = 0.0001 (small number)
+    acc = maxNumber
+    while acc > accuracy:
+        acc = 0
+        for s in all states:
+            if s is terminal: continue
+            old_value = V(s)
+            action = P(s)
+            s', r = environment(s, action)
+            new_value = r + gamma * V(s')
+            V(s) = new_value
+            acc = max(acc, abs(old_value - new_value))
 ```
 
 </div>
 
-השורה המרכזית היא `values[state] = reward + gamma * values[next_state]` — זו משוואת בלמן בדיוק כפי שכתבנו אותה. `old_value` שומר את המספר שלפני העדכון, ו־`delta` מודד עד כמה הטבלה עדיין משתנה; הפרמטר `accuracy` קובע מתי השינוי קטן מספיק כדי לעצור. מצבים סופיים נשארים באפס. העדכון נעשה בטבלה עצמה, ולכן מצב שנבדק בהמשך הסריקה עשוי להשתמש בערך שכבר התעדכן באותה סריקה. אין צורך לחכות לסריקה נוספת כדי להשתמש במידע החדש.
+<div class="key-note">
+<div class="key-title">בלמן הוכיח: כאשר γ&lt;1 האלגוריתם תמיד מתכנס</div>
+<div class="key-body">למה אפשר להיות בטוחים שהסריקות ייעצרו? בכל סריקה המידע מתקדם צעד אחד לאחור מן היעד, וכל צעד כזה מכפיל את הערך ב־γ פעם נוספת: 1, אחר כך 0.9, אחר כך 0.81, 0.73 וכן הלאה. ככל שהמידע רחוק יותר מן היעד, התיקון שהוא מביא לטבלה קטן יותר, כי 0.9 בחזקה גדולה הוא מספר קטן מאוד. לכן השינוי הגדול ביותר בסריקה הולך וקטן מסריקה לסריקה, עד שהוא יורד מתחת לדיוק שקבענו והלולאה נעצרת. בלמן הוכיח שזה קורה תמיד כאשר γ&lt;1: בכל מדיניות, בכל לוח ומכל טבלת התחלה (לכן מותר לאתחל את V במספרים אקראיים, כפי שעושה הפסאודו־קוד), והטבלה שמתקבלת בסוף היא בדיוק טבלת הערכים של המדיניות. לעומת זאת, כאשר γ=1 מסלול שמסתובב בלולאה וצובר תגמולים יכול לגדול בלי גבול, והאלגוריתם לא ייעצר. זו סיבה נוספת לבחור γ קטן מ־1, נוסף על הסיבות שראינו בפרק הקודם.</div>
+</div>
 
 <!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L101-L121] -->
 
 <a id="policy-improvement"></a>
-### Policy Improvement — משפרים את המדיניות
+### שיפור המדיניות — Policy Improvement
 
-עכשיו יש לנו טבלת ערכים שמתארת את המדיניות הנוכחית, והיא מגלה לנו היכן המדיניות חלשה: למשל, התא שמעל תא ההפסד יורד היישר אל ‎−1, בעוד שכנו מימין שווה 0.81. השלב השני, **שיפור המדיניות — Policy Improvement**, מנצל את המידע הזה. כעת נשאל בכל מצב אם פעולה אחרת תיתן תוצאה טובה יותר. לכל פעולה חוקית מחשבים את התגמול המיידי ואת ערך ההמשך. בוחרים פעולה עם הציון הגדול ביותר ומשנים את המדיניות בהתאם. זו בחירה **חמדנית — Greedy**: בכל מצב לוקחים את הפעולה שנראית הכי טובה לפי הטבלה הנוכחית.
+עכשיו יש לנו טבלת ערכים שמתארת את המדיניות הנוכחית, והיא מגלה לנו היכן המדיניות חלשה: למשל, התא שמעל תא ההפסד יורד היישר אל ‎−1, בעוד שכנו מימין שווה 0.81. השלב השני, **שיפור המדיניות — Policy Improvement**, מנצל את המידע הזה. כעת נשאל בכל מצב אם פעולה אחרת תיתן תוצאה טובה יותר. לכל פעולה חוקית מחשבים את התגמול המיידי ואת ערך ההמשך. בוחרים פעולה עם הציון הגדול ביותר ומשנים את המדיניות בהתאם. זו בחירה **חמדנית — Greedy**: בכל מצב לוקחים את הפעולה שנראית הכי טובה לפי הטבלה הנוכחית. בשלב הזה משתמשים בטבלת הערכים שחושבה עבור המדיניות הקודמת, ו־Policy Improvement מצריך מעבר אחד בלבד על הטבלה.
 
-<div class="math-panel" dir="ltr">
+**סריקה אחת, יד ביד.** גם כאן סורקים את הטבלה שורה אחר שורה, אבל יש הבדל גדול מן השלב הקודם: הפעם עוברים על הטבלה **פעם אחת בלבד**, ולא חוזרים עליה עד התייצבות. טבלת הערכים אינה משתנה בסריקה הזאת; משתנים רק החצים בטבלת המדיניות. בכל תא שאינו תא סיום עושים את הדבר הבא:
 
-$$
-\pi_{\text{new}}(s) = \operatorname*{argmax}_a \left[ R(s,a,s') + \gamma V_\pi(s') \right]
-$$
+1. רושמים את ארבע הפעולות האפשריות בתא: למעלה, ימינה, שמאלה ולמטה. פעולה אל מחוץ ללוח משאירה את הסוכן במקומו, ולכן גם היא אפשרית.
+2. לכל אחת מארבע הפעולות בנפרד: שואלים את המודל לאן היא מובילה ומה התגמול, ומחשבים לפי נוסחת בלמן r + 0.9·V(s′), כשאת V(s′) קוראים מטבלת הערכים שחישבנו זה עתה.
+3. משווים את ארבעת המספרים ובוחרים את הפעולה שנתנה את המספר הגדול ביותר.
+4. כותבים את הפעולה הזאת בטבלת המדיניות. אם היא שונה מן הפעולה שהייתה שם, המדיניות השתנתה. כשכמה פעולות נותנות אותו מספר, ואחת מהן היא הפעולה הנוכחית, משאירים אותה.
 
+נעשה זאת במלואו על התא (0,2), התא שמעל התא האדום, שערכו כרגע ‎−1 והחץ שלו ״למטה״:
+
+<div class="grid-panel">
+<table class="grid actions-table" dir="rtl" style="width:auto" aria-label="ארבע הפעולות בתא (0,2)">
+<tr><th style="padding:6px 14px">פעולה</th><th style="padding:6px 14px">לאן מובילה</th><th style="padding:6px 14px">r</th><th style="padding:6px 14px">V(s′)</th><th style="padding:6px 14px">r + 0.9·V(s′)</th></tr>
+<tr><td style="width:auto;padding:6px 14px">למעלה</td><td style="width:auto;padding:6px 14px">מחוץ ללוח, נשאר ב־(0,2)</td><td style="width:auto">0</td><td style="width:auto">‎−1</td><td style="width:auto">‎−0.9</td></tr>
+<tr><td style="width:auto;padding:6px 14px">ימינה</td><td style="width:auto;padding:6px 14px">(0,3)</td><td style="width:auto">0</td><td style="width:auto">0.81</td><td style="width:auto" class="changed">0.73</td></tr>
+<tr><td style="width:auto;padding:6px 14px">שמאלה</td><td style="width:auto;padding:6px 14px">(0,1)</td><td style="width:auto">0</td><td style="width:auto">0</td><td style="width:auto">0</td></tr>
+<tr><td style="width:auto;padding:6px 14px">למטה</td><td style="width:auto;padding:6px 14px">התא האדום (1,2)</td><td style="width:auto">‎−1</td><td style="width:auto">0</td><td style="width:auto">‎−1</td></tr>
+</table>
 </div>
 
-`argmax` מחזירה את הפעולה שמביאה למקסימום, ולא את הערך המספרי עצמו. במילים אחרות: לכל מצב s אנחנו בוחרים את הפעולה שתביא אותנו לתגמול המרבי, כשמחשבים תגמול מיידי ועוד γ כפול ערך המצב הבא. בשלב הזה משתמשים בטבלת הערכים שחושבה עבור המדיניות הקודמת, ו־Policy Improvement מצריך מעבר אחד בלבד על הטבלה.
+המספר הגדול ביותר הוא 0.73, של ״ימינה״, ולכן החץ בתא (0,2) מתחלף מ״למטה״ ל״ימינה״. הנה אותו חישוב, בקצרה, בשאר התאים:
 
-נפעיל את הכלל על טבלת הערכים שקיבלנו. בתא שמעל התא האדום ״למטה״ נותן ‎−1, ואילו ״ימינה״ מוביל לתא שערכו 0.81 ולכן שווה 0+0.9·0.81=0.73: החץ מתחלף לימינה. באותו אופן, בשני התאים התחתונים של העמודה השנייה ״ימינה״ מוביל לתאים שערכם 0.9 ו־1, ואילו ״למטה״ מוביל לתאים שערכם 0. שלושת החצים שהשתנו מסומנים באדום; יתר החצים נשארים כפי שהיו:
+- **התא (0,0):** ״ימינה״ מוביל ל־(0,1) ו״למטה״ ל־(1,0), ושניהם שווים 0; ״למעלה״ ו״שמאלה״ משאירים במקום, וגם זה 0. כל הפעולות שקולות, החץ ״למטה״ נשאר. כך גם בכל התאים של שתי העמודות השמאליות שכל שכניהם 0: (0,1), (1,0), (1,1), (2,0) ו־(3,0).
+- **התא (0,2):** ראינו למעלה: ״ימינה״ נותנת 0.73, יותר מכל פעולה אחרת, והחץ מתחלף ל״ימינה״. זה השינוי הראשון.
+- **התא (0,3):** ״למטה״ מוביל ל־(1,3), שערכו 0.9: 0.9·0.9 = 0.81. ״שמאלה״ מוביל ל־(0,2), שערכו ‎−1: ‎−0.9. ״למטה״ מנצח, החץ נשאר.
+- **התא (1,3):** ״למעלה״ נותן 0.9·0.81 = 0.73, ״למטה״ מוביל ל־(2,3) שערכו 1 ונותן 0.9, ו״שמאלה״ מוביל לתא האדום ונותן ‎−1. ״למטה״ נשאר.
+- **התא (2,1):** ״ימינה״ מוביל ל־(2,2), שערכו 0.9: 0.81. כל שאר הפעולות מובילות לתאים שערכם 0. החץ מתחלף ל״ימינה״. זה השינוי השני.
+- **התא (2,2):** ״ימינה״ מוביל ל־(2,3) ו״למטה״ ל־(3,2), ושניהם שווים 1, כלומר 0.9 לשתי הפעולות; ״למעלה״ מוביל לתא האדום (‎−1) ו״שמאלה״ ל־0. ״ימינה״ ו״למטה״ שקולות, ולכן ״למטה״ הנוכחי נשאר.
+- **התא (2,3):** ״למטה״ נכנס ליעד ונותן 1, יותר מכל פעולה אחרת. נשאר.
+- **התא (3,1):** ״ימינה״ מוביל ל־(3,2), שערכו 1: 0.9. ״למעלה״ מוביל ל־(2,1) שערכו 0, ו״שמאלה״ ו״למטה״ נותנים 0. החץ מתחלף ל״ימינה״. זה השינוי השלישי.
+- **התא (3,2):** ״ימינה״ נכנס ליעד ונותן 1; ״למעלה״ נותן 0.9·0.9 = 0.81. ״ימינה״ נשאר.
+
+בסיום הסריקה היחידה הזאת השתנו שלושה חצים, והם מסומנים באדום; יתר החצים נשארים כפי שהיו. טבלת הערכים משמאל היא הטבלה שלפיה חישבנו, והיא לא השתנתה:
 
 <div class="grid-panel"><div class="grid-row">
 <figure>
@@ -408,213 +464,57 @@ $$
 </figure>
 </div></div>
 
-הפונקציה הבאה עוברת על כל המצבים ומבצעת את הבחירה הזאת. במצגת היא כתובה בפסאודו־קוד: לכל מצב אוספים את הפעולות החוקיות, מתחילים מ־v_max=−inf, בודקים כל פעולה מול הסביבה ושומרים את הפעולה הטובה ביותר; אם היא שונה מן הפעולה הנוכחית במדיניות, מעדכנים את המדיניות ומסמנים שהיא אינה יציבה. הנה אותו אלגוריתם בפייתון:
+שימו לב שאחרי הסריקה טבלת המדיניות כבר אינה תואמת לטבלת הערכים: הערכים חושבו למדיניות הישנה. זו בדיוק הסיבה שבסעיף הבא נחזור ונחשב את הערכים מחדש. לסיכום, הנה האלגוריתם Policy Improvement בפסאודו־קוד. לכל מצב שאינו מצב סיום (על מצבי הסיום מדלגים, כמו בהערכת המדיניות: אין בהם פעולה) אוספים את הפעולות החוקיות, מתחילים מ־v_max=−inf, בודקים כל פעולה מול הסביבה ושומרים את הפעולה הטובה ביותר. אם היא שונה מן הפעולה הנוכחית במדיניות, מעדכנים את המדיניות ומסמנים שהיא אינה יציבה. מחזירים True אם לא היו שינויים, כלומר המדיניות יציבה:
 
 <div class="code-panel" dir="ltr">
 
-```python
-def policy_improv(env, policy, values, gamma=0.9):
-    stable = True
-    for state in env.states:
-        if env.end_of_game(state):
-            continue
-        old_action = policy[state]
-        best_action = old_action
-        next_state, reward = env(state, old_action)
-        best_value = reward + gamma * values[next_state]
-        for action in env.get_actions(state):
-            next_state, reward = env(state, action)
-            candidate = reward + gamma * values[next_state]
-            if candidate > best_value + 1e-12:
-                best_value = candidate
+```text
+# policy improvement for Deterministic environment
+# return true if policy stable
+
+def Policy_improvement(P, V):
+    stable = true
+    for all s in States:
+        if s is terminal: continue
+        actions = legal_actions(s)
+        v_max = -inf
+        for all action in actions:
+            s', r = environment(s, action)
+            if v_max < r + gamma * V(s'):
+                v_max = r + gamma * V(s')
                 best_action = action
-        policy[state] = best_action
-        if best_action != old_action:
-            stable = False
+        if P(s) != best_action:
+            P(s) = best_action
+            stable = false
     return stable
 ```
 
 </div>
 
-הפונקציה מחזירה `True` אם לא נדרשה החלפה בשום מצב — סימן שהמדיניות **יציבה** ואי אפשר לשפר אותה עוד לפי הערכים הנוכחיים. כאשר כמה פעולות נותנות אותו ערך, נשמור את הפעולה הקודמת. כך לא נחליף הלוך ושוב פעולות שקולות. התוספת הזעירה `1e-12` מונעת החלפה בגלל הבדלי עיגול מזעריים.
+**ואפשר גם בנוסחה.** את אותו אלגוריתם בדיוק נהוג לכתוב בספרים בשורה מתמטית אחת. אין בה שום דבר חדש, רק סימון מקוצר של מה שעשינו זה עתה:
+
+<div class="math-panel" dir="ltr">
+
+$$
+\pi_{\text{new}}(s) = \operatorname*{argmax}_a \left[ R(s,a,s') + \gamma V_\pi(s') \right]
+$$
+
+</div>
+
+קוראים אותה כך: המדיניות החדשה, π<sub>new</sub>, בוחרת במצב s את הפעולה a שעבורה הביטוי שבסוגריים הוא הגדול ביותר. R(s,a,s′) הוא התגמול על המעבר מ־s אל s′ בפעולה a, ו־γV<sub>π</sub>(s′) הוא ערך ההמשך לפי טבלת הערכים של המדיניות הקודמת. הסימון argmax (״הארגומנט של המקסימום״) פירושו: לא הערך המקסימלי עצמו, אלא הפעולה שמביאה אליו. זה בדיוק מה שעושה הלולאה הפנימית בפסאודו־קוד: v_max הוא המקסימום, ו־best_action הוא ה־argmax.
 
 <!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L123-L163] -->
 
-### מעריכים שוב ומשפרים שוב
+### מציאת מדיניות מיטבית — Policy Iteration
 
-שיפור אחד אינו מספיק. לאחר שינוי המדיניות, הטבלה עדיין מתארת את המדיניות הישנה — הערכים חושבו לפי הפעולות הקודמות. לכן מפעילים שוב הערכת מדיניות, הפעם עבור הפעולות החדשות. הערכים החדשים עשויים לחשוף הזדמנויות לשיפור נוסף, שלא נראו קודם משום שהערכים הישנים היו אפס.
+עכשיו יש בידינו את שני הכלים, ומהם בלמן בנה את האלגוריתם **Policy Iteration** למציאת המדיניות המיטבית. הרעיון פשוט: מבצעים לסירוגין **הערכת מדיניות** (Policy Evaluation), שמחשבת את טבלת הערכים של המדיניות הנוכחית, ו**שיפור מדיניות** (Policy Improvement), שמעדכן את המדיניות לפי טבלת הערכים החדשה. חוזרים על שני השלבים שוב ושוב, עד שהשיפור אינו משנה אף חץ, כלומר המדיניות יציבה.
 
-**שוב Policy Evaluation.** לאחר שעדכנו את המדיניות, עלינו לבצע שוב עדכון של טבלת הערכים. במצגת ההמחשה מתחילה מטבלה חדשה, וגם כאן נעקוב אחר הגלים. ראשית 1 בשני שכני היעד. אחר כך 0.9 בשלושה תאים שהמדיניות מובילה מהם אל תא שערכו 1: התא הימני בשורה השנייה, התא שמעל שכנו השמאלי של היעד, והתא התחתון בעמודה השנייה (שעכשיו פונה ימינה). בגל השלישי 0.81, בגל הרביעי 0.73, ובחמישי 0.66. הערכים מעוגלים לשתי ספרות, כמו במצגת: 0.729 נכתב 0.73, ו־0.656 נכתב 0.66:
+<div class="key-note">
+<div class="key-title">בלמן הוכיח: הערכה ושיפור לסירוגין מגיעים למדיניות המיטבית</div>
+<div class="key-body">אם מבצעים שוב ושוב הערכת מדיניות ואחריה שיפור מדיניות, מגיעים בסוף למדיניות שאי אפשר לשפר עוד, והיא המדיניות המיטבית <span dir="ltr">π*</span>, ואיתה טבלת הערכים המיטבית <span dir="ltr">V*</span>. הסיבה: בכל סבב המדיניות אינה נעשית גרועה יותר, ובלוח סופי מספר המדיניות האפשריות הוא סופי, ולכן התהליך חייב להיעצר, ומקום העצירה היחיד האפשרי הוא המדיניות המיטבית. לכן מותר להתחיל מכל מדיניות שהיא, אפילו ״למטה״ בכל התאים, ומכל טבלת ערכים התחלתית.</div>
+</div>
 
-<div class="grid-panel"><div class="grid-row">
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td class="bad">0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
-<tr><td>0</td><td>0</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל ראשון</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td class="bad">0</td><td>0.9</td></tr>
-<tr><td>0</td><td>0</td><td>0.9</td><td>1</td></tr>
-<tr><td>0</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל שני</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>0</td><td>0.81</td></tr>
-<tr><td>0</td><td>0</td><td class="bad">0</td><td>0.9</td></tr>
-<tr><td>0</td><td>0.81</td><td>0.9</td><td>1</td></tr>
-<tr><td>0</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל שלישי</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>0.73</td><td>0.81</td></tr>
-<tr><td>0</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
-<tr><td>0</td><td>0.81</td><td>0.9</td><td>1</td></tr>
-<tr><td>0</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל רביעי</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0.66</td><td>0.73</td><td>0.81</td></tr>
-<tr><td>0</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
-<tr><td>0</td><td>0.81</td><td>0.9</td><td>1</td></tr>
-<tr><td>0</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל חמישי</figcaption>
-</figure>
-</div></div>
-
-שימו לב שהתא שמעל התא האדום, שקודם ירד היישר אל ‎−1, שווה עכשיו 0.73: השיפור עזר. אבל העמודה הראשונה עדיין כולה 0: המדיניות בה עדיין ״למטה״, והסוכן נתקע בשורה התחתונה בלי להגיע ליעד.
-
-**Policy Evaluation + Policy Improvement.** נעדכן שוב את המדיניות בהתאם לטבלת הערכים החדשה. הפעם, בכל אחד מארבעת תאי העמודה הראשונה, ״ימינה״ מוביל לתא בעל ערך חיובי, ואילו ״למטה״ מוביל לתא שערכו 0. לכן כל ארבעת החצים מתחלפים לימינה (מסומנים באדום). לאחר מכן נעדכן שוב את טבלת הערכים:
-
-<div class="grid-panel"><div class="grid-row">
-<figure>
-<table class="grid" dir="ltr">
-<tr><td class="changed">→</td><td>↓</td><td>→</td><td>↓</td></tr>
-<tr><td class="changed">→</td><td>↓</td><td class="bad">סיום</td><td>↓</td></tr>
-<tr><td class="changed">→</td><td>→</td><td>↓</td><td>↓</td></tr>
-<tr><td class="changed">→</td><td>→</td><td>→</td><td class="goal">סיום</td></tr>
-</table>
-<figcaption>המדיניות אחרי השיפור השני</figcaption>
-</figure>
-</div></div>
-
-<div class="grid-panel"><div class="grid-row">
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td class="bad">0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td>0</td><td class="goal">0</td></tr>
-</table>
-<figcaption>אתחול</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td class="bad">0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
-<tr><td>0</td><td>0</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל ראשון</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>0</td><td>0</td><td class="bad">0</td><td>0.9</td></tr>
-<tr><td>0</td><td>0</td><td>0.9</td><td>1</td></tr>
-<tr><td>0</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל שני</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>0</td><td>0.81</td></tr>
-<tr><td>0</td><td>0</td><td class="bad">0</td><td>0.9</td></tr>
-<tr><td>0</td><td>0.81</td><td>0.9</td><td>1</td></tr>
-<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל שלישי</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0</td><td>0.73</td><td>0.81</td></tr>
-<tr><td>0</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
-<tr><td>0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
-<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל רביעי</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0</td><td>0.66</td><td>0.73</td><td>0.81</td></tr>
-<tr><td>0.66</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
-<tr><td>0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
-<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל חמישי</figcaption>
-</figure>
-<figure>
-<table class="grid small" dir="ltr">
-<tr><td>0.59</td><td>0.66</td><td>0.73</td><td>0.81</td></tr>
-<tr><td>0.66</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
-<tr><td>0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
-<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>גל שישי</figcaption>
-</figure>
-</div></div>
-
-הפעם הערכים מתפשטים גם לעמודה הראשונה: 0.81 בתא התחתון שלה, אחר כך 0.73, 0.66 ולבסוף 0.59 בפינה השמאלית העליונה. ההמחשה במצגת מתחילה כל הערכה מטבלת אפסים כדי שיהיה קל לעקוב אחר הגלים. בקוד לא מאפסים את הטבלה בין הסבבים אלא ממשיכים מן הערכים הקיימים; התוצאה הסופית זהה, רק מגיעים אליה בפחות סריקות.
-
-**Policy Iteration.** נמשיך לבצע לסירוגין עדכון של טבלת הערכים ושל המדיניות: Policy Evaluation ואחריו Policy Improvement, שוב ושוב, עד אשר נגיע למצב שבו המדיניות כבר לא משתנה (יציבה). בדוגמה שלנו השיפור הבא אינו משנה אף חץ, כי בכל תא הפעולה הנוכחית כבר מובילה לשכן בעל הערך הגבוה ביותר. בשלב זה סיימנו ומצאנו את המדיניות המיטבית ואת טבלת הערכים שלה:
-
-<div class="grid-panel"><div class="grid-row">
-<figure>
-<table class="grid" dir="ltr">
-<tr><td>0.59</td><td>0.66</td><td>0.73</td><td>0.81</td></tr>
-<tr><td>0.66</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
-<tr><td>0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
-<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
-</table>
-<figcaption>טבלת הערכים הסופית</figcaption>
-</figure>
-<figure>
-<table class="grid" dir="ltr">
-<tr><td>→</td><td>↓</td><td>→</td><td>↓</td></tr>
-<tr><td>→</td><td>↓</td><td class="bad">סיום</td><td>↓</td></tr>
-<tr><td>→</td><td>→</td><td>↓</td><td>↓</td></tr>
-<tr><td>→</td><td>→</td><td>→</td><td class="goal">סיום</td></tr>
-</table>
-<figcaption>המדיניות המיטבית</figcaption>
-</figure>
-</div></div>
-
-זהו התפקיד של ההחלפה בין השלבים: שינוי המדיניות מאפשר לערכים חדשים להתפשט, והערכים האלה מאפשרים למצוא שינוי נוסף במדיניות. הטבלה הסופית זהה לטבלה שראינו בפרק הקודם עבור המדיניות שמובילה ליעד בדרך קצרה — הגענו אליה מבלי שמישהו כתב אותה בידיים, רק מתוך חוקי המשחק. במדיניות המיטבית יש גם תאים שבהם שתי פעולות שקולות: מהפינה השמאלית העליונה גם ״ימינה״ וגם ״למטה״ מובילות לתא שערכו 0.66, ולכן שתיהן נותנות 0.59; הפונקציה שלנו שומרת במקרה כזה את הפעולה הקודמת.
-
-<figure>
-<img src="../assets/slides/cf2915c6c9/image25.png" alt="תרשים הערכה ושיפור לסירוגין: מעגל בין π ל־V ומסלול מזגזג המתכנס אל המדיניות המיטבית" style="width:100%;max-width:100%;height:auto;">
-<figcaption>שני השלבים לסירוגין. מימין: הערכה (evaluation) מובילה מהמדיניות π אל טבלת הערכים V שלה, ושיפור חמדני (improvement) מוביל מ־V למדיניות חדשה, וחוזר חלילה עד <span dir="ltr">π*</span> ו־<span dir="ltr">V*</span>. משמאל: כל הערכה מקרבת אותנו לקו העליון (הערכים מתאימים למדיניות), וכל שיפור מקרב אותנו לקו התחתון (המדיניות חמדנית לפי הערכים); המסלול המזגזג מתכנס לנקודת המפגש.</figcaption>
-</figure>
-
-<!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L165-L319] -->
-
-### Policy Iteration — מחברים את השלבים
-
-עשינו את שני השלבים בידיים כמה פעמים; עכשיו נכתוב לולאה שעושה זאת בשבילנו. **Policy Iteration** הוא אלגוריתם למציאת המדיניות המיטבית. אנו מבצעים לסירוגין: Policy Evaluation לעדכון טבלת הערכים לפי המדיניות, ו־Policy Improvement לעדכון המדיניות לפי טבלת הערכים החדשה, עד שהמדיניות יציבה — כלומר עד ששלב השיפור אינו משנה אף פעולה. בלמן הוכיח כי בסופו של דבר אנחנו מתכנסים למדיניות המיטבית.
-
-במצגת האלגוריתם לסביבה דטרמיניסטית כתוב בפסאודו־קוד בשני שלבים: אתחול, ואז לולאה:
+האלגוריתם לסביבה דטרמיניסטית כתוב בפסאודו־קוד בשני שלבים: אתחול, ואז לולאה:
 
 <div class="code-panel" dir="ltr">
 
@@ -634,153 +534,451 @@ def Policy_iteration():
 
 </div>
 
-לצדו מובא במצגת גם הניסוח הכללי של האלגוריתם מספרם של Sutton ו־Barto, שבו ההערכה והשיפור מסכמים על כל המצבים הבאים האפשריים לפי ההסתברויות שלהם; זו הגרסה שמתאימה למשוואת בלמן המלאה שהוזכרה כרשות, ולא נשתמש בה. בפייתון, נתחיל במדיניות שיצרנו בתחילת הפרק ונשתמש באותן שתי פונקציות בכל סבב:
+בספרם של Sutton ו־Barto האלגוריתם כתוב בניסוח כללי יותר, שבו ההערכה והשיפור מסכמים על כל המצבים הבאים האפשריים לפי ההסתברויות שלהם; זו הגרסה שמתאימה למשוואת בלמן המלאה שהוזכרה כרשות, ולא נשתמש בה.
 
-<div class="code-panel" dir="ltr">
+נראה עכשיו את האלגוריתם פועל על הלוח שלנו, סבב אחר סבב, מן הנקודה שבה עצרנו. זו נקודת המוצא: טבלת הערכים שהתקבלה בהערכה הראשונה, והמדיניות שהתקבלה בשיפור הראשון:
 
-```python
-def policy_iteration(env, gamma=0.9):
-    values = {state: 0.0 for state in env.states}
-    policy = initial_policy(env)
-    while True:
-        policy_eval(env, policy, values, gamma)
-        if policy_improv(env, policy, values, gamma):
-            return policy, values
-```
+<div class="grid-panel"><div class="grid-row">
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0</td><td>0</td><td>−1</td><td>0.81</td></tr>
+<tr><td>0</td><td>0</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0</td><td>0</td><td>0.9</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>טבלת הערכים הקודמת</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>↓</td><td>↓</td><td>→</td><td>↓</td></tr>
+<tr><td>↓</td><td>↓</td><td class="bad">סיום</td><td>↓</td></tr>
+<tr><td>↓</td><td>→</td><td>↓</td><td>↓</td></tr>
+<tr><td>↓</td><td>→</td><td>→</td><td class="goal">סיום</td></tr>
+</table>
+<figcaption>המדיניות החדשה</figcaption>
+</figure>
+</div></div>
 
-</div>
+**סבב 2, שלב א — הערכת המדיניות החדשה.** שיפור אחד אינו מספיק. אחרי שינוי החצים, טבלת הערכים עדיין מתארת את המדיניות הישנה: הערכים חושבו לפי הפעולות הקודמות. לכן מפעילים שוב הערכת מדיניות, הפעם עבור המדיניות החדשה.
 
-הלולאה `while True` מסתיימת רק כש־`policy_improv` מחזירה `True`, ואז הפונקציה מחזירה את המדיניות ואת טבלת הערכים הסופיות. בסביבה הסופית שלנו, עם γ=0.9 והערכת מדיניות מדויקת מספיק, ההחלפה החוזרת בין השלבים נותנת מדיניות מיטבית עד לדיוק החישוב — בכל סבב המדיניות אינה נעשית גרועה יותר, ומספר המדיניות האפשריות סופי, ולכן התהליך חייב להיעצר. אין פירוש הדבר שיש רק טבלת פעולות מיטבית אחת: לעיתים שתי דרכים שונות מגיעות ליעד באותה תשואה.
+שימו לב: לא מאפסים את הטבלה. ממשיכים מן הטבלה הקודמת, כי רוב הערכים בה כבר נכונים גם למדיניות החדשה, ורק התאים שהחץ שלהם השתנה, ואלה שמובילים אליהם, צריכים תיקון. כך נדרשות פחות סריקות. סורקים כרגיל, שורה אחר שורה, ובכל תא מחשבים לפי נוסחת בלמן r + 0.9·V(s′) עם הפעולה **החדשה**:
 
-כדי להריץ, שמרו את שני קובצי הקוד המקושרים בראש הפרק באותה תיקייה והפעילו את `policy_iteration.py`. ההרצה מחשבת את המדיניות ואת טבלת הערכים; אין צורך לפתוח חלון משחק.
+- **סריקה 1:** התא (0,2) פונה עכשיו ימינה אל (0,3), שערכו 0.81: 0 + 0.9·0.81 = 0.73 במקום ‎−1. התא (2,1) פונה ימינה אל (2,2), שערכו 0.9: 0.81 במקום 0. התא (3,1) פונה ימינה אל (3,2), שערכו 1: 0.9 במקום 0. כל שאר התאים נותנים בדיוק את המספר שכבר כתוב בהם.
+- **סריקה 2:** התא (1,1) יורד אל (2,1), שערכו עכשיו 0.81: 0.9·0.81 = 0.73. זה השינוי היחיד.
+- **סריקה 3:** התא (0,1) יורד אל (1,1), שערכו עכשיו 0.73: 0.9·0.73 = 0.66. זה השינוי היחיד.
+- **סריקה 4:** אין שינוי, עוצרים.
 
-<!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L321-L373] -->
+<div class="grid-panel"><div class="grid-row">
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0</td><td>0</td><td class="changed">0.73</td><td>0.81</td></tr>
+<tr><td>0</td><td>0</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0</td><td class="changed">0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0</td><td class="changed">0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>סריקה 1</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0</td><td>0</td><td>0.73</td><td>0.81</td></tr>
+<tr><td>0</td><td class="changed">0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>סריקה 2</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0</td><td class="changed">0.66</td><td>0.73</td><td>0.81</td></tr>
+<tr><td>0</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>סריקה 3</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0</td><td>0.66</td><td>0.73</td><td>0.81</td></tr>
+<tr><td>0</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>סריקה 4 — ללא שינוי, עוצרים</figcaption>
+</figure>
+</div></div>
 
-### הסוכן פותר מבוך 5×5
+הערכים מעוגלים לשתי ספרות: 0.729 נכתב 0.73, ו־0.656 נכתב 0.66. שימו לב שהתא שמעל התא האדום, שקודם ירד היישר אל ‎−1, שווה עכשיו 0.73: השיפור עזר. אבל העמודה הראשונה עדיין כולה 0: המדיניות בה עדיין ״למטה״, והסוכן נתקע בשורה התחתונה בלי להגיע ליעד.
 
-לוח 4×4 מספיק כדי לעקוב אחר החישוב ביד, אבל בו הדרך ליעד כמעט מתבקשת. כדי לראות שהמדיניות שחושבה באמת "יודעת" ללכת, נפעיל את אותו אלגוריתם בדיוק על לוח גדול יותר: מבוך 5×5 מתוך [פרויקט GridWorld](https://github.com/MarkmanGilad/GridWorld) של הקורס. שמונה תאים אדומים משמשים כקירות: כניסה לכל אחד מהם מסיימת את המשחק בתגמול ‎−1, כמו התא האדום בלוח הקטן. היעד הירוק בפינה הימנית התחתונה נותן 1, ומתחילים בפינה השמאלית העליונה. כדי להגיע ליעד הסוכן חייב לעקוף את שתי שורות הקירות: ימינה לאורך השורה העליונה, למטה דרך הפתח היחיד, שמאלה לאורך השורה האמצעית, למטה בעמודה השמאלית, ומשם ימינה עד היעד.
+**סבב 2, שלב ב — שיפור המדיניות.** סריקה אחת על הטבלה החדשה. בכל אחד מארבעת תאי העמודה הראשונה ״ימינה״ מוביל לתא בעל ערך חיובי, ואילו כל שאר הפעולות מובילות לתאים שערכם 0 או משאירות במקום: ב־(0,0) ״ימינה״ נותנת 0.9·0.66 = 0.59, ב־(1,0) 0.9·0.73 = 0.66, ב־(2,0) 0.9·0.81 = 0.73, וב־(3,0) 0.9·0.9 = 0.81. לכן כל ארבעת החצים מתחלפים לימינה (מסומנים באדום). ביתר התאים הפעולה הנוכחית נשארת הטובה ביותר או שקולה לטובה ביותר; למשל ב־(0,1) ״ימינה״ ו״למטה״ נותנות שתיהן 0.9·0.73 = 0.66, ולכן ״למטה״ נשאר:
+
+<div class="grid-panel"><div class="grid-row">
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0</td><td>0.66</td><td>0.73</td><td>0.81</td></tr>
+<tr><td>0</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>טבלת הערכים אחרי ההערכה</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td class="changed">→</td><td>↓</td><td>→</td><td>↓</td></tr>
+<tr><td class="changed">→</td><td>↓</td><td class="bad">סיום</td><td>↓</td></tr>
+<tr><td class="changed">→</td><td>→</td><td>↓</td><td>↓</td></tr>
+<tr><td class="changed">→</td><td>→</td><td>→</td><td class="goal">סיום</td></tr>
+</table>
+<figcaption>המדיניות אחרי השיפור השני</figcaption>
+</figure>
+</div></div>
+
+**סבב 3, שלב א — הערכה.** שוב ממשיכים מן הטבלה הקודמת, עם המדיניות החדשה. הפעם רק ארבעת תאי העמודה הראשונה שינו חץ, ולכן רק הם משתנים:
+
+- **סריקה 1:** (0,0) פונה ימינה אל (0,1): 0.9·0.66 = 0.59. (1,0) פונה ימינה אל (1,1): 0.9·0.73 = 0.66. (2,0) פונה ימינה אל (2,1): 0.9·0.81 = 0.73. (3,0) פונה ימינה אל (3,1): 0.9·0.9 = 0.81. כל שאר התאים ללא שינוי.
+- **סריקה 2:** אין שינוי, עוצרים.
+
+<div class="grid-panel"><div class="grid-row">
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td class="changed">0.59</td><td>0.66</td><td>0.73</td><td>0.81</td></tr>
+<tr><td class="changed">0.66</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td class="changed">0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td class="changed">0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>סריקה 1</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0.59</td><td>0.66</td><td>0.73</td><td>0.81</td></tr>
+<tr><td>0.66</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>סריקה 2 — ללא שינוי, עוצרים</figcaption>
+</figure>
+</div></div>
+
+**סבב 3, שלב ב — שיפור.** סורקים שוב את כל התאים ובודקים את ארבע הפעולות בכל אחד. הפעם אף חץ אינו משתנה: בכל תא הפעולה הנוכחית כבר מובילה לשכן בעל הערך הגבוה ביותר (או שקולה לו; למשל ב־(0,0) גם ״ימינה״ וגם ״למטה״ נותנות 0.9·0.66 = 0.59, ו״ימינה״ הנוכחית נשארת). השיפור מחזיר ״יציב״, וכאן האלגוריתם נעצר. אחרי שלושה סבבים בלבד מצאנו את המדיניות המיטבית ואת טבלת הערכים שלה:
+
+<div class="grid-panel"><div class="grid-row">
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0.59</td><td>0.66</td><td>0.73</td><td>0.81</td></tr>
+<tr><td>0.66</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>טבלת הערכים הסופית</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>→</td><td>↓</td><td>→</td><td>↓</td></tr>
+<tr><td>→</td><td>↓</td><td class="bad">סיום</td><td>↓</td></tr>
+<tr><td>→</td><td>→</td><td>↓</td><td>↓</td></tr>
+<tr><td>→</td><td>→</td><td>→</td><td class="goal">סיום</td></tr>
+</table>
+<figcaption>המדיניות המיטבית</figcaption>
+</figure>
+</div></div>
+
+זהו התפקיד של ההחלפה בין השלבים: שינוי המדיניות מאפשר לערכים חדשים להתפשט, והערכים האלה מאפשרים למצוא שינוי נוסף במדיניות. הטבלה הסופית זהה לטבלה שראינו בפרק הקודם עבור המדיניות שמובילה ליעד בדרך קצרה — הגענו אליה מבלי שמישהו כתב אותה בידיים, רק מתוך חוקי המשחק. במדיניות המיטבית יש גם תאים שבהם שתי פעולות שקולות: מהפינה השמאלית העליונה גם ״ימינה״ וגם ״למטה״ מובילות לתא שערכו 0.66, ולכן שתיהן נותנות 0.59; הפונקציה שלנו שומרת במקרה כזה את הפעולה הקודמת.
 
 <figure>
-<img src="../assets/rl/maze/maze-start.png" alt="מבוך חמש על חמש בחלון המשחק: רובוט בפינה השמאלית העליונה, שמונה תאים אדומים בשתי שורות ותא ירוק בפינה הימנית התחתונה" width="400" style="max-width:100%;height:auto;">
-<figcaption>המבוך בחלון המשחק: הרובוט במצב ההתחלה, תאי הקיר האדומים והיעד הירוק.</figcaption>
+<img src="../assets/slides/cf2915c6c9/image25.png" alt="תרשים הערכה ושיפור לסירוגין: מעגל בין π ל־V ומסלול מזגזג המתכנס אל המדיניות המיטבית" style="width:100%;max-width:100%;height:auto;">
+<figcaption>שני השלבים לסירוגין. מימין: הערכה (evaluation) מובילה מהמדיניות π אל טבלת הערכים V שלה, ושיפור חמדני (improvement) מוביל מ־V למדיניות חדשה, וחוזר חלילה עד <span dir="ltr">π*</span> ו־<span dir="ltr">V*</span>. משמאל: כל הערכה מקרבת אותנו לקו העליון (הערכים מתאימים למדיניות), וכל שיפור מקרב אותנו לקו התחתון (המדיניות חמדנית לפי הערכים); המסלול המזגזג מתכנס לנקודת המפגש.</figcaption>
 </figure>
 
-הסביבה כתובה באותו ממשק בדיוק: `env.states`, `env.get_actions(state)`, `env.end_of_game(state)` והקריאה `env(state, action)`; רק גודל הלוח ורשימת התאים הסופיים השתנו. לכן `policy_eval` ו־`policy_improv` מהפרק פועלות עליה ללא שינוי. המדיניות ההתחלתית כאן היא פשוט הפעולה החוקית הראשונה בכל תא. אין צורך לתכנן אותה בחוכמה; האלגוריתם ישפר אותה:
+<!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L165-L319] -->
+
+<!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L338-L350] -->
+
+### תרגיל — עולם הגריד
+
+סיימנו את החלק התיאורטי, ועכשיו מממשים בקוד. במאגר [GridWorld_2](https://github.com/MarkmanGilad/GridWorld_2) בגיטהב נתון משחק Grid World שלם לפי מודל סוכן–סביבה, וחסר בו דבר אחד בלבד: האלגוריתמים שלמדנו בפרק הזה. התרגיל הוא להשלים אותם.
+
+**הממשק.** הסביבה `Environement` מחזיקה את הלוח כטבלת numpy בשם `board`: 0 בתא רגיל, ‎−1 בתא האדום ו־1 בתא הירוק. המצב (State) הוא מיקום הרובוט, זוג <span dir="ltr">(row, col)</span>. הקריאה `env(state, action)` (או `env.move`) מחזירה שני ערכים, מצב חדש ותגמול; פעולה לכיוון קצה הלוח משאירה את הסוכן במקומו. `env.get_actions(state)` מחזירה את הפעולות החוקיות, ו־`env.end_of_game(state)` בודקת אם הגענו לתא סיום. הפעולות הן `Enum` בשם `Action` עם הערכים UP=0, RIGHT=1, LEFT=2, DOWN=3. הקובץ `Game.py` מריץ את לולאת המשחק: בכל צעד הוא שואל את הסוכן לפעולה, מזיז את הרובוט, מצייר את הלוח, ובהגיעו לתא סיום מחזיר אותו להתחלה. בקובץ `Agent.py` יש שני סוכנים: `Random_Agent`, שבוחר פעולה אקראית ומוכן לעבודה, ו־`AI_Agent`, שאותו עלינו להשלים.
+
+**השלד להשלמה.** המחלקה `AI_Agent` כבר מכילה את שתי הטבלאות ואת החיבור למשחק: `Policy` היא טבלת numpy בגודל הלוח שבכל תא שלה מספר הפעולה (באתחול 3, כלומר ״למטה״ בכל תא), ו־`Value` היא טבלת הערכים, שבאתחול כולה אפסים. `get_action` מתרגמת את המספר שבטבלת המדיניות לפעולה, וכך הסוכן משחק לפי המדיניות. שלוש השיטות של האלגוריתם ריקות:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-from gridworld_maze import COLS, ROWS, START, GridWorld
-from policy_iteration import policy_eval, policy_improv
+class AI_Agent:
+    def __init__(self, env) -> None:
+        self.env : Env = env
+        self.Reward = 0
+        self.Policy = np.full((ROWS, COLS), 3)  # Random policy always down
+        self.Value = np.zeros((ROWS, COLS))     # Random Value all zero
+        self.gamma = 0.9
 
-def first_action_policy(env):
-    return {state: env.get_actions(state)[0]
-            for state in env.states if not env.end_of_game(state)}
+    def get_action(self, state):
+        return Action(self.Policy[state])
 
-def solve_policy(env, gamma=0.9):
-    values = {state: 0.0 for state in env.states}
-    policy = first_action_policy(env)
-    while True:
-        policy_eval(env, policy, values, gamma)
-        if policy_improv(env, policy, values, gamma):
-            return policy, values
+    def add_reward(self, reward):
+        self.Reward += reward
+
+    def policy_eval (self):
+        accuracy = 0.0001
+
+
+    def Policy_improv (self):
+        pass
+
+    def Policy_Iteration (self):
+        pass
+
+
+    def Value_Iteration():
+        pass
+
+    def __call__(self, state):
+        return self.get_action(state)
 ```
 
 </div>
 
-עד כאן חישבנו; עכשיו נשחק. מריצים את המדיניות: מתחילים במצב ההתחלה, ובכל צעד מבצעים את הפעולה שהמדיניות קובעת למצב הנוכחי, עד שמגיעים למצב סופי. הפונקציה מחזירה את רשימת המצבים שעברנו בהם:
+**הקובץ Game.py.** זה הקובץ שמריצים. הוא יוצר סביבה, גרפיקה וסוכן, ואז מפעיל את לולאת המשחק:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-def run_policy(env, policy, start):
-    state = start
-    path = [state]
-    while not env.end_of_game(state):
-        state, reward = env(state, policy[state])
-        path.append(state)
-    return path
+import pygame
+from Graphics import *
+from Environement import Environement
+from Agent import *
 
-env = GridWorld()
-policy, values = solve_policy(env)
-path = run_policy(env, policy, START)
-print(f'{len(path) - 1} steps: {path}')
+pygame.init()
+clock = pygame.time.Clock()
+env = Environement((0,0))
+graphics = Graphics(env)
+# agent = Random_Agent(env)
+agent = AI_Agent(env)
+print(agent.Policy_Iteration())
+print ('Value*: \n', agent.Value)
+print ('Policy*: \n', agent.Policy)
+
+def main ():
+    run = True
+    while (run):
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+               run = False
+
+        action = agent(env.state)
+        pygame.time.wait(100)
+        env.state, reward = env.move(env.state, action)
+        agent.add_reward(reward)
+        graphics(env.state)
+        print (f'{agent.Reward} ', end='\r')
+        if env.end_of_game(env.state):
+            pygame.time.wait(500)
+            env.reset()
+            graphics(env.state)
+        clock.tick(FPS)
+
+    pygame.time.wait(200)
+
+if __name__ == '__main__':
+    main()
 ```
 
 </div>
+
+שלוש השורות שאחרי יצירת הסוכן הן החלק המעניין: `agent.Policy_Iteration()` מחשב את המדיניות המיטבית עוד לפני שהמשחק מתחיל, ושתי ההדפסות מציגות בטרמינל את טבלת הערכים ואת טבלת המדיניות שהתקבלו. אחר כך `main` מריצה את המשחק: בכל סיבוב היא שואלת את הסוכן לפעולה (`agent(env.state)` קורא ל־`get_action`), מזיזה את הרובוט, צוברת את התגמול, מציירת את הלוח ומדפיסה את סך התגמול באותה שורה בטרמינל. כשהרובוט מגיע לתא סיום, המשחק ממתין חצי שנייה, מחזיר את הרובוט להתחלה וממשיך.
+
+**הרצה לפני ההשלמה.** כדאי להריץ את המשחק עוד לפני שכותבים שורת קוד: הפכו את שלוש השורות של `Policy_Iteration` וההדפסות להערות (או מחקו אותן לרגע) והריצו. הסוכן פועל לפי המדיניות ההתחלתית, ״למטה״ בכל תא: הרובוט יורד עד השורה התחתונה, ושם ״למטה״ משאיר אותו במקום לנצח. הוא לא מגיע לעולם ליעד, ובטרמינל סך התגמול נשאר 0:
+
+<figure>
+<img src="../assets/rl/maze/grid4x4-down.gif" alt="הרובוט בלוח ארבע על ארבע יורד מהפינה השמאלית העליונה עד השורה התחתונה ונשאר תקוע שם" width="320" style="max-width:100%;height:auto;">
+<figcaption>לפני ההשלמה: המדיניות ההתחלתית מורידה את הרובוט למטה, והוא נתקע בפינה. (אנימציה; בגרסה המודפסת מוצג פריים אחד.)</figcaption>
+</figure>
+
+**המשימה.** עכשיו תורכם. עצרו כאן ונסו לפתור לבד לפי הפסאודו־קוד שבפרק, לפני שתמשיכו לפתרון:
+
+1. ממשו את `policy_eval` לפי הפסאודו־קוד של Policy Evaluation: סריקות חוזרות על הטבלה לפי נוסחת בלמן, עד שהתיקון קטן מ־`accuracy`.
+2. ממשו את `Policy_improv` לפי הפסאודו־קוד של Policy Improvement: סריקה אחת, בכל תא בודקים את ארבע הפעולות ובוחרים את הטובה ביותר. החזירו `True` אם אף חץ לא השתנה.
+3. ממשו את `Policy_Iteration`, שמפעיל את שתי השיטות לסירוגין עד שהמדיניות יציבה.
+4. הריצו את `Game.py` בלוח 4×4 וצפו ברובוט מגיע ליעד. את `Value_Iteration` נשאיר לפרק הבא.
+5. אחר כך נסו לוח 5×5 עם קירות, ואפילו לוח 10×10 עם מבוך שתבנו בעצמכם: משנים את `ROWS, COLS` ב־`Graphics.py` ומסמנים את תאי הקיר והיעד ב־`board` שב־`Environement.py`. קוד הסוכן אינו משתנה.
+
+### פתרון — Policy Evaluation
+
+הפתרון המלא נמצא במאגר [GridWorld](https://github.com/MarkmanGilad/GridWorld) בגיטהב (הקישורים בראש הפרק). נבנה אותו בשלושה שלבים, ואחרי כל שלב נריץ ונבדוק בטרמינל שהתוצאה נכונה. לשם כך `Game.py` כולל שורות הדפסה מוכנות בהערה; בכל שלב מפעילים את השורות המתאימות ומשאירים את השאר בהערה.
+
+השיטה הראשונה, בדיוק לפי הפסאודו־קוד:
+
+<div class="code-panel" dir="ltr">
+
+```python
+    def policy_eval (self):
+        accuracy = 0.0001
+        acc = 1
+        while acc > accuracy:
+            acc = 0
+            for row in range(ROWS):
+                for col in range(COLS):
+                    state = row,col
+                    if self.env.board[state] != 0:
+                        continue
+                    old_value = self.Value[state]
+                    action = Action(self.Policy[state])
+                    new_state, reward = self.env(state, action)
+                    new_value = reward + self.gamma * self.Value[new_state]
+                    self.Value[state] = new_value
+                    acc = max(acc, abs(old_value - new_value))
+```
+
+</div>
+
+שתי הלולאות עוברות על כל תאי הלוח. תא שערכו ב־`board` שונה מאפס הוא תא סיום, ומדלגים עליו כדי שערכו יישאר 0. השורה המרכזית היא `new_value = reward + self.gamma * self.Value[new_state]` — זו משוואת בלמן בדיוק כפי שכתבנו אותה. `acc` שומר את השינוי הגדול ביותר בסריקה, וכשהוא קטן מ־`accuracy` הטבלה התייצבה והלולאה נעצרת. העדכון נעשה בטבלה עצמה, ולכן תא שנבדק בהמשך הסריקה כבר משתמש בערך שהתעדכן באותה סריקה.
+
+**בדיקה.** ב־`Game.py` הפעילו את השורות `agent.policy_eval()` ו־<span dir="ltr">`print ('Value: \n', agent.Value)`</span>, והריצו. הרצה אחת של השיטה על המדיניות ההתחלתית, ״למטה״ בכל תא, צריכה להדפיס:
 
 **פלט**
 
 <div class="code-panel" dir="ltr">
 
 ```text
-14 steps: [(0, 0), (0, 1), (0, 2), (0, 3), (1, 3), (2, 3), (2, 2), (2, 1), (2, 0), (3, 0), (4, 0), (4, 1), (4, 2), (4, 3), (4, 4)]
+Value:
+ [[ 0.    0.   -1.    0.81]
+ [ 0.    0.    0.    0.9 ]
+ [ 0.    0.    0.    1.  ]
+ [ 0.    0.    0.    0.  ]]
 ```
 
 </div>
 
-הסוכן הגיע ליעד ב־14 צעדים, שהם המסלול הקצר ביותר האפשרי, בלי להיכנס לאף תא אדום ובלי צעד מיותר. הקובץ `maze_demo.py` מדפיס גם את המדיניות ואת טבלת הערכים. הנה המדיניות כחצים; לתאים הסופיים אין פעולה:
+זו טבלת הערכים של מדיניות ״למטה״: ‎−1 בתא שמעל התא האדום, ובעמודה הימנית 0.81, 0.9 ו־1. שימו לב להבדל אחד מן ההדגמה שבפרק: התא שמשמאל ליעד שווה כאן 0 ולא 1, כי המדיניות ההתחלתית של הקוד היא ״למטה״ גם בו (בהדגמה נתנו לו חץ ימינה). אם קיבלתם טבלה אחרת, בדקו את הדילוג על תאי הסיום ואת שורת נוסחת בלמן.
 
-<div class="grid-panel">
-<table class="grid" dir="ltr" aria-label="מדיניות מיטבית במבוך חמש על חמש">
-<tr><td>→</td><td>→</td><td>→</td><td>↓</td><td>←</td></tr>
-<tr><td class="bad">−1</td><td class="bad">−1</td><td class="bad">−1</td><td>↓</td><td class="bad">−1</td></tr>
-<tr><td>↓</td><td>←</td><td>←</td><td>←</td><td>←</td></tr>
-<tr><td>↓</td><td class="bad">−1</td><td class="bad">−1</td><td class="bad">−1</td><td class="bad">−1</td></tr>
-<tr><td>→</td><td>→</td><td>→</td><td>→</td><td class="goal">+1</td></tr>
-</table>
-</div>
+### פתרון — Policy Improvement
 
-שימו לב שגם תאים שאינם על המסלול קיבלו פעולה: המדיניות מוגדרת לכל מצב, לא רק למצבים שנעבור בהם מההתחלה. התא הימני העליון, למשל, פונה שמאלה, כי הפתח בשורת הקירות נמצא משמאלו. וטבלת הערכים, בעיגול לשלוש ספרות:
-
-<div class="grid-panel">
-<table class="grid" dir="ltr" aria-label="ערכי המצבים במבוך חמש על חמש">
-<tr><td>0.254</td><td>0.282</td><td>0.314</td><td>0.349</td><td>0.314</td></tr>
-<tr><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td><td>0.387</td><td class="bad">0</td></tr>
-<tr><td>0.590</td><td>0.531</td><td>0.478</td><td>0.430</td><td>0.387</td></tr>
-<tr><td>0.656</td><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td></tr>
-<tr><td>0.729</td><td>0.810</td><td>0.900</td><td>1.000</td><td class="goal">0</td></tr>
-</table>
-</div>
-
-לאורך המסלול הערכים יורדים מהיעד אחורה: 1, 0.9, 0.81 וכן הלאה, כפל ב־0.9 בכל צעד. מצב ההתחלה מרוחק 14 צעדים מהיעד, ולכן ערכו 0.9<sup>13</sup>≈0.254: התגמול 1 מתקבל בצעד ה־14, ולפניו 13 צעדים ללא תגמול. כך אפשר לקרוא מהטבלה את המרחק ליעד בלי לצייר את המסלול.
-
-<figure>
-<img src="../assets/rl/maze/maze-solved.png" alt="המבוך לאחר ההרצה: קו כחול עם נקודות מסמן את 14 הצעדים מהפינה השמאלית העליונה, מסביב לשתי שורות הקירות, עד הרובוט שעומד על התא הירוק" width="400" style="max-width:100%;height:auto;">
-<figcaption>סיום ההרצה: הרובוט על היעד הירוק; הקו הכחול מסמן את המסלול שעבר.</figcaption>
-</figure>
-
-<figure>
-<img src="../assets/rl/maze/maze-solved.gif" alt="הרובוט נע צעד אחר צעד מהפינה השמאלית העליונה, עוקף את שורות הקירות ומגיע לתא הירוק" width="400" style="max-width:100%;height:auto;">
-<figcaption>הסוכן עוקב אחר המדיניות שחושבה, צעד אחר צעד, עד היעד. (אנימציה; בגרסה המודפסת מוצג פריים אחד.)</figcaption>
-</figure>
-
-התמונות צולמו מחלון המשחק של פרויקט GridWorld; קו המסלול נוסף לצילום לצורך ההמחשה. כדי לראות את הרובוט נע במחשב שלכם, הריצו את `Game.py` שבמאגר: הוא מחשב את המדיניות באותה דרך ומזיז את הרובוט לפיה עד היעד.
-
-<!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L338-L350] -->
-
-### תרגיל
-
-נתון לכם ממשק של Grid World לפי מודל סוכן–סביבה, במאגר [GridWorld_2](https://github.com/MarkmanGilad/GridWorld_2):
-
-- **State** — מיקום הרובוט, זוג <span dir="ltr">(row, col)</span>.
-- הפונקציה `move` בסביבה מחזירה שני ערכים: <span dir="ltr">new_state, reward</span>.
-- בקובץ Agent יש שני סוכנים: סוכן רנדומלי, מוכן לעבודה, וסוכן AI להשלמת הקוד.
-
-1. אתחלו את המדיניות של הסוכן AI במדיניות אקראית לפי בחירתכם.
-2. כתבו את הפונקציות הבאות של הסוכן AI והריצו אותן:
+השיטה השנייה:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-def policy_eval()
-def Policy_improv()
-def Policy_iteration()
+    def Policy_improv (self):
+        stable = True
+        for row in range(ROWS):
+            for col in range(COLS):
+                state = row,col
+                if self.env.board[state] != 0:
+                    continue
+                v_max = -1000
+                best_action = None
+                for action in Action:
+                    new_state, reward = self.env.move(state, action)
+                    if v_max < reward + self.gamma * self.Value[new_state]:
+                        v_max = reward + self.gamma * self.Value[new_state]
+                        best_action = action
+                if self.Policy[state] != best_action.value:
+                    self.Policy[state] = best_action.value
+                    stable = False
+        return stable
 ```
 
 </div>
 
-היעזרו בפונקציות שכתבנו בפרק; שימו לב שבמאגר הממשק של הסביבה שונה במקצת מזה שבקוד הספר, ולכן יש להתאים את הקריאות לסביבה.
+בכל תא בודקים את ארבע הפעולות (פעולה אל מחוץ ללוח פשוט משאירה את הסוכן במקומו, ולכן אין צורך לסנן אותה), ושומרים את הפעולה שנותנת את הערך הגדול ביותר של תגמול ועוד γ כפול ערך המצב הבא. בטבלת המדיניות נשמר מספר הפעולה, `best_action.value`. אם באחד התאים הפעולה השתנתה, `stable` נעשה `False`.
+
+**בדיקה.** הוסיפו אחרי ההערכה את השורות <span dir="ltr">`print(agent.Policy_improv())`</span> ו־<span dir="ltr">`print ('Policy: \n', agent.Policy)`</span>. ההדפסה:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+False
+Policy:
+ [[0 0 1 3]
+ [0 0 3 3]
+ [0 0 1 3]
+ [0 0 1 3]]
+```
+
+</div>
+
+`False` פירושו שהמדיניות השתנתה, כלומר עדיין אינה יציבה. בטבלה 1 הוא ימינה, 3 למטה ו־0 למעלה. שלושה תאים בעמודה השלישית קיבלו ימינה: מעל התא האדום, ליד היעד ובאמצע. בשתי העמודות השמאליות מופיע 0, ״למעלה״: שם כל ארבע הפעולות נותנות 0, והקוד בוחר את הראשונה לפי סדר ה־`Enum`, בעוד שבהדגמה השארנו את ״למטה״. שתי הבחירות שקולות, וזה לא ישפיע על התוצאה הסופית.
+
+### פתרון — Policy Iteration
+
+ולבסוף, השיטה שמחברת את שתי הקודמות:
+
+<div class="code-panel" dir="ltr">
+
+```python
+    def Policy_Iteration (self):
+        policy_stable = False
+
+        while not policy_stable:
+            self.policy_eval()
+            policy_stable = self.Policy_improv()
+        return policy_stable
+```
+
+</div>
+
+הלולאה ממשיכה כל עוד השיפור שינה משהו, ונעצרת כשהמדיניות יציבה.
+
+**בדיקה.** החליפו את שורות הבדיקה של השלבים הקודמים בשלוש השורות של `Policy_Iteration` וההדפסות, כמו בקובץ `Game.py` שהוצג למעלה, והריצו. עוד לפני שחלון המשחק נפתח, בטרמינל מודפס:
+
+**פלט**
+
+<div class="code-panel" dir="ltr">
+
+```text
+True
+Value*:
+ [[0.59049 0.6561  0.729   0.81   ]
+ [0.6561  0.729   0.      0.9    ]
+ [0.729   0.81    0.9     1.     ]
+ [0.81    0.9     1.      0.     ]]
+Policy*:
+ [[1 1 1 3]
+ [1 3 3 3]
+ [1 1 1 3]
+ [1 1 1 3]]
+```
+
+</div>
+
+טבלת הערכים זהה לטבלה הסופית שקיבלנו בהדגמה (0.59049 הוא 0.9<sup>5</sup> לפני עיגול). בטבלת המדיניות 1 פירושו ימינה ו־3 למטה, וזו בדיוק המדיניות המיטבית שראינו בחצים. שני הבדלים קטנים בין הקוד להדגמה: הקוד מתחיל ממדיניות ״למטה״ בכל התאים, בלי החץ ימינה ליד היעד, וכשכמה פעולות שקולות הוא בוחר את הראשונה לפי סדר ה־`Enum`. לכן טבלאות הביניים בהרצה עשויות להיות שונות מעט מאלה שבהדגמה, אבל התוצאה הסופית זהה.
+
+<!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L321-L373] -->
+
+`True` הוא הערך שמחזירה `Policy_Iteration` (המדיניות יציבה). אחר כך נפתח חלון המשחק, והרובוט הולך לפי המדיניות שחושבה מהפינה השמאלית העליונה עד היעד הירוק. בטרמינל סך התגמול עולה ל־1 ברגע הכניסה ליעד; המשחק מתחיל מחדש, והמונה ממשיך לעלות בכל סיבוב: 2, 3, וכן הלאה:
+
+<figure>
+<img src="../assets/rl/maze/grid4x4-solved.gif" alt="הרובוט בלוח ארבע על ארבע נע צעד אחר צעד מהפינה השמאלית העליונה, עוקף את התא האדום ומגיע לתא הירוק" width="320" style="max-width:100%;height:auto;">
+<figcaption>הסוכן בלוח 4×4 עוקב אחר המדיניות המיטבית עד היעד. (אנימציה; בגרסה המודפסת מוצג פריים אחד.)</figcaption>
+</figure>
+
+**ובשביל הכיף: מבוך 5×5.** אותו קוד סוכן בדיוק, בלי לשנות בו שורה, פותר גם מבוך גדול יותר. במאגר GridWorld הלוח כבר מוגדר כך: ב־`Graphics.py` נקבע `ROWS, COLS = 5, 5`, וב־`Environement.py` מסומנים שמונה תאי קיר והיעד בטבלת `board`:
+
+<div class="code-panel" dir="ltr">
+
+```python
+        self.board = np.zeros((ROWS, COLS))
+        self.board[1,0] = -1
+        self.board[1,1] = -1
+        self.board[1,2] = -1
+        self.board[1,4] = -1
+        self.board[3,1] = -1
+        self.board[3,2] = -1
+        self.board[3,3] = -1
+        self.board[3,4] = -1
+        self.board[4,4] = 1
+```
+
+</div>
+
+הסוכן קורא את גודל הלוח ואת תאי הסיום מן הסביבה, ולכן `Policy_Iteration` מוצא את המדיניות המיטבית גם כאן, והרובוט מגיע ליעד ב־14 צעדים, המסלול הקצר ביותר האפשרי: ימינה לאורך השורה העליונה, למטה דרך הפתח, שמאלה לאורך השורה האמצעית, למטה בעמודה השמאלית וימינה עד היעד:
+
+<figure>
+<img src="../assets/rl/maze/maze-solved.gif" alt="הרובוט נע צעד אחר צעד מהפינה השמאלית העליונה, עוקף את שורות הקירות ומגיע לתא הירוק" width="400" style="max-width:100%;height:auto;">
+<figcaption>אותו סוכן במבוך 5×5, ללא שינוי בקוד. (אנימציה; בגרסה המודפסת מוצג פריים אחד.)</figcaption>
+</figure>
 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a href="03-%D7%9E%D7%95%D7%93%D7%9C%20%D7%A1%D7%91%D7%99%D7%91%D7%94%20%D7%A1%D7%95%D7%9B%D7%9F%20%D7%95-MDP.md">→ הקודם</a>

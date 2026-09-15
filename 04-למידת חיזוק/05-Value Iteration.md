@@ -45,6 +45,33 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .python-intro strong { font-size: 30px; }
 .book .python-fact { background: #fff7d6; color: #423611; border-right: 6px solid #ffd343; border-radius: 8px; padding: 18px 24px; margin: 22px 0; }
 .book .python-fact strong { font-size: 24px; }
+.book .optional { background: #fff7d6; color: #423611; border-right: 6px solid #ffd343; border-radius: 8px; padding: 18px 24px; margin: 22px 0; font-size: .95em; }
+.book .optional .formula { width: 90%; max-width: 90%; background: #fffdf3; }
+.book .key-note { box-sizing:border-box; width:75%; max-width:75%; margin:26px auto; border:2px solid #1f7a70; border-radius:10px; background:#e6f7f4; overflow:hidden; }
+.book .key-note .key-title { background:#1f7a70; color:#fff; font-weight:700; font-size:1.15em; padding:8px 18px; direction:rtl; text-align:right; }
+.book .key-note .key-body { padding:14px 18px 16px; font-size:1.05em; direction:rtl; text-align:right; }
+.book .grid-row { display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start; gap:14px 18px; }
+.book .grid-row figure { width:auto; max-width:100%; margin:0; padding:0; background:transparent; border:0; }
+.book .grid-row figcaption { margin-top:6px; font-size:.85em; }
+.book .grid.small td { width:46px; height:36px; font-size:.9em; }
+.book .grid .changed { color:#c8102e; font-weight:700; }
+.book .grid.actions-table, .book .grid.actions-table th, .book .grid.actions-table td { direction:rtl!important; text-align:center!important; }
+.book .grid.actions-table th { background:#eef5fc; border:1px solid #8199aa; font-weight:700; }
+.book .bellman { box-sizing:border-box; width:75%; max-width:75%; margin:26px auto; border:2px solid #1f7a70; border-radius:10px; background:#e6f7f4; overflow:hidden; }
+.book .bellman .bellman-title { background:#1f7a70; color:#fff; font-weight:700; font-size:1.15em; padding:8px 18px; direction:rtl; text-align:right; }
+.book .bellman .bellman-cond { direction:ltr!important; text-align:center!important; unicode-bidi:isolate; padding:14px 20px 0; font-size:1.05em; color:#1f2937; }
+.book .bellman .bellman-cond + .bellman-cond { padding-top:4px; }
+.book .bellman .bellman-eq { direction:ltr!important; text-align:center!important; unicode-bidi:isolate; padding:12px 20px 18px; font-size:1.5em; font-weight:700; color:#0b3d5c; }
+.book .bellman .bellman-eq span { background:#fff3b0; padding:4px 14px; border-radius:8px; border:1px solid #e6c94a; }
+/* Display math renders left-to-right and centered, independent of the RTL page. */
+.book .math-panel, .book .math-panel .katex-display, .book .math-panel .katex {
+  direction: ltr !important;
+  text-align: center !important;
+  unicode-bidi: isolate;
+}
+.book .math-panel { box-sizing: border-box; width: 75%; max-width: 75%; margin: 20px auto; padding: 16px 20px; background: #f3f6fa; color: #1f2937; border: 1px solid #ccd7df; border-radius: 8px; overflow-x: auto; font-size: 1.1em; }
+.book .math-panel .katex-display { margin: 0; }
+.book .math-panel p { margin: 0; }
 .book img { max-width: 100%; height: auto; }
 .book figure { box-sizing: border-box; width: 75%; max-width: 75%; margin: 24px auto; padding: 16px 20px; background: #f3f6fa; border: 1px solid #ccd7df; border-radius: 8px; text-align: center; }
 .book figure img { display: block; margin: auto; }
@@ -92,15 +119,8 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 </style>
 
 <style>
-/* Display math renders left-to-right and centered, independent of the RTL page. */
-.book .math-panel, .book .math-panel .katex-display, .book .math-panel .katex {
-  direction: ltr !important;
-  text-align: center !important;
-  unicode-bidi: isolate;
-}
-.book .math-panel { box-sizing: border-box; width: 75%; max-width: 75%; margin: 20px auto; padding: 16px 20px; background: #f3f6fa; color: #1f2937; border: 1px solid #ccd7df; border-radius: 8px; overflow-x: auto; font-size: 1.1em; }
-.book .math-panel .katex-display { margin: 0; }
-.book .math-panel p { margin: 0; }
+.book .formula { box-sizing:border-box; width:75%; max-width:75%; direction:ltr!important; text-align:center!important; overflow-x:auto;
+  padding:16px 20px; background:#f3f6fa; color:#1f2937; border:1px solid #ccd7df; border-radius:8px; margin:20px auto; font-size:1.15em; }
 .book .grid-panel { box-sizing:border-box; width:75%; max-width:75%; margin:20px auto; padding:16px 20px; background:#f3f6fa; border:1px solid #ccd7df; border-radius:8px; }
 .book .grid { direction:ltr!important; width:auto!important; max-width:100%!important; margin:0 auto; border-collapse:collapse; background:#fff; }
 .book .grid td { direction:ltr!important; text-align:center!important; width:64px; height:48px; border:1px solid #8199aa; }
@@ -112,287 +132,390 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a href="04-Policy%20Iteration.md">→ הקודם</a>
 <a class="toc-link" href="../index.md">תוכן העניינים</a>
-<a href="06-%D7%9E%D7%95%D7%A0%D7%98%D7%94%20%D7%A7%D7%A8%D7%9C%D7%95.md">הבא ←</a>
+<a href="06-Value%20Iteration%20-%20puzzle%208.md">הבא ←</a>
 </nav>
 
 ## ד.5 — תכנון דינמי: Value Iteration
 
-**המצגת:** [תכנון דינמי — המשך](../../../sources/RL/3.תכנון%20דינמי-המשך.pptx) · **קוד:** [ממשק הפאזל](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/puzzle_env.py) · [Value Iteration בפאזל](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/puzzle_value_iteration.py) · [כל קובצי הקוד בגיטהב](https://github.com/MarkmanGilad/book/tree/main/assets/rl/code)
+**המצגת:** [תכנון דינמי — המשך](../../../sources/RL/3.תכנון%20דינמי-המשך.pptx) · **קוד:** [Agent.py](https://github.com/MarkmanGilad/GridWorld/blob/main/Agent.py) · [Game.py](https://github.com/MarkmanGilad/GridWorld/blob/main/Game.py) · [מאגר GridWorld בגיטהב](https://github.com/MarkmanGilad/GridWorld)
 
-הפרק הזה עונה על אותה שאלה כמו הפרק הקודם: כשחוקי המשחק ידועים לנו במלואם, איך מחשבים את המהלך הטוב ביותר בכל מצב? ההבדל הוא בדרך. ב־Policy Iteration עבדנו בשני שלבים נפרדים — הערכה מלאה של המדיניות הנוכחית, ורק אחר כך שיפור שלה — וחזרנו עליהם עד שהמדיניות התייצבה. הערכה מלאה בכל סבב היא עבודה רבה, וחלק גדול ממנה מתבזבז: אנחנו מחשבים במדויק את ערכיה של מדיניות שממילא עומדים להחליף.
+בפרק הקודם החזקנו שתי טבלאות: טבלת הערכים V, ובה מספר לכל מצב, וטבלת המדיניות π, ובה חץ לכל מצב. Policy Iteration עבד בשני שלבים לסירוגין: חישוב מלא של טבלת הערכים של המדיניות הנוכחית, ואחריו שיפור המדיניות לפי הטבלה החדשה. עכשיו נשאל שאלה מעניינת: האם אפשר לדעת מטבלת הערכים לבדה מהי המדיניות? כלומר, האם בכלל צריך להחזיק טבלת מדיניות?
 
-כשטבלת הערכים משתנה, היא כבר רומזת לנו שייתכן שכדאי לבחור פעולות אחרות. האם חייבים להמתין עד שהערכת המדיניות תסתיים לפני שמשתמשים ברמז הזה? **Value Iteration** משתמש בכל עדכון בטבלה כדי לבחור מיד את ההמשך הכדאי ביותר. הוא נשען על [משוואת בלמן](04-Policy%20Iteration.md#bellman), אך משלב את בחירת הפעולה בחישוב הערך עצמו. התוצאה היא אלגוריתם קצר יותר, שאינו צריך לשמור טבלת מדיניות כלל, ומגיע לאותה טבלת ערכים.
+התשובה היא שאין צורך. כשהמודל ידוע, טבלת הערכים משמשת לנו כמדיניות: בכל מצב בודקים לאן מובילה כל פעולה, מסתכלים בטבלת הערכים, ובוחרים את הפעולה הטובה ביותר. זה בדיוק החישוב שעשינו בשלב השיפור, רק שבמקום לרשום את התוצאה בטבלה נפרדת, עושים את החישוב הקצר הזה בכל פעם שצריך לבחור פעולה.
 
-בחלקו הראשון של הפרק נבנה את האלגוריתם על לוח 4×4 המוכר. בחלקו השני ניישם אותו על בעיה גדולה בהרבה — פאזל המספרים בלוח 3×3, שבו מספר המצבים הוא מאות אלפים — ונראה שאותו כלל עדכון עובד גם שם, כל עוד המודל ידוע.
+ומכאן צעד אחד לאלגוריתם חדש, **Value Iteration**, שעובד ללא טבלת מדיניות כלל, והוא גם יעיל יותר: במקום לחשב במדויק את הערכים של מדיניות שממילא עומדים להחליף, הוא משלב את בחירת הפעולה הטובה ביותר בתוך כל עדכון של הטבלה, ומגיע לאותה טבלת ערכים מיטבית בפחות סריקות. בפרק הזה נלמד את האלגוריתם, נדגים אותו על לוח 4×4, ובסופו נממש אותו בעולם הגריד. בפרק הבא ניישם אותו על בעיה גדולה באמת: פאזל המספרים, ובו מאות אלפי מצבים.
 
-### האם נחוצה טבלת מדיניות?
+<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L7-L17] -->
 
-בפרק הקודם שמרנו שתי טבלאות: V לערכים ו־π לפעולות. לפני שנבנה את האלגוריתם החדש נשאל אם שתיהן באמת נחוצות. כאשר מודל המעברים ידוע, אפשר לבחור פעולה ישירות מתוך V. בודקים כל פעולה חוקית, מחשבים לאיזה מצב היא תוביל ומה התגמול שלה, ובוחרים לפי הציון המשולב של התגמול וההמשך. לכן אפשר לוותר על שמירת טבלת מדיניות נפרדת במהלך החישוב. אופן הבחירה מפורט ב־[Policy Improvement](04-Policy%20Iteration.md#policy-improvement).
+### בחירת פעולה מטבלת הערכים
 
-יש להבחין בין **בחירת פעולה בעזרת V** לבין בחירת השכן בעל V הגבוה ביותר. ליד היעד, למשל, ערכו של מצב הסיום הוא 0, ובכל זאת כניסה אליו נותנת תגמול 1. אם נתעלם מהתגמול המיידי, נוכל לפספס דווקא את הפעולה שמסיימת בהצלחה.
+נתחיל מן השאלה שפתחנו בה. נניח שיש בידינו טבלת ערכים כלשהי, לאו דווקא סופית, והסוכן נמצא במצב s. איך בוחרים פעולה בלי טבלת מדיניות? בדיוק כמו בסריקת השיפור בפרק הקודם:
 
-<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L111-L119] -->
+1. רושמים את הפעולות האפשריות במצב s.
+2. לכל פעולה שואלים את המודל לאיזה מצב s′ היא מובילה ומה התגמול r על המעבר.
+3. קוראים מטבלת הערכים את V(s′) ומחשבים לפי נוסחת בלמן r + 0.9·V(s′).
+4. בוחרים את הפעולה שנתנה את המספר הגדול ביותר.
 
-### Value Iteration — בוחרים ומעדכנים יחד
-
-אם אפשר לבחור פעולה מתוך V בכל רגע, אפשר לשלב את הבחירה בתוך העדכון עצמו. במקום להעריך שוב ושוב מדיניות קבועה, בכל ביקור במצב נבחן את כל הפעולות החוקיות. הערך החדש יהיה הציון הגבוה ביותר שהתקבל — כאילו במצב הזה נבחרה תמיד הפעולה הטובה ביותר:
-
-<a id="value-update"></a>
-<div class="math-panel" dir="ltr">
-
-$$
-\begin{gathered} V(s) \leftarrow \max_{a \in A(s)} \left[ r + \gamma V(s') \right] \\ (s', r) = \text{model}(s, a) \end{gathered}
-$$
-
-</div>
-
-השוו זאת למשוואת בלמן מהפרק הקודם: שם הפעולה a הייתה נתונה מן המדיניות, וכאן במקומה מופיע `max` על כל הפעולות. זהו ההבדל היחיד, והוא זה שמייתר את טבלת המדיניות. כאן `max` מחזירה מספר שנשמר בטבלת הערכים. בזמן המשחק נשתמש ב־`argmax` כדי לקבל את הפעולה שמביאה למספר הזה. ההבדל בין שתי הפעולות חשוב: אחת מחשבת את הערך, והאחרת בוחרת מה לעשות.
-
-<figure>
-<img src="../assets/slides/f421e7407b/image21.png" alt="שני תרשימי התכנסות: Policy Iteration בצעדים גדולים ו־Value Iteration בצעדים קטנים" style="width:322px;max-width:100%;height:auto;">
-<figcaption>אותו ציור של שני הקווים מהפרק הקודם. למעלה (b): Policy Iteration מבצע הערכה מלאה ואחריה שיפור, ולכן מתקדם בצעדים גדולים. למטה (d): Value Iteration משלב בכל סריקה צעד הערכה אחד עם שיפור, ומתקדם בצעדים קטנים ורבים אל אותה נקודת מפגש.</figcaption>
-</figure>
-
-נראה איך זה נראה בפועל. בלוח 4×4 שלנו נתחיל מכל הערכים באפס ונשתמש ב־γ=0.9. לשני השכנים של היעד יש פעולה שנותנת מיד 1, ולכן הערך שלהם עולה ל־1. מצבים שיכולים להגיע אליהם יקבלו בהמשך 0.9, ואחריהם יתפשטו 0.81, 0.729 וכן הלאה. מעל תא ההפסד אין הכרח לבחור בירידה אליו: העדכון בוחן גם את שאר הפעולות.
-
-אפשר לעקוב אחרי ההתפשטות באמצעות כמה תאים לאורך המסלול מהיעד (3,3) ולמעלה בעמודה הימנית ואז שמאלה בשורה העליונה, עד לפינה (0,0). בכל שורה בטבלה מוצג שלב שבו המידע על היעד מגיע למרחק נוסף ממנו; מניחים לצורך ההמחשה שכל סריקה קוראת את ערכי הסריקה הקודמת.
-
-| שלב | V(2,3) | V(1,3) | V(0,3) | V(0,2) | V(0,1) | V(0,0) |
-| --- | --- | --- | --- | --- | --- | --- |
-| אתחול | 0 | 0 | 0 | 0 | 0 | 0 |
-| 1 | 1 | 0 | 0 | 0 | 0 | 0 |
-| 2 | 1 | 0.9 | 0 | 0 | 0 | 0 |
-| 3 | 1 | 0.9 | 0.81 | 0 | 0 | 0 |
-| 4 | 1 | 0.9 | 0.81 | 0.729 | 0 | 0 |
-| 5 | 1 | 0.9 | 0.81 | 0.729 | 0.6561 | 0 |
-| 6 | 1 | 0.9 | 0.81 | 0.729 | 0.6561 | 0.59049 |
-
-בסיום מתקבלת הטבלה הבאה, בעיגול לשלוש ספרות. השורות נספרות מלמעלה והעמודות משמאל; תאי הסיום מסומנים בצבע ונשארים בערך 0, מפני שהתגמול ניתן בכניסה אליהם. זו בדיוק הטבלה שאליה הגיע Policy Iteration בפרק הקודם — אבל הפעם בלי טבלת מדיניות ובלי הפרדה בין הערכה לשיפור.
+נדגים על טבלת ערכים באמצע החישוב, כשהמידע על היעד התפשט רק בחלק מהלוח. הלוח הוא לוח 4×4 מהפרק הקודם: התא האדום (1,2) עם תגמול ‎−1, היעד הירוק (3,3) עם תגמול 1, הספירה מתחילה ב־0 מלמעלה ומשמאל, ופעולה אל מחוץ ללוח משאירה את הסוכן במקומו:
 
 <div class="grid-panel">
-<table class="grid" dir="ltr">
+<table class="grid" dir="ltr" aria-label="טבלת ערכים באמצע החישוב">
+<tr><td>0</td><td>0</td><td>0.73</td><td>0.81</td></tr>
+<tr><td>0</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+</div>
+
+הסוכן נמצא בתא (0,3), הפינה הימנית העליונה. בודקים את ארבע הפעולות:
+
+<div class="grid-panel">
+<table class="grid actions-table" dir="rtl" style="width:auto" aria-label="ארבע הפעולות בתא (0,3)">
+<tr><th style="padding:6px 14px">פעולה</th><th style="padding:6px 14px">לאן מובילה</th><th style="padding:6px 14px">r</th><th style="padding:6px 14px">V(s′)</th><th style="padding:6px 14px">r + 0.9·V(s′)</th></tr>
+<tr><td style="width:auto;padding:6px 14px">למעלה</td><td style="width:auto;padding:6px 14px">מחוץ ללוח, נשאר ב־(0,3)</td><td style="width:auto">0</td><td style="width:auto">0.81</td><td style="width:auto">0.73</td></tr>
+<tr><td style="width:auto;padding:6px 14px">ימינה</td><td style="width:auto;padding:6px 14px">מחוץ ללוח, נשאר ב־(0,3)</td><td style="width:auto">0</td><td style="width:auto">0.81</td><td style="width:auto">0.73</td></tr>
+<tr><td style="width:auto;padding:6px 14px">שמאלה</td><td style="width:auto;padding:6px 14px">(0,2)</td><td style="width:auto">0</td><td style="width:auto">0.73</td><td style="width:auto">0.66</td></tr>
+<tr><td style="width:auto;padding:6px 14px">למטה</td><td style="width:auto;padding:6px 14px">(1,3)</td><td style="width:auto">0</td><td style="width:auto">0.9</td><td style="width:auto" class="changed">0.81</td></tr>
+</table>
+</div>
+
+המספר הגדול ביותר הוא 0.81, של ״למטה״, ולכן זו הפעולה שהסוכן יבצע. לא היה צורך בשום טבלת מדיניות: טבלת הערכים והמודל הספיקו.
+
+עוד דוגמה, בתא (2,3) שמעל היעד: ״למטה״ נכנסת ליעד ונותנת 1 + 0.9·0 = 1; ״למעלה״ מובילה ל־(1,3) ונותנת 0.81; ״שמאלה״ מובילה ל־(2,2) ונותנת 0.81; ״ימינה״ משאירה במקום ונותנת 0.9. ״למטה״ מנצחת. שימו לב: ערכו של תא היעד בטבלה הוא 0, כי ממנו המשחק אינו ממשיך, ובכל זאת הכניסה אליו היא הפעולה הטובה ביותר. לכן מחשבים תמיד r + 0.9·V(s′), ולא בוחרים סתם את השכן בעל הערך הגבוה ביותר: התגמול על המעבר עצמו הוא חלק מהחשבון.
+
+<div class="key-note">
+<div class="key-title">טבלת ערכים ומודל ידוע הם מדיניות</div>
+<div class="key-body">כשיודעים לאן כל פעולה מובילה ומה התגמול עליה, טבלת הערכים לבדה אומרת לסוכן מה לעשות: בכל מצב בודקים את הפעולות האפשריות, מחשבים לכל אחת תגמול ועוד 0.9 כפול ערך המצב שמגיעים אליו, ומבצעים את הפעולה עם המספר הגדול ביותר. המדיניות עדיין קיימת ככלל בחירה, אבל אין צורך לשמור אותה בטבלה נפרדת. בלי מודל זה לא עובד: V לבדה אינה אומרת לאן כל פעולה מובילה.</div>
+</div>
+
+<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L103-L119] -->
+
+### Value Iteration — האלגוריתם במילים
+
+אם אפשר לבחור פעולה מתוך V בכל רגע, אפשר לשלב את הבחירה בתוך חישוב הטבלה עצמו. ניזכר איך עבדה הערכת המדיניות בפרק הקודם: בכל תא חישבנו r + 0.9·V(s′) לפעולה אחת בלבד, זו שהמדיניות קבעה, וחזרנו על הסריקות עד שהטבלה התייצבה. רק אחרי כל הסריקות האלה שיפרנו את המדיניות, ואז התחלנו מחזור הערכה חדש. חלק גדול מהעבודה הזאת מתבזבז: חישבנו במדויק את ערכיה של מדיניות שממילא עומדים להחליף.
+
+Value Iteration מייעל את זה בשני שינויים:
+
+1. **מוותרים על טבלת המדיניות ועל שלב השיפור.** ברגע שיש טבלת ערכים מעודכנת יש לנו אוטומטית גם מדיניות, כפי שראינו זה עתה.
+2. **בוחרים את הפעולה הטובה ביותר תוך כדי עדכון הטבלה.** בכל תא, במקום לחשב את הערך של הפעולה שהמדיניות קבעה, בודקים את כל הפעולות ורושמים בתא את הציון הגבוה ביותר, כאילו במצב הזה נבחרה תמיד הפעולה הטובה ביותר.
+
+איננו מחכים לסיום כל הסריקות של הערכת המדיניות; אחרי כל סריקה, ולמעשה אחרי כל תא, ״המדיניות״ כבר התעדכנה. במקום מחזורים של הערכה מלאה ושיפור, מבצעים בכל תא צעד הערכה אחד וצעד שיפור אחד יחד.
+
+מה זה אומר בפועל? **סורקים** את הטבלה כמו קודם: שורה אחר שורה, מלמעלה למטה, ובכל שורה משמאל לימין. בכל תא שאינו תא סיום:
+
+1. רושמים את הפעולות האפשריות בתא.
+2. לכל פעולה: שואלים את המודל לאן היא מובילה ומה התגמול, קוראים מטבלת הערכים את ערך המצב שמגיעים אליו, ומחשבים r + 0.9·V(s′).
+3. משווים את המספרים שהתקבלו ולוקחים את הגדול ביותר.
+4. כותבים אותו בתא במקום הערך הישן.
+
+ההבדל היחיד מהערכת המדיניות הוא בצעדים 2 ו־3: בודקים את כל הפעולות ולוקחים את המקסימום, במקום פעולה אחת שהמדיניות קבעה. אין טבלת מדיניות ואין שלב שיפור נפרד. הערך החדש נכתב מיד בטבלה, ולכן תא שנסרק מאוחר יותר באותה סריקה כבר רואה אותו. חוזרים על סריקות עד שהשינוי הגדול ביותר בסריקה קטן מן הדיוק שקבענו, בדיוק כמו קודם.
+
+<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L120-L126] [sources/RL/3.תכנון דינמי-המשך.pptx#L173-L178] -->
+
+### הדגמה — Value Iteration בלוח 4×4
+
+נריץ את האלגוריתם על אותו לוח: התא האדום (1,2) עם תגמול ‎−1, היעד הירוק (3,3) עם תגמול 1, γ=0.9, וטבלת ערכים שכולה אפסים. תאי הסיום מדלגים עליהם וערכם נשאר 0. זו נקודת המוצא:
+
+<div class="grid-panel">
+<table class="grid" dir="ltr" aria-label="טבלת הערכים באתחול">
+<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td class="bad">0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td class="goal">0</td></tr>
+</table>
+</div>
+
+**סריקה ראשונה, יד ביד.**
+
+- **התא (0,0):** ארבע הפעולות מובילות לתאים שערכם 0 או משאירות במקום, וכולן נותנות 0. המקסימום 0; שום דבר לא השתנה. כך גם (0,1).
+- **התא (0,2):** ״למטה״ מובילה לתא האדום: ‎−1 + 0.9·0 = ‎−1. שלוש הפעולות האחרות נותנות 0. המקסימום הוא 0, ולכן התא נשאר 0. זה הבדל ראשון מהפרק הקודם: שם המדיניות ״למטה״ כפתה על התא הזה את הערך ‎−1; כאן בוחרים את הטוב ביותר, והירידה לתא האדום פשוט לא נבחרת.
+- **התא (0,3):** ״למטה״ מובילה ל־(1,3), שערכו עדיין 0. התוצאה 0.
+- **השורה השנייה:** (1,0) ו־(1,1) נותנים 0 (ב־(1,1) ״ימינה״ מובילה לתא האדום ונותנת ‎−1, ואינה נבחרת). את (1,2) מדלגים. ב־(1,3) ״למטה״ מובילה ל־(2,3), שערכו עדיין 0 כי טרם הגענו אליו בסריקה הזאת. התוצאה 0.
+- **השורה השלישית:** (2,0), (2,1) ו־(2,2) נותנים 0. ב־(2,3) ״למטה״ נכנסת ליעד: 1 + 0.9·0 = 1. כותבים 1. זה השינוי הראשון בטבלה.
+- **השורה הרביעית:** (3,0) ו־(3,1) נותנים 0. ב־(3,2) ״ימינה״ נכנסת ליעד ונותנת 1. כותבים 1.
+
+<div class="grid-panel">
+<table class="grid" dir="ltr" aria-label="טבלת הערכים אחרי הסריקה הראשונה">
+<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td class="bad">0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td class="changed">1</td></tr>
+<tr><td>0</td><td>0</td><td class="changed">1</td><td class="goal">0</td></tr>
+</table>
+</div>
+
+השינוי הגדול ביותר בסריקה הזאת הוא 1, ולכן ממשיכים.
+
+**סריקה שנייה, יד ביד.**
+
+- **השורה הראשונה:** כל התאים נותנים 0. גם (0,3): ״למטה״ מובילה ל־(1,3), שערכו עדיין 0 כי הוא נסרק אחרי (0,3).
+- **התא (1,3):** ״למטה״ מובילה ל־(2,3), שערכו 1: 0 + 0.9·1 = 0.9. כותבים 0.9.
+- **התא (2,1):** ״ימינה״ מובילה ל־(2,2) ו״למטה״ ל־(3,1), ושניהם עדיין 0. נשאר 0.
+- **התא (2,2):** ״ימינה״ מובילה ל־(2,3) ו״למטה״ ל־(3,2), ושניהם שווים 1: שתי הפעולות נותנות 0.9. כותבים 0.9.
+- **התא (3,1):** ״ימינה״ מובילה ל־(3,2), שערכו 1: 0.9. כותבים 0.9.
+
+<div class="grid-panel">
+<table class="grid" dir="ltr" aria-label="טבלת הערכים אחרי הסריקה השנייה">
+<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td class="bad">0</td><td class="changed">0.9</td></tr>
+<tr><td>0</td><td>0</td><td class="changed">0.9</td><td>1</td></tr>
+<tr><td>0</td><td class="changed">0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+</div>
+
+**סריקות 3 עד 6.** בכל סריקה המידע על היעד מתקדם צעד נוסף אחורה, ובכל צעד הערך מוכפל ב־0.9: 0.81, אחר כך 0.73, 0.66 ולבסוף 0.59. שימו לב לתא (0,2) בסריקה הרביעית: ״ימינה״ מובילה ל־(0,3), שערכו כבר 0.81, ולכן התא שמעל התא האדום מקבל 0.73 בלי לרדת לעולם אל ‎−1.
+
+<div class="grid-panel"><div class="grid-row">
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0</td><td>0</td><td>0</td><td class="changed">0.81</td></tr>
+<tr><td>0</td><td>0</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0</td><td class="changed">0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td class="changed">0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>סריקה 3</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0</td><td>0</td><td class="changed">0.73</td><td>0.81</td></tr>
+<tr><td>0</td><td class="changed">0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td class="changed">0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>סריקה 4</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>0</td><td class="changed">0.66</td><td>0.73</td><td>0.81</td></tr>
+<tr><td class="changed">0.66</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>סריקה 5</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td class="changed">0.59</td><td>0.66</td><td>0.73</td><td>0.81</td></tr>
+<tr><td>0.66</td><td>0.73</td><td class="bad">0</td><td>0.9</td></tr>
+<tr><td>0.73</td><td>0.81</td><td>0.9</td><td>1</td></tr>
+<tr><td>0.81</td><td>0.9</td><td>1</td><td class="goal">0</td></tr>
+</table>
+<figcaption>סריקה 6</figcaption>
+</figure>
+</div></div>
+
+בסריקה השביעית אף תא אינו משתנה: השינוי הגדול ביותר הוא 0, קטן מכל דיוק שנבחר, והלולאה נעצרת. השינוי הגדול ביותר בכל סריקה היה 1, 0.9, 0.81, 0.73, 0.66, 0.59 ואז 0, בדיוק כמו שהסביר המשפט על ההתכנסות בפרק הקודם.
+
+**התוצאה.** משמאל טבלת הערכים הסופית, בעיגול לשלוש ספרות. זו בדיוק הטבלה שאליה הגיע Policy Iteration בפרק הקודם, אבל שם נדרשו לכך 10 סריקות הערכה ועוד 3 סריקות שיפור, וכאן 7 סריקות בלבד. מימין המדיניות שנגזרת ממנה: החצים אינם שמורים בשום טבלה; כל חץ מתקבל מבדיקת ארבע הפעולות בתא, כפי שעשינו בסעיף הראשון. בתאים שבהם שתי פעולות שקולות, למשל (0,0), שבו ״ימינה״ ו״למטה״ נותנות שתיהן 0.59, אפשר לבחור כל אחת מהן; כאן מוצגת בחירה אחת:
+
+<div class="grid-panel"><div class="grid-row">
+<figure>
+<table class="grid small" dir="ltr">
 <tr><td>0.590</td><td>0.656</td><td>0.729</td><td>0.810</td></tr>
 <tr><td>0.656</td><td>0.729</td><td class="bad">0</td><td>0.900</td></tr>
 <tr><td>0.729</td><td>0.810</td><td>0.900</td><td>1.000</td></tr>
 <tr><td>0.810</td><td>0.900</td><td>1.000</td><td class="goal">0</td></tr>
 </table>
-</div>
-
-<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L121-L203] -->
-
-אותו כלל עדכון פועל גם על [מבוך 5×5 שפתרנו בסוף הפרק הקודם](04-Policy%20Iteration.md). מתחילים מטבלת אפסים, סורקים את המצבים ובכל תא שומרים את הציון הגבוה ביותר מבין הפעולות החוקיות; המידע על היעד מתפשט לאורך המסדרון, מסביב לשורות הקירות, עד מצב ההתחלה. הטבלה המתקבלת זהה לזו ש־Policy Iteration הגיע אליה, ולכן גם המסלול שהסוכן יבחר לפיה זהה: 14 צעדים אל היעד.
-
-<div class="grid-panel">
-<table class="grid" dir="ltr" aria-label="ערכי המצבים במבוך חמש על חמש לפי Value Iteration">
-<tr><td>0.254</td><td>0.282</td><td>0.314</td><td>0.349</td><td>0.314</td></tr>
-<tr><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td><td>0.387</td><td class="bad">0</td></tr>
-<tr><td>0.590</td><td>0.531</td><td>0.478</td><td>0.430</td><td>0.387</td></tr>
-<tr><td>0.656</td><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td></tr>
-<tr><td>0.729</td><td>0.810</td><td>0.900</td><td>1.000</td><td class="goal">0</td></tr>
+<figcaption>טבלת הערכים המיטבית V*</figcaption>
+</figure>
+<figure>
+<table class="grid small" dir="ltr">
+<tr><td>↓</td><td>→</td><td>→</td><td>↓</td></tr>
+<tr><td>↓</td><td>↓</td><td class="bad">סיום</td><td>↓</td></tr>
+<tr><td>↓</td><td>↓</td><td>↓</td><td>↓</td></tr>
+<tr><td>→</td><td>→</td><td>→</td><td class="goal">סיום</td></tr>
 </table>
-</div>
+<figcaption>המדיניות המיטבית π*, נגזרת מן הטבלה</figcaption>
+</figure>
+</div></div>
+
+<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L130-L170] -->
 
 <a id="bootstrapping"></a>
 ### Bootstrapping — לומדים מהערכות קיימות
 
-כדאי לעצור רגע ולשים לב למה שעשינו, כי הרעיון יחזור בפרקים הבאים בלבוש אחר. הערך של מצב מתעדכן מתוך ערך משוער של מצב אחר. בתחילת החישוב גם ההערכה הזאת אינה מדויקת — הרי התחלנו מטבלה של אפסים — ובכל זאת היא מאפשרת להתקדם. שימוש באומדנים קיימים כדי לעדכן אומדנים נקרא **Bootstrapping** (מילולית: "להרים את עצמך בשרוכי הנעליים").
+כדאי לעצור רגע ולשים לב למה שעשינו, כי הרעיון יחזור בפרקים הבאים בלבוש אחר. הערך של מצב מתעדכן מתוך ערך משוער של מצב אחר. בתחילת החישוב גם ההערכה הזאת אינה מדויקת, הרי התחלנו מטבלה של אפסים, ואפשר היה להתחיל אפילו ממספרים אקראיים, ובכל זאת היא מאפשרת להתקדם. אחרי מספיק סריקות הערכים מתכנסים לערכים הנכונים. שימוש באומדנים קיימים כדי לעדכן אומדנים אחרים נקרא **Bootstrapping**, מילולית: ״למשוך את עצמך למעלה בשרוכי המגפיים״.
 
 <figure>
 <img src="../assets/slides/f421e7407b/image22.gif" alt="יד מושכת בשרוך של מגף" style="width:300px;max-width:100%;height:auto;">
-<figcaption>מקור המונח: להרים את עצמך בעזרת שרוכי הנעליים. בלמידת חיזוק פירושו לשפר אומדן בעזרת אומדן אחר, עוד לפני שאחד מהם מדויק. (אנימציה; בגרסה המודפסת מוצג פריים אחד.)</figcaption>
+<figcaption>מקור המונח: להרים את עצמך בעזרת שרוכי המגפיים. בלמידת חיזוק פירושו לשפר אומדן בעזרת אומדן אחר, עוד לפני שאחד מהם מדויק. (אנימציה; בגרסה המודפסת מוצג פריים אחד.)</figcaption>
 </figure>
 
 בדוגמת הלוח אין לנו מראש טבלה נכונה. התגמול הידוע ליד היעד מספק נקודת התחלה, והעדכונים החוזרים מפיצים את המידע. אין צורך לחכות שכל ערכי ההמשך יהיו סופיים לפני שמשתמשים בהם.
 
-<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L199-L209] -->
+<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L177-L186] -->
 
-### סדר הפעולות ותנאי העצירה
+### כלל העדכון והפסאודו־קוד
 
-לפני שנכתוב קוד אמיתי, נסכם את האלגוריתם כולו בכמה שורות. החישוב חוזר על סריקות של טבלת הערכים עד שהשינוי קטן מספיק — אותו תנאי עצירה שהכרנו בהערכת המדיניות. הפסאודו־קוד מרכז את סדר העדכונים ואת תנאי העצירה:
+עכשיו, אחרי שראינו את האלגוריתם פועל, אפשר לכתוב אותו בקצרה. בכל תא נכתב הציון הגבוה ביותר מבין הפעולות:
+
+<div class="bellman" id="value-update">
+<div class="bellman-title">כלל העדכון של Value Iteration</div>
+<div class="bellman-cond" dir="ltr">&#x2066;model(s, a) = (s′, r)&#x2069;</div>
+<div class="bellman-eq" dir="ltr"><span>&#x2066;V(s) ← max<sub>a</sub> [ r + γ·V(s′) ]&#x2069;</span></div>
+</div>
+
+השוו למשוואת בלמן מהפרק הקודם: שם הפעולה a הייתה נתונה מן המדיניות, וכאן במקומה מופיע max על כל הפעולות האפשריות. זהו ההבדל היחיד, והוא זה שמייתר את טבלת המדיניות. max מחזירה מספר, והוא שנשמר בטבלת הערכים. בזמן המשחק משתמשים ב־argmax, שמחזירה את הפעולה שהביאה למספר הזה. ההבדל בין שתיהן חשוב: אחת מחשבת את הערך, והאחרת בוחרת מה לעשות.
+
+הנה האלגוריתם השלם בפסאודו־קוד לסביבה דטרמיניסטית. מאתחלים את V בערכים אקראיים, פרט לתאי הסיום שמקבלים 0; קובעים דיוק קטן; ובכל סריקה עוברים על המצבים, בודקים בכל מצב את כל הפעולות החוקיות, שומרים את הערך הטוב ביותר ורושמים את השינוי הגדול ביותר. מסיימים כאשר תיקון הטבלה קטן מן הסף. בסיום מבצעים סריקת שיפור אחת, שמחלצת מטבלת הערכים טבלת מדיניות, כדי שהסוכן במשחק יוכל לשלוף פעולה ישירות מן הטבלה:
 
 <div class="code-panel" dir="ltr">
 
 ```text
-Initialize V(s) = 0 for every state
-Repeat:
-    delta = 0
-    For every nonterminal state s:
-        old_value = V(s)
-        V(s) = maximum of r + gamma * V(next_state)
-               over all legal actions
-        delta = max(delta, abs(old_value - V(s)))
-Until delta < accuracy
+# Value iteration for Deterministic environment
+
+# Initialization
+for all s in S:
+    V(s) = random(float) except V(terminal) = 0
+
+def Value_Iteration(V):
+    accuracy = 0.0001 (small number)
+    acc = 1
+
+    while acc > accuracy:
+        acc = 0
+        for s in all states:
+            if s is terminal: continue
+            best_value = min value
+            for action in legal_actions(s):
+                s', r = environment(s, action)
+                new_value = r + gamma * V(s')
+                best_value = max(best_value, new_value)
+            old_value = V(s)
+            V(s) = best_value
+            acc = max(acc, abs(old_value - best_value))
+
+    return Policy_improvement(V)
 ```
 
 </div>
 
-`delta` מודד את השינוי המרבי במהלך סריקה מלאה. אין לעצור רק מפני שתא מסוים לא השתנה: ייתכן שמידע עוד לא הגיע אליו. הקוד בהמשך מעדכן את הטבלה במקום, ולכן משתמש גם בערכים שהתעדכנו מוקדם יותר באותה סריקה. מספר הסריקות עשוי להיות שונה מהדגמת ההתפשטות, אך כלל העדכון נשאר זהה.
+`acc` מודד את השינוי המרבי במהלך סריקה מלאה. אין לעצור רק מפני שתא מסוים לא השתנה: ייתכן שמידע עוד לא הגיע אליו. השורה האחרונה היא אפשרות ולא חובה: כשהסוכן בוחר פעולה מתוך V בכל מהלך, כפי שנעשה בפרק הבא, אין צורך בטבלת מדיניות כלל.
 
-<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L211-L219] -->
+בספרם של Sutton ו־Barto האלגוריתם כתוב בניסוח כללי יותר, שבו המקסימום נלקח על סכום של כל המצבים הבאים האפשריים לפי ההסתברויות שלהם; זו הגרסה שמתאימה למשוואת בלמן המלאה שהוזכרה כרשות בפרק הקודם, ולא נשתמש בה.
 
-### ממשק פאזל המספרים הנתון
+<div class="key-note">
+<div class="key-title">בלמן הוכיח: Value Iteration מתכנס לטבלת הערכים המיטבית</div>
+<div class="key-body">ההסבר זהה לזה שראינו בהערכת המדיניות: בכל סריקה המידע מתקדם צעד אחד לאחור מן היעד, וכל צעד מכפיל את הערך ב־γ פעם נוספת, ולכן התיקונים הולכים וקטנים עד שהם יורדים מתחת לדיוק. ההבדל הוא במה שמתקבל בסוף: מכיוון שבכל תא נבחר תמיד הציון הגבוה ביותר, הטבלה שמתקבלת היא טבלת הערכים המיטבית <span dir="ltr">V*</span>, והמדיניות שנגזרת ממנה היא המדיניות המיטבית <span dir="ltr">π*</span>. גם כאן מותר להתחיל מכל טבלה שהיא, כל עוד γ&lt;1.</div>
+</div>
 
-לוח 4×4 עם 16 מצבים נוח להמחשה, אבל לא משכנע: את הטבלה שלו אפשר למלא גם ביד. כדי לראות שהאלגוריתם באמת מועיל, ניישם אותו על בעיה שאי אפשר לפתור בעיון. כעת ניישם את האלגוריתם על פאזל של שמונה מספרים ומשבצת ריקה בלוח 3×3, שהזכרנו כדוגמה בפרק ד.3. המטרה היא להגיע לסדר 1 עד 8, כשהמשבצת הריקה נמצאת בפינה הימנית התחתונה. בניגוד לגריד 4×4, כאן **מצב הוא סידור הלוח כולו**, ולא מיקומו של הסוכן בתא. הפעולות הן ארבע הזזות אפשריות של המשבצת הריקה, והמודל ידוע: אנחנו יודעים בדיוק איזה סידור יתקבל מכל הזזה.
+<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L189-L229] -->
 
-לצורך טבלת הערכים נייצג מצב באמצעות tuple של תשעה מספרים, לפי סדר השורות; 0 מציין את המשבצת הריקה. בקוד המקור משתמשים גם באובייקט `State`, וממירים את הלוח ל־tuple כמפתח. בעותק המצורף ממשק המשחק מקבל את ה־tuple ישירות כדי למקד את הקוד בחישוב הערכים.
+### תרגיל — Value Iteration בעולם הגריד
+
+בתרגיל של הפרק הקודם השלמנו במאגר [GridWorld_2](https://github.com/MarkmanGilad/GridWorld_2) את שלוש השיטות של Policy Iteration, והשארנו בשלד של `AI_Agent` שיטה אחת ריקה:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-start = (1, 2, 3,
-         4, 5, 6,
-         0, 7, 8)
-
-goal = (1, 2, 3,
-        4, 5, 6,
-        7, 8, 0)
+    def Value_Iteration():
+        pass
 ```
 
 </div>
 
-| רכיב בממשק | תפקיד באלגוריתם |
-| --- | --- |
-| `env.goal` | מצב היעד; בודקים אם `state == env.goal` |
-| `env.get_actions(state)` | הפעולות החוקיות להזזת המשבצת הריקה |
-| `env(state, action)` | מחזירה `(next_state, reward)` בלי לשנות את המצב שהתקבל |
-| התגמול | 1 בכניסה ליעד, 0 בכל מעבר אחר |
+עכשיו תורה. שימו לב ששורת ההגדרה בשלד חסרה את `self`; בפתרון נכתוב אותה כמו שאר השיטות, `def Value_iteration(self):`.
 
-הסוכן יכול לבקש את תוצאתה של כל פעולה בלי לבצע משחק אמיתי. זו בדיוק הסיבה שאפשר להשתמש כאן בתכנון המבוסס על מודל ידוע.
+**המשימה.** עצרו כאן ונסו לבד לפי הפסאודו־קוד, לפני שתמשיכו לפתרון:
 
-<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L221-L225] -->
+1. ממשו את `Value_iteration` לפי הפסאודו־קוד: סריקות חוזרות על הטבלה, בכל תא בודקים את ארבע הפעולות ושומרים את הערך הגדול ביותר, עד שהתיקון קטן מ־`accuracy`. הסוכן משחק לפי טבלת המדיניות, ולכן בסיום קראו ל־`Policy_improv` כדי למלא אותה.
+2. ב־`Game.py` החליפו את שורת `Policy_Iteration` בקריאה ל־`Value_iteration`, השאירו את שתי ההדפסות והריצו. השוו את `Value*` ואת `Policy*` לתוצאות של Policy Iteration.
+3. הוסיפו מונה סריקות והדפיסו אותו: כמה סריקות נדרשו כאן, לעומת הסריקות של Policy Iteration?
+4. נסו גם את המבוך 5×5.
 
-### אתחול טבלת הערכים וקוד התכנון
+### פתרון — Value Iteration
 
-טבלת הערכים צריכה שורה לכל מצב אפשרי. יש 9! = 362,880 סידורים של תשעת התאים — לעומת 16 בלוח הקטן. כמו בקוד הפתרון, ניצור מילון המכיל את כולם. חלק מהסידורים אינם ניתנים להגעה ממצב היעד; עצם הוספתם למילון אינה הופכת אותם לפתירים. בדוגמה נבחר מצב התחלתי פתיר.
+הפתרון נמצא במאגר [GridWorld](https://github.com/MarkmanGilad/GridWorld) בגיטהב, בקובץ `Agent.py`:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-from itertools import permutations
-from puzzle_env import Puzzle
-
-def init_values():
-    return {state: 0.0 for state in permutations(range(9))}
+    def Value_iteration (self):
+        accuracy = 0.0001
+        acc = 1
+        while acc> accuracy:
+            acc = 0
+            for row in range(ROWS):
+                for col in range(COLS):
+                    state = row, col
+                    if self.env.board[state] != 0:
+                        continue
+                    best_value = -1000
+                    for action in Action:   # only legal actions
+                        new_state, reward = self.env(state, action)
+                        new_value = reward + self.gamma * self.Value[new_state]
+                        if new_value > best_value:
+                            best_value = new_value
+                    old_value = self.Value[state]
+                    self.Value[state] = best_value
+                    acc = max(acc, abs(old_value - best_value))
+        
+        self.Policy_improv()
 ```
 
 </div>
 
-`permutations` מייצרת את כל הסידורים, וכל סידור משמש מפתח במילון. כעת נפעיל סריקות על המילון, עם γ=0.95 ודיוק 0.001, לפי גרסת הפתרון. הפונקציה היא תרגום ישיר של הפסאודו־קוד שראינו למעלה:
+השוו ל־`policy_eval` מהפרק הקודם: המעטפת זהה, שתי הלולאות על התאים, הדילוג על תאי הסיום ומדידת `acc`. ההבדל בתוך התא: במקום לקרוא פעולה אחת מטבלת המדיניות, לולאה על כל הפעולות מחשבת לכל אחת `reward + self.gamma * self.Value[new_state]` ושומרת ב־`best_value` את הגדול ביותר, וזה הערך שנכתב בתא. טבלת המדיניות אינה משתתפת בחישוב כלל. השורה האחרונה, `self.Policy_improv()`, ממלאת אותה פעם אחת בסיום מתוך טבלת הערכים, כדי ש־`get_action` תמשיך לעבוד כפי שהיא. כל ארבע הפעולות נבדקות בכל תא, כי פעולה לכיוון קצה הלוח משאירה את הסוכן במקומו, כמו בפרק הקודם.
+
+**בדיקה.** ב־`Game.py` השורות אחרי יצירת הסוכן נראות עכשיו כך:
 
 <div class="code-panel" dir="ltr">
 
 ```python
-def value_iteration(env, values, gamma=0.95, accuracy=0.001):
-    sweeps = 0
-    while True:
-        delta = 0.0
-        for state, old_value in values.items():
-            if state == env.goal:
-                continue
-            best_value = float('-inf')
-            for action in env.get_actions(state):
-                next_state, reward = env(state, action)
-                candidate = reward + gamma * values[next_state]
-                best_value = max(best_value, candidate)
-            values[state] = best_value
-            delta = max(delta, abs(old_value - best_value))
-        sweeps += 1
-        if delta < accuracy:
-            return sweeps
+agent = AI_Agent(env)
+agent.Value_iteration()
+print ('Value*: \n', agent.Value)
+print ('Policy*: \n', agent.Policy)
 ```
 
 </div>
 
-הלולאה הפנימית מחשבת את הערך הטוב ביותר למצב אחד. הלולאה שמעליה מבקרת בכל המצבים, והלולאה החיצונית חוזרת על הסריקות עד שהטבלה מתייצבת. `float('-inf')` מבטיח שהפעולה הראשונה שנבדוק תחליף את ערך האתחול. לא מוסיפים או מסירים מפתחות בזמן המעבר על המילון, אלא מעדכנים ערכים של מפתחות קיימים.
-
-מצב היעד אינו מתעדכן: אין בו המשך אפיזודה. התגמול על ההגעה אליו כבר נכלל בעדכון של המצב הקודם. הסידורים שלא יכולים להגיע ליעד נשארים באפס באתחול ובתגמולים האלה.
-
-### בחירת פעולה ופתרון פאזל
-
-הטבלה מוכנה; עכשיו צריך להשתמש בה כדי לשחק. כאן נכנס ה־`argmax` שהזכרנו: לאחר חישוב הטבלה אין צורך לחזור על כל הסריקות בכל מהלך. בודקים רק את הפעולות האפשריות במצב הנוכחי, ובוחרים את זו שהתגמול המיידי שלה ועוד ערך ההמשך הם הגדולים ביותר:
-
-<div class="code-panel" dir="ltr">
-
-```python
-def get_action(env, state, values, gamma=0.95):
-    if state == env.goal:
-        return None
-    best_action = None
-    best_value = float('-inf')
-    for action in env.get_actions(state):
-        next_state, reward = env(state, action)
-        candidate = reward + gamma * values[next_state]
-        if candidate > best_value:
-            best_value = candidate
-            best_action = action
-    return best_action
-```
-
-</div>
-
-כך מפעילים את התכנון ומשתמשים בתוצאה על מצב המרוחק שני צעדים מהיעד:
-
-<div class="code-panel" dir="ltr">
-
-```python
-env = Puzzle()
-values = init_values()
-sweeps = value_iteration(env, values)
-state = (1, 2, 3, 4, 5, 6, 0, 7, 8)
-print(state)
-
-while state != env.goal:
-    action = get_action(env, state, values)
-    state, reward = env(state, action)
-    print(state)
-```
-
-</div>
+ההרצה בלוח 4×4 מדפיסה בטרמינל:
 
 **פלט**
 
 <div class="code-panel" dir="ltr">
 
 ```text
-(1, 2, 3, 4, 5, 6, 0, 7, 8)
-(1, 2, 3, 4, 5, 6, 7, 0, 8)
-(1, 2, 3, 4, 5, 6, 7, 8, 0)
+Value*:
+ [[0.59049 0.6561  0.729   0.81   ]
+ [0.6561  0.729   0.      0.9    ]
+ [0.729   0.81    0.9     1.     ]
+ [0.81    0.9     1.      0.     ]]
+Policy*:
+ [[1 1 1 3]
+ [1 3 3 3]
+ [1 1 1 3]
+ [1 1 1 3]]
 ```
 
 </div>
 
-כל שורה בפלט היא סידור הלוח, לפי סדר השורות, ו־0 מסמן את המשבצת הריקה. המשבצת הריקה זזה פעמיים ימינה, ובסוף הלוח מסודר. הערך של מצב ההתחלה הוא 0.95, משום שהתגמול 1 מתקבל בצעד השני: 0 + 0.95×1. הטבלה שחושבה יכולה לשמש גם מצבי התחלה אחרים; אין מחשבים אותה מחדש עבור כל פאזל.
-
-ההרצה הזאת קצרה, שני מהלכים בלבד, ואפשר לבדוק אותה בעין. כדי לראות שהטבלה באמת פותרת פאזל, ניקח סידור רחוק יותר: הלוח שבתמונה מרוחק 14 מהלכים מהיעד, וזהו המרחק הקצר ביותר האפשרי ממנו. אותה לולאה, עם אותה `get_action` ואותה טבלה, מסדרת אותו ב־14 מהלכים בדיוק, בלי מהלך מיותר. ערך מצב ההתחלה הוא 0.95<sup>13</sup>≈0.513, כי התגמול 1 מגיע במהלך ה־14.
+שתי הטבלאות זהות בדיוק לפלט של `Policy_Iteration` בפרק הקודם: אותה טבלת ערכים ואותה מדיניות (1 ימינה, 3 למטה), ולכן הרובוט הולך במסלול זהה עד היעד. ההבדל היחיד מן החצים שבהדגמה הוא בתאים שבהם שתי פעולות שקולות: הקוד בוחר את הראשונה לפי סדר ה־`Enum`, ולכן בפינה השמאלית העליונה הוא הולך ״ימינה״ ולא ״למטה״; שני המסלולים באותו אורך. מונה סריקות מראה 7 סריקות, שש עם שינוי ואחת שמאשרת שאין עוד שינוי, בדיוק כמו בהדגמה. במבוך 5×5 של המאגר מתקבלת אותה טבלת ערכים שקיבל Policy Iteration בפרק הקודם, הפעם ב־12 סריקות, והרובוט מגיע ליעד באותם 14 צעדים.
 
 <figure>
-<img src="../assets/rl/puzzle/puzzle-start.png" alt="פאזל שלוש על שלוש בחלון המשחק במצב ההתחלה: בשורה העליונה 2, 4, 1; באמצעית 7, 5, 3; בתחתונה 8, 6 והמשבצת הריקה" width="300" style="max-width:100%;height:auto;">
-<figcaption>מצב ההתחלה בחלון המשחק: 14 מהלכים מהיעד.</figcaption>
+<img src="../assets/rl/maze/maze-solved.gif" alt="הרובוט נע צעד אחר צעד מהפינה השמאלית העליונה, עוקף את שורות הקירות ומגיע לתא הירוק" width="400" style="max-width:100%;height:auto;">
+<figcaption>הסוכן במבוך 5×5 אחרי Value Iteration: אותו מסלול של 14 צעדים כמו בפרק הקודם. (אנימציה; בגרסה המודפסת מוצג פריים אחד.)</figcaption>
 </figure>
+
+<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L233-L236] -->
+
+### לסיום: שני האלגוריתמים בציור אחד
+
+בספרות מקובל לצייר את שני האלגוריתמים כך: קו אחד מייצג את כל הטבלאות שמתאימות בדיוק למדיניות כלשהי, וקו שני את כל המדיניות שהן הבחירה הטובה ביותר לפי טבלה כלשהי. הפתרון המיטבי הוא נקודת המפגש של שני הקווים.
 
 <figure>
-<img src="../assets/rl/puzzle/puzzle-solved.gif" alt="הסוכן מזיז את המשבצת הריקה מהלך אחר מהלך עד שהלוח מסודר 1 עד 8 והמשבצת הריקה בפינה הימנית התחתונה" width="300" style="max-width:100%;height:auto;">
-<figcaption>הסוכן פותר את הפאזל לפי טבלת הערכים, מהלך אחר מהלך, עד הסידור המלא. (אנימציה; בגרסה המודפסת מוצג פריים אחד.)</figcaption>
+<img src="../assets/slides/f421e7407b/image21.png" alt="שני תרשימי התכנסות: Policy Iteration בצעדים גדולים ו־Value Iteration בצעדים קטנים" style="width:322px;max-width:100%;height:auto;">
+<figcaption>למעלה (b): Policy Iteration מבצע הערכה מלאה עד הקו של הטבלאות המדויקות, ואז שיפור עד הקו של המדיניות החמדנית, ולכן מתקדם בצעדים גדולים. למטה (d): Value Iteration משלב בכל סריקה צעד הערכה אחד עם שיפור, ומתקדם בצעדים קטנים ורבים אל אותה נקודת מפגש.</figcaption>
 </figure>
 
-התמונות צולמו מחלון המשחק של פרויקט הפאזל; טבלת הערכים שהניעה את הפתרון חושבה בקוד הפרק. במאגר עצמו `Game.py` מערבב את הלוח באקראי, פותר אותו לעיני המשתמש ומערבב שוב.
+בפרק הבא ניקח את אותו אלגוריתם בדיוק, בלי לשנות בו רעיון, ונפעיל אותו על פאזל המספרים, שבו במקום 16 מצבים יש 362,880.
 
-שמרו את שני קובצי הקוד המקושרים בראש הפרק באותה תיקייה והפעילו את `puzzle_value_iteration.py`. ההרצה המלאה סורקת מאות אלפי מצבים. בקובץ המצורף נוספה גם בדיקת חזרה למצב שכבר בוקר, כדי שפתרון מתוך טבלה לא מתאימה לא יסתובב בלולאה ללא סוף.
-
-בסיס הדוגמה הוא [AI_Agent.py בענף הפתרון של הפאזל](https://github.com/MarkmanGilad/PuzzleNumber-AI/blob/a79bbb81aeb547f10fd7b1c4a967b0d5b80bec08/AI_Agent.py). הושמטו התצוגה, ההשהיה והדפסות האבחון בכל עדכון. מבנה האתחול, סריקות הערכים ובחירת הפעולה נשמרו.
-
-### מה קורה כשהמודל אינו ידוע?
-
-שני פרקי התכנון הדינמי נשענו על הנחה חזקה. החישוב השתמש ביכולת לשאול את הסביבה מה תהיה תוצאתה של כל פעולה — `env(state, action)` — בלי לשחק בפועל. בפאזל זה טבעי, אבל בעולם האמיתי ההנחה הזאת נשברת מהר. מול יריב, למשל, לא תמיד ידוע מראש באיזו פעולה הוא יבחר, ולכן לא ידוע בדיוק באיזה מצב נקבל שוב את התור. רובוט שלומד ללכת אינו יודע מראש איך הרצפה תגיב. מכאן נעבור ללמידה מתוך התנסות בפועל.
-
-אקראיות כשלעצמה אינה מונעת תכנון דינמי: אם הסתברויות המעברים ידועות, אפשר לחשב תוחלת במקום תוצאה יחידה. הקושי בפרקים הבאים הוא שהמודל אינו נתון לסוכן, והוא צריך ללמוד מדגימות.
-
-<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L227-L231] -->
+<!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L127-L127] [sources/RL/3.תכנון דינמי-המשך.pptx#L179-L179] -->
 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a href="04-Policy%20Iteration.md">→ הקודם</a>
 <a class="toc-link" href="../index.md">תוכן העניינים</a>
-<a href="06-%D7%9E%D7%95%D7%A0%D7%98%D7%94%20%D7%A7%D7%A8%D7%9C%D7%95.md">הבא ←</a>
+<a href="06-Value%20Iteration%20-%20puzzle%208.md">הבא ←</a>
 </nav>
 
 </div>

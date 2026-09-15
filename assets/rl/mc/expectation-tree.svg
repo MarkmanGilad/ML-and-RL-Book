@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="330" viewBox="0 0 680 330" font-family="Arial, sans-serif" font-size="17">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#153b56"/>
+    </marker>
+  </defs>
+  <!-- edges -->
+  <line x1="340" y1="62" x2="340" y2="128" stroke="#153b56" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="326" y1="158" x2="186" y2="238" stroke="#c8102e" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="354" y1="158" x2="494" y2="238" stroke="#153b56" stroke-width="3" marker-end="url(#arrow)"/>
+  <!-- nodes -->
+  <circle cx="340" cy="42" r="20" fill="#ffffff" stroke="#153b56" stroke-width="3"/>
+  <circle cx="340" cy="150" r="14" fill="#153b56"/>
+  <circle cx="170" cy="258" r="20" fill="#ffffff" stroke="#153b56" stroke-width="3"/>
+  <circle cx="510" cy="258" r="20" fill="#ffffff" stroke="#153b56" stroke-width="3"/>
+  <!-- labels -->
+  <text x="372" y="48" fill="#153b56" font-weight="bold">S<tspan baseline-shift="sub" font-size="12">t</tspan></text>
+  <text x="352" y="102" fill="#153b56" font-weight="bold">a<tspan baseline-shift="sub" font-size="12">1</tspan></text>
+  <text x="362" y="156" fill="#153b56">after state</text>
+  <text x="196" y="196" fill="#c8102e" font-weight="bold">P = 80%</text>
+  <text x="418" y="196" fill="#153b56" font-weight="bold">P = 20%</text>
+  <text x="122" y="302" fill="#153b56" font-weight="bold">R = −0.4</text>
+  <text x="472" y="302" fill="#153b56" font-weight="bold">R = 0.7</text>
+  <!-- expectation -->
+  <rect x="200" y="14" width="0" height="0" fill="none"/>
+  <text x="340" y="326" fill="#0b3d5c" font-weight="bold" text-anchor="middle" font-size="18">V(S<tspan baseline-shift="sub" font-size="12">t</tspan>) = 0.8 × (−0.4) + 0.2 × 0.7 = −0.18</text>
+</svg>
