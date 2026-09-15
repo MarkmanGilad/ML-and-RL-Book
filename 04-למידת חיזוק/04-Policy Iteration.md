@@ -37,7 +37,8 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book pre .hljs-number { color: #075e68 !important; }
 .book pre .hljs-comment { color: #526174 !important; }
 .book pre .hljs-built_in, .book pre .hljs-title { color: #135b96 !important; }
-.book table { width: 75%; max-width: 75%; margin: 18px auto; }
+.book table { width: 75%; max-width: 75%; margin: 18px auto; background: #f3f6fa; }
+.book th, .book td { border: 1px solid #ccd7df; padding: 8px 12px; }
 .book th, .book td { text-align: right; }
 .book .small { font-size: .9em; opacity: .8; }
 .book .python-intro { display: flex; align-items: center; gap: 28px; padding: 22px 28px; margin: 24px 0; background: #eef5fc; color: #183e63; border-right: 6px solid #3776ab; border-radius: 10px; }
@@ -45,7 +46,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .python-fact { background: #fff7d6; color: #423611; border-right: 6px solid #ffd343; border-radius: 8px; padding: 18px 24px; margin: 22px 0; }
 .book .python-fact strong { font-size: 24px; }
 .book img { max-width: 100%; height: auto; }
-.book figure { margin: 24px auto; text-align: center; }
+.book figure { box-sizing: border-box; width: 75%; max-width: 75%; margin: 24px auto; padding: 16px 20px; background: #f3f6fa; border: 1px solid #ccd7df; border-radius: 8px; text-align: center; }
 .book figure img { display: block; margin: auto; }
 .book figcaption { direction: rtl; text-align: center; font-size: .9em; color: #445566; }
 @media print { .book > h2 { break-before: page; page-break-before: always; } }
@@ -91,9 +92,10 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 </style>
 
 <style>
-.book .formula { direction:ltr!important; text-align:center!important; overflow-x:auto;
-  padding:16px; background:#eef5fc; color:#173b52; margin:20px auto; font-size:1.15em; }
-.book .grid { direction:ltr!important; width:auto!important; margin:20px auto; border-collapse:collapse; }
+.book .formula { box-sizing:border-box; width:75%; max-width:75%; direction:ltr!important; text-align:center!important; overflow-x:auto;
+  padding:16px 20px; background:#f3f6fa; color:#1f2937; border:1px solid #ccd7df; border-radius:8px; margin:20px auto; font-size:1.15em; }
+.book .grid-panel { box-sizing:border-box; width:75%; max-width:75%; margin:20px auto; padding:16px 20px; background:#f3f6fa; border:1px solid #ccd7df; border-radius:8px; }
+.book .grid { direction:ltr!important; width:auto!important; max-width:100%!important; margin:0 auto; border-collapse:collapse; background:#fff; }
 .book .grid td { direction:ltr!important; text-align:center!important; width:64px; height:48px; border:1px solid #8199aa; }
 .book .grid .goal { background:#d3efdc; } .book .grid .bad { background:#f4d7d7; }
 </style>
@@ -144,12 +146,14 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 בפרק הזה נתחיל ממדיניות ״למטה״, ובתא שמשמאל ליעד נפנה ימינה. בשני התאים השמאליים בשורה התחתונה נפנה למעלה, כדי שכל הפעולות שבקוד יהיו חוקיות. כך נוצרות שם לולאות ללא תגמול. זו מדיניות התחלתית חלשה, שאותה נשפר.
 
+<div class="grid-panel">
 <table class="grid" dir="ltr">
 <tr><td>↓</td><td>↓</td><td>↓</td><td>↓</td></tr>
 <tr><td>↓</td><td>↓</td><td class="bad">סיום</td><td>↓</td></tr>
 <tr><td>↓</td><td>↓</td><td>↓</td><td>↓</td></tr>
 <tr><td>↑</td><td>↑</td><td>→</td><td class="goal">סיום</td></tr>
 </table>
+</div>
 
 בקוד נייצג מדיניות כמילון: המפתח הוא מצב (זוג שורה ועמודה) והערך הוא הפעולה שנבחרה בו. הפונקציה הבאה יוצרת אותה בעזרת קבועי הסביבה:
 
@@ -184,12 +188,14 @@ def initial_policy(env):
 
 נעקוב אחר ההתפשטות של הערכים במדיניות ״למטה״ שבנינו. תחילה מתקבל ‎−1 מעל תא ההפסד, ו־1 בשני שכני היעד. לאחר מכן מתפשט 0.9 אל המצבים שמגיעים לשכנים האלה לפי המדיניות, ולבסוף 0.81 לתא הימני העליון. בסיום ההערכה הראשונה מתקבלת:
 
+<div class="grid-panel">
 <table class="grid" dir="ltr">
 <tr><td>0</td><td>0</td><td>−1</td><td>0.81</td></tr>
 <tr><td>0</td><td>0</td><td class="bad">0</td><td>0.9</td></tr>
 <tr><td>0</td><td>0</td><td>0.9</td><td>1</td></tr>
 <tr><td>0</td><td>0</td><td>1</td><td class="goal">0</td></tr>
 </table>
+</div>
 
 העמודות השמאליות אינן מקבלות ערך חיובי רק משום שיש יעד במקום אחר בלוח: המדיניות הנוכחית עדיין אינה מובילה אותן אליו. זו נקודה חשובה — V מודדת את המדיניות, לא את הלוח. מצב שממנו המדיניות מסתובבת בלולאה ללא תגמול שווה 0, גם אם היעד נמצא במרחק צעד ממנו.
 
@@ -266,26 +272,30 @@ def policy_improv(env, policy, values, gamma=0.9):
 
 בשיפור הראשון התא שמעל תא ההפסד פונה ימינה. גם שני התאים התחתונים בעמודה השנייה פונים ימינה. לאחר הערכה מחדש מתקבלת הטבלה הבאה, בעיגול לשלוש ספרות:
 
+<div class="grid-panel">
 <table class="grid" dir="ltr">
 <tr><td>0</td><td>0.656</td><td>0.729</td><td>0.810</td></tr>
 <tr><td>0</td><td>0.729</td><td class="bad">0</td><td>0.900</td></tr>
 <tr><td>0</td><td>0.810</td><td>0.900</td><td>1</td></tr>
 <tr><td>0</td><td>0.900</td><td>1</td><td class="goal">0</td></tr>
 </table>
+</div>
 
 כעת השיפור הבא יכול להפנות גם את תאי העמודה הראשונה ימינה. הערכה נוספת מפיצה אליהם את ערכי ההמשך:
 
+<div class="grid-panel">
 <table class="grid" dir="ltr">
 <tr><td>0.590</td><td>0.656</td><td>0.729</td><td>0.810</td></tr>
 <tr><td>0.656</td><td>0.729</td><td class="bad">0</td><td>0.900</td></tr>
 <tr><td>0.729</td><td>0.810</td><td>0.900</td><td>1</td></tr>
 <tr><td>0.810</td><td>0.900</td><td>1</td><td class="goal">0</td></tr>
 </table>
+</div>
 
 זהו התפקיד של ההחלפה בין השלבים: שינוי המדיניות מאפשר לערכים חדשים להתפשט, והערכים האלה מאפשרים למצוא שינוי נוסף במדיניות. הטבלה האחרונה זהה לטבלה שראינו בפרק הקודם עבור המדיניות שמובילה ליעד בדרך קצרה — הגענו אליה מבלי שמישהו כתב אותה בידיים, רק מתוך חוקי המשחק.
 
 <figure>
-<img src="../assets/slides/cf2915c6c9/image25.png" alt="תרשים הערכה ושיפור לסירוגין: מעגל בין π ל־V ומסלול מזגזג המתכנס אל המדיניות המיטבית" style="width:75%;max-width:100%;height:auto;">
+<img src="../assets/slides/cf2915c6c9/image25.png" alt="תרשים הערכה ושיפור לסירוגין: מעגל בין π ל־V ומסלול מזגזג המתכנס אל המדיניות המיטבית" style="width:100%;max-width:100%;height:auto;">
 <figcaption>שני השלבים לסירוגין. מימין: הערכה (evaluation) מובילה מהמדיניות π אל טבלת הערכים V שלה, ושיפור חמדני (improvement) מוביל מ־V למדיניות חדשה, וחוזר חלילה עד π* ו־V*. משמאל: כל הערכה מקרבת אותנו לקו העליון (הערכים מתאימים למדיניות), וכל שיפור מקרב אותנו לקו התחתון (המדיניות חמדנית לפי הערכים); המסלול המזגזג מתכנס לנקודת המפגש.</figcaption>
 </figure>
 
@@ -380,6 +390,7 @@ print(f'{len(path) - 1} steps: {path}')
 
 הסוכן הגיע ליעד ב־14 צעדים, שהם המסלול הקצר ביותר האפשרי, בלי להיכנס לאף תא אדום ובלי צעד מיותר. הקובץ `maze_demo.py` מדפיס גם את המדיניות ואת טבלת הערכים. הנה המדיניות כחצים; לתאים הסופיים אין פעולה:
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="מדיניות מיטבית במבוך חמש על חמש">
 <tr><td>→</td><td>→</td><td>→</td><td>↓</td><td>←</td></tr>
 <tr><td class="bad">−1</td><td class="bad">−1</td><td class="bad">−1</td><td>↓</td><td class="bad">−1</td></tr>
@@ -387,9 +398,11 @@ print(f'{len(path) - 1} steps: {path}')
 <tr><td>↓</td><td class="bad">−1</td><td class="bad">−1</td><td class="bad">−1</td><td class="bad">−1</td></tr>
 <tr><td>→</td><td>→</td><td>→</td><td>→</td><td class="goal">+1</td></tr>
 </table>
+</div>
 
 שימו לב שגם תאים שאינם על המסלול קיבלו פעולה: המדיניות מוגדרת לכל מצב, לא רק למצבים שנעבור בהם מההתחלה. התא הימני העליון, למשל, פונה שמאלה, כי הפתח בשורת הקירות נמצא משמאלו. וטבלת הערכים, בעיגול לשלוש ספרות:
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="ערכי המצבים במבוך חמש על חמש">
 <tr><td>0.254</td><td>0.282</td><td>0.314</td><td>0.349</td><td>0.314</td></tr>
 <tr><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td><td>0.387</td><td class="bad">0</td></tr>
@@ -397,6 +410,7 @@ print(f'{len(path) - 1} steps: {path}')
 <tr><td>0.656</td><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td></tr>
 <tr><td>0.729</td><td>0.810</td><td>0.900</td><td>1.000</td><td class="goal">0</td></tr>
 </table>
+</div>
 
 לאורך המסלול הערכים יורדים מהיעד אחורה: 1, 0.9, 0.81 וכן הלאה, כפל ב־0.9 בכל צעד. מצב ההתחלה מרוחק 14 צעדים מהיעד, ולכן ערכו 0.9<sup>13</sup>≈0.254: התגמול 1 מתקבל בצעד ה־14, ולפניו 13 צעדים ללא תגמול. כך אפשר לקרוא מהטבלה את המרחק ליעד בלי לצייר את המסלול.
 

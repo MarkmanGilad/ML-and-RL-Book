@@ -37,7 +37,8 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book pre .hljs-number { color: #075e68 !important; }
 .book pre .hljs-comment { color: #526174 !important; }
 .book pre .hljs-built_in, .book pre .hljs-title { color: #135b96 !important; }
-.book table { width: 75%; max-width: 75%; margin: 18px auto; }
+.book table { width: 75%; max-width: 75%; margin: 18px auto; background: #f3f6fa; }
+.book th, .book td { border: 1px solid #ccd7df; padding: 8px 12px; }
 .book th, .book td { text-align: right; }
 .book .small { font-size: .9em; opacity: .8; }
 .book .python-intro { display: flex; align-items: center; gap: 28px; padding: 22px 28px; margin: 24px 0; background: #eef5fc; color: #183e63; border-right: 6px solid #3776ab; border-radius: 10px; }
@@ -45,7 +46,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .python-fact { background: #fff7d6; color: #423611; border-right: 6px solid #ffd343; border-radius: 8px; padding: 18px 24px; margin: 22px 0; }
 .book .python-fact strong { font-size: 24px; }
 .book img { max-width: 100%; height: auto; }
-.book figure { margin: 24px auto; text-align: center; }
+.book figure { box-sizing: border-box; width: 75%; max-width: 75%; margin: 24px auto; padding: 16px 20px; background: #f3f6fa; border: 1px solid #ccd7df; border-radius: 8px; text-align: center; }
 .book figure img { display: block; margin: auto; }
 .book figcaption { direction: rtl; text-align: center; font-size: .9em; color: #445566; }
 @media print { .book > h2 { break-before: page; page-break-before: always; } }
@@ -91,9 +92,10 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 </style>
 
 <style>
-.book .formula { direction:ltr!important; text-align:center!important; overflow-x:auto;
-  padding:16px; background:#eef5fc; color:#173b52; margin:20px auto; font-size:1.15em; }
-.book .grid { direction:ltr!important; width:auto!important; margin:20px auto; border-collapse:collapse; }
+.book .formula { box-sizing:border-box; width:75%; max-width:75%; direction:ltr!important; text-align:center!important; overflow-x:auto;
+  padding:16px 20px; background:#f3f6fa; color:#1f2937; border:1px solid #ccd7df; border-radius:8px; margin:20px auto; font-size:1.15em; }
+.book .grid-panel { box-sizing:border-box; width:75%; max-width:75%; margin:20px auto; padding:16px 20px; background:#f3f6fa; border:1px solid #ccd7df; border-radius:8px; }
+.book .grid { direction:ltr!important; width:auto!important; max-width:100%!important; margin:0 auto; border-collapse:collapse; background:#fff; }
 .book .grid td { direction:ltr!important; text-align:center!important; width:64px; height:48px; border:1px solid #8199aa; }
 .book .grid .goal { background:#d3efdc; } .book .grid .bad { background:#f4d7d7; }
 </style>
@@ -121,7 +123,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 **מודל סביבה–סוכן** הוא דרך לבנות מערכת שפותרת בעיה בעזרת בינה מלאכותית. הרעיון פשוט: מפרידים בין **העולם** שבו הבעיה מתרחשת לבין **מי שפועל** בתוכו. העולם מתואר על ידי רכיב אחד, הסביבה; הפועל מתואר על ידי רכיב אחר, הסוכן; וביניהם עוברים רק שני דברים: הסוכן מקבל מהסביבה תיאור של מה שקורה בה, ומחזיר לה פעולה. המודל מתאים לתיאור רובוט שנע בחדר, מכונית שנוסעת בכביש, וגם משחק שבו המחשב הוא אחד המשתתפים. בהמשך הפרק נראה שהמודל הזה הוא גם הבסיס למודל המתמטי MDP, שעליו נבנית למידת החיזוק.
 
 <figure>
-<img src="../assets/slides/db04c34db1/image6.png" alt="עיגול ירוק בשם Environment; ממנו יוצא חץ Percepts אל דמות של סוכן עם חיישנים, ומהסוכן חוזר חץ Actions אל הסביבה" style="width:60%;max-width:100%;height:auto;">
+<img src="../assets/slides/db04c34db1/image6.png" alt="עיגול ירוק בשם Environment; ממנו יוצא חץ Percepts אל דמות של סוכן עם חיישנים, ומהסוכן חוזר חץ Actions אל הסביבה" style="width:80%;max-width:100%;height:auto;">
 <figcaption>המודל בציור אחד: הסביבה (Environment) שולחת לסוכן את מה שהוא קולט (Percepts) דרך החיישנים שלו, והסוכן מחזיר לסביבה פעולות (Actions) שמשנות אותה.</figcaption>
 </figure>
 
@@ -275,7 +277,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 S<sub>0</sub> הוא המצב ההתחלתי, A<sub>0</sub> הפעולה שהסוכן בחר בו, R<sub>0</sub> התגמול שהתקבל עליה, S<sub>1</sub> המצב שאליו הגיעה הסביבה, וכך הלאה עד S<sub>T</sub>, המצב הסופי. משחק שלם של איקס עיגול הוא שרשרת אחת כזאת. הציור הבא מראה חוליה אחת בשרשרת: הסוכן מקבל מצב ותגמול, מחזיר פעולה, והסביבה משיבה בתגמול ובמצב הבא.
 
 <figure>
-<img src="../assets/slides/5552cf4373/image10.jpg" alt="תרשים מעגלי: מהסביבה יוצאים מצב ותגמול אל הסוכן, ומהסוכן יוצאת פעולה אל הסביבה" style="width:60%;max-width:100%;height:auto;">
+<img src="../assets/slides/5552cf4373/image10.jpg" alt="תרשים מעגלי: מהסביבה יוצאים מצב ותגמול אל הסוכן, ומהסוכן יוצאת פעולה אל הסביבה" style="width:80%;max-width:100%;height:auto;">
 <figcaption>חוליה אחת בשרשרת: הסוכן (Agent) מקבל מצב S<sub>t</sub> ותגמול R<sub>t</sub>, בוחר פעולה A<sub>t</sub>, והסביבה (Environment) מחזירה את התגמול ואת המצב של הצעד הבא. בציור, שלקוח מספרם של Sutton ו־Barto, מה שחוזר מהסביבה מסומן R<sub>t+1</sub> ו־S<sub>t+1</sub>; בספר אנחנו מסמנים את התגמול על הפעולה שבזמן t ב־r<sub>t</sub>.</figcaption>
 </figure>
 
@@ -302,48 +304,58 @@ S<sub>0</sub> הוא המצב ההתחלתי, A<sub>0</sub> הפעולה שהס�
 
 איקס־עיגול הוא משחק קטן, אבל יש בו אלפי מצבים אפשריים — קשה לצייר אותם על דף. לכן נמחיש את המושגים על משחק פשוט עוד יותר, שכל מצביו נראים בבת אחת: **Grid World**, לוח משבצות שהסוכן נע בו. נשתמש בלוח 4×4. המצב הוא מיקום הסוכן, והפעולות הן למעלה, למטה, שמאלה וימינה. מתחילים בפינה השמאלית העליונה. כניסה ליעד הירוק נותנת 1, וכניסה לתא האדום נותנת ‎−1; שני המצבים האלה מסיימים את המשחק. בשאר המעברים התגמול 0. שורות ועמודות בקוד נספרות מאפס.
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="לוח Grid World בגודל ארבע על ארבע">
 <tr><td>התחלה</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td>0</td><td>0</td><td class="bad">−1</td><td>0</td></tr>
 <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td>0</td><td>0</td><td>0</td><td class="goal">+1</td></tr>
 </table>
+</div>
 
 נסכם את ארבעת מרכיבי ה־MDP במשחק הזה: **המצב** הוא מיקום הסוכן, זוג (שורה, עמודה); **הפעולות** הן up, down, left, right; **התגמול** הוא 1 בכניסה לירוק, ‎−1 בכניסה לאדום ו־0 בכל צעד אחר; ו**המדיניות** היא הכלל שלפיו הסוכן בוחר לאן לנוע מכל תא.
 
 אפשר לייצג מדיניות בטבלת חצים: חץ בכל תא אומר לאן לנוע ממנו. נבחן תחילה את המדיניות ״למעלה״: הסוכן הולך תמיד למעלה, אלא אם הוא צמוד לתא הירוק, ואז הולך לכיוונו. כלומר שני חריגים: מהתא שמשמאל ליעד פונים ימינה, ומהתא שמעליו יורדים.
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="מדיניות למעלה עם שני חריגים ליד היעד">
 <tr><td>↑</td><td>↑</td><td>↑</td><td>↑</td></tr>
 <tr><td>↑</td><td>↑</td><td class="bad"></td><td>↑</td></tr>
 <tr><td>↑</td><td>↑</td><td>↑</td><td>↓</td></tr>
 <tr><td>↑</td><td>↑</td><td>→</td><td class="goal"></td></tr>
 </table>
+</div>
 
 הסוכן אינו משנה את המדיניות רק משום שהיא אינה מביאה אותו ליעד. לצורך ההמחשה, ניסיון לצאת מהלוח אינו משנה את המצב, ולכן במקומות מסוימים מדיניות זו משאירה את הסוכן ללא התקדמות: מהתא (1,0), למשל, הוא יעלה ל־(0,0) ויישאר שם לנצח.
 
 הנה עוד שלוש דוגמאות לפונקציית מדיניות על אותו לוח. בראשונה הסוכן בוחר בכל תא צעד אקראי מבין ארבעת הכיוונים; בשנייה הוא הולך לאורך השורה העליונה ויורד בעמודה הימנית אל היעד, ומהשורות התחתונות מגיע אליו דרך השורה התחתונה; בשלישית יש תאים שבהם המדיניות מתירה שתי פעולות, והסוכן בוחר ביניהן.
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="מדיניות אקראית: ארבעה כיוונים בכל תא">
 <tr><td>↑↓←→</td><td>↑↓←→</td><td>↑↓←→</td><td>↑↓←→</td></tr>
 <tr><td>↑↓←→</td><td>↑↓←→</td><td class="bad"></td><td>↑↓←→</td></tr>
 <tr><td>↑↓←→</td><td>↑↓←→</td><td>↑↓←→</td><td>↑↓←→</td></tr>
 <tr><td>↑↓←→</td><td>↑↓←→</td><td>↑↓←→</td><td class="goal"></td></tr>
 </table>
+</div>
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="מדיניות ימינה ולמטה">
 <tr><td>→</td><td>→</td><td>→</td><td>↓</td></tr>
 <tr><td>→</td><td>→</td><td class="bad"></td><td>↓</td></tr>
 <tr><td>↑</td><td>↑</td><td>↓</td><td>↓</td></tr>
 <tr><td>→</td><td>→</td><td>→</td><td class="goal"></td></tr>
 </table>
+</div>
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="מדיניות שבחלק מהתאים שתי פעולות אפשריות">
 <tr><td>↑ →</td><td>→</td><td>→</td><td>↓</td></tr>
 <tr><td>→</td><td>→ ↓</td><td class="bad"></td><td>↓</td></tr>
 <tr><td>↑</td><td>↑</td><td>↑</td><td>↓</td></tr>
 <tr><td>→</td><td>→</td><td>↑ →</td><td class="goal"></td></tr>
 </table>
+</div>
 
 שימו לב שהמדיניות השנייה מובילה חלק מהתאים היישר אל התא האדום: מ־(1,0) הולכים ימינה, ומ־(1,1) ימינה שוב, אל ההפסד. מדיניות אינה חייבת להיות טובה; היא רק חייבת לומר מה עושים בכל מצב.
 
@@ -364,30 +376,36 @@ S<sub>0</sub> הוא המצב ההתחלתי, A<sub>0</sub> הפעולה שהס�
 
 טבלת הערכים של מדיניות זו, לפי סדר השורות בלוח:
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="ערכי מדיניות למעלה">
 <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td>0</td><td>0</td><td class="bad">0</td><td>0</td></tr>
 <tr><td>0</td><td>0</td><td>−1</td><td>1</td></tr>
 <tr><td>0</td><td>0</td><td>1</td><td class="goal">0</td></tr>
 </table>
+</div>
 
 ערך המצב תלוי במדיניות. אותו מיקום יכול להיות טוב במדיניות אחת ורע באחרת, מפני שהמשך הדרך יהיה שונה. נחשב את V גם למדיניות ״ימינה ולמטה״ שראינו קודם:
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="מדיניות ימינה ולמטה">
 <tr><td>→</td><td>→</td><td>→</td><td>↓</td></tr>
 <tr><td>→</td><td>→</td><td class="bad"></td><td>↓</td></tr>
 <tr><td>↑</td><td>↑</td><td>↓</td><td>↓</td></tr>
 <tr><td>→</td><td>→</td><td>→</td><td class="goal"></td></tr>
 </table>
+</div>
 
 מהשורה העליונה הסוכן הולך ימינה, יורד בעמודה הימנית ומגיע ליעד, ולכן ערך כל התאים שם הוא 1; כך גם לתאים (2,2), (2,3) ולשורה התחתונה. לעומת זאת מהתאים (1,0) ו־(1,1) הסוכן הולך ימינה היישר אל התא האדום, ולכן ערכם ‎−1; ומהתאים (2,0) ו־(2,1) הוא עולה לשורה 1 ומגיע לאותו הפסד, ולכן גם ערכם ‎−1. אם המדיניות תשתנה, גם פונקציית הערך תשתנה:
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="ערכי מדיניות ימינה ולמטה ללא היוון">
 <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
 <tr><td>−1</td><td>−1</td><td class="bad">0</td><td>1</td></tr>
 <tr><td>−1</td><td>−1</td><td>1</td><td>1</td></tr>
 <tr><td>1</td><td>1</td><td>1</td><td class="goal">0</td></tr>
 </table>
+</div>
 
 <!-- editorlm-source-ref: [sources/RL/1. למידת חיזוק - מבוא.pptx#L109-L171] -->
 
@@ -421,21 +439,25 @@ V נותנת מספר אחד למצב תחת מדיניות נתונה. Q מאפ
 
 נחשב את פונקציית הערך עם γ=0.9 עבור המדיניות ״ימינה ולמטה״ מהסעיף הקודם. מהתא (0,0) עוברים ששה צעדים עד היעד, וחמישה מהם ללא תגמול, ולכן ערכו 0.9<sup>5</sup>≈0.590; מהתא (1,0) צעד אחד ללא תגמול ואז כניסה לתא האדום, ולכן ‎−0.9; ומהתא (2,0) עולים קודם ל־(1,0), ולכן ‎−0.81:
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="ערכי מדיניות ימינה ולמטה עם גמא תשע עשיריות">
 <tr><td>0.590</td><td>0.656</td><td>0.729</td><td>0.810</td></tr>
 <tr><td>−0.900</td><td>−1</td><td class="bad">0</td><td>0.900</td></tr>
 <tr><td>−0.810</td><td>−0.900</td><td>0.900</td><td>1</td></tr>
 <tr><td>0.810</td><td>0.900</td><td>1</td><td class="goal">0</td></tr>
 </table>
+</div>
 
 לעומת זאת, במדיניות שמביאה מכל מצב שאינו סופי ליעד בדרך קצרה, מתקבלת הטבלה הבאה. המספרים מעוגלים לשלוש ספרות אחרי הנקודה. שימו לב שהערך הולך וקטן ככל שמתרחקים מהיעד: כל צעד נוסף בדרך מכפיל את הערך ב־0.9. כך ההיוון נותן לנו בחינם מידע על המרחק — מצב "קרוב לניצחון" מקבל ערך גבוה יותר ממצב רחוק, גם כששניהם מובילים בסופו של דבר לאותו תגמול:
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="ערכי מדיניות המובילה ליעד עם גמא תשע עשיריות">
 <tr><td>0.590</td><td>0.656</td><td>0.729</td><td>0.810</td></tr>
 <tr><td>0.656</td><td>0.729</td><td class="bad">0</td><td>0.900</td></tr>
 <tr><td>0.729</td><td>0.810</td><td>0.900</td><td>1</td></tr>
 <tr><td>0.810</td><td>0.900</td><td>1</td><td class="goal">0</td></tr>
 </table>
+</div>
 
 היוון מפחית את השפעת העתיד; הוא אינו פקודת עצירה של המשחק. אם רוצים להגביל את משך הריצה, צריך לעשות זאת בנפרד. בהשוואת מדיניות נשתמש באותה הגדרת תגמולים ובאותו γ.
 

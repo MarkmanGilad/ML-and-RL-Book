@@ -37,7 +37,8 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book pre .hljs-number { color: #075e68 !important; }
 .book pre .hljs-comment { color: #526174 !important; }
 .book pre .hljs-built_in, .book pre .hljs-title { color: #135b96 !important; }
-.book table { width: 75%; max-width: 75%; margin: 18px auto; }
+.book table { width: 75%; max-width: 75%; margin: 18px auto; background: #f3f6fa; }
+.book th, .book td { border: 1px solid #ccd7df; padding: 8px 12px; }
 .book th, .book td { text-align: right; }
 .book .small { font-size: .9em; opacity: .8; }
 .book .python-intro { display: flex; align-items: center; gap: 28px; padding: 22px 28px; margin: 24px 0; background: #eef5fc; color: #183e63; border-right: 6px solid #3776ab; border-radius: 10px; }
@@ -45,7 +46,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .python-fact { background: #fff7d6; color: #423611; border-right: 6px solid #ffd343; border-radius: 8px; padding: 18px 24px; margin: 22px 0; }
 .book .python-fact strong { font-size: 24px; }
 .book img { max-width: 100%; height: auto; }
-.book figure { margin: 24px auto; text-align: center; }
+.book figure { box-sizing: border-box; width: 75%; max-width: 75%; margin: 24px auto; padding: 16px 20px; background: #f3f6fa; border: 1px solid #ccd7df; border-radius: 8px; text-align: center; }
 .book figure img { display: block; margin: auto; }
 .book figcaption { direction: rtl; text-align: center; font-size: .9em; color: #445566; }
 @media print { .book > h2 { break-before: page; page-break-before: always; } }
@@ -91,9 +92,10 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 </style>
 
 <style>
-.book .formula { direction:ltr!important; text-align:center!important; overflow-x:auto;
-  padding:16px; background:#eef5fc; color:#173b52; margin:20px auto; font-size:1.15em; }
-.book .grid { direction:ltr!important; width:auto!important; margin:20px auto; border-collapse:collapse; }
+.book .formula { box-sizing:border-box; width:75%; max-width:75%; direction:ltr!important; text-align:center!important; overflow-x:auto;
+  padding:16px 20px; background:#f3f6fa; color:#1f2937; border:1px solid #ccd7df; border-radius:8px; margin:20px auto; font-size:1.15em; }
+.book .grid-panel { box-sizing:border-box; width:75%; max-width:75%; margin:20px auto; padding:16px 20px; background:#f3f6fa; border:1px solid #ccd7df; border-radius:8px; }
+.book .grid { direction:ltr!important; width:auto!important; max-width:100%!important; margin:0 auto; border-collapse:collapse; background:#fff; }
 .book .grid td { direction:ltr!important; text-align:center!important; width:64px; height:48px; border:1px solid #8199aa; }
 .book .grid .goal { background:#d3efdc; } .book .grid .bad { background:#f4d7d7; }
 </style>
@@ -154,17 +156,20 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 בסיום מתקבלת הטבלה הבאה, בעיגול לשלוש ספרות. השורות נספרות מלמעלה והעמודות משמאל; תאי הסיום מסומנים בצבע ונשארים בערך 0, מפני שהתגמול ניתן בכניסה אליהם. זו בדיוק הטבלה שאליה הגיע Policy Iteration בפרק הקודם — אבל הפעם בלי טבלת מדיניות ובלי הפרדה בין הערכה לשיפור.
 
+<div class="grid-panel">
 <table class="grid" dir="ltr">
 <tr><td>0.590</td><td>0.656</td><td>0.729</td><td>0.810</td></tr>
 <tr><td>0.656</td><td>0.729</td><td class="bad">0</td><td>0.900</td></tr>
 <tr><td>0.729</td><td>0.810</td><td>0.900</td><td>1.000</td></tr>
 <tr><td>0.810</td><td>0.900</td><td>1.000</td><td class="goal">0</td></tr>
 </table>
+</div>
 
 <!-- editorlm-source-ref: [sources/RL/3.תכנון דינמי-המשך.pptx#L121-L203] -->
 
 אותו כלל עדכון פועל גם על [מבוך 5×5 שפתרנו בסוף הפרק הקודם](04-Policy%20Iteration.md). מתחילים מטבלת אפסים, סורקים את המצבים ובכל תא שומרים את הציון הגבוה ביותר מבין הפעולות החוקיות; המידע על היעד מתפשט לאורך המסדרון, מסביב לשורות הקירות, עד מצב ההתחלה. הטבלה המתקבלת זהה לזו ש־Policy Iteration הגיע אליה, ולכן גם המסלול שהסוכן יבחר לפיה זהה: 14 צעדים אל היעד.
 
+<div class="grid-panel">
 <table class="grid" dir="ltr" aria-label="ערכי המצבים במבוך חמש על חמש לפי Value Iteration">
 <tr><td>0.254</td><td>0.282</td><td>0.314</td><td>0.349</td><td>0.314</td></tr>
 <tr><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td><td>0.387</td><td class="bad">0</td></tr>
@@ -172,6 +177,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 <tr><td>0.656</td><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td><td class="bad">0</td></tr>
 <tr><td>0.729</td><td>0.810</td><td>0.900</td><td>1.000</td><td class="goal">0</td></tr>
 </table>
+</div>
 
 <a id="bootstrapping"></a>
 ### Bootstrapping — לומדים מהערכות קיימות

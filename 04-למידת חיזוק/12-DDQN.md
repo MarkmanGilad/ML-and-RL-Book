@@ -37,7 +37,8 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book pre .hljs-number { color: #075e68 !important; }
 .book pre .hljs-comment { color: #526174 !important; }
 .book pre .hljs-built_in, .book pre .hljs-title { color: #135b96 !important; }
-.book table { width: 75%; max-width: 75%; margin: 18px auto; }
+.book table { width: 75%; max-width: 75%; margin: 18px auto; background: #f3f6fa; }
+.book th, .book td { border: 1px solid #ccd7df; padding: 8px 12px; }
 .book th, .book td { text-align: right; }
 .book .small { font-size: .9em; opacity: .8; }
 .book .python-intro { display: flex; align-items: center; gap: 28px; padding: 22px 28px; margin: 24px 0; background: #eef5fc; color: #183e63; border-right: 6px solid #3776ab; border-radius: 10px; }
@@ -45,7 +46,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 .book .python-fact { background: #fff7d6; color: #423611; border-right: 6px solid #ffd343; border-radius: 8px; padding: 18px 24px; margin: 22px 0; }
 .book .python-fact strong { font-size: 24px; }
 .book img { max-width: 100%; height: auto; }
-.book figure { margin: 24px auto; text-align: center; }
+.book figure { box-sizing: border-box; width: 75%; max-width: 75%; margin: 24px auto; padding: 16px 20px; background: #f3f6fa; border: 1px solid #ccd7df; border-radius: 8px; text-align: center; }
 .book figure img { display: block; margin: auto; }
 .book figcaption { direction: rtl; text-align: center; font-size: .9em; color: #445566; }
 @media print { .book > h2 { break-before: page; page-break-before: always; } }
@@ -91,9 +92,10 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 </style>
 
 <style>
-.book .formula { direction:ltr!important; text-align:center!important; overflow-x:auto;
-  padding:16px; background:#eef5fc; color:#173b52; margin:20px auto; font-size:1.15em; }
-.book .grid { direction:ltr!important; width:auto!important; margin:20px auto; border-collapse:collapse; }
+.book .formula { box-sizing:border-box; width:75%; max-width:75%; direction:ltr!important; text-align:center!important; overflow-x:auto;
+  padding:16px 20px; background:#f3f6fa; color:#1f2937; border:1px solid #ccd7df; border-radius:8px; margin:20px auto; font-size:1.15em; }
+.book .grid-panel { box-sizing:border-box; width:75%; max-width:75%; margin:20px auto; padding:16px 20px; background:#f3f6fa; border:1px solid #ccd7df; border-radius:8px; }
+.book .grid { direction:ltr!important; width:auto!important; max-width:100%!important; margin:0 auto; border-collapse:collapse; background:#fff; }
 .book .grid td { direction:ltr!important; text-align:center!important; width:64px; height:48px; border:1px solid #8199aa; }
 .book .grid .goal { background:#d3efdc; } .book .grid .bad { background:#f4d7d7; }
 </style>
