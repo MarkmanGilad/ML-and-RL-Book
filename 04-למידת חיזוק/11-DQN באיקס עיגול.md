@@ -110,7 +110,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ד.11 — בנייה ואימון של DQN באיקס עיגול
 
-**המצגת:** [DQN באיקס עיגול](../../../sources/RL/7.DQN_tic_tac_toe.pptx) · **קוד:** [ReplayBuffer](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_replay.py) · [הרשת](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_model.py) · [הסוכן](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_agent.py) · [המאמן](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_train.py) · [הבודק](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_test.py)
+**המצגת:** [DQN באיקס עיגול](../../../sources/RL/7.DQN_tic_tac_toe.pptx) · **קוד:** [ReplayBuffer](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_replay.py) · [הרשת](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_model.py) · [הסוכן](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_agent.py) · [המאמן](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_train.py) · [הבודק](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_test.py) · [כל קובצי הקוד בגיטהב](https://github.com/MarkmanGilad/book/tree/main/assets/rl/code)
 
 בפרק הקודם הכרנו את DQN כרעיון: רשת נוירונים במקום טבלת Q, מאגר מעברים שממנו דוגמים אצוות, ורשת מטרה שמייצבת את היעדים. בפרק הזה נהפוך את הרעיון לקוד עובד. השאלה המעשית היא איך כל אחד מהרכיבים נראה ב־PyTorch, ואיך מחברים אותם ללולאת אימון אחת בלי לערבב בין המשחק החי לבין הדגימות מהמאגר.
 

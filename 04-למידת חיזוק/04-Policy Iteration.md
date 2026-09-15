@@ -110,7 +110,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ד.4 — תכנון דינמי: Policy Iteration
 
-**המצגת:** [תכנון דינמי](../../../sources/RL/2.תכנון%20דינמי.pptx) · **קוד:** [הסביבה הנתונה](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/gridworld.py) · [Policy Iteration](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/policy_iteration.py) · [מבוך 5×5](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/gridworld_maze.py) · [הרצת המדיניות במבוך](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/maze_demo.py)
+**המצגת:** [תכנון דינמי](../../../sources/RL/2.תכנון%20דינמי.pptx) · **קוד:** [הסביבה הנתונה](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/gridworld.py) · [Policy Iteration](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/policy_iteration.py) · [מבוך 5×5](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/gridworld_maze.py) · [הרצת המדיניות במבוך](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/maze_demo.py) · [כל קובצי הקוד בגיטהב](https://github.com/MarkmanGilad/book/tree/main/assets/rl/code)
 
 בפרק הקודם הגדרנו את המושגים: מצב, פעולה, תגמול, מדיניות וערך של מצב. עכשיו אפשר לשאול את השאלה המעשית הראשונה: אם אנחנו יודעים את חוקי המשחק במלואם — לאיזה מצב מוביל כל מהלך ומה התגמול עליו — איך מחשבים את המהלך הטוב ביותר בכל מצב? זה המצב ב־Grid World, בפאזל המספרים ובכל משחק שהמודל שלו ידוע לנו. בפרק זה ובפרק הבא הסוכן עדיין אינו "לומד" מניסיון; הוא מחשב, כמו שמחשבים מסלול קצר במפה שכל כבישיה ידועים.
 
