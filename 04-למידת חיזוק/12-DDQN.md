@@ -92,8 +92,15 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 </style>
 
 <style>
-.book .formula { box-sizing:border-box; width:75%; max-width:75%; direction:ltr!important; text-align:center!important; overflow-x:auto;
-  padding:16px 20px; background:#f3f6fa; color:#1f2937; border:1px solid #ccd7df; border-radius:8px; margin:20px auto; font-size:1.15em; }
+/* Display math renders left-to-right and centered, independent of the RTL page. */
+.book .math-panel, .book .math-panel .katex-display, .book .math-panel .katex {
+  direction: ltr !important;
+  text-align: center !important;
+  unicode-bidi: isolate;
+}
+.book .math-panel { box-sizing: border-box; width: 75%; max-width: 75%; margin: 20px auto; padding: 16px 20px; background: #f3f6fa; color: #1f2937; border: 1px solid #ccd7df; border-radius: 8px; overflow-x: auto; font-size: 1.1em; }
+.book .math-panel .katex-display { margin: 0; }
+.book .math-panel p { margin: 0; }
 .book .grid-panel { box-sizing:border-box; width:75%; max-width:75%; margin:20px auto; padding:16px 20px; background:#f3f6fa; border:1px solid #ccd7df; border-radius:8px; }
 .book .grid { direction:ltr!important; width:auto!important; max-width:100%!important; margin:0 auto; border-collapse:collapse; background:#fff; }
 .book .grid td { direction:ltr!important; text-align:center!important; width:64px; height:48px; border:1px solid #8199aa; }

@@ -92,8 +92,15 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 </style>
 
 <style>
-.book .formula { box-sizing:border-box; width:75%; max-width:75%; direction:ltr!important; text-align:center!important; overflow-x:auto;
-  padding:16px 20px; background:#f3f6fa; color:#1f2937; border:1px solid #ccd7df; border-radius:8px; margin:20px auto; font-size:1.15em; }
+/* Display math renders left-to-right and centered, independent of the RTL page. */
+.book .math-panel, .book .math-panel .katex-display, .book .math-panel .katex {
+  direction: ltr !important;
+  text-align: center !important;
+  unicode-bidi: isolate;
+}
+.book .math-panel { box-sizing: border-box; width: 75%; max-width: 75%; margin: 20px auto; padding: 16px 20px; background: #f3f6fa; color: #1f2937; border: 1px solid #ccd7df; border-radius: 8px; overflow-x: auto; font-size: 1.1em; }
+.book .math-panel .katex-display { margin: 0; }
+.book .math-panel p { margin: 0; }
 .book .grid-panel { box-sizing:border-box; width:75%; max-width:75%; margin:20px auto; padding:16px 20px; background:#f3f6fa; border:1px solid #ccd7df; border-radius:8px; }
 .book .grid { direction:ltr!important; width:auto!important; max-width:100%!important; margin:0 auto; border-collapse:collapse; background:#fff; }
 .book .grid td { direction:ltr!important; text-align:center!important; width:64px; height:48px; border:1px solid #8199aa; }
@@ -160,7 +167,13 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 עכשיו נגדיר את היעד. מבין שני האלגוריתמים של הפרק ד.8 נבחר ב־Q-learning ולא ב־SARSA, ובהמשך הפרק נראה למה: Q-learning הוא off-policy, ולכן יכול ללמוד גם ממעברים ישנים שנאספו במדיניות אחרת. נשתמש ביעד של [Q-learning](08-Temporal%20Difference.md#q-learning), כשהערכים מחושבים כעת באמצעות הרשת. בגרסה ראשונית עם רשת אחת, עבור מעבר שאינו סופי:
 
-<div class="formula" dir="ltr">y = R + γ max<sub>a′∈A(S′)</sub> Q(S′,a′;w)<br>loss = [y − Q(S,A;w)]²</div>
+<div class="math-panel" dir="ltr">
+
+$$
+\begin{gathered} y = R + \gamma \max_{a' \in A(S')} Q(S',a';w) \\ \text{loss} = \left[ y - Q(S,A;w) \right]^2 \end{gathered}
+$$
+
+</div>
 
 השורה הראשונה היא בדיוק היעד של Q-learning; השורה השנייה היא שגיאת TD בריבוע, והיא ממלאת כאן את תפקיד פונקציית ההפסד. בטבלה הזזנו את הערך ב־α כפול השגיאה; ברשת, מזעור ההפסד הזה בעזרת ירידה בגרדיאנט מזיז את המשקלים כך שהתחזית תתקרב ליעד.
 
@@ -207,7 +220,13 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 באתחול מעתיקים את משקלי הראשית למטרה. בהמשך, אחת לפרק זמן קבוע, מעתיקים אותם שוב. כך היעדים אינם משתנים בעקבות כל צעד גרדיאנט, אלא נשארים קבועים לאורך תקופה שלמה של אימון, והרשת הראשית יכולה להתכנס אליהם. אחרי ההעתקה היעדים מתעדכנים בבת אחת לפי כל מה שנלמד בינתיים. עדיין נדרש ללמוד מתוך דגימות; רשת המטרה אינה מקור של תשובות אמת, אלא רק "תמונת מצב" ישנה יותר של אותה רשת.
 
 <a id="dqn-target"></a>
-<div class="formula" dir="ltr">y = R &nbsp; if done<br>y = R + γ max<sub>a′∈A(S′)</sub> Q(S′,a′;w⁻) &nbsp; otherwise</div>
+<div class="math-panel" dir="ltr">
+
+$$
+y = \begin{cases} R & \text{if done} \\ R + \gamma \max_{a' \in A(S')} Q(S',a';w^{-}) & \text{otherwise} \end{cases}
+$$
+
+</div>
 
 ההבדל היחיד מהנוסחה הקודמת הוא ה־w⁻ במקום w: ערכי ההמשך מגיעים מרשת המטרה. ב־DQN רגיל רשת המטרה גם קובעת איזו פעולת המשך היא הטובה ביותר וגם נותנת את הערך שלה. בחירת פעולת ההתנסות במשחק ממשיכה להיעשות ברשת הראשית עם ε-greedy. לעובדה שרשת אחת גם בוחרת וגם מעריכה נחזור בפרק על DDQN.
 

@@ -92,8 +92,15 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 </style>
 
 <style>
-.book .formula { box-sizing:border-box; width:75%; max-width:75%; direction:ltr!important; text-align:center!important; overflow-x:auto;
-  padding:16px 20px; background:#f3f6fa; color:#1f2937; border:1px solid #ccd7df; border-radius:8px; margin:20px auto; font-size:1.15em; }
+/* Display math renders left-to-right and centered, independent of the RTL page. */
+.book .math-panel, .book .math-panel .katex-display, .book .math-panel .katex {
+  direction: ltr !important;
+  text-align: center !important;
+  unicode-bidi: isolate;
+}
+.book .math-panel { box-sizing: border-box; width: 75%; max-width: 75%; margin: 20px auto; padding: 16px 20px; background: #f3f6fa; color: #1f2937; border: 1px solid #ccd7df; border-radius: 8px; overflow-x: auto; font-size: 1.1em; }
+.book .math-panel .katex-display { margin: 0; }
+.book .math-panel p { margin: 0; }
 .book .grid-panel { box-sizing:border-box; width:75%; max-width:75%; margin:20px auto; padding:16px 20px; background:#f3f6fa; border:1px solid #ccd7df; border-radius:8px; }
 .book .grid { direction:ltr!important; width:auto!important; max-width:100%!important; margin:0 auto; border-collapse:collapse; background:#fff; }
 .book .grid td { direction:ltr!important; text-align:center!important; width:64px; height:48px; border:1px solid #8199aa; }
@@ -128,7 +135,13 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 אחרי מעבר מ־S למצב S′ קיבלנו תגמול R. התגמולים הרחוקים עדיין אינם ידועים, אבל כבר יש לנו הערכה V(S′). לכן נבנה יעד המשלב מידע שנמדד עכשיו עם הערכה לעתיד:
 
-<div class="formula" dir="ltr">target = R + γV(S′)<br>V(S) ← V(S) + α[target − V(S)]</div>
+<div class="math-panel" dir="ltr">
+
+$$
+\begin{gathered} \text{target} = R + \gamma V(S') \\ V(S) \leftarrow V(S) + \alpha \left[ \text{target} - V(S) \right] \end{gathered}
+$$
+
+</div>
 
 השורה הראשונה מגדירה את **היעד — target**: מה שאנחנו חושבים כעת שערך המצב S צריך להיות. השורה השנייה מזיזה את הערך הישן חלק מהדרך לכיוון היעד. הפרמטר α הוא קצב הלמידה שהכרנו במונטה קרלו: α קטן מזיז את הערך מעט בכל עדכון, ו־α גדול נותן משקל רב לדגימה האחרונה. הפרמטר γ הוא מקדם ההיוון, שמקטין את משקלם של תגמולים רחוקים.
 
@@ -147,7 +160,13 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 כדאי לתת שם לגודל שמניע את העדכון. הפער בין היעד לבין הערך הנוכחי נקרא **שגיאת TD — TD Error**, ומסמנים אותו באות היוונית δ (דלתא):
 
-<div class="formula" dir="ltr">δ = R + γV(S′) − V(S)</div>
+<div class="math-panel" dir="ltr">
+
+$$
+\delta = R + \gamma V(S') - V(S)
+$$
+
+</div>
 
 בכל עדכון משנים את הערך ב־αδ. שגיאה חיובית אומרת שהמצב היה טוב יותר ממה שחשבנו, והערך עולה; שגיאה שלילית אומרת שהוא היה גרוע יותר, והערך יורד. כשהאומדן מדויק, השגיאה בממוצע קרובה לאפס והערכים מתייצבים. זהו שימוש ב־[Bootstrapping](05-Value%20Iteration.md#bootstrapping): ההערכה של המצב הבא משתתפת בשיפור ההערכה של המצב הנוכחי. במצב סופי אין המשך, ולכן החלק העתידי מתאפס והיעד הוא R בלבד. את המונח שגיאת TD נפגוש שוב בפרק על DQN, שם הוא יהפוך לפונקציית ההפסד של רשת נוירונים.
 
@@ -164,7 +183,13 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 האפשרות הראשונה היא הישירה ביותר: להשתמש בערך של הפעולה שהסוכן באמת עומד לבצע במצב הבא. השם SARSA מציין את חמשת הרכיבים של הדגימה: **S, A, R, S′, A′**. מתחילים במצב S, מבצעים A ומקבלים R ו־S′. אם המשחק נמשך, בוחרים גם את A′ לפי אותה מדיניות ε-greedy שבה הסוכן משתמש במשחק. ערך הפעולה הזאת יהיה חלק מהיעד:
 
-<div class="formula" dir="ltr">Q(S,A) ← Q(S,A) + α[R + γQ(S′,A′) − Q(S,A)]</div>
+<div class="math-panel" dir="ltr">
+
+$$
+Q(S,A) \leftarrow Q(S,A) + \alpha \left[ R + \gamma Q(S',A') - Q(S,A) \right]
+$$
+
+</div>
 
 אחרי העדכון ממשיכים מ־S′ ומבצעים את **אותה A′ שכבר נבחרה**. אין להגריל מחדש פעולה מיד לאחר שהשתמשנו בה ביעד. בכך נשמר הקשר בין הפעולה שעל פיה עודכן הערך לבין המדיניות שמבוצעת בפועל.
 
@@ -201,7 +226,13 @@ SARSA נקרא **on-policy**: הוא לומד את ערכי המדיניות ש�
 
 האפשרות השנייה שואלת שאלה אחרת: לא "מה הסוכן יעשה במצב הבא", אלא "מה הכי טוב שאפשר לעשות שם". ב־Q-learning בוחרים את הפעולה שמבצעים בעזרת ε-greedy, אבל יעד העדכון משתמש בערך הגבוה ביותר מבין הפעולות החוקיות במצב הבא. הוא אינו תלוי בשאלה איזו פעולה חוקרת תתבצע שם בפועל:
 
-<div class="formula" dir="ltr">Q(S,A) ← Q(S,A) + α[R + γ max<sub>a′∈A(S′)</sub> Q(S′,a′) − Q(S,A)]</div>
+<div class="math-panel" dir="ltr">
+
+$$
+Q(S,A) \leftarrow Q(S,A) + \alpha \left[ R + \gamma \max_{a' \in A(S')} Q(S',a') - Q(S,A) \right]
+$$
+
+</div>
 
 זהו אלגוריתם **off-policy**: הדגימות יכולות להגיע ממדיניות חוקרת, בעוד היעד משתמש בבחירה חמדנית. כלומר, הסוכן משחק במדיניות אחת (עם חקירה) ולומד את ערכיה של מדיניות אחרת (החמדנית, ללא חקירה). התכונה הזאת היא שתאפשר בהמשך ללמוד גם מדגימות ישנות שנשמרו בזיכרון, ונחזור אליה בפרק על DQN. גם כאן, במצב סופי היעד הוא R בלבד.
 
@@ -250,7 +281,13 @@ For each episode:
 
 עד עכשיו עמדו לפנינו שני קצוות: מונטה קרלו, שמחכה עד סוף האפיזודה ומשתמש רק בתגמולים אמיתיים, ו־TD של צעד אחד, שמשתמש בתגמול יחיד ומיד עובר לאומדן. בין שני הקצוות יש רצף שלם של אפשרויות ביניים. אפשר להמתין לשניים או לשלושה צעדים לפני שמשתמשים באומדן ההמשך. כך משלבים יותר תגמולים שנמדדו בפועל עם ערך משוער בקצה המסלול. עבור n מעברים, כאשר R<sub>t+1</sub> הוא התגמול שאחרי הפעולה בזמן t, היעד הוא:
 
-<div class="formula" dir="ltr">G<sub>t</sub><sup>(n)</sup> = R<sub>t+1</sub> + γR<sub>t+2</sub> + … + γ<sup>n−1</sup>R<sub>t+n</sub> + γ<sup>n</sup>V(S<sub>t+n</sub>)</div>
+<div class="math-panel" dir="ltr">
+
+$$
+G_t^{(n)} = R_{t+1} + \gamma R_{t+2} + \cdots + \gamma^{n-1} R_{t+n} + \gamma^n V(S_{t+n})
+$$
+
+</div>
 
 למשל, ב־2-step נשתמש בשני תגמולים ואז בערך המצב שאליו הגענו: R<sub>t+1</sub>+γR<sub>t+2</sub>+γ²V(S<sub>t+2</sub>). את V(S<sub>t</sub>) נעדכן לכיוון היעד הזה בעזרת α, באותו מבנה של עדכון הדרגתי.
 
