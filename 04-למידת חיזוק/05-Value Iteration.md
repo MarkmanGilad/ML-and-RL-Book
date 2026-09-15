@@ -110,7 +110,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ד.5 — תכנון דינמי: Value Iteration
 
-**המצגת:** [תכנון דינמי — המשך](../../../sources/RL/3.תכנון%20דינמי-המשך.pptx) · **קוד:** [ממשק הפאזל](../assets/rl/code/puzzle_env.py) · [Value Iteration בפאזל](../assets/rl/code/puzzle_value_iteration.py)
+**המצגת:** [תכנון דינמי — המשך](../../../sources/RL/3.תכנון%20דינמי-המשך.pptx) · **קוד:** [ממשק הפאזל](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/puzzle_env.py) · [Value Iteration בפאזל](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/puzzle_value_iteration.py)
 
 הפרק הזה עונה על אותה שאלה כמו הפרק הקודם: כשחוקי המשחק ידועים לנו במלואם, איך מחשבים את המהלך הטוב ביותר בכל מצב? ההבדל הוא בדרך. ב־Policy Iteration עבדנו בשני שלבים נפרדים — הערכה מלאה של המדיניות הנוכחית, ורק אחר כך שיפור שלה — וחזרנו עליהם עד שהמדיניות התייצבה. הערכה מלאה בכל סבב היא עבודה רבה, וחלק גדול ממנה מתבזבז: אנחנו מחשבים במדויק את ערכיה של מדיניות שממילא עומדים להחליף.
 

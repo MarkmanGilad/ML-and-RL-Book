@@ -110,7 +110,7 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 ## ד.11 — בנייה ואימון של DQN באיקס עיגול
 
-**המצגת:** [DQN באיקס עיגול](../../../sources/RL/7.DQN_tic_tac_toe.pptx) · **קוד:** [ReplayBuffer](../assets/rl/code/dqn_replay.py) · [הרשת](../assets/rl/code/dqn_model.py) · [הסוכן](../assets/rl/code/dqn_agent.py) · [המאמן](../assets/rl/code/dqn_train.py) · [הבודק](../assets/rl/code/dqn_test.py)
+**המצגת:** [DQN באיקס עיגול](../../../sources/RL/7.DQN_tic_tac_toe.pptx) · **קוד:** [ReplayBuffer](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_replay.py) · [הרשת](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_model.py) · [הסוכן](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_agent.py) · [המאמן](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_train.py) · [הבודק](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_test.py)
 
 בפרק הקודם הכרנו את DQN כרעיון: רשת נוירונים במקום טבלת Q, מאגר מעברים שממנו דוגמים אצוות, ורשת מטרה שמייצבת את היעדים. בפרק הזה נהפוך את הרעיון לקוד עובד. השאלה המעשית היא איך כל אחד מהרכיבים נראה ב־PyTorch, ואיך מחברים אותם ללולאת אימון אחת בלי לערבב בין המשחק החי לבין הדגימות מהמאגר.
 
@@ -442,7 +442,7 @@ def test(path=WEIGHTS_PATH, games=1000, seed=100):
 
 קוד המקור המלא נמצא ב־[מאגר Tic_Tac_Toe_DQN בגרסה ששימשה להתאמה](https://github.com/MarkmanGilad/Tic_Tac_Toe_DQN/tree/659c4c8a635c83865334ee09863c061a94580518). עותק הספר שומר את רשת 11→128→64→1 ואת סדר רכיבי ההדגמה, עם התאמות לממשק המשותף וליעד DQN רגיל. לחומרי בניית משחקים ראו את חלק Pygame ואת [אתר הקורס](https://webprogramming.azurewebsites.net/Pages/RL/RL_Intro.aspx).
 
-**מצב בדיקת הקוד:** הקוד המצורף הורץ כלשונו בסביבת Python עם PyTorch 2.11 על מעבד בלבד: אימון של 30,000 משחקים ולאחריו בדיקה של 1,000 משחקים. הפלטים שבפרק הם תוצאות ההרצה הזאת, וקובץ המשקלים שנוצר בה, [dqn_weights.pth](../assets/rl/code/dqn_weights.pth), מצורף לקוד כדי שאפשר יהיה להריץ את הבודק גם בלי לאמן מחדש.
+**מצב בדיקת הקוד:** הקוד המצורף הורץ כלשונו בסביבת Python עם PyTorch 2.11 על מעבד בלבד: אימון של 30,000 משחקים ולאחריו בדיקה של 1,000 משחקים. הפלטים שבפרק הם תוצאות ההרצה הזאת, וקובץ המשקלים שנוצר בה, [dqn_weights.pth](https://github.com/MarkmanGilad/book/blob/main/assets/rl/code/dqn_weights.pth), מצורף לקוד כדי שאפשר יהיה להריץ את הבודק גם בלי לאמן מחדש.
 
 <nav class="book-nav" aria-label="ניווט בספר">
 <a href="10-DQN.md">→ הקודם</a>
