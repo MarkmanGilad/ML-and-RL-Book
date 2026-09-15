@@ -33,11 +33,9 @@ class GridWorld:
     def get_actions(self, state):
         if self.end_of_game(state):
             return []
-        r, c = state
-        return [a for a, valid in ((Action.UP, r > 0),
-                                   (Action.DOWN, r < ROWS - 1),
-                                   (Action.LEFT, c > 0),
-                                   (Action.RIGHT, c < COLS - 1)) if valid]
+        # All four actions are legal everywhere; moving into the edge of
+        # the board keeps the agent in place (see move).
+        return [Action.UP, Action.DOWN, Action.LEFT, Action.RIGHT]
 
     def move(self, state, action):
         if self.end_of_game(state):
@@ -46,7 +44,8 @@ class GridWorld:
             raise ValueError('Illegal action')
         dr, dc = {Action.UP: (-1, 0), Action.DOWN: (1, 0),
                   Action.LEFT: (0, -1), Action.RIGHT: (0, 1)}[action]
-        next_state = (state[0] + dr, state[1] + dc)
+        next_state = (min(max(state[0] + dr, 0), ROWS - 1),
+                      min(max(state[1] + dc, 0), COLS - 1))
         return next_state, self.terminal_rewards.get(next_state, STEP_REWARD)
 
     __call__ = move

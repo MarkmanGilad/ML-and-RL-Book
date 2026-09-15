@@ -144,14 +144,14 @@ blockquote { border-right: 3px solid #999; border-left: 0; padding-right: 1rem; 
 
 כדי להפעיל את משוואת בלמן צריך מדיניות כלשהי — המשוואה מחשבת ערכים עבור מדיניות נתונה. לכן נתחיל בבניית מדיניות התחלתית. נשתמש ב־[לוח 4×4 שהוגדר בפרק הקודם](03-מודל%20סביבה%20סוכן%20ו-MDP.md). נשמור שתי טבלאות: V מכילה מספר לכל מצב, ו־π מכילה פעולה לכל מצב שאינו סופי. נאתחל את הערכים באפס. המדיניות הראשונית יכולה להיות פשוטה מאוד; בשלב הזה היא אינה חייבת להיות טובה.
 
-בפרק הזה נתחיל ממדיניות ״למטה״, ובתא שמשמאל ליעד נפנה ימינה. בשני התאים השמאליים בשורה התחתונה נפנה למעלה, כדי שכל הפעולות שבקוד יהיו חוקיות. כך נוצרות שם לולאות ללא תגמול. זו מדיניות התחלתית חלשה, שאותה נשפר.
+בפרק הזה נתחיל ממדיניות ״למטה״: הסוכן הולך תמיד למטה, אלא אם הוא צמוד ליעד, ואז הולך לכיוונו; כלומר בתא שמשמאל ליעד נפנה ימינה. בשורה התחתונה ״למטה״ פירושו ניסיון לצאת מהלוח, והסוכן נשאר במקומו בלי תגמול. זו מדיניות התחלתית חלשה, שאותה נשפר.
 
 <div class="grid-panel">
 <table class="grid" dir="ltr">
 <tr><td>↓</td><td>↓</td><td>↓</td><td>↓</td></tr>
 <tr><td>↓</td><td>↓</td><td class="bad">סיום</td><td>↓</td></tr>
 <tr><td>↓</td><td>↓</td><td>↓</td><td>↓</td></tr>
-<tr><td>↑</td><td>↑</td><td>→</td><td class="goal">סיום</td></tr>
+<tr><td>↓</td><td>↓</td><td>→</td><td class="goal">סיום</td></tr>
 </table>
 </div>
 
@@ -167,8 +167,7 @@ def initial_policy(env):
     for state in env.states:
         if env.end_of_game(state):
             continue
-        actions = env.get_actions(state)
-        action = Action.DOWN if Action.DOWN in actions else Action.UP
+        action = Action.DOWN
         if state == (GOAL[0], GOAL[1] - 1):
             action = Action.RIGHT
         policy[state] = action
@@ -177,7 +176,7 @@ def initial_policy(env):
 
 </div>
 
-ממשק הסביבה בקוד כבר נתון: `env.states` מכיל את המצבים, `env.get_actions(state)` מחזירה פעולות חוקיות, `env(state, action)` מחזירה מצב חדש ותגמול, ו־`env.end_of_game(state)` בודקת סיום. פעולות מחוץ לגבולות הלוח אינן נכללות ברשימת הפעולות החוקיות.
+ממשק הסביבה בקוד כבר נתון: `env.states` מכיל את המצבים, `env.get_actions(state)` מחזירה פעולות חוקיות, `env(state, action)` מחזירה מצב חדש ותגמול, ו־`env.end_of_game(state)` בודקת סיום. כל ארבע הפעולות חוקיות בכל מצב שאינו סופי; פעולה לכיוון קצה הלוח מחזירה את אותו מצב עם תגמול 0, כפי שהוגדר בפרק הקודם.
 
 <!-- editorlm-source-ref: [sources/RL/2.תכנון דינמי.pptx#L19-L99] -->
 

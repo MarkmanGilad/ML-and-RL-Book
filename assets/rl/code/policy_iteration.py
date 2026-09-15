@@ -11,8 +11,7 @@ def initial_policy(env):
     for state in env.states:
         if env.end_of_game(state):
             continue
-        actions = env.get_actions(state)
-        action = Action.DOWN if Action.DOWN in actions else Action.UP
+        action = Action.DOWN
         if state == (GOAL[0], GOAL[1] - 1):
             action = Action.RIGHT
         policy[state] = action
